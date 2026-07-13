@@ -1,0 +1,9 @@
+
+# Build directories
+taste_models/*/work/build
+
+# Qt Creator clangd cache directories
+.qtc_clangd/
+
+# Taste-generated partition files
+taste_models/model_tf1/work/binaries/partition_*

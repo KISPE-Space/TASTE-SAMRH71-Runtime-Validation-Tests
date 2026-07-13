@@ -1,0 +1,21 @@
+process Receiveacn04;
+
+   procedure Pi_1;
+/* CIF TEXT (0, 0), (170, 140) */
+fpar
+   in     P1 Pid,
+   in/out P2 Pid;
+/* CIF ENDTEXT */
+start;
+return;
+endprocedure;
+   /* CIF START (320, 10), (70, 35) */
+   start;
+     nextstate Wait;
+
+   /* CIF STATE (450, 10), (70, 35) */
+   state Wait;
+   endstate;
+
+endprocess;
+

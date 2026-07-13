@@ -1,0 +1,20 @@
+Testsdl08-Datamodel DEFINITIONS ::=
+BEGIN
+--  This file was generated automatically by OpenGEODE
+IMPORTS
+   MyInteger, Counter FROM MODEL-TF1-DATAVIEW
+   T-Int32, T-UInt32, T-Int8, T-UInt8, T-Boolean, T-Null-Record, T-Runtime-Error FROM TASTE-BasicTypes
+   PID-Range, PID FROM System-Dataview;
+
+Testsdl08-States ::= ENUMERATED {wait}
+
+Testsdl08-Context ::= SEQUENCE {
+   state Testsdl08-States,
+   init-done BOOLEAN,
+   sender PID,
+   offspring PID,
+   counter Counter
+}
+
+Testsdl08-T-Runtime-Error-Selection ::= ENUMERATED {noerror-present(1), encodeerror-present(2), decodeerror-present(3)}
+END
