@@ -1,6 +1,7 @@
 /**
- * Registers a function name that can be used to transmit a single byte over the UART. This function is called by the "transmit_bytes_over_uart" function.
-
+ * Registers a function name that can be used to transmit a single byte over the UART. This function is called by 
+ * the "transmit_bytes_over_uart" function.
+ * 
  * The function to be registered must have the following signature:
  * void function_name(const unsigned long* pByteToTransmit)
  * where the parameter is a pointer to an unsigned long that contains the byte to be transmitted.
@@ -8,6 +9,9 @@
  * The function must be able to transmit the byte over the UART channel.
  * The function must be registered before any calls to "transmit_bytes_over_uart" are made.
  * The function must be registered before any calls to "report_test_result_over_uart" are made * 
+ * 
+ * Usage example:
+ *  register_uart_byte_transmitter_function(teststart00_RI_samrh71tx);
  */
 void register_uart_byte_transmitter_function(void (*pByteTransmitterFunction)(const unsigned long*));
 
@@ -22,5 +26,9 @@ void transmit_bytes_over_uart(char* pBytes);
  * the result (pass/fail), and an optional failure reason.
  * The test ID and failure reason are sent as null-terminated strings, while the result is sent as a boolean indicating pass (true)
  * or fail (false).
+ * 
+ * Usage examples:
+ *   report_test_result_over_uart("Test001", true, "");
+ *   report_test_result_over_uart("Test002", false, "Received integer not as expected");
  */
 void report_test_result_over_uart(char* pTestId, bool bIsPass, char* pFailReason);
