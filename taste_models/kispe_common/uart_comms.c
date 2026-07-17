@@ -18,7 +18,7 @@
  * not generally available outside of models (TASTE projects) we use the type that is a close match to the ASN.1 type,
  * which is in fact "unsigned long"
  */
-static void (*pMainByteTransmitterFunction)(const unsigned long*);
+static void (*pMainByteTransmitterFunction)(const unsigned long*) = NULL;
 
 
 /**
@@ -34,9 +34,14 @@ void register_uart_byte_transmitter_function(void (*pByteTransmitterFunction)(co
  */
 void transmit_bytes_over_uart(char* pBytes)
 {
+    // Do nothing if the byte transmitter function has not been registered
+    if (pMainByteTransmitterFunction == NULL) {
+        return;
+    }
+
+    // Send each character in the string as a byte over the UART channel
     unsigned long charBuff;
-    for (unsigned long i=0; i<strlen(pBytes); i++)
-    {
+    for (unsigned long i=0; i<strlen(pBytes); i++) {
         charBuff = pBytes[i];
         pMainByteTransmitterFunction(&charBuff);
     }
@@ -47,6 +52,12 @@ void transmit_bytes_over_uart(char* pBytes)
  */
 void report_test_result_over_uart(char* pTestId, bool bIsPass, char* pFailReason)
 {
+    // Do nothing if the byte transmitter function has not been registered
+    if (pMainByteTransmitterFunction == NULL) {
+        return;
+    }
+
+    // Compose the test result message and send it over the UART channel
     char aTestIdBuff[100];
     char aFailReasonBuff[200];
     sprintf(aTestIdBuff, "<TEST_ID>%s\n", pTestId);
