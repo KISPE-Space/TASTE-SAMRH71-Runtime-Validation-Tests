@@ -15,7 +15,7 @@ extern "C" {
 void receiver013_startup(void);
 
 /* Provided interfaces */
-void receiver013_PI_PI_1_SR13( asn1SccT_Int32 * );
+void receiver013_PI_PI_1_SR13( const asn1SccT_Int32 *, asn1SccT_Boolean * );
 
 /* Required interfaces */
 

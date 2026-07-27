@@ -15,7 +15,7 @@ extern "C" {
 void samrh71core00h_startup(void);
 
 /* Provided interfaces */
-void samrh71core00h_PI_PI_1( asn1SccT_Int32 *, asn1SccT_Boolean * );
+void samrh71core00h_PI_PI_1_CPUCore( asn1SccT_Int32 *, asn1SccT_Boolean * );
 
 /* Required interfaces */
 

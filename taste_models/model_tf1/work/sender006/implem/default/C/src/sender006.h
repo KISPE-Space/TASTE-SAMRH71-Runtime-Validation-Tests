@@ -15,10 +15,10 @@ extern "C" {
 void sender006_startup(void);
 
 /* Provided interfaces */
-void sender006_PI_PI_1( void );
+void sender006_PI_PI_1_Send06( asn1SccT_Int32 *, asn1SccT_Boolean * );
 
 /* Required interfaces */
-extern void sender006_RI_PI_6( const asn1SccT_Int32 * );
+extern void sender006_RI_PI_6( const asn1SccT_Int32 *, asn1SccT_Boolean * );
 
 
 #ifdef __cplusplus

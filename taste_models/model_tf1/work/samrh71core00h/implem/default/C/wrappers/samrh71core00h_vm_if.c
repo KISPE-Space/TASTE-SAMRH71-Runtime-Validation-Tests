@@ -28,15 +28,15 @@ void init_samrh71core00h(void)
       samrh71core00h_initialized = 2;
    }
 }
-void samrh71core00h_PI_1
+void samrh71core00h_PI_1_CPUCore
       (char *OUT_p1, size_t *OUT_p1_len,
        char *OUT_p2, size_t *OUT_p2_len)
 
 {
-   sender_pid = samrh71core00h_pi_1_get_sender();
+   sender_pid = samrh71core00h_pi_1_cpucore_get_sender();
 
    //  Declare user code function as external (it may not have a .h if it is in Ada)
-   extern void samrh71core00h_PI_PI_1
+   extern void samrh71core00h_PI_PI_1_CPUCore
       (asn1SccT_Int32 *,
        asn1SccT_Boolean *);
 
@@ -45,7 +45,7 @@ void samrh71core00h_PI_1
 
 
    // Call user code
-   samrh71core00h_PI_PI_1 ((asn1SccT_Int32 *)OUT_p1, (asn1SccT_Boolean *)OUT_p2);
+   samrh71core00h_PI_PI_1_CPUCore ((asn1SccT_Int32 *)OUT_p1, (asn1SccT_Boolean *)OUT_p2);
 
 }
 

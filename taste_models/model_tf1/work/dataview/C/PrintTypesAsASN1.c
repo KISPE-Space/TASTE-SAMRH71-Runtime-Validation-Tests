@@ -422,63 +422,72 @@ void PrintASN1PID(const char *paramName, const asn1SccPID *pData)
         printf("sender004");
         break;
     case 59:
-        printf("sender006");
+        printf("sender005");
         break;
     case 60:
-        printf("sender007");
+        printf("sender006");
         break;
     case 61:
-        printf("sender008");
+        printf("sender007");
         break;
     case 62:
-        printf("sender009");
+        printf("sender008");
         break;
     case 63:
-        printf("sender010");
+        printf("sender009");
         break;
     case 64:
-        printf("sender011");
+        printf("sender010");
         break;
     case 65:
-        printf("sernder005");
+        printf("sender011");
         break;
     case 66:
         printf("testcyclic05");
         break;
     case 67:
-        printf("testprotected");
+        printf("testmodules");
         break;
     case 68:
-        printf("testsdl08");
+        printf("testprotected");
         break;
     case 69:
-        printf("testsdl14");
+        printf("testsdl08");
         break;
     case 70:
-        printf("teststart00");
+        printf("testsdl14");
         break;
     case 71:
-        printf("testunprot00");
+        printf("testspcc");
         break;
     case 72:
-        printf("testunprotin05");
+        printf("testsendcomms09");
         break;
     case 73:
-        printf("testunprotout05");
+        printf("teststart00");
         break;
     case 74:
-        printf("testunprotected");
+        printf("testunprot00");
         break;
     case 75:
-        printf("threads00e");
+        printf("testunprotin05");
         break;
     case 76:
-        printf("partition-1-timer-manager");
+        printf("testunprotout05");
         break;
     case 77:
-        printf("rcvacn05");
+        printf("testunprotected");
         break;
     case 78:
+        printf("threads00e");
+        break;
+    case 79:
+        printf("partition-1-timer-manager");
+        break;
+    case 80:
+        printf("rcvacn05");
+        break;
+    case 81:
         printf("env");
         break;
     default:

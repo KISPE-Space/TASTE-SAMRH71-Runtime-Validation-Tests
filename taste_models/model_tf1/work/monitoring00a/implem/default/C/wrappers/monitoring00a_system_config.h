@@ -4,3 +4,7 @@
 #define __NEED_T_Int32_NATIVE
 #define __NEED_T_Boolean_NATIVE
 
+
+#define __NEED_T_Int32_NATIVE
+#define __NEED_T_Boolean_NATIVE
+

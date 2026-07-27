@@ -41,7 +41,7 @@ void monitoring00a_startup(void)
 
 }
 
-void monitoring00a_PI_PI_Mon
+void monitoring00a_PI_PI_2_Mon00A
       (asn1SccT_Int32 *OUT_p1,
        asn1SccT_Boolean *OUT_p2)
 
@@ -90,7 +90,7 @@ int sporadic_queue_index = 0;
     // -- uses rtems_task_iterate to call cpu_usage_visitor() in Monitor.c to update
     // -- CPU Usage Information. Thorefore, this function must be called before
     // -- other CPU Usage functions are called.
-    // --
+    // -- ALWAYS CALL Monitor_MonitoringTick()before using CPUUsage, stacks, etc
 
     test_status = Monitor_MonitoringTick();
     if ( test_status == false )
@@ -129,7 +129,12 @@ int sporadic_queue_index = 0;
     // -- interface_item is from "enum interfaces_enum{}" only generated in Deployment
     // -- Build, see SUITP section "TASTE TEST FRAMEWORK “MOCKS” RESOLUTION"
 
-    for ( interface_item = function_10_pi_1_cyclic; interface_item < teststart00_pi_1_cyclic; interface_item++  )
+
+    // -------------------------------------------------
+    // -- Read Sporadic Stack size of Function24 = 4099
+    // -------------------------------------------------
+
+    for ( interface_item = function_24_pi_2; interface_item < function_24_pi_2; interface_item++  )
     {
         maximum_stack_usage = Monitor_GetMaximumStackUsage( interface_item );
         if ( maximum_stack_usage == -1 )
@@ -137,12 +142,79 @@ int sporadic_queue_index = 0;
             // -- This means that stack usage data was not found or NOT ENABLED
             *OUT_p1 = Test00A_MON_GetMaximumStackUsage;
             *OUT_p2 = false;
+            return;
+        }
+        else
+        {
+            if ( interface_item == function_24_pi_2 )
+            {
+                if ( maximum_stack_usage != 4099 )
+                {
+                    *OUT_p1 = Test00A_MON_SporadicExactStackSize;
+                    *OUT_p2 = false;
+                    return;
+                }
+            }
+            *OUT_p2 = true;
+        }
+    }
+
+    // -------------------------------------------------
+    // -- Read CYCLIC Stack size of Function_13 = 5025
+    // -------------------------------------------------
+
+    for ( interface_item = function_2_pi_2; interface_item < function_2_pi_2; interface_item++  )
+    {
+        maximum_stack_usage = Monitor_GetMaximumStackUsage( interface_item );
+        if ( maximum_stack_usage == -1 )
+        {
+            // -- This means that stack usage data was not found or NOT ENABLED
+            *OUT_p1 = Test00A_MON_GetMaximumStackUsage;
+            *OUT_p2 = false;
+            return;
+        }
+        else
+        {
+            if ( interface_item == function_2_pi_2 )
+            {
+                if ( maximum_stack_usage != 5025 )
+                {
+                    *OUT_p1 = Test00A_MON_CyclicExactStackSize;
+                    *OUT_p2 = false;
+                    return;
+                }
+            }
+            *OUT_p2 = true;
+        }
+    }
+
+
+
+    // -- THis test will establish if Stack Usage within <TestID> TestSPCC06.
+    // -- The following inetrfaces were set to:
+    // -- Note Items below 4096 may be set to 4096?
+    // --
+    // -- Tests reading of all interfaces
+
+    for ( interface_item = function_10_pi_1_cyclic; interface_item < teststart00_pi_1_cyclic; interface_item++  )
+    {
+        maximum_stack_usage = Monitor_GetMaximumStackUsage( interface_item );
+
+        *OUT_p1 = Test00A_MON_GetMaximumStackUsage;
+
+        if ( maximum_stack_usage == -1 )
+        {
+            // -- This means that stack usage data was not found or NOT ENABLED
+
+            *OUT_p2 = false;
+            return;
         }
         else
         {
             *OUT_p2 = true;
         }
     }
+
 
 
     // -- CPU Usage Data, get information
@@ -152,11 +224,15 @@ int sporadic_queue_index = 0;
     for ( interface_item = function_10_pi_1_cyclic; interface_item < teststart00_pi_1_cyclic; interface_item++  )
     {
         test_status = Monitor_GetUsageData( interface_item,  &execution_time_usage );
+
+        *OUT_p1 = Test00A_MON_GetUsageData;
+
         if ( test_status == false )
         {
             // The call failed or the data was not available
-            *OUT_p1 = Test00A_MON_GetUsageData;
+
             *OUT_p2 = false;
+            return;
         }
         else
         {
@@ -168,8 +244,8 @@ int sporadic_queue_index = 0;
 
 
     // -- To be implemented for queue overflows to catch info
-    //test_status = Monitor_SetMessageQueueOverflowCallback(
-    //    Monitor_MessageQueueOverflow overflow_callback)
+    // -- test_status = Monitor_SetMessageQueueOverflowCallback(
+    // -- Monitor_MessageQueueOverflow overflow_callback)
 
     for ( interface_item = function_10_pi_1_cyclic; interface_item < teststart00_pi_1_cyclic; interface_item++  )
     {
@@ -183,11 +259,14 @@ int sporadic_queue_index = 0;
         }
 
         queued_status = Monitor_GetQueuedItemsCount( interface_item );
+
+        *OUT_p1 = Test00A_MON_GetQueuedItemsCount;
+
         if ( queued_status == UINT32_MAX )
         {
             // -- This means that message queue data failed to be extracted
-            *OUT_p1 = Test00A_MON_GetQueuedItemsCount;
             *OUT_p2 = false;
+            return;
         }
         else
         {
@@ -205,6 +284,9 @@ int sporadic_queue_index = 0;
         // -- if the queued_status is always zero, it may be a bug.
         // -- Taste Requirments does not require this to be implemented...
         queued_status = Monitor_GetMaximumQueuedItemsCount( interface_item );
+
+        *OUT_p1 = Test00A_MON_GetQueuedItemsCount;
+
         if ( queued_status == 0 )
         {
             *OUT_p1 = Test00A_MON_GetQueuedItemsCount;
@@ -235,7 +317,7 @@ int sporadic_queue_index = 0;
         sporadic_queue_index = 0;
 
     sporadic_queued_items[sporadic_queue_index][function_1_p1_entry] =
-        Monitor_GetMaximumQueuedItemsCount( function_1_pi_start001 );
+        Monitor_GetMaximumQueuedItemsCount( function_1_p1_entry );
 
     sporadic_queued_items[sporadic_queue_index][function_2_pi_2_entry] =
         Monitor_GetMaximumQueuedItemsCount( function_2_pi_2 );
@@ -275,15 +357,18 @@ int sporadic_queue_index = 0;
     for ( interface_item = function_10_pi_1_cyclic; interface_item < teststart00_pi_1_cyclic; interface_item++  )
     {
         test_status = Monitor_IndicateInterfaceDeactivated( interface_item );
+
+        *OUT_p1 = Test00A_MON_IndicateInterfaceDeactivated;
+
         if ( test_status == true )
         {
             // -- The Activiation log is Deactivated for each interface_name
-            *OUT_p1 = Test00A_MON_IndicateInterfaceDeactivated;
+
         }
         else
         {
-            *OUT_p1 = Test00A_MON_IndicateInterfaceDeactivated;
             *OUT_p2 = false;
+            return;
         }
     }
 
@@ -302,11 +387,15 @@ int sporadic_queue_index = 0;
     // -- The activation log may be cyclic, more details required
     // -- This applies to all interfaces
     test_status = Monitor_ClearInterfaceActivationLog();
+
+    *OUT_p1 = Test00A_MON_ClearInterfaceActivationLog;
+
     if ( test_status == false )
     {
         // -- This means that the activation log will be cleared
-        *OUT_p1 = Test00A_MON_ClearInterfaceActivationLog;
+
         *OUT_p2 = false;
+        return;
     }
 
     // --
@@ -314,12 +403,16 @@ int sporadic_queue_index = 0;
     // -- It's expected that nothing will be recorded in the Activation Log
 
     test_status = Monitor_FreezeInterfaceActivationLogging();
+
+    *OUT_p1 = Test00A_MON_FreezeInterfaceActivationLogging;
+
     if ( test_status == false )
     {
         // -- TRUE This means that the activation log will be frozen
         // -- No more writes will be allowed
-        *OUT_p1 = Test00A_MON_FreezeInterfaceActivationLogging;
+
         *OUT_p2 = false;
+        return;
     }
 
     // --
@@ -333,16 +426,19 @@ int sporadic_queue_index = 0;
         if ( test_status == true )
         {
             // -- the Activation log should be FROZEN
-            *OUT_p1 = Test00A_MON_IndicateInterfaceActivated;
             *OUT_p2 = false;
+            return;
         }
 
         test_status = Monitor_IndicateInterfaceDeactivated( interface_item );
+
+        *OUT_p1 = Test00A_MON_FreezeInterfaceActivationLogging;
+
         if ( test_status == true )
         {
             // -- the Activation log should be FROZEN
-            *OUT_p1 = Test00A_MON_FreezeInterfaceActivationLogging;
             *OUT_p2 = false;
+            return;
         }
 
 
@@ -353,12 +449,16 @@ int sporadic_queue_index = 0;
     // -------------------------------
 
     test_status = Monitor_UnfreezeInterfaceActivationLogging();
+
+    *OUT_p1 = Test00A_MON_UnfreezeInterfaceActivationLogging;
+
     if ( test_status == false )
     {
         // -- TRUE This means that the activation log will be frozen
         // -- No more writes will be allowed
-        *OUT_p1 = Test00A_MON_UnfreezeInterfaceActivationLogging;
+
         *OUT_p2 = false;
+        return;
     }
 
 
@@ -372,19 +472,23 @@ int sporadic_queue_index = 0;
     {
         // -- Returns status of the Activating the Activation Log
         test_status = Monitor_IndicateInterfaceActivated( interface_item );
+
+        *OUT_p1 = Test00A_MON_IndicateInterfaceActivated;
         if ( test_status == false )
         {
             // -- the Activation log should be FROZEN
-            *OUT_p1 = Test00A_MON_IndicateInterfaceActivated;
             *OUT_p2 = false;
+            return;
         }
 
         test_status = Monitor_IndicateInterfaceDeactivated( interface_item );
+
+        *OUT_p1 = Test00A_MON_FreezeInterfaceActivationLogging;
         if ( test_status == false )
         {
             // -- the Activation log should be FROZEN
-            *OUT_p1 = Test00A_MON_FreezeInterfaceActivationLogging;
             *OUT_p2 = false;
+            return;
         }
     }
 

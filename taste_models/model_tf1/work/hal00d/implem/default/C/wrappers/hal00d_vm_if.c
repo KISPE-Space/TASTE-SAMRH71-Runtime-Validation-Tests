@@ -28,15 +28,15 @@ void init_hal00d(void)
       hal00d_initialized = 2;
    }
 }
-void hal00d_PI_4
+void hal00d_PI_1_HAL
       (char *OUT_p1, size_t *OUT_p1_len,
        char *OUT_p2, size_t *OUT_p2_len)
 
 {
-   sender_pid = hal00d_pi_4_get_sender();
+   sender_pid = hal00d_pi_1_hal_get_sender();
 
    //  Declare user code function as external (it may not have a .h if it is in Ada)
-   extern void hal00d_PI_PI_4
+   extern void hal00d_PI_PI_1_HAL
       (asn1SccT_Int32 *,
        asn1SccT_Boolean *);
 
@@ -45,7 +45,7 @@ void hal00d_PI_4
 
 
    // Call user code
-   hal00d_PI_PI_4 ((asn1SccT_Int32 *)OUT_p1, (asn1SccT_Boolean *)OUT_p2);
+   hal00d_PI_PI_1_HAL ((asn1SccT_Int32 *)OUT_p1, (asn1SccT_Boolean *)OUT_p2);
 
 }
 

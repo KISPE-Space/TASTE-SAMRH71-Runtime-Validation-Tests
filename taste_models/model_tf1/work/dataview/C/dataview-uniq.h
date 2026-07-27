@@ -354,7 +354,7 @@ typedef asn1SccUint asn1SccPID_Range;
 
 flag asn1SccPID_Range_Equal(const asn1SccPID_Range* pVal1, const asn1SccPID_Range* pVal2);
 
-#define ERR_PID_RANGE		76  /*(0..78)*/
+#define ERR_PID_RANGE		76  /*(0..81)*/
 flag asn1SccPID_Range_IsConstraintValid(const asn1SccPID_Range* pVal, int* pErrCode);
 
 #ifdef __cplusplus
@@ -443,26 +443,29 @@ typedef enum {
     PID_sender002 = 56,
     PID_sender003 = 57,
     PID_sender004 = 58,
-    PID_sender006 = 59,
-    PID_sender007 = 60,
-    PID_sender008 = 61,
-    PID_sender009 = 62,
-    PID_sender010 = 63,
-    PID_sender011 = 64,
-    PID_sernder005 = 65,
+    PID_sender005 = 59,
+    PID_sender006 = 60,
+    PID_sender007 = 61,
+    PID_sender008 = 62,
+    PID_sender009 = 63,
+    PID_sender010 = 64,
+    PID_sender011 = 65,
     PID_testcyclic05 = 66,
-    PID_testprotected = 67,
-    PID_testsdl08 = 68,
-    PID_testsdl14 = 69,
-    PID_teststart00 = 70,
-    PID_testunprot00 = 71,
-    PID_testunprotin05 = 72,
-    PID_testunprotout05 = 73,
-    PID_testunprotected = 74,
-    PID_threads00e = 75,
-    PID_partition_1_timer_manager = 76,
-    PID_rcvacn05 = 77,
-    PID_env = 78
+    PID_testmodules = 67,
+    PID_testprotected = 68,
+    PID_testsdl08 = 69,
+    PID_testsdl14 = 70,
+    PID_testspcc = 71,
+    PID_testsendcomms09 = 72,
+    PID_teststart00 = 73,
+    PID_testunprot00 = 74,
+    PID_testunprotin05 = 75,
+    PID_testunprotout05 = 76,
+    PID_testunprotected = 77,
+    PID_threads00e = 78,
+    PID_partition_1_timer_manager = 79,
+    PID_rcvacn05 = 80,
+    PID_env = 81
 } asn1SccPID;
 
 // please use the following macros to avoid breaking code.
@@ -525,17 +528,20 @@ typedef enum {
 #define asn1SccPID_sender002 PID_sender002
 #define asn1SccPID_sender003 PID_sender003
 #define asn1SccPID_sender004 PID_sender004
+#define asn1SccPID_sender005 PID_sender005
 #define asn1SccPID_sender006 PID_sender006
 #define asn1SccPID_sender007 PID_sender007
 #define asn1SccPID_sender008 PID_sender008
 #define asn1SccPID_sender009 PID_sender009
 #define asn1SccPID_sender010 PID_sender010
 #define asn1SccPID_sender011 PID_sender011
-#define asn1SccPID_sernder005 PID_sernder005
 #define asn1SccPID_testcyclic05 PID_testcyclic05
+#define asn1SccPID_testmodules PID_testmodules
 #define asn1SccPID_testprotected PID_testprotected
 #define asn1SccPID_testsdl08 PID_testsdl08
 #define asn1SccPID_testsdl14 PID_testsdl14
+#define asn1SccPID_testspcc PID_testspcc
+#define asn1SccPID_testsendcomms09 PID_testsendcomms09
 #define asn1SccPID_teststart00 PID_teststart00
 #define asn1SccPID_testunprot00 PID_testunprot00
 #define asn1SccPID_testunprotin05 PID_testunprotin05
@@ -548,7 +554,7 @@ typedef enum {
 
 flag asn1SccPID_Equal(const asn1SccPID* pVal1, const asn1SccPID* pVal2);
 
-#define ERR_PID		81  /*activationlog | boothelper00f | brokerlock00g | brokertest002a | deathreport00c | escapertest002b | function-1 | function-10 | function-11 | function-12 | function-13 | function-14 | function-15 | function-16 | function-17 | function-18 | function-19 | function-2 | function-20 | function-21 | function-22 | function-23 | function-24 | function-3 | function-4 | function-5 | function-6 | function-7 | function-8 | function-9 | hal00d | mqueuecallback12 | monitorcallback | monitoring00a | paketizer002c | prot00if | prot05ifin | prot05ifout | rcvacn01 | rcvacn02 | rcvacn03 | rcvacn04 | receiver001 | receiver011 | receiver012 | receiver013 | receiver014 | receiver015 | receiver016 | receiver017 | receiver018 | receiver019 | receiver020 | samrh71core00h | sendacn | sender001 | sender002 | sender003 | sender004 | sender006 | sender007 | sender008 | sender009 | sender010 | sender011 | sernder005 | testcyclic05 | testprotected | testsdl08 | testsdl14 | teststart00 | testunprot00 | testunprotin05 | testunprotout05 | testunprotected | threads00e | partition-1-timer-manager | rcvacn05 | env*/
+#define ERR_PID		81  /*activationlog | boothelper00f | brokerlock00g | brokertest002a | deathreport00c | escapertest002b | function-1 | function-10 | function-11 | function-12 | function-13 | function-14 | function-15 | function-16 | function-17 | function-18 | function-19 | function-2 | function-20 | function-21 | function-22 | function-23 | function-24 | function-3 | function-4 | function-5 | function-6 | function-7 | function-8 | function-9 | hal00d | mqueuecallback12 | monitorcallback | monitoring00a | paketizer002c | prot00if | prot05ifin | prot05ifout | rcvacn01 | rcvacn02 | rcvacn03 | rcvacn04 | receiver001 | receiver011 | receiver012 | receiver013 | receiver014 | receiver015 | receiver016 | receiver017 | receiver018 | receiver019 | receiver020 | samrh71core00h | sendacn | sender001 | sender002 | sender003 | sender004 | sender005 | sender006 | sender007 | sender008 | sender009 | sender010 | sender011 | testcyclic05 | testmodules | testprotected | testsdl08 | testsdl14 | testspcc | testsendcomms09 | teststart00 | testunprot00 | testunprotin05 | testunprotout05 | testunprotected | threads00e | partition-1-timer-manager | rcvacn05 | env*/
 flag asn1SccPID_IsConstraintValid(const asn1SccPID* pVal, int* pErrCode);
 
 #ifdef __cplusplus

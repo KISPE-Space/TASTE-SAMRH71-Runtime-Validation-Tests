@@ -29,11 +29,9 @@ void init_sender001(void);
 
 
 /* Provided interfaces */
-void sender001_PI_1_Cyclic(void);
-
-
-void sender001_PI_2
-      (const char *IN_p1, size_t IN_p1_len);
+void sender001_PI_1_Send01
+      (char *OUT_p1, size_t *OUT_p1_len,
+       char *OUT_p2, size_t *OUT_p2_len);
 
 
 #ifdef __cplusplus

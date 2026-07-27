@@ -10,7 +10,7 @@
 #include "testunprotected.h"
 #include <limits.h>
 #include "../../../../test_defines.h"           // Custom include, NOT managed by TASTE
-//#include <stdio.h>
+#include <stdio.h>
 
 
 void testunprotected_startup(void)
@@ -20,6 +20,39 @@ void testunprotected_startup(void)
    // puts ("[TestUnProtected] Startup");
 }
 
+
+/************************************************************
+ * <Test ID>
+ * <TestUnProtected>
+ * <Purpose>
+ * This test calls the three functions that execute tests for unprotected
+ * interfaces with zero parameters, five input parameters and
+ * five output parameters.
+ * <Requirements>
+ *  - MBEP-RT-FUN-50
+ *  - MBEP-RT-FUN-80
+ *  - MBEP-RT-FUN-170
+ *  - MBEP-RT-FUN-180
+ *  - MBEP-RT-FUN-190
+ * <inputs specification>
+ * <outputs specification>
+ * <Procedure: Proceed steps>
+ * - Set up Parameters
+ * Call a function using an unprotected interface, where that function
+ * takes zero parameters
+ * Call a function using an unprotected inetrface. where that function
+ * takes five input parameters
+ * Call a function using an unprotected inetrface. where that function
+ * takes five output parameters
+ *<Test failure>
+ * - Test will fail if any functions call fails to complete, returning
+ *   execution to the testfunction
+ * - Test will fail if any function, which takes five input parameters
+ *   does not receive the expected values for those parameters
+ * - Test will fail if the function, which takes five output parameters,
+ *   does not set the expected values for those parameters
+ *************************************************************/
+
 void testunprotected_PI_PI_1_UnProt_Start( asn1SccT_Int32 *OUT_p1,
                                            asn1SccT_Boolean *OUT_p2  )
 {
@@ -28,7 +61,9 @@ void testunprotected_PI_PI_1_UnProt_Start( asn1SccT_Int32 *OUT_p1,
     asn1SccT_UInt32 testParam_UINT32;
     asn1SccT_Int8 testParam_INT8;
     asn1SccT_UInt8 testParam_UINT8;
-    asn1SccT_Boolean test_result;
+    asn1SccT_Boolean test_result = false;
+
+    // Setup the calling parameters
 
     testParam_BOOL = true;
     testParam_INT32 = 0;
@@ -39,6 +74,7 @@ void testunprotected_PI_PI_1_UnProt_Start( asn1SccT_Int32 *OUT_p1,
     // --
     // -- testunprotected_RI_PI_1  (IN05)
     // --
+    // -- Note : this function validates the returned data.
 
 
     void testunprotected_RI_PI_1( const asn1SccT_Int32 *testParam_INT32,
@@ -50,103 +86,168 @@ void testunprotected_PI_PI_1_UnProt_Start( asn1SccT_Int32 *OUT_p1,
 
     *OUT_p1 = TestUnProt_FiveOUT_Parameters;
 
+    // --
+    // -- Test all parameter types for failure
+    // --
+
+    // -- testParam_INT32
     if ( testParam_INT32 == INT_MIN )
     {
         *OUT_p2 = true;
+        if ( PRINT_RESULTS )
+        {
+            printf( "<TEST_ID> TestUnProtected\n");
+            printf("<TEST_RESULT> PASS \n");
+        }
     }
     else
     {
         *OUT_p2 = false;
-        return;
+        if ( PRINT_RESULTS )
+        {
+            printf("<TEST_ID> TestUnProtected \n");
+            printf("<TEST_RESULT> FAIL \n");
+            printf("<TEST_FAIL_REASON> TestUnProt_FiveOUT_Parameters testParam_INT32 == INT_MIN \n");
+        }
     }
 
-    //testParam_UINT32 = *testParam_UINT32;
+    // -- testParam_UINT32
     if ( testParam_UINT32 == 0 )
     {
         *OUT_p2 = true;
+        if ( PRINT_RESULTS )
+        {
+            printf("<TEST_ID> TestUnProtected \n");
+            printf("<TEST_RESULT> PASS \n");
+        }
     }
     else
     {
         *OUT_p2 = false;
-        return;
+        if ( PRINT_RESULTS )
+        {
+            printf("<TEST_ID> TestUnProtected \n");
+            printf("<TEST_RESULT> FAIL \n");
+            printf("<TEST_FAIL_REASON> TestUnProt_FiveOUT_Parameters testParam_UINT32 == 0 \n");
+        }
     }
 
-
+    // -- testParam_UINT8
     if ( testParam_UINT8 == 0 )
     {
         *OUT_p2 = true;
+        if ( PRINT_RESULTS )
+        {
+            printf("<TEST_ID> TestUnProtected \n");
+            printf("<TEST_RESULT> PASS \n");
+        }
     }
     else
     {
         *OUT_p2 = false;
-        return;
+        if ( PRINT_RESULTS )
+        {
+            printf("<TEST_ID> TestUnProtected \n");
+            printf("<TEST_RESULT> FAIL \n");
+            printf("<TEST_FAIL_REASON> TestUnProt_FiveOUT_Parameters testParam_UINT8 == 0 \n");
+        }
     }
 
-
+    // -- testParam_INT8
     if ( testParam_INT8 == SCHAR_MIN)
     {
         *OUT_p2 = true;
+        if ( PRINT_RESULTS )
+        {
+            printf("<TEST_ID> TestUnProtected \n");
+            printf("<TEST_RESULT> PASS \n");
+        }
     }
     else
     {
         *OUT_p2 = false;
-        return;
+        if ( PRINT_RESULTS )
+        {
+            printf("<TEST_ID> TestUnProtected \n");
+            printf("<TEST_RESULT> FAIL \n");
+            printf("<TEST_FAIL_REASON> TestUnProt_FiveOUT_Parameters  Param_INT8 == SCHAR_MIN \n");
+        }
     }
 
-
+    // -- testParam_BOOL
     if ( testParam_BOOL == false )
     {
         *OUT_p2 = true;
+        if ( PRINT_RESULTS )
+        {
+            printf("<TEST_ID> TestUnProtected \n");
+            printf("<TEST_RESULT> PASS \n");
+        }
     }
     else
     {
         *OUT_p2 = false;
-        return;
+        if ( PRINT_RESULTS )
+        {
+            printf("<TEST_ID> TestUnProtected \n");
+            printf("<TEST_RESULT> FAIL \n");
+            printf("<TEST_FAIL_REASON> TestUnProt_FiveOUT_Parameterstest testParam_BOOL == false  \n");
+        }
     }
 
 
 
 
-// --
-// -- testunprotected_RI_TestUnProtOUT05_PI_1
-// --
+    // --
+    // -- testunprotected_RI_TestUnProtOUT05_PI_1 (OUT05)
+    // --
+    // -- Validation of inputs is determined in this function, test_result is set.
 
-//extern void testunprotected_RI_TestUnProtOUT05_PI_1( asn1SccT_Int32 *,
-//                                                        asn1SccT_UInt32 *,
-//                                                        asn1SccT_Int8 *,
-//                                                        asn1SccT_UInt8 *,
-//                                                        asn1SccT_Boolean *,
-//                                                        asn1SccT_Boolean * );
-
-
-
-
-void testunprotected_RI_TestUnProtOUT05_PI_1( asn1SccT_Int32 *testParam_INT32,
-                                              asn1SccT_UInt32 *testParam_UINT32,
-                                              asn1SccT_Int8 *testParam_INT8,
-                                              asn1SccT_UInt8 *testParam_UINT8,
-                                              asn1SccT_Boolean *testParam_BOOL,
-                                              asn1SccT_Boolean *test_result );
+    void testunprotected_RI_TestUnProtOUT05_PI_1( asn1SccT_Int32 *testParam_INT32,
+                                                  asn1SccT_UInt32 *testParam_UINT32,
+                                                  asn1SccT_Int8 *testParam_INT8,
+                                                  asn1SccT_UInt8 *testParam_UINT8,
+                                                  asn1SccT_Boolean *testParam_BOOL,
+                                                  asn1SccT_Boolean *test_result );
 
 
     *OUT_p1 = TestUnProt_FiveIN_Parameters;
     if ( test_result == true )
     {
         *OUT_p2 = true;
+        if ( PRINT_RESULTS )
+        {
+            printf("<TEST_ID> TestUnProtected \n");
+            printf("<TEST_RESULT> PASS \n");
+        }
     }
     else
     {
         *OUT_p2 = false;
-        return;
+        if ( PRINT_RESULTS )
+        {
+            printf("<TEST_ID> TestUnProtected \n");
+            printf("<TEST_RESULT> FAIL \n");
+            printf("<TEST_FAIL_REASON> TestUnProt_FiveOUT_Parameterstest test_result == false \n");
+        }
     }
 
 
-
+    // --
+    // -- testunprotected_RI_PI_1_00
+    // --
+    // -- Note : This tests for ZERO parameters, if the function returns
+    // --        it must be valid.
 
     void testunprotected_RI_PI_1_00( void );
 
     *OUT_p1 = TestUnProt_Zero_Parameters;
     *OUT_p2 = true;
+    if ( PRINT_RESULTS )
+    {
+        printf("<TEST_ID> TestUnProtected \n");
+        printf("<TEST_RESULT> PASS \n");
+    }
 
 
 }

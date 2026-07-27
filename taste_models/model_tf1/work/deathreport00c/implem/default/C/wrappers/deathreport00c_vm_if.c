@@ -28,15 +28,15 @@ void init_deathreport00c(void)
       deathreport00c_initialized = 2;
    }
 }
-void deathreport00c_PI_3
+void deathreport00c_PI_1_DeathReport
       (char *OUT_p1, size_t *OUT_p1_len,
        char *OUT_p2, size_t *OUT_p2_len)
 
 {
-   sender_pid = deathreport00c_pi_3_get_sender();
+   sender_pid = deathreport00c_pi_1_deathreport_get_sender();
 
    //  Declare user code function as external (it may not have a .h if it is in Ada)
-   extern void deathreport00c_PI_PI_3
+   extern void deathreport00c_PI_PI_1_DeathReport
       (asn1SccT_Int32 *,
        asn1SccT_Boolean *);
 
@@ -45,7 +45,7 @@ void deathreport00c_PI_3
 
 
    // Call user code
-   deathreport00c_PI_PI_3 ((asn1SccT_Int32 *)OUT_p1, (asn1SccT_Boolean *)OUT_p2);
+   deathreport00c_PI_PI_1_DeathReport ((asn1SccT_Int32 *)OUT_p1, (asn1SccT_Boolean *)OUT_p2);
 
 }
 

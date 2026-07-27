@@ -7,4 +7,6 @@ taste_models/*/work/build
 
 # Taste-generated partition files
 taste_models/model_tf1/work/binaries/partition_*
+
+# VSCode configuration files
 .vscode/settings.json

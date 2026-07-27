@@ -15,7 +15,7 @@ extern "C" {
 void threads00e_startup(void);
 
 /* Provided interfaces */
-void threads00e_PI_PI_1( asn1SccT_Int32 *, asn1SccT_Boolean * );
+void threads00e_PI_PI_1_Threads( asn1SccT_Int32 *, asn1SccT_Boolean * );
 
 /* Required interfaces */
 

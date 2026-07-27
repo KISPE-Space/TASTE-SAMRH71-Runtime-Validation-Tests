@@ -30,7 +30,8 @@ void init_receiver016(void);
 
 /* Provided interfaces */
 void receiver016_PI_1_SR16
-      (char *OUT_p1, size_t *OUT_p1_len);
+      (const char *IN_p1, size_t IN_p1_len,
+       char *OUT_p2, size_t *OUT_p2_len);
 
 
 #ifdef __cplusplus

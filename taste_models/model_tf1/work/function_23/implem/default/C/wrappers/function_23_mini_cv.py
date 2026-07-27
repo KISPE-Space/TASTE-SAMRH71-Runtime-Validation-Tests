@@ -87,7 +87,7 @@ for spFeature in subProgramParameters:
 # Taste::Associated_Queue_Size = 1
 # Taste::Communication_Layer = default
 # Taste::Interface_Priority = 1
-# Taste::Interface_Stack_Size = 4096
+# Taste::Interface_Stack_Size = 4099
 # Taste::InterfaceName = PI_2
 # Taste::labelInheritance = true
 # Taste::RCMoperationKind = sporadic

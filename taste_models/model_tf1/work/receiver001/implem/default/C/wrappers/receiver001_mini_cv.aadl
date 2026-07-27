@@ -4,6 +4,7 @@
 SUBPROGRAM SP_PI_1
 FEATURES
    p1 : IN PARAMETER DataView::T_Int32 {encoding=>NATIVE;};
+   p2 : OUT PARAMETER DataView::T_Boolean {encoding=>NATIVE;};
 
 END SP_PI_1;
 
@@ -23,6 +24,7 @@ END SP_PI_1.C;
 SUBPROGRAM SP_PI_10
 FEATURES
    p1 : IN PARAMETER DataView::T_Int32 {encoding=>NATIVE;};
+   p2 : OUT PARAMETER DataView::T_Boolean {encoding=>NATIVE;};
 
 END SP_PI_10;
 
@@ -42,6 +44,7 @@ END SP_PI_10.C;
 SUBPROGRAM SP_PI_2
 FEATURES
    p1 : IN PARAMETER DataView::T_Int32 {encoding=>NATIVE;};
+   p2 : OUT PARAMETER DataView::T_Boolean {encoding=>NATIVE;};
 
 END SP_PI_2;
 
@@ -61,6 +64,7 @@ END SP_PI_2.C;
 SUBPROGRAM SP_PI_3
 FEATURES
    p1 : IN PARAMETER DataView::T_Int32 {encoding=>NATIVE;};
+   p2 : OUT PARAMETER DataView::T_Boolean {encoding=>NATIVE;};
 
 END SP_PI_3;
 
@@ -80,6 +84,7 @@ END SP_PI_3.C;
 SUBPROGRAM SP_PI_4
 FEATURES
    p1 : IN PARAMETER DataView::T_Int32 {encoding=>NATIVE;};
+   p2 : OUT PARAMETER DataView::T_Boolean {encoding=>NATIVE;};
 
 END SP_PI_4;
 
@@ -99,6 +104,7 @@ END SP_PI_4.C;
 SUBPROGRAM SP_PI_5
 FEATURES
    p1 : IN PARAMETER DataView::T_Int32 {encoding=>NATIVE;};
+   p2 : OUT PARAMETER DataView::T_Boolean {encoding=>NATIVE;};
 
 END SP_PI_5;
 
@@ -118,6 +124,7 @@ END SP_PI_5.C;
 SUBPROGRAM SP_PI_6
 FEATURES
    p1 : IN PARAMETER DataView::T_Int32 {encoding=>NATIVE;};
+   p2 : OUT PARAMETER DataView::T_Boolean {encoding=>NATIVE;};
 
 END SP_PI_6;
 
@@ -137,6 +144,7 @@ END SP_PI_6.C;
 SUBPROGRAM SP_PI_7
 FEATURES
    p1 : IN PARAMETER DataView::T_Int32 {encoding=>NATIVE;};
+   p2 : OUT PARAMETER DataView::T_Boolean {encoding=>NATIVE;};
 
 END SP_PI_7;
 
@@ -156,6 +164,7 @@ END SP_PI_7.C;
 SUBPROGRAM SP_PI_8
 FEATURES
    p1 : IN PARAMETER DataView::T_Int32 {encoding=>NATIVE;};
+   p2 : OUT PARAMETER DataView::T_Boolean {encoding=>NATIVE;};
 
 END SP_PI_8;
 
@@ -175,6 +184,7 @@ END SP_PI_8.C;
 SUBPROGRAM SP_PI_9
 FEATURES
    p1 : IN PARAMETER DataView::T_Int32 {encoding=>NATIVE;};
+   p2 : OUT PARAMETER DataView::T_Boolean {encoding=>NATIVE;};
 
 END SP_PI_9;
 

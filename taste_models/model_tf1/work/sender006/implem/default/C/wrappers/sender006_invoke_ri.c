@@ -9,34 +9,41 @@ static asn1SccT_Runtime_Error sender006_recent_error = { .kind = T_Runtime_Error
 extern unsigned sender006_initialized;
 
 void sender006_RI_PI_6_To_PID(asn1SccPID dest_pid, 
-      const asn1SccT_Int32 *IN_p1
+      const asn1SccT_Int32 *IN_p1,
+       asn1SccT_Boolean     *OUT_p2
 );
 void sender006_RI_PI_6(
-      const asn1SccT_Int32 *IN_p1
+      const asn1SccT_Int32 *IN_p1,
+       asn1SccT_Boolean     *OUT_p2
 );
 void sender006_RI_PI_6(
-      const asn1SccT_Int32 *IN_p1
+      const asn1SccT_Int32 *IN_p1,
+       asn1SccT_Boolean     *OUT_p2
 )
 {
    // When no destination is specified, send to everyone (multicast)
-   sender006_RI_PI_6_To_PID(PID_env, IN_p1
+   sender006_RI_PI_6_To_PID(PID_env, IN_p1, OUT_p2
 );
 }
 
 void sender006_RI_PI_6_To_PID(asn1SccPID dest_pid, 
-      const asn1SccT_Int32 *IN_p1
+      const asn1SccT_Int32 *IN_p1,
+       asn1SccT_Boolean     *OUT_p2
 )
 {
 
+   size_t      size_OUT_buf_p2 = 0;
 
    // Send the message via the middleware API
    extern void vm_sender006_pi_6
      (asn1SccPID,
-      void *, size_t);
+      void *, size_t,
+      void *, size_t *);
 
    vm_sender006_pi_6
      (dest_pid,
-      (void *)IN_p1, sizeof(asn1SccT_Int32));
+      (void *)IN_p1, sizeof(asn1SccT_Int32),
+      (void *)OUT_p2, &size_OUT_buf_p2);
 
 
   sender006_recent_error.kind = T_Runtime_Error_noerror_PRESENT;

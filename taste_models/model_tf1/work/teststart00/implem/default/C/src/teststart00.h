@@ -18,16 +18,13 @@ void teststart00_startup(void);
 void teststart00_PI_PI_1_CYCLIC( void );
 
 /* Required interfaces */
-extern void teststart00_RI_MQueueCallBack12_PI_1( void );
+extern void teststart00_RI_PI_1( void );
 
 
-extern void teststart00_RI_PI_1( asn1SccT_Int32 *, asn1SccT_Boolean * );
+extern void teststart00_RI_PI_10_TestModules( asn1SccT_Int32 *, asn1SccT_Boolean * );
 
 
-extern void teststart00_RI_PI_10_Act_Start( asn1SccT_Int32 *, asn1SccT_Boolean * );
-
-
-extern void teststart00_RI_PI_10_Callback( asn1SccT_Int32 *, asn1SccT_Boolean * );
+extern void teststart00_RI_PI_1_Broker( asn1SccT_Int32 *, asn1SccT_Boolean * );
 
 
 extern void teststart00_RI_PI_1_Prot_Start( asn1SccT_Int32 *, asn1SccT_Boolean * );
@@ -36,55 +33,31 @@ extern void teststart00_RI_PI_1_Prot_Start( asn1SccT_Int32 *, asn1SccT_Boolean *
 extern void teststart00_RI_PI_1_STARTSDL14( const asn1SccCounter * );
 
 
+extern void teststart00_RI_PI_1_StartTestCC06( asn1SccT_Int32 *, asn1SccT_Boolean * );
+
+
+extern void teststart00_RI_PI_1_TestACN( asn1SccT_Int32 *, asn1SccT_Boolean * );
+
+
+extern void teststart00_RI_PI_1_TestComms09( asn1SccT_Int32 *, asn1SccT_Boolean * );
+
+
 extern void teststart00_RI_PI_1_UnProt_Start( asn1SccT_Int32 *, asn1SccT_Boolean * );
 
 
-extern void teststart00_RI_PI_2( const asn1SccT_Int32 * );
+extern void teststart00_RI_PI_2( asn1SccT_Int32 *, asn1SccT_Boolean * );
+
+
+extern void teststart00_RI_PI_2_Cyclic( asn1SccT_Int32 *, asn1SccT_Boolean * );
 
 
 extern void teststart00_RI_PI_3( asn1SccT_Int32 *, asn1SccT_Boolean * );
 
 
-extern void teststart00_RI_PI_4( asn1SccT_Int32 *, asn1SccT_Boolean * );
-
-
-extern void teststart00_RI_PI_6( asn1SccT_Int32 *, asn1SccT_Boolean * );
-
-
-extern void teststart00_RI_PI_7( asn1SccT_Int32 *, asn1SccT_Boolean * );
-
-
-extern void teststart00_RI_PI_8( asn1SccT_Int32 *, asn1SccT_Boolean * );
-
-
-extern void teststart00_RI_PI_Mon( asn1SccT_Int32 *, asn1SccT_Boolean * );
-
-
 extern void teststart00_RI_PI_STARTSDL08( const asn1SccCounter * );
 
 
-extern void teststart00_RI_PI_start_SPCC06( void );
-
-
-extern void teststart00_RI_RI_22( void );
-
-
-extern void teststart00_RI_RI_5( asn1SccT_Int32 *, asn1SccT_Boolean * );
-
-
-extern void teststart00_RI_TestACN11_PI_1( asn1SccT_Int32 *, asn1SccT_Boolean * );
-
-
-extern void teststart00_RI_TestComms09_PI_1( const asn1SccT_Int32 * );
-
-
-extern void teststart00_RI_TestComms10_PI_1( const asn1SccT_Int32 * );
-
-
-extern void teststart00_RI_TestRTCommon02_PI_2( asn1SccT_Int32 *, asn1SccT_Boolean * );
-
-
-extern void teststart00_RI_TestRTCommon02_PI_3( asn1SccT_Int32 *, asn1SccT_Boolean * );
+extern void teststart00_RI_TPI_1_TestComms10( asn1SccT_Int32 *, asn1SccT_Boolean * );
 
 
 #ifdef __cplusplus

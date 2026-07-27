@@ -30,52 +30,62 @@ void init_receiver001(void);
 
 /* Provided interfaces */
 void receiver001_PI_1
-      (const char *IN_p1, size_t IN_p1_len);
+      (const char *IN_p1, size_t IN_p1_len,
+       char *OUT_p2, size_t *OUT_p2_len);
 
 
 
 void receiver001_PI_10
-      (const char *IN_p1, size_t IN_p1_len);
+      (const char *IN_p1, size_t IN_p1_len,
+       char *OUT_p2, size_t *OUT_p2_len);
 
 
 
 void receiver001_PI_2
-      (const char *IN_p1, size_t IN_p1_len);
+      (const char *IN_p1, size_t IN_p1_len,
+       char *OUT_p2, size_t *OUT_p2_len);
 
 
 
 void receiver001_PI_3
-      (const char *IN_p1, size_t IN_p1_len);
+      (const char *IN_p1, size_t IN_p1_len,
+       char *OUT_p2, size_t *OUT_p2_len);
 
 
 
 void receiver001_PI_4
-      (const char *IN_p1, size_t IN_p1_len);
+      (const char *IN_p1, size_t IN_p1_len,
+       char *OUT_p2, size_t *OUT_p2_len);
 
 
 
 void receiver001_PI_5
-      (const char *IN_p1, size_t IN_p1_len);
+      (const char *IN_p1, size_t IN_p1_len,
+       char *OUT_p2, size_t *OUT_p2_len);
 
 
 
 void receiver001_PI_6
-      (const char *IN_p1, size_t IN_p1_len);
+      (const char *IN_p1, size_t IN_p1_len,
+       char *OUT_p2, size_t *OUT_p2_len);
 
 
 
 void receiver001_PI_7
-      (const char *IN_p1, size_t IN_p1_len);
+      (const char *IN_p1, size_t IN_p1_len,
+       char *OUT_p2, size_t *OUT_p2_len);
 
 
 
 void receiver001_PI_8
-      (const char *IN_p1, size_t IN_p1_len);
+      (const char *IN_p1, size_t IN_p1_len,
+       char *OUT_p2, size_t *OUT_p2_len);
 
 
 
 void receiver001_PI_9
-      (const char *IN_p1, size_t IN_p1_len);
+      (const char *IN_p1, size_t IN_p1_len,
+       char *OUT_p2, size_t *OUT_p2_len);
 
 
 #ifdef __cplusplus

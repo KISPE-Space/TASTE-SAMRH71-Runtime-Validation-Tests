@@ -29,7 +29,7 @@ void init_monitorcallback(void);
 
 
 /* Provided interfaces */
-void monitorcallback_PI_10_Callback
+void monitorcallback_PI_1_MonCallback
       (char *OUT_p1, size_t *OUT_p1_len,
        char *OUT_p2, size_t *OUT_p2_len);
 

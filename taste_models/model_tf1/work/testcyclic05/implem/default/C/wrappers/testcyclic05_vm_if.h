@@ -32,8 +32,9 @@ void init_testcyclic05(void);
 void testcyclic05_PI_1(void);
 
 
-void testcyclic05_PI_2
-      (const char *IN_p1, size_t IN_p1_len);
+void testcyclic05_PI_2_Cyclic
+      (char *OUT_p1, size_t *OUT_p1_len,
+       char *OUT_p2, size_t *OUT_p2_len);
 
 
 #ifdef __cplusplus

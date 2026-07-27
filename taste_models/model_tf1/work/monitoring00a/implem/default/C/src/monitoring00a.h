@@ -15,6 +15,9 @@ extern "C" {
 void monitoring00a_startup(void);
 
 /* Provided interfaces */
+void monitoring00a_PI_PI_2_Mon00A( asn1SccT_Int32 *, asn1SccT_Boolean * );
+
+
 void monitoring00a_PI_PI_Mon( asn1SccT_Int32 *, asn1SccT_Boolean * );
 
 /* Required interfaces */

@@ -29,7 +29,7 @@ void init_deathreport00c(void);
 
 
 /* Provided interfaces */
-void deathreport00c_PI_3
+void deathreport00c_PI_1_DeathReport
       (char *OUT_p1, size_t *OUT_p1_len,
        char *OUT_p2, size_t *OUT_p2_len);
 

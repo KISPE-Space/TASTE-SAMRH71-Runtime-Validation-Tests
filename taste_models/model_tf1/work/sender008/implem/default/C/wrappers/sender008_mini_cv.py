@@ -10,24 +10,48 @@ from dmt.commonPy import aadlAST as ast
 
 ast.g_apLevelContainers = dict()
 
-# Interface "PI_1"
-sp = ast.ApLevelContainer("PI_1")
-ast.g_apLevelContainers["PI_1"] = sp
+# Interface "PI_1_Send08"
+sp = ast.ApLevelContainer("PI_1_Send08")
+ast.g_apLevelContainers["PI_1_Send08"] = sp
+subProgramParameters = []
+param = ast.AadlParameter("OUT", "DataView::T_Int32")
+param._encoding = "NATIVE"
+subProgramFeature = ast.AadlSubProgramFeature("p1", param)
+subProgramParameters.append(subProgramFeature)
+for spFeature in subProgramParameters:
+    if spFeature is None: continue
+    param_type = "T_Int32"
+    signal = ast.g_signals[param_type]
+    if spFeature._parameter._direction == "IN":
+        param = ast.InParam("PI_1_Send08", "p1", signal, spFeature._parameter)
+    elif spFeature._parameter._direction == "OUT":
+        param = ast.OutParam("PI_1_Send08", "p1", signal, spFeature._parameter)
+    sp.AddParam(param)
+subProgramParameters = []
+param = ast.AadlParameter("OUT", "DataView::T_Boolean")
+param._encoding = "NATIVE"
+subProgramFeature = ast.AadlSubProgramFeature("p2", param)
+subProgramParameters.append(subProgramFeature)
+for spFeature in subProgramParameters:
+    if spFeature is None: continue
+    param_type = "T_Boolean"
+    signal = ast.g_signals[param_type]
+    if spFeature._parameter._direction == "IN":
+        param = ast.InParam("PI_1_Send08", "p2", signal, spFeature._parameter)
+    elif spFeature._parameter._direction == "OUT":
+        param = ast.OutParam("PI_1_Send08", "p2", signal, spFeature._parameter)
+    sp.AddParam(param)
 
 # Compute_Execution_Time = 0ms..0ms
 # Taste::Communication_Layer = default
-# Taste::Interface_Cyclic_Offset = 0
-# Taste::Interface_Priority = 1
-# Taste::Interface_Stack_Size = 500
-# Taste::InterfaceName = PI_1
-# Taste::RCMoperationKind = cyclic
-# Taste::RCMperiod = 1000 ms
+# Taste::InterfaceName = PI_1_Send08
+# Taste::RCMoperationKind = protected
 sp._fpgaConfigurations = ""   # initialization
 # Taste::Instances_Max = 1
 # Taste::Instances_Min = 1
 # Taste::Startup_Priority = 1
 # TASTE_IV_Properties::Default_Codegen = C
-ast.g_subProgramImplementations.append(["PI_1", "C", "C", "sender008", sp._fpgaConfigurations])
+ast.g_subProgramImplementations.append(["PI_1_Send08", "C", "C", "sender008", sp._fpgaConfigurations])
 sp._language = "C"
 
 # Interface "PI_8"
@@ -46,6 +70,20 @@ for spFeature in subProgramParameters:
         param = ast.InParam("PI_8", "p1", signal, spFeature._parameter)
     elif spFeature._parameter._direction == "OUT":
         param = ast.OutParam("PI_8", "p1", signal, spFeature._parameter)
+    sp.AddParam(param)
+subProgramParameters = []
+param = ast.AadlParameter("IN", "DataView::T_Boolean")
+param._encoding = "NATIVE"
+subProgramFeature = ast.AadlSubProgramFeature("p2", param)
+subProgramParameters.append(subProgramFeature)
+for spFeature in subProgramParameters:
+    if spFeature is None: continue
+    param_type = "T_Boolean"
+    signal = ast.g_signals[param_type]
+    if spFeature._parameter._direction == "IN":
+        param = ast.InParam("PI_8", "p2", signal, spFeature._parameter)
+    elif spFeature._parameter._direction == "OUT":
+        param = ast.OutParam("PI_8", "p2", signal, spFeature._parameter)
     sp.AddParam(param)
 
 # Compute_Execution_Time = 0ms..0ms

@@ -14,7 +14,7 @@ ast.g_apLevelContainers = dict()
 sp = ast.ApLevelContainer("PI_1_SR19")
 ast.g_apLevelContainers["PI_1_SR19"] = sp
 subProgramParameters = []
-param = ast.AadlParameter("OUT", "DataView::T_Int32")
+param = ast.AadlParameter("IN", "DataView::T_Int32")
 param._encoding = "NATIVE"
 subProgramFeature = ast.AadlSubProgramFeature("p1", param)
 subProgramParameters.append(subProgramFeature)
@@ -26,6 +26,20 @@ for spFeature in subProgramParameters:
         param = ast.InParam("PI_1_SR19", "p1", signal, spFeature._parameter)
     elif spFeature._parameter._direction == "OUT":
         param = ast.OutParam("PI_1_SR19", "p1", signal, spFeature._parameter)
+    sp.AddParam(param)
+subProgramParameters = []
+param = ast.AadlParameter("OUT", "DataView::T_Boolean")
+param._encoding = "NATIVE"
+subProgramFeature = ast.AadlSubProgramFeature("p2", param)
+subProgramParameters.append(subProgramFeature)
+for spFeature in subProgramParameters:
+    if spFeature is None: continue
+    param_type = "T_Boolean"
+    signal = ast.g_signals[param_type]
+    if spFeature._parameter._direction == "IN":
+        param = ast.InParam("PI_1_SR19", "p2", signal, spFeature._parameter)
+    elif spFeature._parameter._direction == "OUT":
+        param = ast.OutParam("PI_1_SR19", "p2", signal, spFeature._parameter)
     sp.AddParam(param)
 
 # Compute_Execution_Time = 0ms..0ms

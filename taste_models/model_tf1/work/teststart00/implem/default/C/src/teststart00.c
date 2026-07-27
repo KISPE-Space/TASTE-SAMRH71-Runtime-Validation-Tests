@@ -13,7 +13,7 @@
 //#include "faulthandler00b.h"
 #include "deathreport00c.h"
 
-//#include <stdio.h>
+#include <stdio.h>
 
 static bool Startup = false;
 
@@ -31,9 +31,8 @@ void teststart00_PI_PI_1_CYCLIC( void )
 static long int timer_ticks = 0;
 asn1SccT_Int32 Framework_Result = 0;
 asn1SccT_Boolean Framework_Status = false;
-bool monitoring_status = false;
-bool test_result[ MAXIMUM_FRAMEWORK_TESTS ];
-
+//bool test_result[ MAXIMUM_FRAMEWORK_TESTS ];
+asn1SccCounter Counter;
 
     if ( timer_ticks == 0 )
     {
@@ -43,25 +42,6 @@ bool test_result[ MAXIMUM_FRAMEWORK_TESTS ];
     }
 
 
-    Framework_Result = 0;
-    Framework_Status = false;
-
-    // -- Monitoring --
-
-    monitoring00a_PI_PI_Mon( &Framework_Result, &Framework_Status );
-
-    if ( Framework_Status == true  )
-    {
-        // -- Good status
-        monitoring_status = true;
-    }
-    else
-    {
-        monitoring_status = false;
-    }
-
-    // -- Process other minoring function, if monitoring_status is true --
-
     // -- Faulthandler Processign --
     Framework_Result = 0;
     Framework_Status = false;
@@ -69,79 +49,41 @@ bool test_result[ MAXIMUM_FRAMEWORK_TESTS ];
     //faulthandler00b_PI_PI_1( &Framework_Result, &Framework_Status );
 
 
-
-    // -- Deathreport --
     Framework_Result = 0;
     Framework_Status = false;
 
-    deathreport00c_PI_PI_3( &Framework_Result, &Framework_Status );
-
-
-    // Test_SPCC06 and Test_SPCC07, tests MBEP-RT-RES-220, where
-    // both tests have a total of 48 functions with both
-    // cyclic and sporadic interfaces.
-    // Additionally both use unprotected interfaces,this function
-    // has two unprotected required interfaces MBEP-RT-FUN-50 and
-    // MBEP-RT-FUN-120, Sporadic with zero parameters
-    // refer to teststart00.h
-    // Cyclic interface priority, stack size and message queue sizes are
-    // manipulated, but this shall be verified within TestModules0A,
-    // Monitoring00A
-
-    teststart00_RI_PI_start_SPCC06( );  // first 24 functions
-
-    // Removed due to Requirement update, re 48 cyclic and sporadic interfaces
-
-    // teststart00_RI_PI_Start_SPCC07( );  // remaining 24 functions
-
-
-    Framework_Result = 0;
-    Framework_Status = false;
-
-    // -- Monitoring --
-
-    monitoring00a_PI_PI_Mon( &Framework_Result, &Framework_Status );
-
-    if ( Framework_Status == true  )
-    {
-        // -- Good status
-        monitoring_status = true;
-    }
-    else
-    {
-        monitoring_status = false;
-    }
-
+    teststart00_RI_PI_1_StartTestCC06( &Framework_Result, &Framework_Status );
 
     // Test_Comms09 sends an activition message to TEN functions that send a
     // single message to a Receiver function "Receiver001"
     // inside "TestComms09"
 
-
     Framework_Result = 0;
-    teststart00_RI_TestComms09_PI_1( &Framework_Result );
+    Framework_Status = false;
+
+    teststart00_RI_PI_1_TestComms09( &Framework_Result, &Framework_Status );
 
     Framework_Result = 0;
     Framework_Status = false;
 
-    // teststart00_RI_TestComms10_PI_1 is a function called "sender011" that
+    // teststart00_RI_TPI_1_TestComms10 is a function called "StartSendTest" that
     // send TEN UNPROTECTED messages to 10 Receiver function "Receiver011"
     // through "Receiver020" within "TestComms10"
 
 
-    teststart00_RI_TestComms10_PI_1( &Framework_Result );
+    teststart00_RI_TPI_1_TestComms10( &Framework_Result, &Framework_Status );
 
     Framework_Result = 0;
     Framework_Status = false;
 
-    // teststart00_RI_TestACN11_PI_1 is a function that calls TestACN11
-    // TestACN11 shall call four receive functions, where ACN encode is
+    // teststart00_RI_PI_1_TestACN is a function that calls TestACN
+    // TestACN shall call four receive functions, where ACN encode is
     // use to receive, they return back to the send using ACN decode.
     // if the values are incorrect the Framework_Status will be false
     // with Framework_Result indicating the count of successful conversions.
     // DEFINITIONS to be defined!!!
 
-    teststart00_RI_TestACN11_PI_1( &Framework_Result, &Framework_Status );
+    teststart00_RI_PI_1_TestACN( &Framework_Result, &Framework_Status );
     // Determine the Framework_Result to establish ACN convertion status
     if ( Framework_Status == true )
     {
@@ -156,7 +98,7 @@ bool test_result[ MAXIMUM_FRAMEWORK_TESTS ];
     Framework_Result = 0;
     Framework_Status = false;
 
-//extern void teststart00_RI_PI_1_Prot_Start( asn1SccT_Int32 *, asn1SccT_Boolean * );
+
     teststart00_RI_PI_1_Prot_Start( &Framework_Result, &Framework_Status  );
     if ( Framework_Status == true )
     {
@@ -169,7 +111,7 @@ bool test_result[ MAXIMUM_FRAMEWORK_TESTS ];
 
     Framework_Result = 0;
     Framework_Status = false;
-//extern void teststart00_RI_PI_1_UnProt_Start( asn1SccT_Int32 *, asn1SccT_Boolean * );
+
     teststart00_RI_PI_1_UnProt_Start( &Framework_Result, &Framework_Status  );
     if ( Framework_Status == true )
     {
@@ -179,6 +121,57 @@ bool test_result[ MAXIMUM_FRAMEWORK_TESTS ];
     {
         // -- Bad Status
     }
+
+    Framework_Result = 0;
+    Framework_Status = false;
+
+    // -----------------
+    // -- TestModules --
+    // -----------------
+
+    teststart00_RI_PI_10_TestModules( &Framework_Result, &Framework_Status );
+    if ( Framework_Status == true )
+    {
+        // -- Good Status
+    }
+    else
+    {
+        // -- Bad Status
+    }
+
+    // -------------------------------------------
+    // -- Ada function generated from OpenGeode --
+    // -------------------------------------------
+
+    Counter = 5;
+
+    teststart00_RI_PI_1_STARTSDL14( &Counter );
+
+
+    // -----------------------------------------
+    // -- C function generated from OpenGeode --
+    // -----------------------------------------
+
+    Counter = 10;
+
+    teststart00_RI_PI_STARTSDL08( &Counter );
+
+    Framework_Result = 0;
+    Framework_Status = false;
+
+    // -----------------
+    // -- TestModules --
+    // -----------------
+    teststart00_RI_PI_2_Cyclic( &Framework_Result, &Framework_Status );
+    if ( Framework_Status == true )
+    {
+        // -- Good Status
+    }
+    else
+    {
+        // -- Bad Status
+    }
+
 
 }
 

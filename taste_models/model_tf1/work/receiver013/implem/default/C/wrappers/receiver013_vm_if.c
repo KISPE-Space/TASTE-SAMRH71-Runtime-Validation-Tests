@@ -29,21 +29,23 @@ void init_receiver013(void)
    }
 }
 void receiver013_PI_1_SR13
-      (char *OUT_p1, size_t *OUT_p1_len)
+      (const char *IN_p1, size_t IN_p1_len,
+       char *OUT_p2, size_t *OUT_p2_len)
 
 {
    sender_pid = receiver013_pi_1_sr13_get_sender();
 
    //  Declare user code function as external (it may not have a .h if it is in Ada)
    extern void receiver013_PI_PI_1_SR13
-      (asn1SccT_Int32 *);
+      (const asn1SccT_Int32 *,
+       asn1SccT_Boolean *);
 
 
 
 
 
    // Call user code
-   receiver013_PI_PI_1_SR13 ((asn1SccT_Int32 *)OUT_p1);
+   receiver013_PI_PI_1_SR13 ((asn1SccT_Int32 *)IN_p1, (asn1SccT_Boolean *)OUT_p2);
 
 }
 

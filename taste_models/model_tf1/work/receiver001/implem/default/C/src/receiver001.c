@@ -19,203 +19,185 @@ void receiver001_startup(void)
 }
 
 void receiver001_PI_PI_1
-      (const asn1SccT_Int32 *IN_p1)
+      (const asn1SccT_Int32 *IN_p1, asn1SccT_Boolean *OUT_p2 )
 
 {
-asn1SccT_Int32 parameter = 0;
-bool passed = false;
-bool failed = false;
 
-    parameter = *IN_p1;
-    if ( parameter == 100 )
+    if ( *IN_p1 == 100 )
     {
-        passed = true;
+
+        *OUT_p2 = true;
     }
     else
     {
-        failed = true;
+        *OUT_p2 = false;
     }
 
 }
 
 
-void receiver001_PI_PI_10
-      (const asn1SccT_Int32 *IN_p1)
-
-{
-    asn1SccT_Int32 parameter = 0;
-    bool passed = false;
-    bool failed = false;
-
-    parameter = *IN_p1;
-    if ( parameter == 1000 )
-    {
-        passed = true;
-    }
-    else
-    {
-        failed = true;
-    }
-}
 
 
 void receiver001_PI_PI_2
-      (const asn1SccT_Int32 *IN_p1)
+      ( const asn1SccT_Int32 *IN_p1, asn1SccT_Boolean *OUT_p2 )
 
 {
-    asn1SccT_Int32 parameter =0;
-    bool passed = false;
-    bool failed = false;
 
-    parameter = *IN_p1;
-    if ( parameter == 200 )
+    if ( *IN_p1 == 200 )
     {
-        passed = true;
+
+        *OUT_p2 = true;
     }
     else
     {
-        failed = true;
+        *OUT_p2 = false;
     }
+
 }
+
 
 
 void receiver001_PI_PI_3
-      (const asn1SccT_Int32 *IN_p1)
+    ( const asn1SccT_Int32 *IN_p1, asn1SccT_Boolean *OUT_p2 )
 
 {
-    asn1SccT_Int32 parameter =0;
-    bool passed = false;
-    bool failed = false;
 
-    parameter = *IN_p1;
-    if ( parameter == 300 )
+    if ( *IN_p1 == 300 )
     {
-        passed = true;
+
+        *OUT_p2 = true;
     }
     else
     {
-        failed = true;
+        *OUT_p2 = false;
     }
+
 }
+
 
 
 void receiver001_PI_PI_4
-      (const asn1SccT_Int32 *IN_p1)
-
+    ( const asn1SccT_Int32 *IN_p1, asn1SccT_Boolean *OUT_p2 )
 {
-    asn1SccT_Int32 parameter =0;
-    bool passed = false;
-    bool failed = false;
 
-    parameter = *IN_p1;
-    if ( parameter == 400 )
+    if ( *IN_p1 == 400 )
     {
-        passed = true;
+
+        *OUT_p2 = true;
     }
     else
     {
-        failed = true;
+        *OUT_p2 = false;
     }
+
 }
+
 
 
 void receiver001_PI_PI_5
-      (const asn1SccT_Int32 *IN_p1)
-
+    ( const asn1SccT_Int32 *IN_p1, asn1SccT_Boolean *OUT_p2 )
 {
-    asn1SccT_Int32 parameter =0;
-    bool passed = false;
-    bool failed = false;
 
-    parameter = *IN_p1;
-    if ( parameter == 500 )
+    if ( *IN_p1 == 500 )
     {
-        passed = true;
+
+        *OUT_p2 = true;
     }
     else
     {
-        failed = true;
+        *OUT_p2 = false;
     }
+
 }
+
 
 
 void receiver001_PI_PI_6
-      (const asn1SccT_Int32 *IN_p1)
-
+    ( const asn1SccT_Int32 *IN_p1, asn1SccT_Boolean *OUT_p2 )
 {
-    asn1SccT_Int32 parameter =0;
-    bool passed = false;
-    bool failed = false;
 
-    parameter = *IN_p1;
-    if ( parameter == 600 )
+    if ( *IN_p1 == 600 )
     {
-        passed = true;
+
+        *OUT_p2 = true;
     }
     else
     {
-        failed = true;
+        *OUT_p2 = false;
     }
+
 }
+
 
 
 void receiver001_PI_PI_7
-      (const asn1SccT_Int32 *IN_p1)
-
+    ( const asn1SccT_Int32 *IN_p1, asn1SccT_Boolean *OUT_p2 )
 {
-    asn1SccT_Int32 parameter =0;
-    bool passed = false;
-    bool failed = false;
 
-    parameter = *IN_p1;
-    if ( parameter == 700 )
+    if ( *IN_p1 == 700 )
     {
-        passed = true;
+
+        *OUT_p2 = true;
     }
     else
     {
-        failed = true;
+        *OUT_p2 = false;
     }
+
 }
+
 
 
 void receiver001_PI_PI_8
-      (const asn1SccT_Int32 *IN_p1)
-
+    ( const asn1SccT_Int32 *IN_p1, asn1SccT_Boolean *OUT_p2 )
 {
-    asn1SccT_Int32 parameter = 0;
-    bool passed = false;
-    bool failed = false;
 
-    parameter = *IN_p1;
-    if ( parameter == 800 )
+    if ( *IN_p1 == 800 )
     {
-        passed = true;
+
+        *OUT_p2 = true;
     }
     else
     {
-        failed = true;
+        *OUT_p2 = false;
     }
+
 }
 
 
+
 void receiver001_PI_PI_9
-      (const asn1SccT_Int32 *IN_p1)
+    ( const asn1SccT_Int32 *IN_p1, asn1SccT_Boolean *OUT_p2 )
 
 {
-    asn1SccT_Int32 parameter =0;
-    bool passed = false;
-    bool failed = false;
 
-    parameter = *IN_p1;
-    if ( parameter == 900 )
+    if ( *IN_p1 == 900 )
     {
-        passed = true;
+
+        *OUT_p2 = true;
     }
     else
     {
-        failed = true;
+        *OUT_p2 = false;
     }
+
+}
+
+receiver001_PI_PI_10
+    ( const asn1SccT_Int32 *IN_p1, asn1SccT_Boolean *OUT_p2 )
+
+{
+
+    if ( *IN_p1 == 1000 )
+    {
+
+        *OUT_p2 = true;
+    }
+    else
+    {
+        *OUT_p2 = false;
+    }
+
 }
 
 

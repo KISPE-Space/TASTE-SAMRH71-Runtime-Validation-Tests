@@ -28,7 +28,7 @@ process Testsdl14;
             (true):
         enddecision;
         /* CIF NEXTSTATE (418, 502), (70, 35) */
-        NEXTSTATE Wait;
+        NEXTSTATE End;
     /* CIF state (576, 75), (70, 35) */
     /* CIF Keep Specific Geode Partition 'default' */
     state Wait;

@@ -10,7 +10,7 @@
 #include "testprotected.h"
 #include <limits.h>
 #include "../../../../test_defines.h"           // Custom include, NOT managed by TASTE
-//#include <stdio.h>
+#include <stdio.h>
 
 
 
@@ -21,11 +21,39 @@ void testprotected_startup(void)
    // puts ("[TestProtected] Startup");
 }
 
-// --
-// -- THis funcion implements MBEP-RT-FUN-146, 150 and 160
-// -- for protected interfaces with zero parameters,
-// -- five parameters in and five parameters out
-// --
+
+/************************************************************
+ * <Test ID>
+ * <TestProtected>
+ * <Purpose>
+ * This test calls the three functions that execute tests for protected
+ * interfaces with zero parameters, five input parameters and
+ * five output parameters.
+ * <Requirements>
+ *  - MBEP-RT-FUN-40
+ *  - MBEP-RT-FUN-70
+ *  - MBEP-RT-FUN-140
+ *  - MBEP-RT-FUN-150
+ *  - MBEP-RT-FUN-160
+ * <inputs specification>
+ * <outputs specification>
+ * <Procedure: Proceed steps>
+ * - Set up Parameters
+ * Call a function using an protected interface, where that function
+ * takes zero parameters
+ * Call a function using an protected inetrface. where that function
+ * takes five input parameters
+ * Call a function using an protected inetrface. where that function
+ * takes five output parameters
+ *<Test failure>
+ * - Test will fail if any functions call fails to complete, returning
+ *   execution to the testfunction
+ * - Test will fail if any function, which takes five input parameters
+ *   does not receive the expected values for those parameters
+ * - Test will fail if the function, which takes five output parameters,
+ *   does not set the expected values for those parameters
+ *************************************************************/
+
 
 void testprotected_PI_PI_1_Prot_Start
       (asn1SccT_Int32 *OUT_p1,
@@ -58,51 +86,106 @@ asn1SccT_Boolean test_result;
     if ( testParam_INT32 == INT_MIN )
     {
         *OUT_p2 = true;
+        if ( PRINT_RESULTS )
+        {
+            printf("<TEST_ID> TestProtected\n");
+            printf("<TEST_RESULT> PASS \n");
+        }
     }
     else
     {
         *OUT_p2 = false;
-        return;
+        if ( PRINT_RESULTS )
+        {
+            printf("<TEST_ID> TestProtected \n");
+            printf("<TEST_RESULT> FAIL \n");
+            printf("<TEST_FAIL_REASON> testprotected_RI_PI_1_5OUT testParam_INT32 == INT_MIN \n");
+        }
     }
 
     //testParam_UINT32 = *testParam_UINT32;
     if ( testParam_UINT32 == 0 )
     {
         *OUT_p2 = true;
+        if ( PRINT_RESULTS )
+        {
+            printf("<TEST_ID> TestProtected\n");
+            printf("<TEST_RESULT> PASS \n");
+        }
     }
     else
     {
         *OUT_p2 = false;
+        if ( PRINT_RESULTS )
+        {
+            printf("<TEST_ID> TestProtected \n");
+            printf("<TEST_RESULT> FAIL \n");
+            printf("<TEST_FAIL_REASON> testprotected_RI_PI_1_5OUT testParam_UINT32 == 0 \n");
+        }
     }
 
 
     if ( testParam_UINT8 == 0 )
     {
         *OUT_p2 = true;
+        if ( PRINT_RESULTS )
+        {
+            printf("<TEST_ID> TestProtected\n");
+            printf("<TEST_RESULT> PASS \n");
+        }
     }
     else
     {
         *OUT_p2 = false;
+        if ( PRINT_RESULTS )
+        {
+            printf("<TEST_ID> TestProtected \n");
+            printf("<TEST_RESULT> FAIL \n");
+            printf("<TEST_FAIL_REASON> testprotected_RI_PI_1_5OUT testParam_UINT8 == 0 \n");
+        }
     }
 
 
     if ( testParam_INT8 == SCHAR_MIN)
     {
         *OUT_p2 = true;
+        if ( PRINT_RESULTS )
+        {
+            printf("<TEST_ID> TestProtected\n");
+            printf("<TEST_RESULT> PASS \n");
+        }
     }
     else
     {
         *OUT_p2 = false;
+        if ( PRINT_RESULTS )
+        {
+            printf("<TEST_ID> TestProtected \n");
+            printf("<TEST_RESULT> FAIL \n");
+            printf("<TEST_FAIL_REASON> testprotected_RI_PI_1_5OUT testParam_INT8 == SCHAR_MIN \n");
+        }
     }
 
 
     if ( testParam_BOOL == false )
     {
         *OUT_p2 = true;
+        if ( PRINT_RESULTS )
+        {
+            printf("<TEST_ID> TestProtected\n");
+            printf("<TEST_RESULT> PASS \n");
+        }
     }
     else
     {
         *OUT_p2 = false;
+        if ( PRINT_RESULTS )
+        {
+            printf("<TEST_ID> TestProtected \n");
+            printf("<TEST_RESULT> FAIL \n");
+            printf("<TEST_FAIL_REASON> testprotected_RI_PI_1_5OUT testParam_BOOL == false \n");
+        }
+
     }
 
     // --
@@ -119,17 +202,27 @@ asn1SccT_Boolean test_result;
 
     // -- Test the IN Parameters
 
-
+    test_result = false;
 
     *OUT_p1 = TestProt_FiveIN_Parameters;
     if ( test_result == true )
     {
         *OUT_p2 = true;
+        if ( PRINT_RESULTS )
+        {
+            printf("<TEST_ID> TestProtected\n");
+            printf("<TEST_RESULT> PASS \n");
+        }
     }
     else
     {
         *OUT_p2 = false;
-        return;
+        if ( PRINT_RESULTS )
+        {
+            printf("<TEST_ID> TestProtected \n");
+            printf("<TEST_RESULT> FAIL \n");
+            printf("<TEST_FAIL_REASON> TestProt_FiveIN_Parameters test_result == true \n");
+        }
     }
 
 
@@ -139,6 +232,11 @@ asn1SccT_Boolean test_result;
 
     *OUT_p1 = TestProt_Zero_Parameters;
     *OUT_p2 = true;
+    if ( PRINT_RESULTS )
+    {
+        printf("<TEST_ID> TestProtected\n");
+        printf("<TEST_RESULT> PASS \n");
+    }
 
 }
 

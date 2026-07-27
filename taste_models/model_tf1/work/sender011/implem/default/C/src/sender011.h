@@ -15,37 +15,37 @@ extern "C" {
 void sender011_startup(void);
 
 /* Provided interfaces */
-void sender011_PI_PI_1( const asn1SccT_Int32 * );
+void sender011_PI_PI_1_Start_Send_Tests( asn1SccT_Int32 *, asn1SccT_Boolean * );
 
 /* Required interfaces */
-extern void sender011_RI_PI_1_SR11( asn1SccT_Int32 * );
+extern void sender011_RI_PI_1_SR11( const asn1SccT_Int32 *, asn1SccT_Boolean * );
 
 
-extern void sender011_RI_PI_1_SR12( asn1SccT_Int32 * );
+extern void sender011_RI_PI_1_SR12( const asn1SccT_Int32 *, asn1SccT_Boolean * );
 
 
-extern void sender011_RI_PI_1_SR13( asn1SccT_Int32 * );
+extern void sender011_RI_PI_1_SR13( const asn1SccT_Int32 *, asn1SccT_Boolean * );
 
 
-extern void sender011_RI_PI_1_SR14( asn1SccT_Int32 * );
+extern void sender011_RI_PI_1_SR14( const asn1SccT_Int32 *, asn1SccT_Boolean * );
 
 
-extern void sender011_RI_PI_1_SR15( asn1SccT_Int32 * );
+extern void sender011_RI_PI_1_SR15( const asn1SccT_Int32 *, asn1SccT_Boolean * );
 
 
-extern void sender011_RI_PI_1_SR16( asn1SccT_Int32 * );
+extern void sender011_RI_PI_1_SR16( const asn1SccT_Int32 *, asn1SccT_Boolean * );
 
 
-extern void sender011_RI_PI_1_SR17( asn1SccT_Int32 * );
+extern void sender011_RI_PI_1_SR17( const asn1SccT_Int32 *, asn1SccT_Boolean * );
 
 
-extern void sender011_RI_PI_1_SR18( asn1SccT_Int32 * );
+extern void sender011_RI_PI_1_SR18( const asn1SccT_Int32 *, asn1SccT_Boolean * );
 
 
-extern void sender011_RI_PI_1_SR19( asn1SccT_Int32 * );
+extern void sender011_RI_PI_1_SR19( const asn1SccT_Int32 *, asn1SccT_Boolean * );
 
 
-extern void sender011_RI_PI_1_SR20( asn1SccT_Int32 * );
+extern void sender011_RI_PI_1_SR20( const asn1SccT_Int32 *, asn1SccT_Boolean * );
 
 
 #ifdef __cplusplus

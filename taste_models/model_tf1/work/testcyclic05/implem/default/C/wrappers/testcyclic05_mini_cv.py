@@ -18,10 +18,10 @@ ast.g_apLevelContainers["PI_1"] = sp
 # Taste::Communication_Layer = default
 # Taste::Interface_Cyclic_Offset = 0
 # Taste::Interface_Priority = 1
-# Taste::Interface_Stack_Size = 50
+# Taste::Interface_Stack_Size = 1024
 # Taste::InterfaceName = PI_1
 # Taste::RCMoperationKind = cyclic
-# Taste::RCMperiod = 100 ms
+# Taste::RCMperiod = 5000 ms
 sp._fpgaConfigurations = ""   # initialization
 # Taste::Instances_Max = 1
 # Taste::Instances_Min = 1
@@ -31,11 +31,11 @@ ast.g_subProgramImplementations.append(["PI_1", "C", "C", "testcyclic05", sp._fp
 sp._language = "C"
 
 
-# Interface "PI_2"
-sp = ast.ApLevelContainer("PI_2")
-ast.g_apLevelContainers["PI_2"] = sp
+# Interface "PI_2_Cyclic"
+sp = ast.ApLevelContainer("PI_2_Cyclic")
+ast.g_apLevelContainers["PI_2_Cyclic"] = sp
 subProgramParameters = []
-param = ast.AadlParameter("IN", "DataView::T_Int32")
+param = ast.AadlParameter("OUT", "DataView::T_Int32")
 param._encoding = "NATIVE"
 subProgramFeature = ast.AadlSubProgramFeature("p1", param)
 subProgramParameters.append(subProgramFeature)
@@ -44,21 +44,35 @@ for spFeature in subProgramParameters:
     param_type = "T_Int32"
     signal = ast.g_signals[param_type]
     if spFeature._parameter._direction == "IN":
-        param = ast.InParam("PI_2", "p1", signal, spFeature._parameter)
+        param = ast.InParam("PI_2_Cyclic", "p1", signal, spFeature._parameter)
     elif spFeature._parameter._direction == "OUT":
-        param = ast.OutParam("PI_2", "p1", signal, spFeature._parameter)
+        param = ast.OutParam("PI_2_Cyclic", "p1", signal, spFeature._parameter)
+    sp.AddParam(param)
+subProgramParameters = []
+param = ast.AadlParameter("OUT", "DataView::T_Boolean")
+param._encoding = "NATIVE"
+subProgramFeature = ast.AadlSubProgramFeature("p2", param)
+subProgramParameters.append(subProgramFeature)
+for spFeature in subProgramParameters:
+    if spFeature is None: continue
+    param_type = "T_Boolean"
+    signal = ast.g_signals[param_type]
+    if spFeature._parameter._direction == "IN":
+        param = ast.InParam("PI_2_Cyclic", "p2", signal, spFeature._parameter)
+    elif spFeature._parameter._direction == "OUT":
+        param = ast.OutParam("PI_2_Cyclic", "p2", signal, spFeature._parameter)
     sp.AddParam(param)
 
 # Compute_Execution_Time = 0ms..0ms
 # Taste::Communication_Layer = default
-# Taste::InterfaceName = PI_2
+# Taste::InterfaceName = PI_2_Cyclic
 # Taste::RCMoperationKind = unprotected
 sp._fpgaConfigurations = ""   # initialization
 # Taste::Instances_Max = 1
 # Taste::Instances_Min = 1
 # Taste::Startup_Priority = 1
 # TASTE_IV_Properties::Default_Codegen = C
-ast.g_subProgramImplementations.append(["PI_2", "C", "C", "testcyclic05", sp._fpgaConfigurations])
+ast.g_subProgramImplementations.append(["PI_2_Cyclic", "C", "C", "testcyclic05", sp._fpgaConfigurations])
 sp._language = "C"
 
 

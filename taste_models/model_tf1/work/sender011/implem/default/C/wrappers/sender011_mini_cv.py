@@ -10,11 +10,11 @@ from dmt.commonPy import aadlAST as ast
 
 ast.g_apLevelContainers = dict()
 
-# Interface "PI_1"
-sp = ast.ApLevelContainer("PI_1")
-ast.g_apLevelContainers["PI_1"] = sp
+# Interface "PI_1_Start_Send_Tests"
+sp = ast.ApLevelContainer("PI_1_Start_Send_Tests")
+ast.g_apLevelContainers["PI_1_Start_Send_Tests"] = sp
 subProgramParameters = []
-param = ast.AadlParameter("IN", "DataView::T_Int32")
+param = ast.AadlParameter("OUT", "DataView::T_Int32")
 param._encoding = "NATIVE"
 subProgramFeature = ast.AadlSubProgramFeature("p1", param)
 subProgramParameters.append(subProgramFeature)
@@ -23,28 +23,42 @@ for spFeature in subProgramParameters:
     param_type = "T_Int32"
     signal = ast.g_signals[param_type]
     if spFeature._parameter._direction == "IN":
-        param = ast.InParam("PI_1", "p1", signal, spFeature._parameter)
+        param = ast.InParam("PI_1_Start_Send_Tests", "p1", signal, spFeature._parameter)
     elif spFeature._parameter._direction == "OUT":
-        param = ast.OutParam("PI_1", "p1", signal, spFeature._parameter)
+        param = ast.OutParam("PI_1_Start_Send_Tests", "p1", signal, spFeature._parameter)
+    sp.AddParam(param)
+subProgramParameters = []
+param = ast.AadlParameter("OUT", "DataView::T_Boolean")
+param._encoding = "NATIVE"
+subProgramFeature = ast.AadlSubProgramFeature("p2", param)
+subProgramParameters.append(subProgramFeature)
+for spFeature in subProgramParameters:
+    if spFeature is None: continue
+    param_type = "T_Boolean"
+    signal = ast.g_signals[param_type]
+    if spFeature._parameter._direction == "IN":
+        param = ast.InParam("PI_1_Start_Send_Tests", "p2", signal, spFeature._parameter)
+    elif spFeature._parameter._direction == "OUT":
+        param = ast.OutParam("PI_1_Start_Send_Tests", "p2", signal, spFeature._parameter)
     sp.AddParam(param)
 
 # Compute_Execution_Time = 0ms..0ms
 # Taste::Communication_Layer = default
-# Taste::InterfaceName = PI_1
+# Taste::InterfaceName = PI_1_Start_Send_Tests
 # Taste::RCMoperationKind = protected
 sp._fpgaConfigurations = ""   # initialization
 # Taste::Instances_Max = 1
 # Taste::Instances_Min = 1
 # Taste::Startup_Priority = 1
 # TASTE_IV_Properties::Default_Codegen = C
-ast.g_subProgramImplementations.append(["PI_1", "C", "C", "sender011", sp._fpgaConfigurations])
+ast.g_subProgramImplementations.append(["PI_1_Start_Send_Tests", "C", "C", "sender011", sp._fpgaConfigurations])
 sp._language = "C"
 
 # Interface "PI_1_SR11"
 sp = ast.ApLevelContainer("PI_1_SR11")
 ast.g_apLevelContainers["PI_1_SR11"] = sp
 subProgramParameters = []
-param = ast.AadlParameter("IN", "DataView::T_Int32")
+param = ast.AadlParameter("OUT", "DataView::T_Int32")
 param._encoding = "NATIVE"
 subProgramFeature = ast.AadlSubProgramFeature("p1", param)
 subProgramParameters.append(subProgramFeature)
@@ -56,6 +70,20 @@ for spFeature in subProgramParameters:
         param = ast.InParam("PI_1_SR11", "p1", signal, spFeature._parameter)
     elif spFeature._parameter._direction == "OUT":
         param = ast.OutParam("PI_1_SR11", "p1", signal, spFeature._parameter)
+    sp.AddParam(param)
+subProgramParameters = []
+param = ast.AadlParameter("IN", "DataView::T_Boolean")
+param._encoding = "NATIVE"
+subProgramFeature = ast.AadlSubProgramFeature("p2", param)
+subProgramParameters.append(subProgramFeature)
+for spFeature in subProgramParameters:
+    if spFeature is None: continue
+    param_type = "T_Boolean"
+    signal = ast.g_signals[param_type]
+    if spFeature._parameter._direction == "IN":
+        param = ast.InParam("PI_1_SR11", "p2", signal, spFeature._parameter)
+    elif spFeature._parameter._direction == "OUT":
+        param = ast.OutParam("PI_1_SR11", "p2", signal, spFeature._parameter)
     sp.AddParam(param)
 
 # Compute_Execution_Time = 0ms..0ms
@@ -76,7 +104,7 @@ sp._language = "C"
 sp = ast.ApLevelContainer("PI_1_SR12")
 ast.g_apLevelContainers["PI_1_SR12"] = sp
 subProgramParameters = []
-param = ast.AadlParameter("IN", "DataView::T_Int32")
+param = ast.AadlParameter("OUT", "DataView::T_Int32")
 param._encoding = "NATIVE"
 subProgramFeature = ast.AadlSubProgramFeature("p1", param)
 subProgramParameters.append(subProgramFeature)
@@ -88,6 +116,20 @@ for spFeature in subProgramParameters:
         param = ast.InParam("PI_1_SR12", "p1", signal, spFeature._parameter)
     elif spFeature._parameter._direction == "OUT":
         param = ast.OutParam("PI_1_SR12", "p1", signal, spFeature._parameter)
+    sp.AddParam(param)
+subProgramParameters = []
+param = ast.AadlParameter("IN", "DataView::T_Boolean")
+param._encoding = "NATIVE"
+subProgramFeature = ast.AadlSubProgramFeature("p2", param)
+subProgramParameters.append(subProgramFeature)
+for spFeature in subProgramParameters:
+    if spFeature is None: continue
+    param_type = "T_Boolean"
+    signal = ast.g_signals[param_type]
+    if spFeature._parameter._direction == "IN":
+        param = ast.InParam("PI_1_SR12", "p2", signal, spFeature._parameter)
+    elif spFeature._parameter._direction == "OUT":
+        param = ast.OutParam("PI_1_SR12", "p2", signal, spFeature._parameter)
     sp.AddParam(param)
 
 # Compute_Execution_Time = 0ms..0ms
@@ -108,7 +150,7 @@ sp._language = "C"
 sp = ast.ApLevelContainer("PI_1_SR13")
 ast.g_apLevelContainers["PI_1_SR13"] = sp
 subProgramParameters = []
-param = ast.AadlParameter("IN", "DataView::T_Int32")
+param = ast.AadlParameter("OUT", "DataView::T_Int32")
 param._encoding = "NATIVE"
 subProgramFeature = ast.AadlSubProgramFeature("p1", param)
 subProgramParameters.append(subProgramFeature)
@@ -120,6 +162,20 @@ for spFeature in subProgramParameters:
         param = ast.InParam("PI_1_SR13", "p1", signal, spFeature._parameter)
     elif spFeature._parameter._direction == "OUT":
         param = ast.OutParam("PI_1_SR13", "p1", signal, spFeature._parameter)
+    sp.AddParam(param)
+subProgramParameters = []
+param = ast.AadlParameter("IN", "DataView::T_Boolean")
+param._encoding = "NATIVE"
+subProgramFeature = ast.AadlSubProgramFeature("p2", param)
+subProgramParameters.append(subProgramFeature)
+for spFeature in subProgramParameters:
+    if spFeature is None: continue
+    param_type = "T_Boolean"
+    signal = ast.g_signals[param_type]
+    if spFeature._parameter._direction == "IN":
+        param = ast.InParam("PI_1_SR13", "p2", signal, spFeature._parameter)
+    elif spFeature._parameter._direction == "OUT":
+        param = ast.OutParam("PI_1_SR13", "p2", signal, spFeature._parameter)
     sp.AddParam(param)
 
 # Compute_Execution_Time = 0ms..0ms
@@ -140,7 +196,7 @@ sp._language = "C"
 sp = ast.ApLevelContainer("PI_1_SR14")
 ast.g_apLevelContainers["PI_1_SR14"] = sp
 subProgramParameters = []
-param = ast.AadlParameter("IN", "DataView::T_Int32")
+param = ast.AadlParameter("OUT", "DataView::T_Int32")
 param._encoding = "NATIVE"
 subProgramFeature = ast.AadlSubProgramFeature("p1", param)
 subProgramParameters.append(subProgramFeature)
@@ -152,6 +208,20 @@ for spFeature in subProgramParameters:
         param = ast.InParam("PI_1_SR14", "p1", signal, spFeature._parameter)
     elif spFeature._parameter._direction == "OUT":
         param = ast.OutParam("PI_1_SR14", "p1", signal, spFeature._parameter)
+    sp.AddParam(param)
+subProgramParameters = []
+param = ast.AadlParameter("IN", "DataView::T_Boolean")
+param._encoding = "NATIVE"
+subProgramFeature = ast.AadlSubProgramFeature("p2", param)
+subProgramParameters.append(subProgramFeature)
+for spFeature in subProgramParameters:
+    if spFeature is None: continue
+    param_type = "T_Boolean"
+    signal = ast.g_signals[param_type]
+    if spFeature._parameter._direction == "IN":
+        param = ast.InParam("PI_1_SR14", "p2", signal, spFeature._parameter)
+    elif spFeature._parameter._direction == "OUT":
+        param = ast.OutParam("PI_1_SR14", "p2", signal, spFeature._parameter)
     sp.AddParam(param)
 
 # Compute_Execution_Time = 0ms..0ms
@@ -172,7 +242,7 @@ sp._language = "C"
 sp = ast.ApLevelContainer("PI_1_SR15")
 ast.g_apLevelContainers["PI_1_SR15"] = sp
 subProgramParameters = []
-param = ast.AadlParameter("IN", "DataView::T_Int32")
+param = ast.AadlParameter("OUT", "DataView::T_Int32")
 param._encoding = "NATIVE"
 subProgramFeature = ast.AadlSubProgramFeature("p1", param)
 subProgramParameters.append(subProgramFeature)
@@ -184,6 +254,20 @@ for spFeature in subProgramParameters:
         param = ast.InParam("PI_1_SR15", "p1", signal, spFeature._parameter)
     elif spFeature._parameter._direction == "OUT":
         param = ast.OutParam("PI_1_SR15", "p1", signal, spFeature._parameter)
+    sp.AddParam(param)
+subProgramParameters = []
+param = ast.AadlParameter("IN", "DataView::T_Boolean")
+param._encoding = "NATIVE"
+subProgramFeature = ast.AadlSubProgramFeature("p2", param)
+subProgramParameters.append(subProgramFeature)
+for spFeature in subProgramParameters:
+    if spFeature is None: continue
+    param_type = "T_Boolean"
+    signal = ast.g_signals[param_type]
+    if spFeature._parameter._direction == "IN":
+        param = ast.InParam("PI_1_SR15", "p2", signal, spFeature._parameter)
+    elif spFeature._parameter._direction == "OUT":
+        param = ast.OutParam("PI_1_SR15", "p2", signal, spFeature._parameter)
     sp.AddParam(param)
 
 # Compute_Execution_Time = 0ms..0ms
@@ -204,7 +288,7 @@ sp._language = "C"
 sp = ast.ApLevelContainer("PI_1_SR16")
 ast.g_apLevelContainers["PI_1_SR16"] = sp
 subProgramParameters = []
-param = ast.AadlParameter("IN", "DataView::T_Int32")
+param = ast.AadlParameter("OUT", "DataView::T_Int32")
 param._encoding = "NATIVE"
 subProgramFeature = ast.AadlSubProgramFeature("p1", param)
 subProgramParameters.append(subProgramFeature)
@@ -216,6 +300,20 @@ for spFeature in subProgramParameters:
         param = ast.InParam("PI_1_SR16", "p1", signal, spFeature._parameter)
     elif spFeature._parameter._direction == "OUT":
         param = ast.OutParam("PI_1_SR16", "p1", signal, spFeature._parameter)
+    sp.AddParam(param)
+subProgramParameters = []
+param = ast.AadlParameter("IN", "DataView::T_Boolean")
+param._encoding = "NATIVE"
+subProgramFeature = ast.AadlSubProgramFeature("p2", param)
+subProgramParameters.append(subProgramFeature)
+for spFeature in subProgramParameters:
+    if spFeature is None: continue
+    param_type = "T_Boolean"
+    signal = ast.g_signals[param_type]
+    if spFeature._parameter._direction == "IN":
+        param = ast.InParam("PI_1_SR16", "p2", signal, spFeature._parameter)
+    elif spFeature._parameter._direction == "OUT":
+        param = ast.OutParam("PI_1_SR16", "p2", signal, spFeature._parameter)
     sp.AddParam(param)
 
 # Compute_Execution_Time = 0ms..0ms
@@ -236,7 +334,7 @@ sp._language = "C"
 sp = ast.ApLevelContainer("PI_1_SR17")
 ast.g_apLevelContainers["PI_1_SR17"] = sp
 subProgramParameters = []
-param = ast.AadlParameter("IN", "DataView::T_Int32")
+param = ast.AadlParameter("OUT", "DataView::T_Int32")
 param._encoding = "NATIVE"
 subProgramFeature = ast.AadlSubProgramFeature("p1", param)
 subProgramParameters.append(subProgramFeature)
@@ -248,6 +346,20 @@ for spFeature in subProgramParameters:
         param = ast.InParam("PI_1_SR17", "p1", signal, spFeature._parameter)
     elif spFeature._parameter._direction == "OUT":
         param = ast.OutParam("PI_1_SR17", "p1", signal, spFeature._parameter)
+    sp.AddParam(param)
+subProgramParameters = []
+param = ast.AadlParameter("IN", "DataView::T_Boolean")
+param._encoding = "NATIVE"
+subProgramFeature = ast.AadlSubProgramFeature("p2", param)
+subProgramParameters.append(subProgramFeature)
+for spFeature in subProgramParameters:
+    if spFeature is None: continue
+    param_type = "T_Boolean"
+    signal = ast.g_signals[param_type]
+    if spFeature._parameter._direction == "IN":
+        param = ast.InParam("PI_1_SR17", "p2", signal, spFeature._parameter)
+    elif spFeature._parameter._direction == "OUT":
+        param = ast.OutParam("PI_1_SR17", "p2", signal, spFeature._parameter)
     sp.AddParam(param)
 
 # Compute_Execution_Time = 0ms..0ms
@@ -268,7 +380,7 @@ sp._language = "C"
 sp = ast.ApLevelContainer("PI_1_SR18")
 ast.g_apLevelContainers["PI_1_SR18"] = sp
 subProgramParameters = []
-param = ast.AadlParameter("IN", "DataView::T_Int32")
+param = ast.AadlParameter("OUT", "DataView::T_Int32")
 param._encoding = "NATIVE"
 subProgramFeature = ast.AadlSubProgramFeature("p1", param)
 subProgramParameters.append(subProgramFeature)
@@ -280,6 +392,20 @@ for spFeature in subProgramParameters:
         param = ast.InParam("PI_1_SR18", "p1", signal, spFeature._parameter)
     elif spFeature._parameter._direction == "OUT":
         param = ast.OutParam("PI_1_SR18", "p1", signal, spFeature._parameter)
+    sp.AddParam(param)
+subProgramParameters = []
+param = ast.AadlParameter("IN", "DataView::T_Boolean")
+param._encoding = "NATIVE"
+subProgramFeature = ast.AadlSubProgramFeature("p2", param)
+subProgramParameters.append(subProgramFeature)
+for spFeature in subProgramParameters:
+    if spFeature is None: continue
+    param_type = "T_Boolean"
+    signal = ast.g_signals[param_type]
+    if spFeature._parameter._direction == "IN":
+        param = ast.InParam("PI_1_SR18", "p2", signal, spFeature._parameter)
+    elif spFeature._parameter._direction == "OUT":
+        param = ast.OutParam("PI_1_SR18", "p2", signal, spFeature._parameter)
     sp.AddParam(param)
 
 # Compute_Execution_Time = 0ms..0ms
@@ -300,7 +426,7 @@ sp._language = "C"
 sp = ast.ApLevelContainer("PI_1_SR19")
 ast.g_apLevelContainers["PI_1_SR19"] = sp
 subProgramParameters = []
-param = ast.AadlParameter("IN", "DataView::T_Int32")
+param = ast.AadlParameter("OUT", "DataView::T_Int32")
 param._encoding = "NATIVE"
 subProgramFeature = ast.AadlSubProgramFeature("p1", param)
 subProgramParameters.append(subProgramFeature)
@@ -312,6 +438,20 @@ for spFeature in subProgramParameters:
         param = ast.InParam("PI_1_SR19", "p1", signal, spFeature._parameter)
     elif spFeature._parameter._direction == "OUT":
         param = ast.OutParam("PI_1_SR19", "p1", signal, spFeature._parameter)
+    sp.AddParam(param)
+subProgramParameters = []
+param = ast.AadlParameter("IN", "DataView::T_Boolean")
+param._encoding = "NATIVE"
+subProgramFeature = ast.AadlSubProgramFeature("p2", param)
+subProgramParameters.append(subProgramFeature)
+for spFeature in subProgramParameters:
+    if spFeature is None: continue
+    param_type = "T_Boolean"
+    signal = ast.g_signals[param_type]
+    if spFeature._parameter._direction == "IN":
+        param = ast.InParam("PI_1_SR19", "p2", signal, spFeature._parameter)
+    elif spFeature._parameter._direction == "OUT":
+        param = ast.OutParam("PI_1_SR19", "p2", signal, spFeature._parameter)
     sp.AddParam(param)
 
 # Compute_Execution_Time = 0ms..0ms
@@ -332,7 +472,7 @@ sp._language = "C"
 sp = ast.ApLevelContainer("PI_1_SR20")
 ast.g_apLevelContainers["PI_1_SR20"] = sp
 subProgramParameters = []
-param = ast.AadlParameter("IN", "DataView::T_Int32")
+param = ast.AadlParameter("OUT", "DataView::T_Int32")
 param._encoding = "NATIVE"
 subProgramFeature = ast.AadlSubProgramFeature("p1", param)
 subProgramParameters.append(subProgramFeature)
@@ -344,6 +484,20 @@ for spFeature in subProgramParameters:
         param = ast.InParam("PI_1_SR20", "p1", signal, spFeature._parameter)
     elif spFeature._parameter._direction == "OUT":
         param = ast.OutParam("PI_1_SR20", "p1", signal, spFeature._parameter)
+    sp.AddParam(param)
+subProgramParameters = []
+param = ast.AadlParameter("IN", "DataView::T_Boolean")
+param._encoding = "NATIVE"
+subProgramFeature = ast.AadlSubProgramFeature("p2", param)
+subProgramParameters.append(subProgramFeature)
+for spFeature in subProgramParameters:
+    if spFeature is None: continue
+    param_type = "T_Boolean"
+    signal = ast.g_signals[param_type]
+    if spFeature._parameter._direction == "IN":
+        param = ast.InParam("PI_1_SR20", "p2", signal, spFeature._parameter)
+    elif spFeature._parameter._direction == "OUT":
+        param = ast.OutParam("PI_1_SR20", "p2", signal, spFeature._parameter)
     sp.AddParam(param)
 
 # Compute_Execution_Time = 0ms..0ms

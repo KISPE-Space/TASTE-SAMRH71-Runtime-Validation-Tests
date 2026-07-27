@@ -28,15 +28,15 @@ void init_monitorcallback(void)
       monitorcallback_initialized = 2;
    }
 }
-void monitorcallback_PI_10_Callback
+void monitorcallback_PI_1_MonCallback
       (char *OUT_p1, size_t *OUT_p1_len,
        char *OUT_p2, size_t *OUT_p2_len)
 
 {
-   sender_pid = monitorcallback_pi_10_callback_get_sender();
+   sender_pid = monitorcallback_pi_1_moncallback_get_sender();
 
    //  Declare user code function as external (it may not have a .h if it is in Ada)
-   extern void monitorcallback_PI_PI_10_Callback
+   extern void monitorcallback_PI_PI_1_MonCallback
       (asn1SccT_Int32 *,
        asn1SccT_Boolean *);
 
@@ -45,7 +45,7 @@ void monitorcallback_PI_10_Callback
 
 
    // Call user code
-   monitorcallback_PI_PI_10_Callback ((asn1SccT_Int32 *)OUT_p1, (asn1SccT_Boolean *)OUT_p2);
+   monitorcallback_PI_PI_1_MonCallback ((asn1SccT_Int32 *)OUT_p1, (asn1SccT_Boolean *)OUT_p2);
 
 }
 

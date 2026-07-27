@@ -29,21 +29,23 @@ void init_receiver001(void)
    }
 }
 void receiver001_PI_1
-      (const char *IN_p1, size_t IN_p1_len)
+      (const char *IN_p1, size_t IN_p1_len,
+       char *OUT_p2, size_t *OUT_p2_len)
 
 {
    sender_pid = receiver001_pi_1_get_sender();
 
    //  Declare user code function as external (it may not have a .h if it is in Ada)
    extern void receiver001_PI_PI_1
-      (const asn1SccT_Int32 *);
+      (const asn1SccT_Int32 *,
+       asn1SccT_Boolean *);
 
 
 
 
 
    // Call user code
-   receiver001_PI_PI_1 ((asn1SccT_Int32 *)IN_p1);
+   receiver001_PI_PI_1 ((asn1SccT_Int32 *)IN_p1, (asn1SccT_Boolean *)OUT_p2);
 
 }
 
@@ -51,21 +53,23 @@ void receiver001_PI_1
 
 
 void receiver001_PI_10
-      (const char *IN_p1, size_t IN_p1_len)
+      (const char *IN_p1, size_t IN_p1_len,
+       char *OUT_p2, size_t *OUT_p2_len)
 
 {
    sender_pid = receiver001_pi_10_get_sender();
 
    //  Declare user code function as external (it may not have a .h if it is in Ada)
    extern void receiver001_PI_PI_10
-      (const asn1SccT_Int32 *);
+      (const asn1SccT_Int32 *,
+       asn1SccT_Boolean *);
 
 
 
 
 
    // Call user code
-   receiver001_PI_PI_10 ((asn1SccT_Int32 *)IN_p1);
+   receiver001_PI_PI_10 ((asn1SccT_Int32 *)IN_p1, (asn1SccT_Boolean *)OUT_p2);
 
 }
 
@@ -73,21 +77,23 @@ void receiver001_PI_10
 
 
 void receiver001_PI_2
-      (const char *IN_p1, size_t IN_p1_len)
+      (const char *IN_p1, size_t IN_p1_len,
+       char *OUT_p2, size_t *OUT_p2_len)
 
 {
    sender_pid = receiver001_pi_2_get_sender();
 
    //  Declare user code function as external (it may not have a .h if it is in Ada)
    extern void receiver001_PI_PI_2
-      (const asn1SccT_Int32 *);
+      (const asn1SccT_Int32 *,
+       asn1SccT_Boolean *);
 
 
 
 
 
    // Call user code
-   receiver001_PI_PI_2 ((asn1SccT_Int32 *)IN_p1);
+   receiver001_PI_PI_2 ((asn1SccT_Int32 *)IN_p1, (asn1SccT_Boolean *)OUT_p2);
 
 }
 
@@ -95,21 +101,23 @@ void receiver001_PI_2
 
 
 void receiver001_PI_3
-      (const char *IN_p1, size_t IN_p1_len)
+      (const char *IN_p1, size_t IN_p1_len,
+       char *OUT_p2, size_t *OUT_p2_len)
 
 {
    sender_pid = receiver001_pi_3_get_sender();
 
    //  Declare user code function as external (it may not have a .h if it is in Ada)
    extern void receiver001_PI_PI_3
-      (const asn1SccT_Int32 *);
+      (const asn1SccT_Int32 *,
+       asn1SccT_Boolean *);
 
 
 
 
 
    // Call user code
-   receiver001_PI_PI_3 ((asn1SccT_Int32 *)IN_p1);
+   receiver001_PI_PI_3 ((asn1SccT_Int32 *)IN_p1, (asn1SccT_Boolean *)OUT_p2);
 
 }
 
@@ -117,21 +125,23 @@ void receiver001_PI_3
 
 
 void receiver001_PI_4
-      (const char *IN_p1, size_t IN_p1_len)
+      (const char *IN_p1, size_t IN_p1_len,
+       char *OUT_p2, size_t *OUT_p2_len)
 
 {
    sender_pid = receiver001_pi_4_get_sender();
 
    //  Declare user code function as external (it may not have a .h if it is in Ada)
    extern void receiver001_PI_PI_4
-      (const asn1SccT_Int32 *);
+      (const asn1SccT_Int32 *,
+       asn1SccT_Boolean *);
 
 
 
 
 
    // Call user code
-   receiver001_PI_PI_4 ((asn1SccT_Int32 *)IN_p1);
+   receiver001_PI_PI_4 ((asn1SccT_Int32 *)IN_p1, (asn1SccT_Boolean *)OUT_p2);
 
 }
 
@@ -139,21 +149,23 @@ void receiver001_PI_4
 
 
 void receiver001_PI_5
-      (const char *IN_p1, size_t IN_p1_len)
+      (const char *IN_p1, size_t IN_p1_len,
+       char *OUT_p2, size_t *OUT_p2_len)
 
 {
    sender_pid = receiver001_pi_5_get_sender();
 
    //  Declare user code function as external (it may not have a .h if it is in Ada)
    extern void receiver001_PI_PI_5
-      (const asn1SccT_Int32 *);
+      (const asn1SccT_Int32 *,
+       asn1SccT_Boolean *);
 
 
 
 
 
    // Call user code
-   receiver001_PI_PI_5 ((asn1SccT_Int32 *)IN_p1);
+   receiver001_PI_PI_5 ((asn1SccT_Int32 *)IN_p1, (asn1SccT_Boolean *)OUT_p2);
 
 }
 
@@ -161,21 +173,23 @@ void receiver001_PI_5
 
 
 void receiver001_PI_6
-      (const char *IN_p1, size_t IN_p1_len)
+      (const char *IN_p1, size_t IN_p1_len,
+       char *OUT_p2, size_t *OUT_p2_len)
 
 {
    sender_pid = receiver001_pi_6_get_sender();
 
    //  Declare user code function as external (it may not have a .h if it is in Ada)
    extern void receiver001_PI_PI_6
-      (const asn1SccT_Int32 *);
+      (const asn1SccT_Int32 *,
+       asn1SccT_Boolean *);
 
 
 
 
 
    // Call user code
-   receiver001_PI_PI_6 ((asn1SccT_Int32 *)IN_p1);
+   receiver001_PI_PI_6 ((asn1SccT_Int32 *)IN_p1, (asn1SccT_Boolean *)OUT_p2);
 
 }
 
@@ -183,21 +197,23 @@ void receiver001_PI_6
 
 
 void receiver001_PI_7
-      (const char *IN_p1, size_t IN_p1_len)
+      (const char *IN_p1, size_t IN_p1_len,
+       char *OUT_p2, size_t *OUT_p2_len)
 
 {
    sender_pid = receiver001_pi_7_get_sender();
 
    //  Declare user code function as external (it may not have a .h if it is in Ada)
    extern void receiver001_PI_PI_7
-      (const asn1SccT_Int32 *);
+      (const asn1SccT_Int32 *,
+       asn1SccT_Boolean *);
 
 
 
 
 
    // Call user code
-   receiver001_PI_PI_7 ((asn1SccT_Int32 *)IN_p1);
+   receiver001_PI_PI_7 ((asn1SccT_Int32 *)IN_p1, (asn1SccT_Boolean *)OUT_p2);
 
 }
 
@@ -205,21 +221,23 @@ void receiver001_PI_7
 
 
 void receiver001_PI_8
-      (const char *IN_p1, size_t IN_p1_len)
+      (const char *IN_p1, size_t IN_p1_len,
+       char *OUT_p2, size_t *OUT_p2_len)
 
 {
    sender_pid = receiver001_pi_8_get_sender();
 
    //  Declare user code function as external (it may not have a .h if it is in Ada)
    extern void receiver001_PI_PI_8
-      (const asn1SccT_Int32 *);
+      (const asn1SccT_Int32 *,
+       asn1SccT_Boolean *);
 
 
 
 
 
    // Call user code
-   receiver001_PI_PI_8 ((asn1SccT_Int32 *)IN_p1);
+   receiver001_PI_PI_8 ((asn1SccT_Int32 *)IN_p1, (asn1SccT_Boolean *)OUT_p2);
 
 }
 
@@ -227,21 +245,23 @@ void receiver001_PI_8
 
 
 void receiver001_PI_9
-      (const char *IN_p1, size_t IN_p1_len)
+      (const char *IN_p1, size_t IN_p1_len,
+       char *OUT_p2, size_t *OUT_p2_len)
 
 {
    sender_pid = receiver001_pi_9_get_sender();
 
    //  Declare user code function as external (it may not have a .h if it is in Ada)
    extern void receiver001_PI_PI_9
-      (const asn1SccT_Int32 *);
+      (const asn1SccT_Int32 *,
+       asn1SccT_Boolean *);
 
 
 
 
 
    // Call user code
-   receiver001_PI_PI_9 ((asn1SccT_Int32 *)IN_p1);
+   receiver001_PI_PI_9 ((asn1SccT_Int32 *)IN_p1, (asn1SccT_Boolean *)OUT_p2);
 
 }
 

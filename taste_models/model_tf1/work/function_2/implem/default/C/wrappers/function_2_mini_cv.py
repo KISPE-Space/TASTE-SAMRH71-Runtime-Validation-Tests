@@ -29,10 +29,10 @@ for spFeature in subProgramParameters:
     sp.AddParam(param)
 
 # Compute_Execution_Time = 0ms..0ms
-# Taste::Associated_Queue_Size = 1
+# Taste::Associated_Queue_Size = 7
 # Taste::Communication_Layer = default
 # Taste::Interface_Priority = 1
-# Taste::Interface_Stack_Size = 50
+# Taste::Interface_Stack_Size = 5025
 # Taste::InterfaceName = PI_2
 # Taste::RCMoperationKind = sporadic
 # Taste::RCMperiod = 0 ms

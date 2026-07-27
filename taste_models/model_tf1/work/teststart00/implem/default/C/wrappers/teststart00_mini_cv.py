@@ -30,55 +30,9 @@ sp._fpgaConfigurations = ""   # initialization
 ast.g_subProgramImplementations.append(["PI_1_CYCLIC", "C", "C", "teststart00", sp._fpgaConfigurations])
 sp._language = "C"
 
-# Interface "MQueueCallBack12_PI_1"
-sp = ast.ApLevelContainer("MQueueCallBack12_PI_1")
-ast.g_apLevelContainers["MQueueCallBack12_PI_1"] = sp
-
-# Compute_Execution_Time = 0ms..0ms
-# Taste::Communication_Layer = default
-# Taste::InterfaceName = MQueueCallBack12_PI_1
-# Taste::labelInheritance = true
-# Taste::RCMoperationKind = protected
-sp._fpgaConfigurations = ""   # initialization
-# Taste::Instances_Max = 1
-# Taste::Instances_Min = 1
-# Taste::Startup_Priority = 1
-# TASTE_IV_Properties::Default_Codegen = C
-ast.g_subProgramImplementations.append(["MQueueCallBack12_PI_1", "C", "C", "teststart00", sp._fpgaConfigurations])
-sp._language = "C"
-
-
 # Interface "PI_1"
 sp = ast.ApLevelContainer("PI_1")
 ast.g_apLevelContainers["PI_1"] = sp
-subProgramParameters = []
-param = ast.AadlParameter("IN", "DataView::T_Int32")
-param._encoding = "NATIVE"
-subProgramFeature = ast.AadlSubProgramFeature("p1", param)
-subProgramParameters.append(subProgramFeature)
-for spFeature in subProgramParameters:
-    if spFeature is None: continue
-    param_type = "T_Int32"
-    signal = ast.g_signals[param_type]
-    if spFeature._parameter._direction == "IN":
-        param = ast.InParam("PI_1", "p1", signal, spFeature._parameter)
-    elif spFeature._parameter._direction == "OUT":
-        param = ast.OutParam("PI_1", "p1", signal, spFeature._parameter)
-    sp.AddParam(param)
-subProgramParameters = []
-param = ast.AadlParameter("IN", "DataView::T_Boolean")
-param._encoding = "NATIVE"
-subProgramFeature = ast.AadlSubProgramFeature("p2", param)
-subProgramParameters.append(subProgramFeature)
-for spFeature in subProgramParameters:
-    if spFeature is None: continue
-    param_type = "T_Boolean"
-    signal = ast.g_signals[param_type]
-    if spFeature._parameter._direction == "IN":
-        param = ast.InParam("PI_1", "p2", signal, spFeature._parameter)
-    elif spFeature._parameter._direction == "OUT":
-        param = ast.OutParam("PI_1", "p2", signal, spFeature._parameter)
-    sp.AddParam(param)
 
 # Compute_Execution_Time = 0ms..0ms
 # Taste::Communication_Layer = default
@@ -94,9 +48,9 @@ ast.g_subProgramImplementations.append(["PI_1", "C", "C", "teststart00", sp._fpg
 sp._language = "C"
 
 
-# Interface "PI_10_Act_Start"
-sp = ast.ApLevelContainer("PI_10_Act_Start")
-ast.g_apLevelContainers["PI_10_Act_Start"] = sp
+# Interface "PI_10_TestModules"
+sp = ast.ApLevelContainer("PI_10_TestModules")
+ast.g_apLevelContainers["PI_10_TestModules"] = sp
 subProgramParameters = []
 param = ast.AadlParameter("IN", "DataView::T_Int32")
 param._encoding = "NATIVE"
@@ -107,9 +61,9 @@ for spFeature in subProgramParameters:
     param_type = "T_Int32"
     signal = ast.g_signals[param_type]
     if spFeature._parameter._direction == "IN":
-        param = ast.InParam("PI_10_Act_Start", "p1", signal, spFeature._parameter)
+        param = ast.InParam("PI_10_TestModules", "p1", signal, spFeature._parameter)
     elif spFeature._parameter._direction == "OUT":
-        param = ast.OutParam("PI_10_Act_Start", "p1", signal, spFeature._parameter)
+        param = ast.OutParam("PI_10_TestModules", "p1", signal, spFeature._parameter)
     sp.AddParam(param)
 subProgramParameters = []
 param = ast.AadlParameter("IN", "DataView::T_Boolean")
@@ -121,14 +75,14 @@ for spFeature in subProgramParameters:
     param_type = "T_Boolean"
     signal = ast.g_signals[param_type]
     if spFeature._parameter._direction == "IN":
-        param = ast.InParam("PI_10_Act_Start", "p2", signal, spFeature._parameter)
+        param = ast.InParam("PI_10_TestModules", "p2", signal, spFeature._parameter)
     elif spFeature._parameter._direction == "OUT":
-        param = ast.OutParam("PI_10_Act_Start", "p2", signal, spFeature._parameter)
+        param = ast.OutParam("PI_10_TestModules", "p2", signal, spFeature._parameter)
     sp.AddParam(param)
 
 # Compute_Execution_Time = 0ms..0ms
 # Taste::Communication_Layer = default
-# Taste::InterfaceName = PI_10_Act_Start
+# Taste::InterfaceName = PI_10_TestModules
 # Taste::labelInheritance = true
 # Taste::RCMoperationKind = protected
 sp._fpgaConfigurations = ""   # initialization
@@ -136,13 +90,13 @@ sp._fpgaConfigurations = ""   # initialization
 # Taste::Instances_Min = 1
 # Taste::Startup_Priority = 1
 # TASTE_IV_Properties::Default_Codegen = C
-ast.g_subProgramImplementations.append(["PI_10_Act_Start", "C", "C", "teststart00", sp._fpgaConfigurations])
+ast.g_subProgramImplementations.append(["PI_10_TestModules", "C", "C", "teststart00", sp._fpgaConfigurations])
 sp._language = "C"
 
 
-# Interface "PI_10_Callback"
-sp = ast.ApLevelContainer("PI_10_Callback")
-ast.g_apLevelContainers["PI_10_Callback"] = sp
+# Interface "PI_1_Broker"
+sp = ast.ApLevelContainer("PI_1_Broker")
+ast.g_apLevelContainers["PI_1_Broker"] = sp
 subProgramParameters = []
 param = ast.AadlParameter("IN", "DataView::T_Int32")
 param._encoding = "NATIVE"
@@ -153,9 +107,9 @@ for spFeature in subProgramParameters:
     param_type = "T_Int32"
     signal = ast.g_signals[param_type]
     if spFeature._parameter._direction == "IN":
-        param = ast.InParam("PI_10_Callback", "p1", signal, spFeature._parameter)
+        param = ast.InParam("PI_1_Broker", "p1", signal, spFeature._parameter)
     elif spFeature._parameter._direction == "OUT":
-        param = ast.OutParam("PI_10_Callback", "p1", signal, spFeature._parameter)
+        param = ast.OutParam("PI_1_Broker", "p1", signal, spFeature._parameter)
     sp.AddParam(param)
 subProgramParameters = []
 param = ast.AadlParameter("IN", "DataView::T_Boolean")
@@ -167,14 +121,14 @@ for spFeature in subProgramParameters:
     param_type = "T_Boolean"
     signal = ast.g_signals[param_type]
     if spFeature._parameter._direction == "IN":
-        param = ast.InParam("PI_10_Callback", "p2", signal, spFeature._parameter)
+        param = ast.InParam("PI_1_Broker", "p2", signal, spFeature._parameter)
     elif spFeature._parameter._direction == "OUT":
-        param = ast.OutParam("PI_10_Callback", "p2", signal, spFeature._parameter)
+        param = ast.OutParam("PI_1_Broker", "p2", signal, spFeature._parameter)
     sp.AddParam(param)
 
 # Compute_Execution_Time = 0ms..0ms
 # Taste::Communication_Layer = default
-# Taste::InterfaceName = PI_10_Callback
+# Taste::InterfaceName = PI_1_Broker
 # Taste::labelInheritance = true
 # Taste::RCMoperationKind = protected
 sp._fpgaConfigurations = ""   # initialization
@@ -182,7 +136,7 @@ sp._fpgaConfigurations = ""   # initialization
 # Taste::Instances_Min = 1
 # Taste::Startup_Priority = 1
 # TASTE_IV_Properties::Default_Codegen = C
-ast.g_subProgramImplementations.append(["PI_10_Callback", "C", "C", "teststart00", sp._fpgaConfigurations])
+ast.g_subProgramImplementations.append(["PI_1_Broker", "C", "C", "teststart00", sp._fpgaConfigurations])
 sp._language = "C"
 
 
@@ -268,6 +222,144 @@ ast.g_subProgramImplementations.append(["PI_1_STARTSDL14", "C", "C", "teststart0
 sp._language = "C"
 
 
+# Interface "PI_1_StartTestCC06"
+sp = ast.ApLevelContainer("PI_1_StartTestCC06")
+ast.g_apLevelContainers["PI_1_StartTestCC06"] = sp
+subProgramParameters = []
+param = ast.AadlParameter("IN", "DataView::T_Int32")
+param._encoding = "NATIVE"
+subProgramFeature = ast.AadlSubProgramFeature("p1", param)
+subProgramParameters.append(subProgramFeature)
+for spFeature in subProgramParameters:
+    if spFeature is None: continue
+    param_type = "T_Int32"
+    signal = ast.g_signals[param_type]
+    if spFeature._parameter._direction == "IN":
+        param = ast.InParam("PI_1_StartTestCC06", "p1", signal, spFeature._parameter)
+    elif spFeature._parameter._direction == "OUT":
+        param = ast.OutParam("PI_1_StartTestCC06", "p1", signal, spFeature._parameter)
+    sp.AddParam(param)
+subProgramParameters = []
+param = ast.AadlParameter("IN", "DataView::T_Boolean")
+param._encoding = "NATIVE"
+subProgramFeature = ast.AadlSubProgramFeature("p2", param)
+subProgramParameters.append(subProgramFeature)
+for spFeature in subProgramParameters:
+    if spFeature is None: continue
+    param_type = "T_Boolean"
+    signal = ast.g_signals[param_type]
+    if spFeature._parameter._direction == "IN":
+        param = ast.InParam("PI_1_StartTestCC06", "p2", signal, spFeature._parameter)
+    elif spFeature._parameter._direction == "OUT":
+        param = ast.OutParam("PI_1_StartTestCC06", "p2", signal, spFeature._parameter)
+    sp.AddParam(param)
+
+# Compute_Execution_Time = 0ms..0ms
+# Taste::Communication_Layer = default
+# Taste::InterfaceName = PI_1_StartTestCC06
+# Taste::labelInheritance = true
+# Taste::RCMoperationKind = protected
+sp._fpgaConfigurations = ""   # initialization
+# Taste::Instances_Max = 1
+# Taste::Instances_Min = 1
+# Taste::Startup_Priority = 1
+# TASTE_IV_Properties::Default_Codegen = C
+ast.g_subProgramImplementations.append(["PI_1_StartTestCC06", "C", "C", "teststart00", sp._fpgaConfigurations])
+sp._language = "C"
+
+
+# Interface "PI_1_TestACN"
+sp = ast.ApLevelContainer("PI_1_TestACN")
+ast.g_apLevelContainers["PI_1_TestACN"] = sp
+subProgramParameters = []
+param = ast.AadlParameter("IN", "DataView::T_Int32")
+param._encoding = "NATIVE"
+subProgramFeature = ast.AadlSubProgramFeature("p1", param)
+subProgramParameters.append(subProgramFeature)
+for spFeature in subProgramParameters:
+    if spFeature is None: continue
+    param_type = "T_Int32"
+    signal = ast.g_signals[param_type]
+    if spFeature._parameter._direction == "IN":
+        param = ast.InParam("PI_1_TestACN", "p1", signal, spFeature._parameter)
+    elif spFeature._parameter._direction == "OUT":
+        param = ast.OutParam("PI_1_TestACN", "p1", signal, spFeature._parameter)
+    sp.AddParam(param)
+subProgramParameters = []
+param = ast.AadlParameter("IN", "DataView::T_Boolean")
+param._encoding = "NATIVE"
+subProgramFeature = ast.AadlSubProgramFeature("p2", param)
+subProgramParameters.append(subProgramFeature)
+for spFeature in subProgramParameters:
+    if spFeature is None: continue
+    param_type = "T_Boolean"
+    signal = ast.g_signals[param_type]
+    if spFeature._parameter._direction == "IN":
+        param = ast.InParam("PI_1_TestACN", "p2", signal, spFeature._parameter)
+    elif spFeature._parameter._direction == "OUT":
+        param = ast.OutParam("PI_1_TestACN", "p2", signal, spFeature._parameter)
+    sp.AddParam(param)
+
+# Compute_Execution_Time = 0ms..0ms
+# Taste::Communication_Layer = default
+# Taste::InterfaceName = PI_1_TestACN
+# Taste::labelInheritance = true
+# Taste::RCMoperationKind = protected
+sp._fpgaConfigurations = ""   # initialization
+# Taste::Instances_Max = 1
+# Taste::Instances_Min = 1
+# Taste::Startup_Priority = 1
+# TASTE_IV_Properties::Default_Codegen = C
+ast.g_subProgramImplementations.append(["PI_1_TestACN", "C", "C", "teststart00", sp._fpgaConfigurations])
+sp._language = "C"
+
+
+# Interface "PI_1_TestComms09"
+sp = ast.ApLevelContainer("PI_1_TestComms09")
+ast.g_apLevelContainers["PI_1_TestComms09"] = sp
+subProgramParameters = []
+param = ast.AadlParameter("IN", "DataView::T_Int32")
+param._encoding = "NATIVE"
+subProgramFeature = ast.AadlSubProgramFeature("p1", param)
+subProgramParameters.append(subProgramFeature)
+for spFeature in subProgramParameters:
+    if spFeature is None: continue
+    param_type = "T_Int32"
+    signal = ast.g_signals[param_type]
+    if spFeature._parameter._direction == "IN":
+        param = ast.InParam("PI_1_TestComms09", "p1", signal, spFeature._parameter)
+    elif spFeature._parameter._direction == "OUT":
+        param = ast.OutParam("PI_1_TestComms09", "p1", signal, spFeature._parameter)
+    sp.AddParam(param)
+subProgramParameters = []
+param = ast.AadlParameter("IN", "DataView::T_Boolean")
+param._encoding = "NATIVE"
+subProgramFeature = ast.AadlSubProgramFeature("p2", param)
+subProgramParameters.append(subProgramFeature)
+for spFeature in subProgramParameters:
+    if spFeature is None: continue
+    param_type = "T_Boolean"
+    signal = ast.g_signals[param_type]
+    if spFeature._parameter._direction == "IN":
+        param = ast.InParam("PI_1_TestComms09", "p2", signal, spFeature._parameter)
+    elif spFeature._parameter._direction == "OUT":
+        param = ast.OutParam("PI_1_TestComms09", "p2", signal, spFeature._parameter)
+    sp.AddParam(param)
+
+# Compute_Execution_Time = 0ms..0ms
+# Taste::Communication_Layer = default
+# Taste::InterfaceName = PI_1_TestComms09
+# Taste::labelInheritance = true
+# Taste::RCMoperationKind = protected
+sp._fpgaConfigurations = ""   # initialization
+# Taste::Instances_Max = 1
+# Taste::Instances_Min = 1
+# Taste::Startup_Priority = 1
+# TASTE_IV_Properties::Default_Codegen = C
+ast.g_subProgramImplementations.append(["PI_1_TestComms09", "C", "C", "teststart00", sp._fpgaConfigurations])
+sp._language = "C"
+
+
 # Interface "PI_1_UnProt_Start"
 sp = ast.ApLevelContainer("PI_1_UnProt_Start")
 ast.g_apLevelContainers["PI_1_UnProt_Start"] = sp
@@ -318,7 +410,7 @@ sp._language = "C"
 sp = ast.ApLevelContainer("PI_2")
 ast.g_apLevelContainers["PI_2"] = sp
 subProgramParameters = []
-param = ast.AadlParameter("OUT", "DataView::T_Int32")
+param = ast.AadlParameter("IN", "DataView::T_Int32")
 param._encoding = "NATIVE"
 subProgramFeature = ast.AadlSubProgramFeature("p1", param)
 subProgramParameters.append(subProgramFeature)
@@ -331,10 +423,70 @@ for spFeature in subProgramParameters:
     elif spFeature._parameter._direction == "OUT":
         param = ast.OutParam("PI_2", "p1", signal, spFeature._parameter)
     sp.AddParam(param)
+subProgramParameters = []
+param = ast.AadlParameter("IN", "DataView::T_Boolean")
+param._encoding = "NATIVE"
+subProgramFeature = ast.AadlSubProgramFeature("p2", param)
+subProgramParameters.append(subProgramFeature)
+for spFeature in subProgramParameters:
+    if spFeature is None: continue
+    param_type = "T_Boolean"
+    signal = ast.g_signals[param_type]
+    if spFeature._parameter._direction == "IN":
+        param = ast.InParam("PI_2", "p2", signal, spFeature._parameter)
+    elif spFeature._parameter._direction == "OUT":
+        param = ast.OutParam("PI_2", "p2", signal, spFeature._parameter)
+    sp.AddParam(param)
 
 # Compute_Execution_Time = 0ms..0ms
 # Taste::Communication_Layer = default
 # Taste::InterfaceName = PI_2
+# Taste::labelInheritance = true
+# Taste::RCMoperationKind = protected
+sp._fpgaConfigurations = ""   # initialization
+# Taste::Instances_Max = 1
+# Taste::Instances_Min = 1
+# Taste::Startup_Priority = 1
+# TASTE_IV_Properties::Default_Codegen = C
+ast.g_subProgramImplementations.append(["PI_2", "C", "C", "teststart00", sp._fpgaConfigurations])
+sp._language = "C"
+
+
+# Interface "PI_2_Cyclic"
+sp = ast.ApLevelContainer("PI_2_Cyclic")
+ast.g_apLevelContainers["PI_2_Cyclic"] = sp
+subProgramParameters = []
+param = ast.AadlParameter("IN", "DataView::T_Int32")
+param._encoding = "NATIVE"
+subProgramFeature = ast.AadlSubProgramFeature("p1", param)
+subProgramParameters.append(subProgramFeature)
+for spFeature in subProgramParameters:
+    if spFeature is None: continue
+    param_type = "T_Int32"
+    signal = ast.g_signals[param_type]
+    if spFeature._parameter._direction == "IN":
+        param = ast.InParam("PI_2_Cyclic", "p1", signal, spFeature._parameter)
+    elif spFeature._parameter._direction == "OUT":
+        param = ast.OutParam("PI_2_Cyclic", "p1", signal, spFeature._parameter)
+    sp.AddParam(param)
+subProgramParameters = []
+param = ast.AadlParameter("IN", "DataView::T_Boolean")
+param._encoding = "NATIVE"
+subProgramFeature = ast.AadlSubProgramFeature("p2", param)
+subProgramParameters.append(subProgramFeature)
+for spFeature in subProgramParameters:
+    if spFeature is None: continue
+    param_type = "T_Boolean"
+    signal = ast.g_signals[param_type]
+    if spFeature._parameter._direction == "IN":
+        param = ast.InParam("PI_2_Cyclic", "p2", signal, spFeature._parameter)
+    elif spFeature._parameter._direction == "OUT":
+        param = ast.OutParam("PI_2_Cyclic", "p2", signal, spFeature._parameter)
+    sp.AddParam(param)
+
+# Compute_Execution_Time = 0ms..0ms
+# Taste::Communication_Layer = default
+# Taste::InterfaceName = PI_2_Cyclic
 # Taste::labelInheritance = true
 # Taste::RCMoperationKind = unprotected
 sp._fpgaConfigurations = ""   # initialization
@@ -342,7 +494,7 @@ sp._fpgaConfigurations = ""   # initialization
 # Taste::Instances_Min = 1
 # Taste::Startup_Priority = 1
 # TASTE_IV_Properties::Default_Codegen = C
-ast.g_subProgramImplementations.append(["PI_2", "C", "C", "teststart00", sp._fpgaConfigurations])
+ast.g_subProgramImplementations.append(["PI_2_Cyclic", "C", "C", "teststart00", sp._fpgaConfigurations])
 sp._language = "C"
 
 
@@ -392,236 +544,6 @@ ast.g_subProgramImplementations.append(["PI_3", "C", "C", "teststart00", sp._fpg
 sp._language = "C"
 
 
-# Interface "PI_4"
-sp = ast.ApLevelContainer("PI_4")
-ast.g_apLevelContainers["PI_4"] = sp
-subProgramParameters = []
-param = ast.AadlParameter("IN", "DataView::T_Int32")
-param._encoding = "NATIVE"
-subProgramFeature = ast.AadlSubProgramFeature("p1", param)
-subProgramParameters.append(subProgramFeature)
-for spFeature in subProgramParameters:
-    if spFeature is None: continue
-    param_type = "T_Int32"
-    signal = ast.g_signals[param_type]
-    if spFeature._parameter._direction == "IN":
-        param = ast.InParam("PI_4", "p1", signal, spFeature._parameter)
-    elif spFeature._parameter._direction == "OUT":
-        param = ast.OutParam("PI_4", "p1", signal, spFeature._parameter)
-    sp.AddParam(param)
-subProgramParameters = []
-param = ast.AadlParameter("IN", "DataView::T_Boolean")
-param._encoding = "NATIVE"
-subProgramFeature = ast.AadlSubProgramFeature("p2", param)
-subProgramParameters.append(subProgramFeature)
-for spFeature in subProgramParameters:
-    if spFeature is None: continue
-    param_type = "T_Boolean"
-    signal = ast.g_signals[param_type]
-    if spFeature._parameter._direction == "IN":
-        param = ast.InParam("PI_4", "p2", signal, spFeature._parameter)
-    elif spFeature._parameter._direction == "OUT":
-        param = ast.OutParam("PI_4", "p2", signal, spFeature._parameter)
-    sp.AddParam(param)
-
-# Compute_Execution_Time = 0ms..0ms
-# Taste::Communication_Layer = default
-# Taste::InterfaceName = PI_4
-# Taste::labelInheritance = true
-# Taste::RCMoperationKind = protected
-sp._fpgaConfigurations = ""   # initialization
-# Taste::Instances_Max = 1
-# Taste::Instances_Min = 1
-# Taste::Startup_Priority = 1
-# TASTE_IV_Properties::Default_Codegen = C
-ast.g_subProgramImplementations.append(["PI_4", "C", "C", "teststart00", sp._fpgaConfigurations])
-sp._language = "C"
-
-
-# Interface "PI_6"
-sp = ast.ApLevelContainer("PI_6")
-ast.g_apLevelContainers["PI_6"] = sp
-subProgramParameters = []
-param = ast.AadlParameter("IN", "DataView::T_Int32")
-param._encoding = "NATIVE"
-subProgramFeature = ast.AadlSubProgramFeature("p1", param)
-subProgramParameters.append(subProgramFeature)
-for spFeature in subProgramParameters:
-    if spFeature is None: continue
-    param_type = "T_Int32"
-    signal = ast.g_signals[param_type]
-    if spFeature._parameter._direction == "IN":
-        param = ast.InParam("PI_6", "p1", signal, spFeature._parameter)
-    elif spFeature._parameter._direction == "OUT":
-        param = ast.OutParam("PI_6", "p1", signal, spFeature._parameter)
-    sp.AddParam(param)
-subProgramParameters = []
-param = ast.AadlParameter("IN", "DataView::T_Boolean")
-param._encoding = "NATIVE"
-subProgramFeature = ast.AadlSubProgramFeature("p2", param)
-subProgramParameters.append(subProgramFeature)
-for spFeature in subProgramParameters:
-    if spFeature is None: continue
-    param_type = "T_Boolean"
-    signal = ast.g_signals[param_type]
-    if spFeature._parameter._direction == "IN":
-        param = ast.InParam("PI_6", "p2", signal, spFeature._parameter)
-    elif spFeature._parameter._direction == "OUT":
-        param = ast.OutParam("PI_6", "p2", signal, spFeature._parameter)
-    sp.AddParam(param)
-
-# Compute_Execution_Time = 0ms..0ms
-# Taste::Communication_Layer = default
-# Taste::InterfaceName = PI_6
-# Taste::labelInheritance = true
-# Taste::RCMoperationKind = protected
-sp._fpgaConfigurations = ""   # initialization
-# Taste::Instances_Max = 1
-# Taste::Instances_Min = 1
-# Taste::Startup_Priority = 1
-# TASTE_IV_Properties::Default_Codegen = C
-ast.g_subProgramImplementations.append(["PI_6", "C", "C", "teststart00", sp._fpgaConfigurations])
-sp._language = "C"
-
-
-# Interface "PI_7"
-sp = ast.ApLevelContainer("PI_7")
-ast.g_apLevelContainers["PI_7"] = sp
-subProgramParameters = []
-param = ast.AadlParameter("IN", "DataView::T_Int32")
-param._encoding = "NATIVE"
-subProgramFeature = ast.AadlSubProgramFeature("p1", param)
-subProgramParameters.append(subProgramFeature)
-for spFeature in subProgramParameters:
-    if spFeature is None: continue
-    param_type = "T_Int32"
-    signal = ast.g_signals[param_type]
-    if spFeature._parameter._direction == "IN":
-        param = ast.InParam("PI_7", "p1", signal, spFeature._parameter)
-    elif spFeature._parameter._direction == "OUT":
-        param = ast.OutParam("PI_7", "p1", signal, spFeature._parameter)
-    sp.AddParam(param)
-subProgramParameters = []
-param = ast.AadlParameter("IN", "DataView::T_Boolean")
-param._encoding = "NATIVE"
-subProgramFeature = ast.AadlSubProgramFeature("p2", param)
-subProgramParameters.append(subProgramFeature)
-for spFeature in subProgramParameters:
-    if spFeature is None: continue
-    param_type = "T_Boolean"
-    signal = ast.g_signals[param_type]
-    if spFeature._parameter._direction == "IN":
-        param = ast.InParam("PI_7", "p2", signal, spFeature._parameter)
-    elif spFeature._parameter._direction == "OUT":
-        param = ast.OutParam("PI_7", "p2", signal, spFeature._parameter)
-    sp.AddParam(param)
-
-# Compute_Execution_Time = 0ms..0ms
-# Taste::Communication_Layer = default
-# Taste::InterfaceName = PI_7
-# Taste::labelInheritance = true
-# Taste::RCMoperationKind = protected
-sp._fpgaConfigurations = ""   # initialization
-# Taste::Instances_Max = 1
-# Taste::Instances_Min = 1
-# Taste::Startup_Priority = 1
-# TASTE_IV_Properties::Default_Codegen = C
-ast.g_subProgramImplementations.append(["PI_7", "C", "C", "teststart00", sp._fpgaConfigurations])
-sp._language = "C"
-
-
-# Interface "PI_8"
-sp = ast.ApLevelContainer("PI_8")
-ast.g_apLevelContainers["PI_8"] = sp
-subProgramParameters = []
-param = ast.AadlParameter("IN", "DataView::T_Int32")
-param._encoding = "NATIVE"
-subProgramFeature = ast.AadlSubProgramFeature("p1", param)
-subProgramParameters.append(subProgramFeature)
-for spFeature in subProgramParameters:
-    if spFeature is None: continue
-    param_type = "T_Int32"
-    signal = ast.g_signals[param_type]
-    if spFeature._parameter._direction == "IN":
-        param = ast.InParam("PI_8", "p1", signal, spFeature._parameter)
-    elif spFeature._parameter._direction == "OUT":
-        param = ast.OutParam("PI_8", "p1", signal, spFeature._parameter)
-    sp.AddParam(param)
-subProgramParameters = []
-param = ast.AadlParameter("IN", "DataView::T_Boolean")
-param._encoding = "NATIVE"
-subProgramFeature = ast.AadlSubProgramFeature("p2", param)
-subProgramParameters.append(subProgramFeature)
-for spFeature in subProgramParameters:
-    if spFeature is None: continue
-    param_type = "T_Boolean"
-    signal = ast.g_signals[param_type]
-    if spFeature._parameter._direction == "IN":
-        param = ast.InParam("PI_8", "p2", signal, spFeature._parameter)
-    elif spFeature._parameter._direction == "OUT":
-        param = ast.OutParam("PI_8", "p2", signal, spFeature._parameter)
-    sp.AddParam(param)
-
-# Compute_Execution_Time = 0ms..0ms
-# Taste::Communication_Layer = default
-# Taste::InterfaceName = PI_8
-# Taste::labelInheritance = true
-# Taste::RCMoperationKind = protected
-sp._fpgaConfigurations = ""   # initialization
-# Taste::Instances_Max = 1
-# Taste::Instances_Min = 1
-# Taste::Startup_Priority = 1
-# TASTE_IV_Properties::Default_Codegen = C
-ast.g_subProgramImplementations.append(["PI_8", "C", "C", "teststart00", sp._fpgaConfigurations])
-sp._language = "C"
-
-
-# Interface "PI_Mon"
-sp = ast.ApLevelContainer("PI_Mon")
-ast.g_apLevelContainers["PI_Mon"] = sp
-subProgramParameters = []
-param = ast.AadlParameter("IN", "DataView::T_Int32")
-param._encoding = "NATIVE"
-subProgramFeature = ast.AadlSubProgramFeature("p1", param)
-subProgramParameters.append(subProgramFeature)
-for spFeature in subProgramParameters:
-    if spFeature is None: continue
-    param_type = "T_Int32"
-    signal = ast.g_signals[param_type]
-    if spFeature._parameter._direction == "IN":
-        param = ast.InParam("PI_Mon", "p1", signal, spFeature._parameter)
-    elif spFeature._parameter._direction == "OUT":
-        param = ast.OutParam("PI_Mon", "p1", signal, spFeature._parameter)
-    sp.AddParam(param)
-subProgramParameters = []
-param = ast.AadlParameter("IN", "DataView::T_Boolean")
-param._encoding = "NATIVE"
-subProgramFeature = ast.AadlSubProgramFeature("p2", param)
-subProgramParameters.append(subProgramFeature)
-for spFeature in subProgramParameters:
-    if spFeature is None: continue
-    param_type = "T_Boolean"
-    signal = ast.g_signals[param_type]
-    if spFeature._parameter._direction == "IN":
-        param = ast.InParam("PI_Mon", "p2", signal, spFeature._parameter)
-    elif spFeature._parameter._direction == "OUT":
-        param = ast.OutParam("PI_Mon", "p2", signal, spFeature._parameter)
-    sp.AddParam(param)
-
-# Compute_Execution_Time = 0ms..0ms
-# Taste::Communication_Layer = default
-# Taste::InterfaceName = PI_Mon
-# Taste::labelInheritance = true
-# Taste::RCMoperationKind = protected
-sp._fpgaConfigurations = ""   # initialization
-# Taste::Instances_Max = 1
-# Taste::Instances_Min = 1
-# Taste::Startup_Priority = 1
-# TASTE_IV_Properties::Default_Codegen = C
-ast.g_subProgramImplementations.append(["PI_Mon", "C", "C", "teststart00", sp._fpgaConfigurations])
-sp._language = "C"
-
-
 # Interface "PI_STARTSDL08"
 sp = ast.ApLevelContainer("PI_STARTSDL08")
 ast.g_apLevelContainers["PI_STARTSDL08"] = sp
@@ -658,48 +580,9 @@ ast.g_subProgramImplementations.append(["PI_STARTSDL08", "C", "C", "teststart00"
 sp._language = "C"
 
 
-# Interface "PI_start_SPCC06"
-sp = ast.ApLevelContainer("PI_start_SPCC06")
-ast.g_apLevelContainers["PI_start_SPCC06"] = sp
-
-# Compute_Execution_Time = 0ms..0ms
-# Taste::Associated_Queue_Size = 1
-# Taste::Communication_Layer = default
-# Taste::Interface_Priority = 1
-# Taste::Interface_Stack_Size = 50
-# Taste::InterfaceName = PI_start_SPCC06
-# Taste::labelInheritance = true
-# Taste::RCMoperationKind = sporadic
-# Taste::RCMperiod = 0 ms
-sp._fpgaConfigurations = ""   # initialization
-# Taste::Instances_Max = 1
-# Taste::Instances_Min = 1
-# Taste::Startup_Priority = 1
-# TASTE_IV_Properties::Default_Codegen = C
-ast.g_subProgramImplementations.append(["PI_start_SPCC06", "C", "C", "teststart00", sp._fpgaConfigurations])
-sp._language = "C"
-
-
-# Interface "RI_22"
-sp = ast.ApLevelContainer("RI_22")
-ast.g_apLevelContainers["RI_22"] = sp
-
-# Taste::Communication_Layer = default
-# Taste::InterfaceName = RI_22
-# Taste::labelInheritance = true
-# Taste::RCMoperationKind = sporadic
-sp._fpgaConfigurations = ""   # initialization
-# Taste::Instances_Max = 1
-# Taste::Instances_Min = 1
-# Taste::Startup_Priority = 1
-# TASTE_IV_Properties::Default_Codegen = C
-ast.g_subProgramImplementations.append(["RI_22", "C", "C", "teststart00", sp._fpgaConfigurations])
-sp._language = "C"
-
-
-# Interface "RI_5"
-sp = ast.ApLevelContainer("RI_5")
-ast.g_apLevelContainers["RI_5"] = sp
+# Interface "TPI_1_TestComms10"
+sp = ast.ApLevelContainer("TPI_1_TestComms10")
+ast.g_apLevelContainers["TPI_1_TestComms10"] = sp
 subProgramParameters = []
 param = ast.AadlParameter("IN", "DataView::T_Int32")
 param._encoding = "NATIVE"
@@ -710,9 +593,9 @@ for spFeature in subProgramParameters:
     param_type = "T_Int32"
     signal = ast.g_signals[param_type]
     if spFeature._parameter._direction == "IN":
-        param = ast.InParam("RI_5", "p1", signal, spFeature._parameter)
+        param = ast.InParam("TPI_1_TestComms10", "p1", signal, spFeature._parameter)
     elif spFeature._parameter._direction == "OUT":
-        param = ast.OutParam("RI_5", "p1", signal, spFeature._parameter)
+        param = ast.OutParam("TPI_1_TestComms10", "p1", signal, spFeature._parameter)
     sp.AddParam(param)
 subProgramParameters = []
 param = ast.AadlParameter("IN", "DataView::T_Boolean")
@@ -724,14 +607,14 @@ for spFeature in subProgramParameters:
     param_type = "T_Boolean"
     signal = ast.g_signals[param_type]
     if spFeature._parameter._direction == "IN":
-        param = ast.InParam("RI_5", "p2", signal, spFeature._parameter)
+        param = ast.InParam("TPI_1_TestComms10", "p2", signal, spFeature._parameter)
     elif spFeature._parameter._direction == "OUT":
-        param = ast.OutParam("RI_5", "p2", signal, spFeature._parameter)
+        param = ast.OutParam("TPI_1_TestComms10", "p2", signal, spFeature._parameter)
     sp.AddParam(param)
 
 # Compute_Execution_Time = 0ms..0ms
 # Taste::Communication_Layer = default
-# Taste::InterfaceName = RI_5
+# Taste::InterfaceName = TPI_1_TestComms10
 # Taste::labelInheritance = true
 # Taste::RCMoperationKind = protected
 sp._fpgaConfigurations = ""   # initialization
@@ -739,208 +622,6 @@ sp._fpgaConfigurations = ""   # initialization
 # Taste::Instances_Min = 1
 # Taste::Startup_Priority = 1
 # TASTE_IV_Properties::Default_Codegen = C
-ast.g_subProgramImplementations.append(["RI_5", "C", "C", "teststart00", sp._fpgaConfigurations])
-sp._language = "C"
-
-
-# Interface "TestACN11_PI_1"
-sp = ast.ApLevelContainer("TestACN11_PI_1")
-ast.g_apLevelContainers["TestACN11_PI_1"] = sp
-subProgramParameters = []
-param = ast.AadlParameter("IN", "DataView::T_Int32")
-param._encoding = "NATIVE"
-subProgramFeature = ast.AadlSubProgramFeature("p1", param)
-subProgramParameters.append(subProgramFeature)
-for spFeature in subProgramParameters:
-    if spFeature is None: continue
-    param_type = "T_Int32"
-    signal = ast.g_signals[param_type]
-    if spFeature._parameter._direction == "IN":
-        param = ast.InParam("TestACN11_PI_1", "p1", signal, spFeature._parameter)
-    elif spFeature._parameter._direction == "OUT":
-        param = ast.OutParam("TestACN11_PI_1", "p1", signal, spFeature._parameter)
-    sp.AddParam(param)
-subProgramParameters = []
-param = ast.AadlParameter("IN", "DataView::T_Boolean")
-param._encoding = "NATIVE"
-subProgramFeature = ast.AadlSubProgramFeature("p2", param)
-subProgramParameters.append(subProgramFeature)
-for spFeature in subProgramParameters:
-    if spFeature is None: continue
-    param_type = "T_Boolean"
-    signal = ast.g_signals[param_type]
-    if spFeature._parameter._direction == "IN":
-        param = ast.InParam("TestACN11_PI_1", "p2", signal, spFeature._parameter)
-    elif spFeature._parameter._direction == "OUT":
-        param = ast.OutParam("TestACN11_PI_1", "p2", signal, spFeature._parameter)
-    sp.AddParam(param)
-
-# Compute_Execution_Time = 0ms..0ms
-# Taste::Communication_Layer = default
-# Taste::InterfaceName = TestACN11_PI_1
-# Taste::labelInheritance = true
-# Taste::RCMoperationKind = protected
-sp._fpgaConfigurations = ""   # initialization
-# Taste::Instances_Max = 1
-# Taste::Instances_Min = 1
-# Taste::Startup_Priority = 1
-# TASTE_IV_Properties::Default_Codegen = C
-ast.g_subProgramImplementations.append(["TestACN11_PI_1", "C", "C", "teststart00", sp._fpgaConfigurations])
-sp._language = "C"
-
-
-# Interface "TestComms09_PI_1"
-sp = ast.ApLevelContainer("TestComms09_PI_1")
-ast.g_apLevelContainers["TestComms09_PI_1"] = sp
-subProgramParameters = []
-param = ast.AadlParameter("OUT", "DataView::T_Int32")
-param._encoding = "NATIVE"
-subProgramFeature = ast.AadlSubProgramFeature("p1", param)
-subProgramParameters.append(subProgramFeature)
-for spFeature in subProgramParameters:
-    if spFeature is None: continue
-    param_type = "T_Int32"
-    signal = ast.g_signals[param_type]
-    if spFeature._parameter._direction == "IN":
-        param = ast.InParam("TestComms09_PI_1", "p1", signal, spFeature._parameter)
-    elif spFeature._parameter._direction == "OUT":
-        param = ast.OutParam("TestComms09_PI_1", "p1", signal, spFeature._parameter)
-    sp.AddParam(param)
-
-# Compute_Execution_Time = 0ms..0ms
-# Taste::Communication_Layer = default
-# Taste::InterfaceName = TestComms09_PI_1
-# Taste::labelInheritance = true
-# Taste::RCMoperationKind = protected
-sp._fpgaConfigurations = ""   # initialization
-# Taste::Instances_Max = 1
-# Taste::Instances_Min = 1
-# Taste::Startup_Priority = 1
-# TASTE_IV_Properties::Default_Codegen = C
-ast.g_subProgramImplementations.append(["TestComms09_PI_1", "C", "C", "teststart00", sp._fpgaConfigurations])
-sp._language = "C"
-
-
-# Interface "TestComms10_PI_1"
-sp = ast.ApLevelContainer("TestComms10_PI_1")
-ast.g_apLevelContainers["TestComms10_PI_1"] = sp
-subProgramParameters = []
-param = ast.AadlParameter("OUT", "DataView::T_Int32")
-param._encoding = "NATIVE"
-subProgramFeature = ast.AadlSubProgramFeature("p1", param)
-subProgramParameters.append(subProgramFeature)
-for spFeature in subProgramParameters:
-    if spFeature is None: continue
-    param_type = "T_Int32"
-    signal = ast.g_signals[param_type]
-    if spFeature._parameter._direction == "IN":
-        param = ast.InParam("TestComms10_PI_1", "p1", signal, spFeature._parameter)
-    elif spFeature._parameter._direction == "OUT":
-        param = ast.OutParam("TestComms10_PI_1", "p1", signal, spFeature._parameter)
-    sp.AddParam(param)
-
-# Compute_Execution_Time = 0ms..0ms
-# Taste::Communication_Layer = default
-# Taste::InterfaceName = TestComms10_PI_1
-# Taste::labelInheritance = true
-# Taste::RCMoperationKind = protected
-sp._fpgaConfigurations = ""   # initialization
-# Taste::Instances_Max = 1
-# Taste::Instances_Min = 1
-# Taste::Startup_Priority = 1
-# TASTE_IV_Properties::Default_Codegen = C
-ast.g_subProgramImplementations.append(["TestComms10_PI_1", "C", "C", "teststart00", sp._fpgaConfigurations])
-sp._language = "C"
-
-
-# Interface "TestRTCommon02_PI_2"
-sp = ast.ApLevelContainer("TestRTCommon02_PI_2")
-ast.g_apLevelContainers["TestRTCommon02_PI_2"] = sp
-subProgramParameters = []
-param = ast.AadlParameter("IN", "DataView::T_Int32")
-param._encoding = "NATIVE"
-subProgramFeature = ast.AadlSubProgramFeature("p1", param)
-subProgramParameters.append(subProgramFeature)
-for spFeature in subProgramParameters:
-    if spFeature is None: continue
-    param_type = "T_Int32"
-    signal = ast.g_signals[param_type]
-    if spFeature._parameter._direction == "IN":
-        param = ast.InParam("TestRTCommon02_PI_2", "p1", signal, spFeature._parameter)
-    elif spFeature._parameter._direction == "OUT":
-        param = ast.OutParam("TestRTCommon02_PI_2", "p1", signal, spFeature._parameter)
-    sp.AddParam(param)
-subProgramParameters = []
-param = ast.AadlParameter("IN", "DataView::T_Boolean")
-param._encoding = "NATIVE"
-subProgramFeature = ast.AadlSubProgramFeature("p2", param)
-subProgramParameters.append(subProgramFeature)
-for spFeature in subProgramParameters:
-    if spFeature is None: continue
-    param_type = "T_Boolean"
-    signal = ast.g_signals[param_type]
-    if spFeature._parameter._direction == "IN":
-        param = ast.InParam("TestRTCommon02_PI_2", "p2", signal, spFeature._parameter)
-    elif spFeature._parameter._direction == "OUT":
-        param = ast.OutParam("TestRTCommon02_PI_2", "p2", signal, spFeature._parameter)
-    sp.AddParam(param)
-
-# Compute_Execution_Time = 0ms..0ms
-# Taste::Communication_Layer = default
-# Taste::InterfaceName = TestRTCommon02_PI_2
-# Taste::labelInheritance = true
-# Taste::RCMoperationKind = protected
-sp._fpgaConfigurations = ""   # initialization
-# Taste::Instances_Max = 1
-# Taste::Instances_Min = 1
-# Taste::Startup_Priority = 1
-# TASTE_IV_Properties::Default_Codegen = C
-ast.g_subProgramImplementations.append(["TestRTCommon02_PI_2", "C", "C", "teststart00", sp._fpgaConfigurations])
-sp._language = "C"
-
-
-# Interface "TestRTCommon02_PI_3"
-sp = ast.ApLevelContainer("TestRTCommon02_PI_3")
-ast.g_apLevelContainers["TestRTCommon02_PI_3"] = sp
-subProgramParameters = []
-param = ast.AadlParameter("IN", "DataView::T_Int32")
-param._encoding = "NATIVE"
-subProgramFeature = ast.AadlSubProgramFeature("p1", param)
-subProgramParameters.append(subProgramFeature)
-for spFeature in subProgramParameters:
-    if spFeature is None: continue
-    param_type = "T_Int32"
-    signal = ast.g_signals[param_type]
-    if spFeature._parameter._direction == "IN":
-        param = ast.InParam("TestRTCommon02_PI_3", "p1", signal, spFeature._parameter)
-    elif spFeature._parameter._direction == "OUT":
-        param = ast.OutParam("TestRTCommon02_PI_3", "p1", signal, spFeature._parameter)
-    sp.AddParam(param)
-subProgramParameters = []
-param = ast.AadlParameter("IN", "DataView::T_Boolean")
-param._encoding = "NATIVE"
-subProgramFeature = ast.AadlSubProgramFeature("p2", param)
-subProgramParameters.append(subProgramFeature)
-for spFeature in subProgramParameters:
-    if spFeature is None: continue
-    param_type = "T_Boolean"
-    signal = ast.g_signals[param_type]
-    if spFeature._parameter._direction == "IN":
-        param = ast.InParam("TestRTCommon02_PI_3", "p2", signal, spFeature._parameter)
-    elif spFeature._parameter._direction == "OUT":
-        param = ast.OutParam("TestRTCommon02_PI_3", "p2", signal, spFeature._parameter)
-    sp.AddParam(param)
-
-# Compute_Execution_Time = 0ms..0ms
-# Taste::Communication_Layer = default
-# Taste::InterfaceName = TestRTCommon02_PI_3
-# Taste::labelInheritance = true
-# Taste::RCMoperationKind = protected
-sp._fpgaConfigurations = ""   # initialization
-# Taste::Instances_Max = 1
-# Taste::Instances_Min = 1
-# Taste::Startup_Priority = 1
-# TASTE_IV_Properties::Default_Codegen = C
-ast.g_subProgramImplementations.append(["TestRTCommon02_PI_3", "C", "C", "teststart00", sp._fpgaConfigurations])
+ast.g_subProgramImplementations.append(["TPI_1_TestComms10", "C", "C", "teststart00", sp._fpgaConfigurations])
 sp._language = "C"
 

@@ -15,7 +15,7 @@ extern "C" {
 void monitorcallback_startup(void);
 
 /* Provided interfaces */
-void monitorcallback_PI_PI_10_Callback( asn1SccT_Int32 *, asn1SccT_Boolean * );
+void monitorcallback_PI_PI_1_MonCallback( asn1SccT_Int32 *, asn1SccT_Boolean * );
 
 /* Required interfaces */
 

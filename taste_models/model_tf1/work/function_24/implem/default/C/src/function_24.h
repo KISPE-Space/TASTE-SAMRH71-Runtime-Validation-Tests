@@ -21,7 +21,7 @@ void function_24_PI_PI_1_CYCLIC( void );
 void function_24_PI_PI_2( const asn1SccT_Int32 * );
 
 /* Required interfaces */
-
+extern void function_24_RI_PI_2_EndTest( const asn1SccT_Int32 * );
 
 
 #ifdef __cplusplus

@@ -15,7 +15,7 @@ extern "C" {
 void deathreport00c_startup(void);
 
 /* Provided interfaces */
-void deathreport00c_PI_PI_3( asn1SccT_Int32 *, asn1SccT_Boolean * );
+void deathreport00c_PI_PI_1_DeathReport( asn1SccT_Int32 *, asn1SccT_Boolean * );
 
 /* Required interfaces */
 

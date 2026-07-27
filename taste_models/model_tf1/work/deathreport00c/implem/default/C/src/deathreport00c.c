@@ -22,7 +22,7 @@ void deathreport00c_startup(void)
    // puts ("[DeathReport00C] Startup");
 }
 
-void deathreport00c_PI_PI_3
+void deathreport00c_PI_PI_1_DeathReport
       (asn1SccT_Int32 *OUT_p1,
        asn1SccT_Boolean *OUT_p2)
 
@@ -44,7 +44,12 @@ int test_iterations = DEATH_REPORT_STACK_TRACE_SIZE + 10;
 
     for ( test_loop = 0; test_loop < test_iterations; test_loop++ )
     {
-        test001 / dividebyzero;
+        // Removed at this time until target debug is established
+        // and the effect on the that raises an exception for the Death Report
+        // to be created.
+
+        // commented out by RGP
+        // test001 / dividebyzero;
     }
 
 

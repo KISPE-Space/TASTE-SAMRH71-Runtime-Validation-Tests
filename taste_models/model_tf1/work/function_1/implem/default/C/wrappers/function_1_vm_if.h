@@ -17,7 +17,7 @@
    typedef unsigned size_t;
 #endif
 
-#include "dataview-uniq.h"  // contains definition of PID type
+#include "C_ASN1_Types.h"
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -29,10 +29,12 @@ void init_function_1(void);
 
 
 /* Provided interfaces */
+void function_1_PI_2_Start
+      (const char *IN_p1, size_t IN_p1_len);
+
+
+
 void function_1_PI_cyclic_1(void);
-
-
-void function_1_PI_start001(void);
 
 
 #ifdef __cplusplus

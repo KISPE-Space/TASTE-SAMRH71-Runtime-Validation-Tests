@@ -29,7 +29,7 @@ void init_boothelper00f(void);
 
 
 /* Provided interfaces */
-void boothelper00f_PI_1
+void boothelper00f_PI_1_Boot_Helper
       (char *OUT_p1, size_t *OUT_p1_len,
        char *OUT_p2, size_t *OUT_p2_len);
 

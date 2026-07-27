@@ -29,7 +29,7 @@ void init_threads00e(void);
 
 
 /* Provided interfaces */
-void threads00e_PI_1
+void threads00e_PI_1_Threads
       (char *OUT_p1, size_t *OUT_p1_len,
        char *OUT_p2, size_t *OUT_p2_len);
 

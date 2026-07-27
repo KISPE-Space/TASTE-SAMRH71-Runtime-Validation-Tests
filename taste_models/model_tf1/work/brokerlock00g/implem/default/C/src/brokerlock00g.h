@@ -15,7 +15,7 @@ extern "C" {
 void brokerlock00g_startup(void);
 
 /* Provided interfaces */
-void brokerlock00g_PI_PI_1( asn1SccT_Int32 *, asn1SccT_Boolean * );
+void brokerlock00g_PI_PI_1_BrokerLog( asn1SccT_Int32 *, asn1SccT_Boolean * );
 
 /* Required interfaces */
 

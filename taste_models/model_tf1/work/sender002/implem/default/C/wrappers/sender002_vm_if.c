@@ -35,12 +35,24 @@ void init_sender002(void)
       sender002_initialized = 2;
    }
 }
-void sender002_PI_1(void)
-{
+void sender002_PI_1_Send02
+      (char *OUT_p1, size_t *OUT_p1_len,
+       char *OUT_p2, size_t *OUT_p2_len)
 
-   //  Directly call user code, no parameters to pass
-   extern void sender002_PI_PI_1(void);
-   sender002_PI_PI_1();
-   // puts ("sender002_pi_1 called");
+{
+   sender_pid = sender002_pi_1_send02_get_sender();
+
+   //  Declare user code function as external (it may not have a .h if it is in Ada)
+   extern void sender002_PI_PI_1_Send02
+      (asn1SccT_Int32 *,
+       asn1SccT_Boolean *);
+
+
+
+
+
+   // Call user code
+   sender002_PI_PI_1_Send02 ((asn1SccT_Int32 *)OUT_p1, (asn1SccT_Boolean *)OUT_p2);
+
 }
 

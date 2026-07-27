@@ -18,9 +18,10 @@ void sender009_startup(void)
    // puts ("[Sender009] Startup");
 }
 
-void sender009_PI_PI_1(void)
+void sender009_PI_PI_1_Send09( asn1SccT_Int32 *Framework_Result, asn1SccT_Boolean *Framework_Status )
 {
     asn1SccT_Int32 Parameter_N = 0;
+    asn1SccT_Boolean status = false;
 
 
     // TestStart000 shall invoke this function, which shall send
@@ -28,8 +29,15 @@ void sender009_PI_PI_1(void)
     // and MBEP-RT-FUN-220, where 1:10 sender functions send to one
     // receiver function.
 
-    Parameter_N = 900;
-    sender009_RI_PI_9( &Parameter_N );
+    Parameter_N = 900; // Expected by this interface Receiver001
+
+    sender009_RI_PI_9( &Parameter_N, &status );
+
+    // --
+    // -- Return the result of Framework_Status from the Receiver001 function.
+    // --
+
 }
+
 
 

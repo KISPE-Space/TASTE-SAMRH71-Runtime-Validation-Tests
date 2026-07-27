@@ -15,34 +15,34 @@ extern "C" {
 void receiver001_startup(void);
 
 /* Provided interfaces */
-void receiver001_PI_PI_1( const asn1SccT_Int32 * );
+void receiver001_PI_PI_1( const asn1SccT_Int32 *, asn1SccT_Boolean * );
 
 
-void receiver001_PI_PI_10( const asn1SccT_Int32 * );
+void receiver001_PI_PI_10( const asn1SccT_Int32 *, asn1SccT_Boolean * );
 
 
-void receiver001_PI_PI_2( const asn1SccT_Int32 * );
+void receiver001_PI_PI_2( const asn1SccT_Int32 *, asn1SccT_Boolean * );
 
 
-void receiver001_PI_PI_3( const asn1SccT_Int32 * );
+void receiver001_PI_PI_3( const asn1SccT_Int32 *, asn1SccT_Boolean * );
 
 
-void receiver001_PI_PI_4( const asn1SccT_Int32 * );
+void receiver001_PI_PI_4( const asn1SccT_Int32 *, asn1SccT_Boolean * );
 
 
-void receiver001_PI_PI_5( const asn1SccT_Int32 * );
+void receiver001_PI_PI_5( const asn1SccT_Int32 *, asn1SccT_Boolean * );
 
 
-void receiver001_PI_PI_6( const asn1SccT_Int32 * );
+void receiver001_PI_PI_6( const asn1SccT_Int32 *, asn1SccT_Boolean * );
 
 
-void receiver001_PI_PI_7( const asn1SccT_Int32 * );
+void receiver001_PI_PI_7( const asn1SccT_Int32 *, asn1SccT_Boolean * );
 
 
-void receiver001_PI_PI_8( const asn1SccT_Int32 * );
+void receiver001_PI_PI_8( const asn1SccT_Int32 *, asn1SccT_Boolean * );
 
 
-void receiver001_PI_PI_9( const asn1SccT_Int32 * );
+void receiver001_PI_PI_9( const asn1SccT_Int32 *, asn1SccT_Boolean * );
 
 /* Required interfaces */
 

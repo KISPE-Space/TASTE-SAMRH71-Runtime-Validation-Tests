@@ -10,9 +10,9 @@ from dmt.commonPy import aadlAST as ast
 
 ast.g_apLevelContainers = dict()
 
-# Interface "PI_3"
-sp = ast.ApLevelContainer("PI_3")
-ast.g_apLevelContainers["PI_3"] = sp
+# Interface "PI_1_DeathReport"
+sp = ast.ApLevelContainer("PI_1_DeathReport")
+ast.g_apLevelContainers["PI_1_DeathReport"] = sp
 subProgramParameters = []
 param = ast.AadlParameter("OUT", "DataView::T_Int32")
 param._encoding = "NATIVE"
@@ -23,9 +23,9 @@ for spFeature in subProgramParameters:
     param_type = "T_Int32"
     signal = ast.g_signals[param_type]
     if spFeature._parameter._direction == "IN":
-        param = ast.InParam("PI_3", "p1", signal, spFeature._parameter)
+        param = ast.InParam("PI_1_DeathReport", "p1", signal, spFeature._parameter)
     elif spFeature._parameter._direction == "OUT":
-        param = ast.OutParam("PI_3", "p1", signal, spFeature._parameter)
+        param = ast.OutParam("PI_1_DeathReport", "p1", signal, spFeature._parameter)
     sp.AddParam(param)
 subProgramParameters = []
 param = ast.AadlParameter("OUT", "DataView::T_Boolean")
@@ -37,21 +37,21 @@ for spFeature in subProgramParameters:
     param_type = "T_Boolean"
     signal = ast.g_signals[param_type]
     if spFeature._parameter._direction == "IN":
-        param = ast.InParam("PI_3", "p2", signal, spFeature._parameter)
+        param = ast.InParam("PI_1_DeathReport", "p2", signal, spFeature._parameter)
     elif spFeature._parameter._direction == "OUT":
-        param = ast.OutParam("PI_3", "p2", signal, spFeature._parameter)
+        param = ast.OutParam("PI_1_DeathReport", "p2", signal, spFeature._parameter)
     sp.AddParam(param)
 
 # Compute_Execution_Time = 0ms..0ms
 # Taste::Communication_Layer = default
-# Taste::InterfaceName = PI_3
+# Taste::InterfaceName = PI_1_DeathReport
 # Taste::RCMoperationKind = protected
 sp._fpgaConfigurations = ""   # initialization
 # Taste::Instances_Max = 1
 # Taste::Instances_Min = 1
 # Taste::Startup_Priority = 1
 # TASTE_IV_Properties::Default_Codegen = C
-ast.g_subProgramImplementations.append(["PI_3", "C", "C", "deathreport00c", sp._fpgaConfigurations])
+ast.g_subProgramImplementations.append(["PI_1_DeathReport", "C", "C", "deathreport00c", sp._fpgaConfigurations])
 sp._language = "C"
 
 

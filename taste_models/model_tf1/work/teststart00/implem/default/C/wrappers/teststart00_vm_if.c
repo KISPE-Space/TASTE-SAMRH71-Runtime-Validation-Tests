@@ -17,42 +17,30 @@ void teststart00_get_sender(asn1SccPID *OUT_sender_pid, asn1SccPID unused)
 
 extern void CInitteststart00(void);
 
-extern void init_activationlog(void);
-extern unsigned activationlog_initialized;
-extern void init_boothelper00f(void);
-extern unsigned boothelper00f_initialized;
-extern void init_brokerlock00g(void);
-extern unsigned brokerlock00g_initialized;
 extern void init_brokertest002a(void);
 extern unsigned brokertest002a_initialized;
-extern void init_deathreport00c(void);
-extern unsigned deathreport00c_initialized;
 extern void init_escapertest002b(void);
 extern unsigned escapertest002b_initialized;
-extern void init_hal00d(void);
-extern unsigned hal00d_initialized;
 extern void init_mqueuecallback12(void);
 extern unsigned mqueuecallback12_initialized;
-extern void init_monitorcallback(void);
-extern unsigned monitorcallback_initialized;
-extern void init_monitoring00a(void);
-extern unsigned monitoring00a_initialized;
 extern void init_paketizer002c(void);
 extern unsigned paketizer002c_initialized;
-extern void init_samrh71core00h(void);
-extern unsigned samrh71core00h_initialized;
 extern void init_sendacn(void);
 extern unsigned sendacn_initialized;
 extern void init_sender011(void);
 extern unsigned sender011_initialized;
 extern void init_testcyclic05(void);
 extern unsigned testcyclic05_initialized;
+extern void init_testmodules(void);
+extern unsigned testmodules_initialized;
 extern void init_testprotected(void);
 extern unsigned testprotected_initialized;
+extern void init_testspcc(void);
+extern unsigned testspcc_initialized;
+extern void init_testsendcomms09(void);
+extern unsigned testsendcomms09_initialized;
 extern void init_testunprotected(void);
 extern unsigned testunprotected_initialized;
-extern void init_threads00e(void);
-extern unsigned threads00e_initialized;
 unsigned teststart00_initialized = 0;
 void init_teststart00(void)
 {
@@ -63,41 +51,17 @@ void init_teststart00(void)
       teststart00_startup();
       // Iterate over all synchronous RIs, and call their parent's
       // init function. Multiple calls are prevented by the "init" guard.
-      if (0 == activationlog_initialized) {
-          init_activationlog();
-      }
-      if (0 == boothelper00f_initialized) {
-          init_boothelper00f();
-      }
-      if (0 == brokerlock00g_initialized) {
-          init_brokerlock00g();
-      }
       if (0 == brokertest002a_initialized) {
           init_brokertest002a();
-      }
-      if (0 == deathreport00c_initialized) {
-          init_deathreport00c();
       }
       if (0 == escapertest002b_initialized) {
           init_escapertest002b();
       }
-      if (0 == hal00d_initialized) {
-          init_hal00d();
-      }
       if (0 == mqueuecallback12_initialized) {
           init_mqueuecallback12();
       }
-      if (0 == monitorcallback_initialized) {
-          init_monitorcallback();
-      }
-      if (0 == monitoring00a_initialized) {
-          init_monitoring00a();
-      }
       if (0 == paketizer002c_initialized) {
           init_paketizer002c();
-      }
-      if (0 == samrh71core00h_initialized) {
-          init_samrh71core00h();
       }
       if (0 == sendacn_initialized) {
           init_sendacn();
@@ -108,14 +72,20 @@ void init_teststart00(void)
       if (0 == testcyclic05_initialized) {
           init_testcyclic05();
       }
+      if (0 == testmodules_initialized) {
+          init_testmodules();
+      }
       if (0 == testprotected_initialized) {
           init_testprotected();
       }
+      if (0 == testspcc_initialized) {
+          init_testspcc();
+      }
+      if (0 == testsendcomms09_initialized) {
+          init_testsendcomms09();
+      }
       if (0 == testunprotected_initialized) {
           init_testunprotected();
-      }
-      if (0 == threads00e_initialized) {
-          init_threads00e();
       }
       teststart00_initialized = 2;
    }

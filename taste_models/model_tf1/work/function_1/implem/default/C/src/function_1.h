@@ -15,10 +15,10 @@ extern "C" {
 void function_1_startup(void);
 
 /* Provided interfaces */
+void function_1_PI_PI_2_Start( const asn1SccT_Int32 * );
+
+
 void function_1_PI_PI_cyclic_1( void );
-
-
-void function_1_PI_PI_start001( void );
 
 /* Required interfaces */
 extern void function_1_RI_PI_2( const asn1SccT_Int32 * );

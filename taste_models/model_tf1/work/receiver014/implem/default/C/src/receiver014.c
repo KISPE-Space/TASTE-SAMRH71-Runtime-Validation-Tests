@@ -18,22 +18,16 @@ void receiver014_startup(void)
    // puts ("[Receiver014] Startup");
 }
 
-void receiver014_PI_PI_1_SR14
-      (asn1SccT_Int32 *Parameter_N )
-
+void receiver014_PI_PI_1_SR14( const asn1SccT_Int32 *Parameter, asn1SccT_Boolean *test_check )
 {
-    asn1SccT_Int32 parameter = 0;
-    bool passed = false;
-    bool failed = false;
 
-    parameter = *Parameter_N;
-    if ( parameter == 700 )
+    if ( *Parameter == 700 )
     {
-        passed = true;
+        *test_check = true;
     }
     else
     {
-        failed = true;
+        *test_check = false;
     }
 }
 

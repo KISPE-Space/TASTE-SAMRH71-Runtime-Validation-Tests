@@ -15,7 +15,7 @@ extern "C" {
 void boothelper00f_startup(void);
 
 /* Provided interfaces */
-void boothelper00f_PI_PI_1( asn1SccT_Int32 *, asn1SccT_Boolean * );
+void boothelper00f_PI_PI_1_Boot_Helper( asn1SccT_Int32 *, asn1SccT_Boolean * );
 
 /* Required interfaces */
 

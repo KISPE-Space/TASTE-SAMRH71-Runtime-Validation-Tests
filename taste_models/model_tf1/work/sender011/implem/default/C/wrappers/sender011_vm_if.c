@@ -80,22 +80,24 @@ void init_sender011(void)
       sender011_initialized = 2;
    }
 }
-void sender011_PI_1
-      (const char *IN_p1, size_t IN_p1_len)
+void sender011_PI_1_Start_Send_Tests
+      (char *OUT_p1, size_t *OUT_p1_len,
+       char *OUT_p2, size_t *OUT_p2_len)
 
 {
-   sender_pid = sender011_pi_1_get_sender();
+   sender_pid = sender011_pi_1_start_send_tests_get_sender();
 
    //  Declare user code function as external (it may not have a .h if it is in Ada)
-   extern void sender011_PI_PI_1
-      (const asn1SccT_Int32 *);
+   extern void sender011_PI_PI_1_Start_Send_Tests
+      (asn1SccT_Int32 *,
+       asn1SccT_Boolean *);
 
 
 
 
 
    // Call user code
-   sender011_PI_PI_1 ((asn1SccT_Int32 *)IN_p1);
+   sender011_PI_PI_1_Start_Send_Tests ((asn1SccT_Int32 *)OUT_p1, (asn1SccT_Boolean *)OUT_p2);
 
 }
 

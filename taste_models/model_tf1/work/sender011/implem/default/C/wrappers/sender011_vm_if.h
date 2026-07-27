@@ -29,8 +29,9 @@ void init_sender011(void);
 
 
 /* Provided interfaces */
-void sender011_PI_1
-      (const char *IN_p1, size_t IN_p1_len);
+void sender011_PI_1_Start_Send_Tests
+      (char *OUT_p1, size_t *OUT_p1_len,
+       char *OUT_p2, size_t *OUT_p2_len);
 
 
 #ifdef __cplusplus

@@ -24,10 +24,10 @@ void threads00e_PI_PI_1
 
 {
 bool test_result;
-uint64_t interval_ns, offset_ns;
-uint32_t requested_size, queue_id, thread_id;
-char * fake;
-char * request_data;
+//uint64_t interval_ns, offset_ns;
+//uint32_t requested_size, queue_id, thread_id;
+//char * fake;
+//char * request_data;
 
    // -- This is where the Runtime creates Cyclic_Requests and Process_Requests
    // -- Using RTEMS functions to create message queues

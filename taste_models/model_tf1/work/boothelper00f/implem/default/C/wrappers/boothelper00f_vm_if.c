@@ -28,15 +28,15 @@ void init_boothelper00f(void)
       boothelper00f_initialized = 2;
    }
 }
-void boothelper00f_PI_1
+void boothelper00f_PI_1_Boot_Helper
       (char *OUT_p1, size_t *OUT_p1_len,
        char *OUT_p2, size_t *OUT_p2_len)
 
 {
-   sender_pid = boothelper00f_pi_1_get_sender();
+   sender_pid = boothelper00f_pi_1_boot_helper_get_sender();
 
    //  Declare user code function as external (it may not have a .h if it is in Ada)
-   extern void boothelper00f_PI_PI_1
+   extern void boothelper00f_PI_PI_1_Boot_Helper
       (asn1SccT_Int32 *,
        asn1SccT_Boolean *);
 
@@ -45,7 +45,7 @@ void boothelper00f_PI_1
 
 
    // Call user code
-   boothelper00f_PI_PI_1 ((asn1SccT_Int32 *)OUT_p1, (asn1SccT_Boolean *)OUT_p2);
+   boothelper00f_PI_PI_1_Boot_Helper ((asn1SccT_Int32 *)OUT_p1, (asn1SccT_Boolean *)OUT_p2);
 
 }
 

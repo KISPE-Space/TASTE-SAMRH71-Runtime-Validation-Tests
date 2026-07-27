@@ -28,15 +28,15 @@ void init_brokerlock00g(void)
       brokerlock00g_initialized = 2;
    }
 }
-void brokerlock00g_PI_1
+void brokerlock00g_PI_1_BrokerLog
       (char *OUT_p1, size_t *OUT_p1_len,
        char *OUT_p2, size_t *OUT_p2_len)
 
 {
-   sender_pid = brokerlock00g_pi_1_get_sender();
+   sender_pid = brokerlock00g_pi_1_brokerlog_get_sender();
 
    //  Declare user code function as external (it may not have a .h if it is in Ada)
-   extern void brokerlock00g_PI_PI_1
+   extern void brokerlock00g_PI_PI_1_BrokerLog
       (asn1SccT_Int32 *,
        asn1SccT_Boolean *);
 
@@ -45,7 +45,7 @@ void brokerlock00g_PI_1
 
 
    // Call user code
-   brokerlock00g_PI_PI_1 ((asn1SccT_Int32 *)OUT_p1, (asn1SccT_Boolean *)OUT_p2);
+   brokerlock00g_PI_PI_1_BrokerLog ((asn1SccT_Int32 *)OUT_p1, (asn1SccT_Boolean *)OUT_p2);
 
 }
 

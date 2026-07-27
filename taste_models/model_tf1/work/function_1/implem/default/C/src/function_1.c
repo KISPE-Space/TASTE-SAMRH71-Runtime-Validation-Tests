@@ -36,11 +36,11 @@ int counter = 0;
     }
 }
 
-void function_1_PI_PI_start001(void)
+void function_1_PI_PI_2_Start( const asn1SccT_Int32 *data_in )
 {
     asn1SccT_Int32 data = 0;
 
-    data = 1;
+    data = *data_in + 1;
     // Send the data to the next function (2)
     function_1_RI_PI_2( &data );
 

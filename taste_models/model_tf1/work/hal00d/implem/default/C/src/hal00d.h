@@ -15,7 +15,7 @@ extern "C" {
 void hal00d_startup(void);
 
 /* Provided interfaces */
-void hal00d_PI_PI_4( asn1SccT_Int32 *, asn1SccT_Boolean * );
+void hal00d_PI_PI_1_HAL( asn1SccT_Int32 *, asn1SccT_Boolean * );
 
 /* Required interfaces */
 

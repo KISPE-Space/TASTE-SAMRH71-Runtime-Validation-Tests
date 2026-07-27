@@ -29,7 +29,7 @@ void init_brokerlock00g(void);
 
 
 /* Provided interfaces */
-void brokerlock00g_PI_1
+void brokerlock00g_PI_1_BrokerLog
       (char *OUT_p1, size_t *OUT_p1_len,
        char *OUT_p2, size_t *OUT_p2_len);
 

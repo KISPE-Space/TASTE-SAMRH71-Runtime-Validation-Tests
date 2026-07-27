@@ -35,33 +35,24 @@ void init_sender001(void)
       sender001_initialized = 2;
    }
 }
-void sender001_PI_1_Cyclic(void)
-{
-
-   //  Directly call user code, no parameters to pass
-   extern void sender001_PI_PI_1_Cyclic(void);
-   sender001_PI_PI_1_Cyclic();
-   // puts ("sender001_pi_1_cyclic called");
-}
-
-
-
-
-void sender001_PI_2
-      (const char *IN_p1, size_t IN_p1_len)
+void sender001_PI_1_Send01
+      (char *OUT_p1, size_t *OUT_p1_len,
+       char *OUT_p2, size_t *OUT_p2_len)
 
 {
+   sender_pid = sender001_pi_1_send01_get_sender();
 
    //  Declare user code function as external (it may not have a .h if it is in Ada)
-   extern void sender001_PI_PI_2
-      (const asn1SccT_Int32 *);
+   extern void sender001_PI_PI_1_Send01
+      (asn1SccT_Int32 *,
+       asn1SccT_Boolean *);
 
 
 
 
 
    // Call user code
-   sender001_PI_PI_2 ((asn1SccT_Int32 *)IN_p1);
+   sender001_PI_PI_1_Send01 ((asn1SccT_Int32 *)OUT_p1, (asn1SccT_Boolean *)OUT_p2);
 
 }
 

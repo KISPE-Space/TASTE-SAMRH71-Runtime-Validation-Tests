@@ -28,12 +28,35 @@ void init_monitoring00a(void)
       monitoring00a_initialized = 2;
    }
 }
+void monitoring00a_PI_2_Mon00A
+      (char *OUT_p1, size_t *OUT_p1_len,
+       char *OUT_p2, size_t *OUT_p2_len)
+
+{
+   sender_pid = monitoring00a_pi_2_mon00a_get_sender();
+
+   //  Declare user code function as external (it may not have a .h if it is in Ada)
+   extern void monitoring00a_PI_PI_2_Mon00A
+      (asn1SccT_Int32 *,
+       asn1SccT_Boolean *);
+
+
+
+
+
+   // Call user code
+   monitoring00a_PI_PI_2_Mon00A ((asn1SccT_Int32 *)OUT_p1, (asn1SccT_Boolean *)OUT_p2);
+
+}
+
+
+
+
 void monitoring00a_PI_Mon
       (char *OUT_p1, size_t *OUT_p1_len,
        char *OUT_p2, size_t *OUT_p2_len)
 
 {
-   sender_pid = monitoring00a_pi_mon_get_sender();
 
    //  Declare user code function as external (it may not have a .h if it is in Ada)
    extern void monitoring00a_PI_PI_Mon

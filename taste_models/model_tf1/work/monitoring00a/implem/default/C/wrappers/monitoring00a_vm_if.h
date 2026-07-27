@@ -29,6 +29,12 @@ void init_monitoring00a(void);
 
 
 /* Provided interfaces */
+void monitoring00a_PI_2_Mon00A
+      (char *OUT_p1, size_t *OUT_p1_len,
+       char *OUT_p2, size_t *OUT_p2_len);
+
+
+
 void monitoring00a_PI_Mon
       (char *OUT_p1, size_t *OUT_p1_len,
        char *OUT_p2, size_t *OUT_p2_len);

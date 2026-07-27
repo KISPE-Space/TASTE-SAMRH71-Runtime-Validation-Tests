@@ -14,6 +14,7 @@ SPACECREATOR?=spacecreator.AppImage
 # RGP added to make the activation log active
 export PARTITION_1_USER_CFLAGS=-DRT_EXEC_LOG_ACTIVE
 
+export PARTITION_1USER_CFLAGS = -DRT_RTOS_NO_INIT
 
 # If you need to reset this Makefile to its original state, run:
 # $ taste reset

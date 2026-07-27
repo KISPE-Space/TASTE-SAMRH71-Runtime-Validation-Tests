@@ -35,5 +35,21 @@ PROPERTIES
 
 END SP_PI_2.C;
 
+SUBPROGRAM SP_PI_2_EndTest
+FEATURES
+   p1 : OUT PARAMETER DataView::T_Int32 {encoding=>NATIVE;};
 
+END SP_PI_2_EndTest;
+
+SUBPROGRAM IMPLEMENTATION SP_PI_2_EndTest.C
+PROPERTIES
+   FV_Name        => "function_24";
+   interface_name => "PI_2_EndTest";
+   Source_Language => C;
+   Taste::Instances_Max => "1";
+   Taste::Instances_Min => "1";
+   Taste::Startup_Priority => "1";
+   TASTE_IV_Properties::Default_Codegen => "C";
+
+END SP_PI_2_EndTest.C;
 

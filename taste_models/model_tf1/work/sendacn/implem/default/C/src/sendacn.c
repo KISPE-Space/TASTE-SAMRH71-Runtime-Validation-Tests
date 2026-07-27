@@ -9,7 +9,8 @@
 */
 #include "sendacn.h"
 #include "limits.h"
-//#include <stdio.h>
+#include "../../../../test_defines.h"           // Custom include, NOT managed by TASTE
+#include <stdio.h>
 
 
 void sendacn_startup(void)
@@ -19,11 +20,41 @@ void sendacn_startup(void)
    // puts ("[SendACN] Startup");
 }
 
+
+/************************************************************
+ * <Test ID>
+ * <SendACN>
+ * <Purpose>
+ * This test calls 5 receive functions, using unprotected interfaces.
+ * An ACN type will be sent, decoded and encoded when each receiver
+ * returns the ACN type.
+ * <Requirements>
+ *  - MBEP-RT-FUN-50
+ *  - MBEP-RT-FUN-150
+ *  - MBEP-RT-FUN-190
+ *  - MBEP-RT-FUN-240
+ *  - MBEP-RT-FUN-250
+ *  - MBEP-RT-FUN-340
+ * <inputs specification>
+ * <outputs specification>
+ * <Procedure: Proceed steps>
+ * - Set up Parameters
+ * Call 5 functions using UnProtected Interfaces from a single send interface
+ * in order to meet above requirements, varying values sent to functions, which
+ * are sent an ACN value decoded and return an ACN encoded value.
+ *<Test failure>
+ * - Test will fail if any functions call fails to complete, returning
+ *   execution to the testfunction.
+ * - Test will fail if the passed parameter is incorrect or the received parameter
+ *   in incorrect.
+ *   Both the Sender and Receiver validate test the encoded and decode parameters.
+ *************************************************************/
+
 void sendacn_PI_PI_1
         ( asn1SccT_Int32 *Framework_Result, asn1SccT_Boolean *Framework_Status )
 {
-asn1SccT_Int32 integer_32_value;
-asn1SccT_Int32 integer_32_result;
+asn1SccT_Int32 integer_32_value = 0;
+asn1SccT_Int32 integer_32_result = 0;
 asn1SccT_UInt8 unsigned_08_value;
 asn1SccT_UInt8 unsigned_08_result;
 asn1SccT_Boolean Boolean_value;
@@ -59,107 +90,109 @@ asn1SccT_Int32 Test_Result = 0;
     *Framework_Status = true;       // PASS, any failure will set this to FALSE
 
     sendacn_RI_PI_1_ACN_01( &integer_32_value , &integer_32_result );
-    if ( integer_32_result == 0 )
-    {
-        Test_Result++;
-    }
-    else
-    {
-        *Framework_Status = false; // FAIL
-    }
 
-    integer_32_value = INT_MAX;
-    integer_32_result = 0;
-
-    sendacn_RI_PI_1_ACN_01( &integer_32_value , &integer_32_result );
+    *Framework_Result = TestACNCoverstion_TestACN01;
     if ( integer_32_result == INT_MAX )
     {
-        Test_Result++;
+        *Framework_Status = true;
+        if ( PRINT_RESULTS )
+        {
+            printf( "<TEST_ID> SendACN \n");
+            printf("<TEST_RESULT> PASS \n");
+        }
     }
     else
     {
         *Framework_Status = false; // FAIL
-    }
-
-    integer_32_value = INT_MIN;
-    integer_32_result = 0;
-
-    sendacn_RI_PI_1_ACN_01( &integer_32_value , &integer_32_result );
-    if ( integer_32_result == INT_MIN )
-    {
-        Test_Result++;
-    }
-    else
-    {
-        *Framework_Status = false; // FAIL
-    }
-
-    // ---------------------------------------------------------------
-    // --                                                           --
-    // -- Unisigned values are tested for UINT_MAX and UINT_MIN (0) --
-    // --                                                           --
-    // ---------------------------------------------------------------
-
-    unsigned_08_value = 0;
-    unsigned_08_result = UCHAR_MAX;
-    sendacn_RI_PI_1_ACN_02( &unsigned_08_value, &unsigned_08_result );
-    if ( unsigned_08_result == 0 )
-    {
-         Test_Result++;       // This return with a value representing
-                              // the number of tests that passed
-    }
-    else
-    {
-         *Framework_Status = false; // FAIL
+        if ( PRINT_RESULTS )
+        {
+            printf("<TEST_ID> SendACN \n");
+            printf("<TEST_RESULT> FAIL \n");
+            printf("<TEST_FAIL_REASON> TestACNCoverstion_TestACN01 \n");
+        }
     }
 
     unsigned_08_value = UCHAR_MAX;
     unsigned_08_result = 0;
-    sendacn_RI_PI_1_ACN_02( &unsigned_08_value, &unsigned_08_result );
+
+    sendacn_RI_PI_1_ACN_02( &unsigned_08_value , &unsigned_08_result );
+
+    *Framework_Result = TestACNCoverstion_TestACN02;
     if ( unsigned_08_result == UCHAR_MAX )
     {
-        Test_Result++;       // This return with a value representing
-                             // the number of tests that passed
+        *Framework_Status = true;
+        if ( PRINT_RESULTS )
+        {
+            printf( "<TEST_ID> SendACN \n");
+            printf("<TEST_RESULT> PASS \n");
+        }
     }
     else
     {
         *Framework_Status = false; // FAIL
+        if ( PRINT_RESULTS )
+        {
+            printf("<TEST_ID> SendACN \n");
+            printf("<TEST_RESULT> FAIL \n");
+            printf("<TEST_FAIL_REASON> TestACNCoverstion_TestACN02 \n");
+        }
     }
-
-    // --------------------------------------------------
-    // --                                              --
-    // -- Boolean values are tested for True and False --
-    // --                                              --
-    // --------------------------------------------------
 
     Boolean_value = true;
-    Boolean_result = false;
-    // extern void sendacn_RI_PI_1_ACN03( const asn1SccT_Boolean *, asn1SccT_Boolean * );
+    Boolean_result = 0;
 
     sendacn_RI_PI_1_ACN03( &Boolean_value , &Boolean_result );
+
+    *Framework_Result = TestACNCoverstion_TestACN03;
     if ( Boolean_result == true )
     {
-        Test_Result++;       // This return with a value representing
-                             // the number of tests that passed
+        *Framework_Status = true; // PASS
+        if ( PRINT_RESULTS )
+        {
+            printf( "<TEST_ID> SendACN \n");
+            printf("<TEST_RESULT> PASS \n");
+        }
     }
     else
     {
         *Framework_Status = false; // FAIL
+        if ( PRINT_RESULTS )
+        {
+            printf("<TEST_ID> SendACN \n");
+            printf("<TEST_RESULT> FAIL \n");
+            printf("<TEST_FAIL_REASON> TestACNCoverstion_TestACN03 \n");
+        }
     }
 
-    Boolean_value = false;
-    Boolean_result = true;
+    // -- PID_value is the first enumeration item
+    // -- PID_result
+    PID_value = PID_activationlog;
+    PID_result = PID_env;
 
-    sendacn_RI_PI_1_ACN03( &Boolean_value , &Boolean_result );
-    if ( Boolean_result == false )
+    sendacn_RI_PI_1_ACN04( &PID_value, &PID_result );
+
+    *Framework_Result = TestACNCoverstion_TestACN04;
+    if ( PID_result == PID_activationlog )
     {
-        Test_Result++;      // This return with a value representing
-                            // the number of tests that passed
+        *Framework_Status = true; // PASS
+        if ( PRINT_RESULTS )
+        {
+            printf( "<TEST_ID> SendACN \n");
+            printf("<TEST_RESULT> PASS \n");
+        }
     }
     else
     {
         *Framework_Status = false; // FAIL
+        if ( PRINT_RESULTS )
+        {
+            printf("<TEST_ID> SendACN \n");
+            printf("<TEST_RESULT> FAIL \n");
+            printf("<TEST_FAIL_REASON> TestACNCoverstion_TestACN04 \n");
+        }
     }
+
+
 
     // ----------------------------------------------------------------------
     // --                                                                  --
@@ -179,63 +212,84 @@ asn1SccT_Int32 Test_Result = 0;
     PID_result = PID_rcvacn05;
 
     sendacn_RI_PI_1_ACN04( &PID_value, &PID_result );
+
+    *Framework_Result = TestACNCoverstion_TestACN04;
+
     if ( PID_result == PID_boothelper00f )
     {
-        Test_Result++;       // This return with a value representing
-                             // the number of tests that passed
+        *Framework_Status = true; // PASS
+        if ( PRINT_RESULTS )
+        {
+            printf( "<TEST_ID> SendACN \n");
+            printf("<TEST_RESULT> PASS \n");
+        }
     }
     else
     {
         *Framework_Status = false; // FAIL
-    }
-
-    PID_value = PID_env;
-    PID_result = PID_boothelper00f;
-
-    sendacn_RI_PI_1_ACN04( &PID_value, &PID_result );
-    if ( PID_result == PID_env )
-    {
-        Test_Result++;      // This return with a value representing
-                            // the number of tests that passed
-    }
-    else
-    {
-        *Framework_Status = false; // FAIL
+        if ( PRINT_RESULTS )
+        {
+            printf("<TEST_ID> SendACN \n");
+            printf("<TEST_RESULT> FAIL \n");
+            printf("<TEST_FAIL_REASON> TestACNCoverstion_TestACN04 \n");
+        }
     }
 
 
-    PID_Range_Value = PID_boothelper00f;
+    // asn1SccPID_Range PID_Range_Value;
+    // asn1SccPID_Range PID_Range_result;
+    PID_Range_Value = PID_function_18;
     PID_Range_result = 1000;
 
-    //sendacn_RI_PI_1_ACN05( const asn1SccPID_Range *, asn1SccPID_Range * );
     sendacn_RI_PI_1_ACN05( &PID_Range_Value , &PID_Range_result  );
+
+    *Framework_Result = TestACNCoverstion_TestACN05;
     if ( PID_Range_result == PID_Range_Value )
     {
-
-        Test_Result++;      // This return with a value representing
-                            // the number of tests that passed
-
+        *Framework_Status = true; // PASS
+        if ( PRINT_RESULTS )
+        {
+            printf( "<TEST_ID> SendACN \n");
+            printf("<TEST_RESULT> PASS \n");
+        }
     }
     else
     {
         *Framework_Status = false; // FAIL
+        if ( PRINT_RESULTS )
+        {
+            printf("<TEST_ID> SendACN \n");
+            printf("<TEST_RESULT> FAIL \n");
+            printf("<TEST_FAIL_REASON> TestACNCoverstion_TestACN05 \n");
+        }
     }
 
-    PID_Range_Value = 1000;     /* this should be an invalid value */
-    PID_Range_result = 0;
+    PID_Range_Value = 1000;     /* this should be an invalid value to test Taste Runtime error handling */
+    PID_Range_result = 1000;
 
-    //sendacn_RI_PI_1_ACN05( const asn1SccPID_Range *, asn1SccPID_Range * );
+
     sendacn_RI_PI_1_ACN05( &PID_Range_Value , &PID_Range_result  );
+
+    *Framework_Result = TestACNCoverstion_TestACN05;
+
     if ( PID_Range_result == PID_Range_Value )
     {
-
-        Test_Result++;      // This return with a value representing
-                            // the number of tests that passed
-
+        *Framework_Status = true; // PASS
+        if ( PRINT_RESULTS )
+        {
+            printf( "<TEST_ID> SendACN \n");
+            printf("<TEST_RESULT> PASS \n");
+        }
     }
     else
     {
         *Framework_Status = false; // FAIL
+        if ( PRINT_RESULTS )
+        {
+            printf("<TEST_ID> SendACN \n");
+            printf("<TEST_RESULT> FAIL \n");
+            printf("<TEST_FAIL_REASON> TestACNCoverstion_TestACN05 \n");
+        }
     }
 
     // Set the number of test runs that were run

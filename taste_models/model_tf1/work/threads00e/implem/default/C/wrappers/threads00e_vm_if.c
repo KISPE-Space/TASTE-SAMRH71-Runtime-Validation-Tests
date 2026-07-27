@@ -28,15 +28,15 @@ void init_threads00e(void)
       threads00e_initialized = 2;
    }
 }
-void threads00e_PI_1
+void threads00e_PI_1_Threads
       (char *OUT_p1, size_t *OUT_p1_len,
        char *OUT_p2, size_t *OUT_p2_len)
 
 {
-   sender_pid = threads00e_pi_1_get_sender();
+   sender_pid = threads00e_pi_1_threads_get_sender();
 
    //  Declare user code function as external (it may not have a .h if it is in Ada)
-   extern void threads00e_PI_PI_1
+   extern void threads00e_PI_PI_1_Threads
       (asn1SccT_Int32 *,
        asn1SccT_Boolean *);
 
@@ -45,7 +45,7 @@ void threads00e_PI_1
 
 
    // Call user code
-   threads00e_PI_PI_1 ((asn1SccT_Int32 *)OUT_p1, (asn1SccT_Boolean *)OUT_p2);
+   threads00e_PI_PI_1_Threads ((asn1SccT_Int32 *)OUT_p1, (asn1SccT_Boolean *)OUT_p2);
 
 }
 

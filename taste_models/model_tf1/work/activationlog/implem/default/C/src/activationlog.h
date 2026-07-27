@@ -15,7 +15,7 @@ extern "C" {
 void activationlog_startup(void);
 
 /* Provided interfaces */
-void activationlog_PI_PI_10_Act_Start( asn1SccT_Int32 *, asn1SccT_Boolean * );
+void activationlog_PI_PI_1_ActivationLog( asn1SccT_Int32 *, asn1SccT_Boolean * );
 
 /* Required interfaces */
 

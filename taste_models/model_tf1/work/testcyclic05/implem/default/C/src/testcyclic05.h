@@ -18,7 +18,7 @@ void testcyclic05_startup(void);
 void testcyclic05_PI_PI_1( void );
 
 
-void testcyclic05_PI_PI_2( const asn1SccT_Int32 * );
+void testcyclic05_PI_PI_2_Cyclic( asn1SccT_Int32 *, asn1SccT_Boolean * );
 
 /* Required interfaces */
 

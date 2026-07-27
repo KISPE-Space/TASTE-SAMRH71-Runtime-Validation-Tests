@@ -29,7 +29,7 @@ void init_hal00d(void);
 
 
 /* Provided interfaces */
-void hal00d_PI_4
+void hal00d_PI_1_HAL
       (char *OUT_p1, size_t *OUT_p1_len,
        char *OUT_p2, size_t *OUT_p2_len);
 

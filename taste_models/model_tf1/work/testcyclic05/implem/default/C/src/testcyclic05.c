@@ -8,19 +8,139 @@
     !! file. The up-to-date signatures can be found in the header file. !!
 */
 #include "testcyclic05.h"
-//#include <stdio.h>
+#include "../../../../test_defines.h"           // Custom include, NOT managed by TASTE
+#include "../../../../../taste-setup/TASTE-SAMX-RTEMS-Runtime/src/Hal/Hal.h"
+#include <stdint.h>
+#include <stdio.h>
+
+/************************************************************
+ * <Test ID>
+ * <TestCyclic05>
+ * <Purpose>
+ * This function tests the cyclic interface of the function by using
+ * the HAL.c based Hal_GetElapsedTimeInNs() function to determine
+ * the accuracy of the incoming 5000ms cyclic interface.
+ * MBEP-RT-FUN-330 is a design requirement stating the resolution or difference
+ * betwwen each cycle shall be at least 10ms.
+ * <Requirements>
+ *  - MBEP-RT-FUN-30
+ *  - MBEP-RT-FUN-330
+ * <inputs specification>
+ * <outputs specification>
+ * <Procedure: Proceed steps>
+ * - Set up Parameters
+ * A cyclic interface every 5000ms
+ * A call from TestMain00 to retrieve cyclic time resolution.
+
+ *<Test failure>
+ * - Test will fail if any functions call fails to complete, returning
+ *   execution to the testfunction
+ *************************************************************/
 
 
-void testcyclic05_startup(void)
+static asn1SccT_Int32 Failure_Result = 0;
+static asn1SccT_Boolean Failure_Status = false;
+static asn1SccT_Int32 cyclic_resolution = 0;
+
+void testcyclic05_startup()
 {
    // Write your initialisation code
    // You may call sporadic required interfaces and start timers
    // puts ("[TestCyclic05] Startup");
+
+
 }
 
-void testcyclic05_PI_PI_1(void)
+
+// --
+// -- This provided interface is currently cycled every 5000ms
+// -- to test the elapsed time since the last cycle
+// -- It's a wider time test for accuracy
+// --
+// --
+
+void testcyclic05_PI_PI_1(  )
 {
-   // Write your code here
+static uint64_t elapsed_time_last = 0;
+static uint64_t elapsed_time_latest = 0;
+
+
+    // ignore the first cycle, all variables will be preset
+    // in preparation for the
+
+elapsed_time_last = 0;
+
+    if ( elapsed_time_last == 0)
+    {
+        // First time into the cyclic test, no processing
+        elapsed_time_latest = Hal_GetElapsedTimeInNs();
+    }
+    else
+    {
+        elapsed_time_last = elapsed_time_latest;
+        elapsed_time_latest = Hal_GetElapsedTimeInNs();
+
+        cyclic_resolution = (  elapsed_time_latest - elapsed_time_last );
+
+        // --
+        // -- test for resolution of 10ms or 10000
+        // --
+        if ( cyclic_resolution > 10000  )
+        {
+            Failure_Result = Test_CYCLIC_TIME_RESOLUTION_TOO_HIGH;
+            Failure_Status = false;
+
+            if ( PRINT_RESULTS )
+            {
+                printf("<TEST_ID> TestCyclic05 \n");
+                printf("<TEST_RESULT> FAIL \n");
+                printf("<TEST_FAIL_REASON> Test_CYCLIC_TIME_RESOLUTION_TOO_HIGH \n");
+            }
+        }
+        else
+        {
+            // --
+            // -- Testing for resolution under 5000ms, the actual cycle rate
+            // -- In most cases the resolution will be 5ms to 10ms+
+            // --
+            if ( cyclic_resolution < 5000 )
+            {
+                Failure_Result = Test_CYCLIC_TIME_RESOLUTION_TOO_LOW;
+                Failure_Status = false;
+
+
+                if ( PRINT_RESULTS )
+                {
+                    printf("<TEST_ID> TestCyclic05 \n");
+                    printf("<TEST_RESULT> FAIL \n");
+                    printf("<TEST_FAIL_REASON> Test_CYCLIC_TIME_RESOLUTION_TOO_LOW \n");
+                }
+            }
+            else
+            {
+                if ( PRINT_RESULTS )
+                {
+                    printf("<TEST_ID> TestCyclic05 \n");
+                    printf("<TEST_RESULT> PASS \n");
+                }
+            }
+        }
+
+    }
+
+}
+
+
+// --
+// -- This provided interface is currently called by <TesMmain00>
+// -- to test the collect data on long term cyclic tests.
+// --
+// --
+
+void testcyclic05_PI_PI_2_Cyclic( asn1SccT_Int32 *OUT_p1, asn1SccT_Boolean *OUT_p2 )
+{
+   // Write the data back to TestMain00
+
 }
 
 

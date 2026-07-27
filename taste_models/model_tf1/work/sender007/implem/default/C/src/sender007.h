@@ -15,10 +15,10 @@ extern "C" {
 void sender007_startup(void);
 
 /* Provided interfaces */
-void sender007_PI_PI_1( void );
+void sender007_PI_PI_1_Send07( asn1SccT_Int32 *, asn1SccT_Boolean * );
 
 /* Required interfaces */
-extern void sender007_RI_PI_7( const asn1SccT_Int32 * );
+extern void sender007_RI_PI_7( const asn1SccT_Int32 *, asn1SccT_Boolean * );
 
 
 #ifdef __cplusplus

@@ -16,3 +16,5 @@ DISTFILES += model_tf1.acn
 include(work/taste.pro)
 message($$DISTFILES)
 
+SOURCES +=
+

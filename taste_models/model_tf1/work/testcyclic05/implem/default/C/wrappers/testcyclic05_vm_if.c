@@ -40,22 +40,24 @@ void testcyclic05_PI_1(void)
 
 
 
-void testcyclic05_PI_2
-      (const char *IN_p1, size_t IN_p1_len)
+void testcyclic05_PI_2_Cyclic
+      (char *OUT_p1, size_t *OUT_p1_len,
+       char *OUT_p2, size_t *OUT_p2_len)
 
 {
-   sender_pid = testcyclic05_pi_2_get_sender();
+   sender_pid = testcyclic05_pi_2_cyclic_get_sender();
 
    //  Declare user code function as external (it may not have a .h if it is in Ada)
-   extern void testcyclic05_PI_PI_2
-      (const asn1SccT_Int32 *);
+   extern void testcyclic05_PI_PI_2_Cyclic
+      (asn1SccT_Int32 *,
+       asn1SccT_Boolean *);
 
 
 
 
 
    // Call user code
-   testcyclic05_PI_PI_2 ((asn1SccT_Int32 *)IN_p1);
+   testcyclic05_PI_PI_2_Cyclic ((asn1SccT_Int32 *)OUT_p1, (asn1SccT_Boolean *)OUT_p2);
 
 }
 

@@ -29,7 +29,7 @@ void init_samrh71core00h(void);
 
 
 /* Provided interfaces */
-void samrh71core00h_PI_1
+void samrh71core00h_PI_1_CPUCore
       (char *OUT_p1, size_t *OUT_p1_len,
        char *OUT_p2, size_t *OUT_p2_len);
 

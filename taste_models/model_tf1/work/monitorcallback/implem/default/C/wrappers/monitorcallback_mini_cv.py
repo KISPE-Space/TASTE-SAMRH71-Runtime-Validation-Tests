@@ -10,9 +10,9 @@ from dmt.commonPy import aadlAST as ast
 
 ast.g_apLevelContainers = dict()
 
-# Interface "PI_10_Callback"
-sp = ast.ApLevelContainer("PI_10_Callback")
-ast.g_apLevelContainers["PI_10_Callback"] = sp
+# Interface "PI_1_MonCallback"
+sp = ast.ApLevelContainer("PI_1_MonCallback")
+ast.g_apLevelContainers["PI_1_MonCallback"] = sp
 subProgramParameters = []
 param = ast.AadlParameter("OUT", "DataView::T_Int32")
 param._encoding = "NATIVE"
@@ -23,9 +23,9 @@ for spFeature in subProgramParameters:
     param_type = "T_Int32"
     signal = ast.g_signals[param_type]
     if spFeature._parameter._direction == "IN":
-        param = ast.InParam("PI_10_Callback", "p1", signal, spFeature._parameter)
+        param = ast.InParam("PI_1_MonCallback", "p1", signal, spFeature._parameter)
     elif spFeature._parameter._direction == "OUT":
-        param = ast.OutParam("PI_10_Callback", "p1", signal, spFeature._parameter)
+        param = ast.OutParam("PI_1_MonCallback", "p1", signal, spFeature._parameter)
     sp.AddParam(param)
 subProgramParameters = []
 param = ast.AadlParameter("OUT", "DataView::T_Boolean")
@@ -37,21 +37,21 @@ for spFeature in subProgramParameters:
     param_type = "T_Boolean"
     signal = ast.g_signals[param_type]
     if spFeature._parameter._direction == "IN":
-        param = ast.InParam("PI_10_Callback", "p2", signal, spFeature._parameter)
+        param = ast.InParam("PI_1_MonCallback", "p2", signal, spFeature._parameter)
     elif spFeature._parameter._direction == "OUT":
-        param = ast.OutParam("PI_10_Callback", "p2", signal, spFeature._parameter)
+        param = ast.OutParam("PI_1_MonCallback", "p2", signal, spFeature._parameter)
     sp.AddParam(param)
 
 # Compute_Execution_Time = 0ms..0ms
 # Taste::Communication_Layer = default
-# Taste::InterfaceName = PI_10_Callback
+# Taste::InterfaceName = PI_1_MonCallback
 # Taste::RCMoperationKind = protected
 sp._fpgaConfigurations = ""   # initialization
 # Taste::Instances_Max = 1
 # Taste::Instances_Min = 1
 # Taste::Startup_Priority = 1
 # TASTE_IV_Properties::Default_Codegen = C
-ast.g_subProgramImplementations.append(["PI_10_Callback", "C", "C", "monitorcallback", sp._fpgaConfigurations])
+ast.g_subProgramImplementations.append(["PI_1_MonCallback", "C", "C", "monitorcallback", sp._fpgaConfigurations])
 sp._language = "C"
 
 
