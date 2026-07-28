@@ -21,9 +21,9 @@ PUBLIC
 
 WITH interfaceview::IV::TestEntryPoint;
 
-WITH interfaceview::IV::UartOtherEnd;
-
 WITH interfaceview::IV::TestStart00;
+
+WITH interfaceview::IV::UartOtherEnd;
 
 
 WITH ocarina_processors_x86;
@@ -42,12 +42,12 @@ SUBCOMPONENTS
       Taste::FunctionName => "TestEntryPoint";
    };
 
-   IV_UartOtherEnd : SYSTEM interfaceview::IV::UartOtherEnd::UartOtherEnd.others {
-      Taste::FunctionName => "UartOtherEnd";
-   };
-
    IV_TestStart00 : SYSTEM interfaceview::IV::TestStart00::TestStart00.others {
       Taste::FunctionName => "TestStart00";
+   };
+
+   IV_UartOtherEnd : SYSTEM interfaceview::IV::UartOtherEnd::UartOtherEnd.others {
+      Taste::FunctionName => "UartOtherEnd";
    };
 
    demo : PROCESS deploymentview::DV::Node_Linux::demo.others {
@@ -69,7 +69,7 @@ PROPERTIES
    
 
    
-   Taste::APLC_Binding => (reference (demo)) APPLIES TO IV_UartOtherEnd;
+   Taste::APLC_Binding => (reference (demo)) APPLIES TO IV_TestStart00;
    
    
    
@@ -79,7 +79,7 @@ PROPERTIES
    
 
    
-   Taste::APLC_Binding => (reference (demo)) APPLIES TO IV_TestStart00;
+   Taste::APLC_Binding => (reference (demo)) APPLIES TO IV_UartOtherEnd;
    
    
    

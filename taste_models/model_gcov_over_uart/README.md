@@ -1,1 +1,3 @@
-# MBEP_test_framework
+# Early scaffolding of the test framework for validating TASTE runtimes
+
+Work in progress ...

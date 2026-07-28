@@ -8,15 +8,13 @@
     !! file. The up-to-date signatures can be found in the header file. !!
 */
 #include "testentrypoint.h"
-#include "../../../../../kispe_common/uart_comms.h"
-//#include <stdio.h>
+#include "../../../../../common/uart_comms.h"
 
 
 void testentrypoint_startup(void)
 {
    // Write your initialisation code
    // You may call sporadic required interfaces and start timers
-   // puts ("[TestEntryPoint] Startup");
 }
 
 void testentrypoint_PI_pi_sp_if(void)
