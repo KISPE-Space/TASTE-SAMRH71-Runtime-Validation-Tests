@@ -1,0 +1,439 @@
+--  This file was generated automatically - do not modify it manually
+--  If you wish to modify the template used to create this file, it is located
+--  in ~/tool-src/misc/space-creator/dv2aadl/deploymentview.tmplt
+--  After modifications, install it by running ~/tool-src/install/90_misc
+--  Template written by Maxime Perrotin (maxime.perrotin@esa.int) 2021-09
+package deploymentview::DV::Node_1
+public
+
+ with Deployment;
+ with TASTE;
+ with TASTE_DV_Properties;
+
+    with ocarina_drivers; 
+    with ocarina_buses; 
+    with ocarina_drivers; 
+    with ocarina_buses; 
+    with ocarina_drivers; 
+    with ocarina_buses; 
+    with ocarina_drivers; 
+    with ocarina_buses; 
+    with ocarina_drivers; 
+    with ocarina_buses; 
+    with ocarina_drivers; 
+    with ocarina_buses; 
+    with ocarina_drivers; 
+    with ocarina_buses; 
+    with ocarina_drivers; 
+    with ocarina_buses; 
+    with ocarina_drivers; 
+    with ocarina_buses; 
+
+ --  Declare partition(s) of node "Node_1" (aka "SAM RH71 RTEMS N7S_1").
+ process Partition_1
+ end Partition_1;
+
+ process implementation Partition_1.others
+ end Partition_1.others;
+
+ device spw0
+    extends ocarina_drivers::spacewire_generic 
+ features
+    link : refined to requires bus access ocarina_buses::spacewire.generic;
+ properties
+    Deployment::Config => "/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-spw-driver.asn";
+ end spw0;
+
+ device implementation spw0.others
+    extends ocarina_drivers::spacewire_generic.samrh71 
+ end spw0.others;
+
+ device spw1
+    extends ocarina_drivers::spacewire_generic 
+ features
+    link : refined to requires bus access ocarina_buses::spacewire.generic;
+ properties
+    Deployment::Config => "/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-spw-driver.asn";
+ end spw1;
+
+ device implementation spw1.others
+    extends ocarina_drivers::spacewire_generic.samrh71 
+ end spw1.others;
+
+ device uart0
+    extends ocarina_drivers::serial_ccsds 
+ features
+    link : refined to requires bus access ocarina_buses::serial.ccsds;
+ properties
+    Deployment::Config => "/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-serial-driver.asn";
+ end uart0;
+
+ device implementation uart0.others
+    extends ocarina_drivers::serial_ccsds.samrh71 
+ end uart0.others;
+
+ device uart1
+    extends ocarina_drivers::serial_ccsds 
+ features
+    link : refined to requires bus access ocarina_buses::serial.ccsds;
+ properties
+    Deployment::Packetizer => "passthrough"; 
+    Deployment::Configuration => "{ devname  uart1, speed  b115200, parity  even, transmit-mode  raw-single-byte }"; 
+    Deployment::Config => "/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-serial-driver.asn";
+ end uart1;
+
+ device implementation uart1.others
+    extends ocarina_drivers::serial_ccsds.samrh71 
+ end uart1.others;
+
+ device uart2
+    extends ocarina_drivers::serial_ccsds 
+ features
+    link : refined to requires bus access ocarina_buses::serial.ccsds;
+ properties
+    Deployment::Config => "/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-serial-driver.asn";
+ end uart2;
+
+ device implementation uart2.others
+    extends ocarina_drivers::serial_ccsds.samrh71 
+ end uart2.others;
+
+ device uart3
+    extends ocarina_drivers::serial_ccsds 
+ features
+    link : refined to requires bus access ocarina_buses::serial.ccsds;
+ properties
+    Deployment::Config => "/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-serial-driver.asn";
+ end uart3;
+
+ device implementation uart3.others
+    extends ocarina_drivers::serial_ccsds.samrh71 
+ end uart3.others;
+
+ device uart4
+    extends ocarina_drivers::serial_ccsds 
+ features
+    link : refined to requires bus access ocarina_buses::serial.ccsds;
+ properties
+    Deployment::Config => "/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-serial-driver.asn";
+ end uart4;
+
+ device implementation uart4.others
+    extends ocarina_drivers::serial_ccsds.samrh71 
+ end uart4.others;
+
+ device can0
+    extends ocarina_drivers::can_generic 
+ features
+    link : refined to requires bus access ocarina_buses::can.generic;
+ properties
+    Deployment::Config => "/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-can-driver.asn";
+ end can0;
+
+ device implementation can0.others
+    extends ocarina_drivers::can_generic.samrh71 
+ end can0.others;
+
+ device Taste_Target
+    extends ocarina_drivers::can_generic 
+ features
+    link : refined to requires bus access ocarina_buses::can.generic;
+ properties
+    Deployment::Config => "/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-can-driver.asn";
+ end Taste_Target;
+
+ device implementation Taste_Target.others
+    extends ocarina_drivers::can_generic.samrh71 
+ end Taste_Target.others;
+
+end deploymentview::DV::Node_1;
+--  This file was generated automatically - do not modify it manually
+--  If you wish to modify the template used to create this file, it is located
+--  in ~/tool-src/misc/space-creator/dv2aadl/deploymentview.tmplt
+--  After modifications, install it by running ~/tool-src/install/90_misc
+--  Template written by Maxime Perrotin (maxime.perrotin@esa.int) 2021-09
+package deploymentview::DV::Node_2
+public
+
+ with Deployment;
+ with TASTE;
+ with TASTE_DV_Properties;
+
+    with ocarina_drivers; 
+    with ocarina_buses; 
+    with ocarina_drivers; 
+    with ocarina_buses; 
+    with ocarina_drivers; 
+    with ocarina_buses; 
+    with ocarina_drivers; 
+    with ocarina_buses; 
+    with ocarina_drivers; 
+    with ocarina_buses; 
+    with ocarina_drivers; 
+    with ocarina_buses; 
+    with ocarina_drivers; 
+    with ocarina_buses; 
+    with ocarina_drivers; 
+    with ocarina_buses; 
+    with ocarina_drivers; 
+    with ocarina_buses; 
+
+ --  Declare partition(s) of node "Node_2" (aka "SAM RH71 RTEMS N7S_2").
+ process Partition_2
+ end Partition_2;
+
+ process implementation Partition_2.others
+ end Partition_2.others;
+
+ device spw0
+    extends ocarina_drivers::spacewire_generic 
+ features
+    link : refined to requires bus access ocarina_buses::spacewire.generic;
+ properties
+    Deployment::Config => "/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-spw-driver.asn";
+ end spw0;
+
+ device implementation spw0.others
+    extends ocarina_drivers::spacewire_generic.samrh71 
+ end spw0.others;
+
+ device spw1
+    extends ocarina_drivers::spacewire_generic 
+ features
+    link : refined to requires bus access ocarina_buses::spacewire.generic;
+ properties
+    Deployment::Config => "/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-spw-driver.asn";
+ end spw1;
+
+ device implementation spw1.others
+    extends ocarina_drivers::spacewire_generic.samrh71 
+ end spw1.others;
+
+ device uart0
+    extends ocarina_drivers::serial_ccsds 
+ features
+    link : refined to requires bus access ocarina_buses::serial.ccsds;
+ properties
+    Deployment::Config => "/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-serial-driver.asn";
+ end uart0;
+
+ device implementation uart0.others
+    extends ocarina_drivers::serial_ccsds.samrh71 
+ end uart0.others;
+
+ device uart1
+    extends ocarina_drivers::serial_ccsds 
+ features
+    link : refined to requires bus access ocarina_buses::serial.ccsds;
+ properties
+    Deployment::Packetizer => "passthrough"; 
+    Deployment::Configuration => "{ devname  uart1, speed  b115200, parity  even, transmit-mode  raw-single-byte }"; 
+    Deployment::Config => "/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-serial-driver.asn";
+ end uart1;
+
+ device implementation uart1.others
+    extends ocarina_drivers::serial_ccsds.samrh71 
+ end uart1.others;
+
+ device uart2
+    extends ocarina_drivers::serial_ccsds 
+ features
+    link : refined to requires bus access ocarina_buses::serial.ccsds;
+ properties
+    Deployment::Config => "/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-serial-driver.asn";
+ end uart2;
+
+ device implementation uart2.others
+    extends ocarina_drivers::serial_ccsds.samrh71 
+ end uart2.others;
+
+ device uart3
+    extends ocarina_drivers::serial_ccsds 
+ features
+    link : refined to requires bus access ocarina_buses::serial.ccsds;
+ properties
+    Deployment::Config => "/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-serial-driver.asn";
+ end uart3;
+
+ device implementation uart3.others
+    extends ocarina_drivers::serial_ccsds.samrh71 
+ end uart3.others;
+
+ device uart4
+    extends ocarina_drivers::serial_ccsds 
+ features
+    link : refined to requires bus access ocarina_buses::serial.ccsds;
+ properties
+    Deployment::Config => "/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-serial-driver.asn";
+ end uart4;
+
+ device implementation uart4.others
+    extends ocarina_drivers::serial_ccsds.samrh71 
+ end uart4.others;
+
+ device can0
+    extends ocarina_drivers::can_generic 
+ features
+    link : refined to requires bus access ocarina_buses::can.generic;
+ properties
+    Deployment::Config => "/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-can-driver.asn";
+ end can0;
+
+ device implementation can0.others
+    extends ocarina_drivers::can_generic.samrh71 
+ end can0.others;
+
+ device Spaceecraft
+    extends ocarina_drivers::can_generic 
+ features
+    link : refined to requires bus access ocarina_buses::can.generic;
+ properties
+    Deployment::Config => "/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-can-driver.asn";
+ end Spaceecraft;
+
+ device implementation Spaceecraft.others
+    extends ocarina_drivers::can_generic.samrh71 
+ end Spaceecraft.others;
+
+end deploymentview::DV::Node_2;
+
+package deploymentview::DV
+public
+
+ with TASTE;
+ with Deployment;
+ with Interfaceview::IV;
+ with TASTE_DV_Properties;
+
+ --  Dependencies of node Node_1
+ with interfaceview::IV::TestStart00;
+ with interfaceview::IV::TestEntryPoint;
+    with ocarina_buses; 
+    with ocarina_buses; 
+    with ocarina_buses; 
+    with ocarina_buses; 
+    with ocarina_buses; 
+    with ocarina_buses; 
+    with ocarina_buses; 
+    with ocarina_buses; 
+    with ocarina_buses; 
+ with deploymentview::DV::Node_1;
+ with ocarina_processors_arm;
+ --  Dependencies of node Node_2
+ with interfaceview::IV::UartOtherEnd;
+    with ocarina_buses; 
+    with ocarina_buses; 
+    with ocarina_buses; 
+    with ocarina_buses; 
+    with ocarina_buses; 
+    with ocarina_buses; 
+    with ocarina_buses; 
+    with ocarina_buses; 
+    with ocarina_buses; 
+ with deploymentview::DV::Node_2;
+ with ocarina_processors_arm;
+
+ --  Node Node_1
+ system Node_1
+ features
+    uart1_uart1 : requires bus access ocarina_buses::serial.ccsds;
+ end Node_1;
+
+ system implementation Node_1.others
+ subcomponents
+    IV_TestStart00 : system Interfaceview::IV::TestStart00::TestStart00.others {
+       Taste::ImplementationName => "";
+    };
+    IV_TestEntryPoint : system Interfaceview::IV::TestEntryPoint::TestEntryPoint.others {
+       Taste::ImplementationName => "";
+    };
+    Partition_1 : process deploymentview::DV::Node_1::Partition_1.others { 
+       TASTE_DV_Properties::CoverageEnabled => false;
+    };
+    p1 : processor ocarina_processors_arm::samrh71.rtems;
+    spw0 : device deploymentview::DV::Node_1::spw0.others;
+    spw1 : device deploymentview::DV::Node_1::spw1.others;
+    uart0 : device deploymentview::DV::Node_1::uart0.others;
+    uart1 : device deploymentview::DV::Node_1::uart1.others;
+    uart2 : device deploymentview::DV::Node_1::uart2.others;
+    uart3 : device deploymentview::DV::Node_1::uart3.others;
+    uart4 : device deploymentview::DV::Node_1::uart4.others;
+    can0 : device deploymentview::DV::Node_1::can0.others;
+    Taste_Target : device deploymentview::DV::Node_1::Taste_Target.others;
+ connections
+    uart1_uart1_link : bus access uart1_uart1 -> uart1.link;
+ properties
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_TestStart00;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_TestEntryPoint;
+    Actual_Processor_Binding => (reference (p1)) applies to Partition_1;
+    Actual_Processor_Binding => (reference (p1)) applies to spw0;
+    Actual_Processor_Binding => (reference (p1)) applies to spw1;
+    Actual_Processor_Binding => (reference (p1)) applies to uart0;
+    Actual_Processor_Binding => (reference (p1)) applies to uart1;
+    Actual_Processor_Binding => (reference (p1)) applies to uart2;
+    Actual_Processor_Binding => (reference (p1)) applies to uart3;
+    Actual_Processor_Binding => (reference (p1)) applies to uart4;
+    Actual_Processor_Binding => (reference (p1)) applies to can0;
+    Actual_Processor_Binding => (reference (p1)) applies to Taste_Target;
+ end Node_1.others;
+
+ --  Node Node_2
+ system Node_2
+ features
+    uart1_uart1 : requires bus access ocarina_buses::serial.ccsds;
+ end Node_2;
+
+ system implementation Node_2.others
+ subcomponents
+    IV_UartOtherEnd : system Interfaceview::IV::UartOtherEnd::UartOtherEnd.others {
+       Taste::ImplementationName => "";
+    };
+    Partition_2 : process deploymentview::DV::Node_2::Partition_2.others { 
+       TASTE_DV_Properties::CoverageEnabled => false;
+       TASTE::ExternalLibs => "this/that/the-other";
+    };
+    p1 : processor ocarina_processors_arm::samrh71.rtems;
+    spw0 : device deploymentview::DV::Node_2::spw0.others;
+    spw1 : device deploymentview::DV::Node_2::spw1.others;
+    uart0 : device deploymentview::DV::Node_2::uart0.others;
+    uart1 : device deploymentview::DV::Node_2::uart1.others;
+    uart2 : device deploymentview::DV::Node_2::uart2.others;
+    uart3 : device deploymentview::DV::Node_2::uart3.others;
+    uart4 : device deploymentview::DV::Node_2::uart4.others;
+    can0 : device deploymentview::DV::Node_2::can0.others;
+    Spaceecraft : device deploymentview::DV::Node_2::Spaceecraft.others;
+ connections
+    uart1_uart1_link : bus access uart1_uart1 -> uart1.link;
+ properties
+    TASTE::APLC_Binding => (reference (Partition_2)) applies to IV_UartOtherEnd;
+    Actual_Processor_Binding => (reference (p1)) applies to Partition_2;
+    Actual_Processor_Binding => (reference (p1)) applies to spw0;
+    Actual_Processor_Binding => (reference (p1)) applies to spw1;
+    Actual_Processor_Binding => (reference (p1)) applies to uart0;
+    Actual_Processor_Binding => (reference (p1)) applies to uart1;
+    Actual_Processor_Binding => (reference (p1)) applies to uart2;
+    Actual_Processor_Binding => (reference (p1)) applies to uart3;
+    Actual_Processor_Binding => (reference (p1)) applies to uart4;
+    Actual_Processor_Binding => (reference (p1)) applies to can0;
+    Actual_Processor_Binding => (reference (p1)) applies to Spaceecraft;
+ end Node_2.others;
+
+
+system deploymentview
+end deploymentview;
+
+system implementation deploymentview.others
+subcomponents
+   interfaceview : system interfaceview::IV::interfaceview.others;
+   Node_1 : system Node_1.others;
+   Node_2 : system Node_2.others;
+   bus_1 : bus ocarina_buses::serial.ccsds;
+ connections
+   Node_1_bus_1 : bus access bus_1 -> Node_1.uart1_uart1;
+   Node_2_bus_1 : bus access bus_1 -> Node_2.uart1_uart1;
+ properties
+   Actual_Connection_Binding => (reference (bus_1)) applies to interfaceview.TestStart00_RI_samrh71tx_UartOtherEnd_PI_samrh71tx;
+   Actual_Connection_Binding => (reference (bus_1)) applies to interfaceview.UartOtherEnd_RI_samrh71rx_TestStart00_PI_samrh71rx;
+end deploymentview.others;
+
+end deploymentview::DV;
