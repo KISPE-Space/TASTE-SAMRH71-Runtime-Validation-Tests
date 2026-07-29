@@ -349,7 +349,7 @@ public
     };
     Partition_1 : process deploymentview::DV::Node_1::Partition_1.others { 
        TASTE_DV_Properties::CoverageEnabled => false;
-       TASTE::ExternalLibs => "/home/taste/work/common/";
+       TASTE::ExternalLibs => "../../../../tf_common/";
     };
     p1 : processor ocarina_processors_arm::samrh71.rtems;
     spw0 : device deploymentview::DV::Node_1::spw0.others;

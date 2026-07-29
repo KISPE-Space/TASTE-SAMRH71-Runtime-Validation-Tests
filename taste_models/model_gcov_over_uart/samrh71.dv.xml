@@ -1,6 +1,6 @@
 <DeploymentView version="1.2" UiFile="samrh71.ui.xml" creatorHash="383508e" modifierHash="383508e">
     <Node id="{f76f6237-2121-4291-b1b4-0037e1a07573}" name="SAM RH71 RTEMS N7S_1" type="ocarina_processors_arm::samrh71.rtems" node_label="Node_1" namespace="ocarina_processors_arm">
-        <Partition id="{7a199b95-3382-4b47-9be5-e6fca4b441c2}" name="Partition_1" externallibs="/home/taste/work/common/">
+        <Partition id="{7a199b95-3382-4b47-9be5-e6fca4b441c2}" name="Partition_1" externallibs="../../../../tf_common/">
             <Function id="{4ac3747b-355e-429a-aa48-2e8814837601}" name="TestStart00" path="TestStart00"/>
             <Function id="{2653ba78-0529-41d4-8577-9124485a2846}" name="TestEntryPoint" path="TestEntryPoint"/>
         </Partition>

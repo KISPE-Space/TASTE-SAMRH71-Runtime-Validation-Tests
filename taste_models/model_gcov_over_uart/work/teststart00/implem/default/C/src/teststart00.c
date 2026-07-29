@@ -1,6 +1,7 @@
 #include "teststart00.h"
-#include "../../../../../common/uart_comms.h"
-#include "../../../../../common/coverage.h"
+#include "../../../../../tf_common/tf_uart_comms.h"
+#include "../../../../../tf_common/tf_test_results.h"
+#include "../../../../../tf_common/tf_coverage.h"
 
 
 /*
@@ -20,7 +21,7 @@ static int iResultsTransmitted = 0;
  */
 void teststart00_startup(void)
 {
-    // Register the sporadic interface (function) over which this model can transmit out from the target hardware
+    // Register the sporadic interface (C function) over which this model can transmit data out from the target hardware
     register_uart_byte_transmitter_function(teststart00_RI_samrh71tx);
     return;
 }

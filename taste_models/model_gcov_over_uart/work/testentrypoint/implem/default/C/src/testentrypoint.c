@@ -8,7 +8,7 @@
     !! file. The up-to-date signatures can be found in the header file. !!
 */
 #include "testentrypoint.h"
-#include "../../../../../common/uart_comms.h"
+#include "../../../../../tf_common/tf_uart_comms.h"
 
 
 void testentrypoint_startup(void)
