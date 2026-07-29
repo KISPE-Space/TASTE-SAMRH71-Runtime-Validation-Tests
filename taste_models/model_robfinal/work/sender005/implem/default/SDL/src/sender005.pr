@@ -1,0 +1,16 @@
+process Sender005;
+
+   procedure Pi_1;
+start;
+return;
+endprocedure;
+   /* CIF START (320, 10), (70, 35) */
+   start;
+     nextstate Wait;
+
+   /* CIF STATE (450, 10), (70, 35) */
+   state Wait;
+   endstate;
+
+endprocess;
+

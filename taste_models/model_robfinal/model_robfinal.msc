@@ -1,0 +1,11 @@
+mscdocument model_robfinal /* MSC AND */;
+    language ASN.1;
+    data model_robfinal.asn;
+/* CIF MSCDOCUMENT (0, 0) (4200, 2300) */
+mscdocument Nominal /* MSC LEAF */;
+    language ASN.1;
+    data model_robfinal.asn;
+msc model_robfinal;
+endmsc;
+endmscdocument;
+endmscdocument;

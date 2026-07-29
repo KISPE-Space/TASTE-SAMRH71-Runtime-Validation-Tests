@@ -1,0 +1,104 @@
+<DeploymentView version="1.2" UiFile="samrh71.ui.xml" creatorHash="383508e" modifierHash="383508e">
+    <Node id="{2c063456-7ff1-4ab8-8d9c-d90bac58c268}" name="SAM RH71 RTEMS N7S_1" type="ocarina_processors_arm::samrh71.rtems" node_label="Node_1" namespace="ocarina_processors_arm">
+        <Partition id="{f111ce66-2c22-4fca-8941-c27662365873}" name="Partition_1">
+            <Function id="{587105dc-21ae-4d46-83de-ae8bdf88861d}" name="TestUnProtIN05" path="TestUnProt13::TestUnProtIN05"/>
+            <Function id="{c43bcdc2-6041-476e-9aea-9e4336e62732}" name="TestStart00" path="TestStart00"/>
+            <Function id="{e3c0edf5-c9fa-4e03-956f-e8d9170c4589}" name="SAMRH71Core00H" path="TestModules01::SAMRH71Core00H"/>
+            <Function id="{7f7cee28-2f9b-4d9b-b8bd-cb793fd56d24}" name="TestProtected" path="TestProt04::TestProtected"/>
+            <Function id="{c1cdb282-e447-42a5-8523-18e5432c68cc}" name="Prot05IFIN" path="TestProt04::Prot05IFIN"/>
+            <Function id="{bc93e806-88ae-4144-83ff-269249996459}" name="SendACN" path="TestACN11::SendACN"/>
+            <Function id="{d147c248-2e8b-4b82-9454-1648656acdb6}" name="Sender005" path="TestComms09::Sender005"/>
+            <Function id="{44b17667-2feb-4386-911b-a8f6a9cd1768}" name="RcvACN01" path="TestACN11::RcvACN01"/>
+            <Function id="{4833fe38-63b3-4644-b1f7-59be69bf9ad6}" name="Receiver019" path="TestComms10::Receiver019"/>
+            <Function id="{d58de637-f4ad-4fd3-a3d4-39b54badcab5}" name="Hal00D" path="TestModules01::Hal00D"/>
+            <Function id="{9b6bd762-8a87-4206-af03-53f3058b733d}" name="MQueueCallBack12" path="MQueueCallBack12"/>
+            <Function id="{563bca0a-3a4c-43c9-8350-f622c7d48093}" name="Paketizer002C" path="TestRTCommon02::Paketizer002C"/>
+            <Function id="{c859e742-ecb4-4e7c-808a-6c5c9f5541d3}" name="TestUnProt00" path="TestUnProt13::TestUnProt00"/>
+            <Function id="{9dcf9c94-e181-45cf-a371-dc82c8114b42}" name="Receiver020" path="TestComms10::Receiver020"/>
+            <Function id="{04ae71dd-484f-441b-a64a-f4636637259c}" name="Sender007" path="TestComms09::Sender007"/>
+            <Function id="{5b994869-1ee0-45b4-89a8-9e80948b5a30}" name="Function_10" path="TestSPCC06::Function_10"/>
+            <Function id="{1830e8b7-99d1-4f75-a22e-bef324950224}" name="TestUnProtOUT05" path="TestUnProt13::TestUnProtOUT05"/>
+            <Function id="{416e4254-de7e-4664-bc14-1873a2e67be7}" name="Function_6" path="TestSPCC06::Function_6"/>
+            <Function id="{557f772f-8cc5-45cf-9f10-344608cb051b}" name="EscaperTest002B" path="TestRTCommon02::EscaperTest002B"/>
+            <Function id="{3a696610-4370-47ff-b53f-f80b7c9ff65c}" name="Function_7" path="TestSPCC06::Function_7"/>
+            <Function id="{271a8b06-929a-4d05-b2cb-ee8f3800a6b7}" name="Function_8" path="TestSPCC06::Function_8"/>
+            <Function id="{47789da8-80e5-49a6-bfe2-ada458a55eb5}" name="Receiver016" path="TestComms10::Receiver016"/>
+            <Function id="{c3480279-2990-4959-baa6-26e735bb984b}" name="Function_1" path="TestSPCC06::Function_1"/>
+            <Function id="{72e601bd-6758-4967-86e8-e40e7d9794dc}" name="Sender004" path="TestComms09::Sender004"/>
+            <Function id="{3ba48be8-d419-4ef5-9ba0-109fce33e138}" name="MonitorCallback" path="TestModules01::MonitorCallback"/>
+            <Function id="{c86915b4-ed4d-4c86-9ad2-567c19390d8a}" name="Sender003" path="TestComms09::Sender003"/>
+            <Function id="{8e4cfa10-0bef-4137-8bbb-fdc564bf5db5}" name="Function_12" path="TestSPCC06::Function_12"/>
+            <Function id="{3a8d475b-6b1a-4e71-96ce-a48397de9a79}" name="Receiver017" path="TestComms10::Receiver017"/>
+            <Function id="{ae00b12a-eab1-46c6-ac95-02c78ffd0f15}" name="Sender011" path="TestComms10::Sender011"/>
+            <Function id="{a8d28bd2-fa48-4cbf-8917-04264b59eac6}" name="Prot05IFOUT" path="TestProt04::Prot05IFOUT"/>
+            <Function id="{5c3c191b-5b93-4d36-80b3-58ba60c32c1a}" name="Function_13" path="TestSPCC06::Function_13"/>
+            <Function id="{2088a462-3d90-4add-b3cb-7b0ee6621fa2}" name="BootHelper00F" path="TestModules01::BootHelper00F"/>
+            <Function id="{7bd4c6af-86e6-4d01-95b4-3715acfbe9bc}" name="Receiver015" path="TestComms10::Receiver015"/>
+            <Function id="{92ad1840-1785-420c-a2e5-42e332b6c0c6}" name="Function_11" path="TestSPCC06::Function_11"/>
+            <Function id="{15aec41c-78f5-4e4e-80e5-31bcec564fd0}" name="Function_23" path="TestSPCC06::Function_23"/>
+            <Function id="{5fe4a601-4569-46af-af07-4d4843258c77}" name="Function_2" path="TestSPCC06::Function_2"/>
+            <Function id="{1f15232f-3838-4b37-a893-442b788bb255}" name="Sender001" path="TestComms09::Sender001"/>
+            <Function id="{47fccbc2-c7a7-4f1a-9fed-5a741b625b31}" name="Function_9" path="TestSPCC06::Function_9"/>
+            <Function id="{cdd163f7-56a0-44f3-9c1e-c35bfad723bb}" name="TestSendComms09" path="TestComms09::TestSendComms09"/>
+            <Function id="{c863cfea-2c8f-4218-9a4d-bdbb14457c35}" name="Function_17" path="TestSPCC06::Function_17"/>
+            <Function id="{3fc587f3-f65d-44c8-8e2e-1d2fa1ff0079}" name="Function_24" path="TestSPCC06::Function_24"/>
+            <Function id="{d9351593-3d6e-45b8-835a-47142d77f2fc}" name="Receiver014" path="TestComms10::Receiver014"/>
+            <Function id="{d9f6d937-c89a-4d5a-9e61-02cce260abc5}" name="rcvACN05" path="TestACN11::rcvACN05"/>
+            <Function id="{59d3a95b-039b-4cf7-b362-35db7cf492ea}" name="RcvACN02" path="TestACN11::RcvACN02"/>
+            <Function id="{c5e84209-aa70-470e-a067-13985bb46d96}" name="Receiver018" path="TestComms10::Receiver018"/>
+            <Function id="{f0444e38-cb3c-49df-bfc8-0aa6d75654d8}" name="TestCyclic05" path="TestCyclic05"/>
+            <Function id="{1eed1a39-f10a-474a-bd0a-862d23ef6a3d}" name="BrokerTest002A" path="TestRTCommon02::BrokerTest002A"/>
+            <Function id="{5eb525f0-1d94-48f7-bc20-b833aae4380d}" name="Function_15" path="TestSPCC06::Function_15"/>
+            <Function id="{fe36d917-6b0b-4565-815a-8b78293ee270}" name="RcvACN03" path="TestACN11::RcvACN03"/>
+            <Function id="{2921340b-158d-4061-956b-6ffb6c879563}" name="TestModules" path="TestModules01::TestModules"/>
+            <Function id="{34a3dcaa-b5ce-4fdd-b175-425a62063b95}" name="RcvACN04" path="TestACN11::RcvACN04"/>
+            <Function id="{13b7245c-b996-45be-9b5a-70347746bab9}" name="TestSDL08" path="TestSDL08"/>
+            <Function id="{9f2c976b-5cbb-4606-ae93-ca215f6e839c}" name="Receiver001" path="TestComms09::Receiver001"/>
+            <Function id="{9a8bc50c-22fb-4667-b78b-69b8aa2cba6a}" name="Receiver012" path="TestComms10::Receiver012"/>
+            <Function id="{ab4829aa-610e-4be1-843a-79c2833dc4ab}" name="TestSPCC" path="TestSPCC06::TestSPCC"/>
+            <Function id="{1aea9f8d-f74a-4c30-b57f-a991c8671add}" name="Function_5" path="TestSPCC06::Function_5"/>
+            <Function id="{7c9e6983-546a-4e16-85e2-efe47768158f}" name="Prot00IF" path="TestProt04::Prot00IF"/>
+            <Function id="{336a8e1a-6642-4c35-bff5-6870d1b1d991}" name="Function_4" path="TestSPCC06::Function_4"/>
+            <Function id="{e1dd6ab8-1cd6-4627-aa8f-2ac8a007485e}" name="BrokerLock00G" path="TestModules01::BrokerLock00G"/>
+            <Function id="{13486311-7d72-4cc5-8204-873c6aa171b9}" name="Receiver013" path="TestComms10::Receiver013"/>
+            <Function id="{bafa5ec2-7ba0-4b8b-b9b6-80504a09096c}" name="Monitoring00A" path="TestModules01::Monitoring00A"/>
+            <Function id="{8779dbdc-e39c-4ba9-a826-bdab3fe30b50}" name="Sender008" path="TestComms09::Sender008"/>
+            <Function id="{305ab3d3-b65b-44db-9b5b-9d7171b61562}" name="Function_16" path="TestSPCC06::Function_16"/>
+            <Function id="{a6aa36dd-796b-4cea-98ad-bc04c698db5a}" name="Function_20" path="TestSPCC06::Function_20"/>
+            <Function id="{f473dd94-d6c5-41ef-bb6e-c80052a1261c}" name="ActivationLog" path="TestModules01::ActivationLog"/>
+            <Function id="{f851fa06-9c44-49bc-a537-6039bc9182a7}" name="Function_22" path="TestSPCC06::Function_22"/>
+            <Function id="{df161df9-4b08-4317-9c11-753fb91780b2}" name="Sender006" path="TestComms09::Sender006"/>
+            <Function id="{bb11d6cc-28a9-4cfd-b6d5-df44464ff7d3}" name="DeathReport00C" path="TestModules01::DeathReport00C"/>
+            <Function id="{791701c0-7368-41ec-b05c-f39ffa4f6bf8}" name="TestSDL14" path="TestSDL14"/>
+            <Function id="{0610e13a-25c1-4ce5-8622-3f07c45ba38a}" name="Sender010" path="TestComms09::Sender010"/>
+            <Function id="{6554e75e-38e5-4306-b25c-18e04a3aff17}" name="Sender002" path="TestComms09::Sender002"/>
+            <Function id="{92cc25ec-c34c-4c85-bc3f-8e14d0dc7a43}" name="Function_14" path="TestSPCC06::Function_14"/>
+            <Function id="{7aafed6b-8924-4ea3-865b-4a3badb5eb7b}" name="Function_18" path="TestSPCC06::Function_18"/>
+            <Function id="{8ce45364-7914-42c4-95b1-2f82aff20a07}" name="Threads00E" path="TestModules01::Threads00E"/>
+            <Function id="{dda48a02-128a-4105-9c25-859bfcd488aa}" name="Receiver011" path="TestComms10::Receiver011"/>
+            <Function id="{e9dd7c0c-1e26-418d-b379-2b8d9eb55815}" name="Sender009" path="TestComms09::Sender009"/>
+            <Function id="{f9c760f6-4e5d-4259-a74a-90bcec74dc25}" name="TestUnProtected" path="TestUnProt13::TestUnProtected"/>
+            <Function id="{8ceca7aa-ddb1-4969-affd-ce52a8397340}" name="Function_21" path="TestSPCC06::Function_21"/>
+            <Function id="{5fe96ed4-a376-4a15-8cc9-f670486edd1c}" name="Function_3" path="TestSPCC06::Function_3"/>
+            <Function id="{809f7e1c-4d4f-495b-a6ef-7a0b9830b78c}" name="Function_19" path="TestSPCC06::Function_19"/>
+        </Partition>
+        <Device id="{7a3d58dd-c38c-41ac-b5be-645c6b4e5a2f}" name="spw0" requires_bus_access="ocarina_buses::spacewire.generic" port="spw0" asn1file="/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-spw-driver.asn" asn1type="Spw-SamRH71-Rtems-Conf-T" asn1module="SAMRH71-RTEMS-SPW-DRIVER" extends="ocarina_drivers::spacewire_generic" impl_extends="ocarina_drivers::spacewire_generic.samrh71" bus_namespace="ocarina_buses" namespace="ocarina_drivers">
+        </Device>
+        <Device id="{133e8f73-0dfa-4e7a-9172-741b79db1af5}" name="spw1" requires_bus_access="ocarina_buses::spacewire.generic" port="spw1" asn1file="/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-spw-driver.asn" asn1type="Spw-SamRH71-Rtems-Conf-T" asn1module="SAMRH71-RTEMS-SPW-DRIVER" extends="ocarina_drivers::spacewire_generic" impl_extends="ocarina_drivers::spacewire_generic.samrh71" bus_namespace="ocarina_buses" namespace="ocarina_drivers">
+        </Device>
+        <Device id="{9af7948a-35ac-498b-9ba7-b41ebbd82697}" name="uart0" requires_bus_access="ocarina_buses::serial.ccsds" port="uart0" asn1file="/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-serial-driver.asn" asn1type="Serial-SamRH71-Rtems-Conf-T" asn1module="SAMRH71-RTEMS-SERIAL-DRIVER" extends="ocarina_drivers::serial_ccsds" impl_extends="ocarina_drivers::serial_ccsds.samrh71" bus_namespace="ocarina_buses" namespace="ocarina_drivers">
+        </Device>
+        <Device id="{fa6ae273-8dcf-4d34-9fda-146664e22197}" name="uart1" requires_bus_access="ocarina_buses::serial.ccsds" port="uart1" asn1file="/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-serial-driver.asn" asn1type="Serial-SamRH71-Rtems-Conf-T" asn1module="SAMRH71-RTEMS-SERIAL-DRIVER" extends="ocarina_drivers::serial_ccsds" impl_extends="ocarina_drivers::serial_ccsds.samrh71" bus_namespace="ocarina_buses" namespace="ocarina_drivers">
+        </Device>
+        <Device id="{50d7c5d8-7a3f-4409-a4c1-b9c24e8bd055}" name="uart2" requires_bus_access="ocarina_buses::serial.ccsds" port="uart2" asn1file="/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-serial-driver.asn" asn1type="Serial-SamRH71-Rtems-Conf-T" asn1module="SAMRH71-RTEMS-SERIAL-DRIVER" extends="ocarina_drivers::serial_ccsds" impl_extends="ocarina_drivers::serial_ccsds.samrh71" bus_namespace="ocarina_buses" namespace="ocarina_drivers">
+        </Device>
+        <Device id="{433a2005-e258-48e9-a318-a393973cfb65}" name="uart3" requires_bus_access="ocarina_buses::serial.ccsds" port="uart3" asn1file="/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-serial-driver.asn" asn1type="Serial-SamRH71-Rtems-Conf-T" asn1module="SAMRH71-RTEMS-SERIAL-DRIVER" extends="ocarina_drivers::serial_ccsds" impl_extends="ocarina_drivers::serial_ccsds.samrh71" bus_namespace="ocarina_buses" namespace="ocarina_drivers">
+        </Device>
+        <Device id="{c2c55631-0cca-4307-8463-453ac89e7da3}" name="uart4" requires_bus_access="ocarina_buses::serial.ccsds" port="uart4" asn1file="/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-serial-driver.asn" asn1type="Serial-SamRH71-Rtems-Conf-T" asn1module="SAMRH71-RTEMS-SERIAL-DRIVER" extends="ocarina_drivers::serial_ccsds" impl_extends="ocarina_drivers::serial_ccsds.samrh71" bus_namespace="ocarina_buses" namespace="ocarina_drivers">
+        </Device>
+        <Device id="{0d0123c8-a1ac-4650-ba77-f8f7afcf88ac}" name="can0" requires_bus_access="ocarina_buses::can.generic" port="can0" asn1file="/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-can-driver.asn" asn1type="CAN-SamRH71-Rtems-Conf-T" asn1module="SAMRH71-RTEMS-CAN-DRIVER" extends="ocarina_drivers::can_generic" impl_extends="ocarina_drivers::can_generic.samrh71" bus_namespace="ocarina_buses" namespace="ocarina_drivers">
+        </Device>
+        <Device id="{767ecc8b-a31d-4db0-8c3d-38ca8718758c}" name="can1" requires_bus_access="ocarina_buses::can.generic" port="can1" asn1file="/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-can-driver.asn" asn1type="CAN-SamRH71-Rtems-Conf-T" asn1module="SAMRH71-RTEMS-CAN-DRIVER" extends="ocarina_drivers::can_generic" impl_extends="ocarina_drivers::can_generic.samrh71" bus_namespace="ocarina_buses" namespace="ocarina_drivers">
+        </Device>
+    </Node>
+</DeploymentView>
