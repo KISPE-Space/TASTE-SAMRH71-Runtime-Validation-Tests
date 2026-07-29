@@ -21,3 +21,8 @@ void register_uart_byte_transmitter_function(void (*pByteTransmitterFunction)(co
  */
 void transmit_bytes_over_uart(char* pBytes);
 
+
+/*
+ * Transmits a string encapsulated as a general log message
+ */
+void transmit_log_info(char* pString);

@@ -3,155 +3,6 @@
 --  in ~/tool-src/misc/space-creator/dv2aadl/deploymentview.tmplt
 --  After modifications, install it by running ~/tool-src/install/90_misc
 --  Template written by Maxime Perrotin (maxime.perrotin@esa.int) 2021-09
-package deploymentview::DV::Node_1
-public
-
- with Deployment;
- with TASTE;
- with TASTE_DV_Properties;
-
-    with ocarina_buses; 
-    with ocarina_drivers; 
-    with ocarina_buses; 
-    with ocarina_drivers; 
-    with ocarina_buses; 
-    with ocarina_drivers; 
-    with ocarina_buses; 
-    with ocarina_drivers; 
-    with ocarina_buses; 
-    with ocarina_drivers; 
-    with ocarina_buses; 
-    with ocarina_drivers; 
-    with ocarina_buses; 
-    with ocarina_drivers; 
-    with ocarina_buses; 
-    with ocarina_drivers; 
-    with ocarina_buses; 
-    with ocarina_drivers; 
-
- --  Declare partition(s) of node "Node_1" (aka "SAM RH71 RTEMS N7S_1").
- process Partition_1
- end Partition_1;
-
- process implementation Partition_1.others
- end Partition_1.others;
-
- device spw0
-    extends ocarina_drivers::spacewire_generic 
- features
-    link : refined to requires bus access ocarina_buses::spacewire.generic;
- properties
-    Deployment::Config => "/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-spw-driver.asn";
- end spw0;
-
- device implementation spw0.others
-    extends ocarina_drivers::spacewire_generic.samrh71 
- end spw0.others;
-
- device spw1
-    extends ocarina_drivers::spacewire_generic 
- features
-    link : refined to requires bus access ocarina_buses::spacewire.generic;
- properties
-    Deployment::Config => "/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-spw-driver.asn";
- end spw1;
-
- device implementation spw1.others
-    extends ocarina_drivers::spacewire_generic.samrh71 
- end spw1.others;
-
- device uart0
-    extends ocarina_drivers::serial_ccsds 
- features
-    link : refined to requires bus access ocarina_buses::serial.ccsds;
- properties
-    Deployment::Config => "/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-serial-driver.asn";
- end uart0;
-
- device implementation uart0.others
-    extends ocarina_drivers::serial_ccsds.samrh71 
- end uart0.others;
-
- device uart1
-    extends ocarina_drivers::serial_ccsds 
- features
-    link : refined to requires bus access ocarina_buses::serial.ccsds;
- properties
-    Deployment::Packetizer => "passthrough"; 
-    Deployment::Configuration => "{ devname  uart1, speed  b115200, parity  even, transmit-mode  raw-single-byte }"; 
-    Deployment::Config => "/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-serial-driver.asn";
- end uart1;
-
- device implementation uart1.others
-    extends ocarina_drivers::serial_ccsds.samrh71 
- end uart1.others;
-
- device uart2
-    extends ocarina_drivers::serial_ccsds 
- features
-    link : refined to requires bus access ocarina_buses::serial.ccsds;
- properties
-    Deployment::Config => "/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-serial-driver.asn";
- end uart2;
-
- device implementation uart2.others
-    extends ocarina_drivers::serial_ccsds.samrh71 
- end uart2.others;
-
- device uart3
-    extends ocarina_drivers::serial_ccsds 
- features
-    link : refined to requires bus access ocarina_buses::serial.ccsds;
- properties
-    Deployment::Config => "/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-serial-driver.asn";
- end uart3;
-
- device implementation uart3.others
-    extends ocarina_drivers::serial_ccsds.samrh71 
- end uart3.others;
-
- device uart4
-    extends ocarina_drivers::serial_ccsds 
- features
-    link : refined to requires bus access ocarina_buses::serial.ccsds;
- properties
-    Deployment::Config => "/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-serial-driver.asn";
- end uart4;
-
- device implementation uart4.others
-    extends ocarina_drivers::serial_ccsds.samrh71 
- end uart4.others;
-
- device can0
-    extends ocarina_drivers::can_generic 
- features
-    link : refined to requires bus access ocarina_buses::can.generic;
- properties
-    Deployment::Config => "/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-can-driver.asn";
- end can0;
-
- device implementation can0.others
-    extends ocarina_drivers::can_generic.samrh71 
- end can0.others;
-
- device can1
-    extends ocarina_drivers::can_generic 
- features
-    link : refined to requires bus access ocarina_buses::can.generic;
- properties
-    Deployment::Config => "/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-can-driver.asn";
- end can1;
-
- device implementation can1.others
-    extends ocarina_drivers::can_generic.samrh71 
- end can1.others;
-
-end deploymentview::DV::Node_1;
---  This file was generated automatically - do not modify it manually
---  If you wish to modify the template used to create this file, it is located
---  in ~/tool-src/misc/space-creator/dv2aadl/deploymentview.tmplt
---  After modifications, install it by running ~/tool-src/install/90_misc
---  Template written by Maxime Perrotin (maxime.perrotin@esa.int) 2021-09
 package deploymentview::DV::Node_2
 public
 
@@ -159,7 +10,6 @@ public
  with TASTE;
  with TASTE_DV_Properties;
 
-    with ocarina_buses; 
     with ocarina_drivers; 
     with ocarina_buses; 
     with ocarina_drivers; 
@@ -177,6 +27,7 @@ public
     with ocarina_drivers; 
     with ocarina_buses; 
     with ocarina_drivers; 
+    with ocarina_buses; 
 
  --  Declare partition(s) of node "Node_2" (aka "SAM RH71 RTEMS N7S_2").
  process Partition_2
@@ -296,6 +147,155 @@ public
  end can1.others;
 
 end deploymentview::DV::Node_2;
+--  This file was generated automatically - do not modify it manually
+--  If you wish to modify the template used to create this file, it is located
+--  in ~/tool-src/misc/space-creator/dv2aadl/deploymentview.tmplt
+--  After modifications, install it by running ~/tool-src/install/90_misc
+--  Template written by Maxime Perrotin (maxime.perrotin@esa.int) 2021-09
+package deploymentview::DV::Node_1
+public
+
+ with Deployment;
+ with TASTE;
+ with TASTE_DV_Properties;
+
+    with ocarina_drivers; 
+    with ocarina_buses; 
+    with ocarina_drivers; 
+    with ocarina_buses; 
+    with ocarina_drivers; 
+    with ocarina_buses; 
+    with ocarina_drivers; 
+    with ocarina_buses; 
+    with ocarina_drivers; 
+    with ocarina_buses; 
+    with ocarina_drivers; 
+    with ocarina_buses; 
+    with ocarina_drivers; 
+    with ocarina_buses; 
+    with ocarina_drivers; 
+    with ocarina_buses; 
+    with ocarina_drivers; 
+    with ocarina_buses; 
+
+ --  Declare partition(s) of node "Node_1" (aka "SAM RH71 RTEMS N7S_1").
+ process Partition_1
+ end Partition_1;
+
+ process implementation Partition_1.others
+ end Partition_1.others;
+
+ device spw0
+    extends ocarina_drivers::spacewire_generic 
+ features
+    link : refined to requires bus access ocarina_buses::spacewire.generic;
+ properties
+    Deployment::Config => "/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-spw-driver.asn";
+ end spw0;
+
+ device implementation spw0.others
+    extends ocarina_drivers::spacewire_generic.samrh71 
+ end spw0.others;
+
+ device spw1
+    extends ocarina_drivers::spacewire_generic 
+ features
+    link : refined to requires bus access ocarina_buses::spacewire.generic;
+ properties
+    Deployment::Config => "/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-spw-driver.asn";
+ end spw1;
+
+ device implementation spw1.others
+    extends ocarina_drivers::spacewire_generic.samrh71 
+ end spw1.others;
+
+ device uart0
+    extends ocarina_drivers::serial_ccsds 
+ features
+    link : refined to requires bus access ocarina_buses::serial.ccsds;
+ properties
+    Deployment::Config => "/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-serial-driver.asn";
+ end uart0;
+
+ device implementation uart0.others
+    extends ocarina_drivers::serial_ccsds.samrh71 
+ end uart0.others;
+
+ device uart1
+    extends ocarina_drivers::serial_ccsds 
+ features
+    link : refined to requires bus access ocarina_buses::serial.ccsds;
+ properties
+    Deployment::Packetizer => "passthrough"; 
+    Deployment::Configuration => "{ devname  uart1, speed  b115200, parity  even, transmit-mode  raw-single-byte }"; 
+    Deployment::Config => "/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-serial-driver.asn";
+ end uart1;
+
+ device implementation uart1.others
+    extends ocarina_drivers::serial_ccsds.samrh71 
+ end uart1.others;
+
+ device uart2
+    extends ocarina_drivers::serial_ccsds 
+ features
+    link : refined to requires bus access ocarina_buses::serial.ccsds;
+ properties
+    Deployment::Config => "/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-serial-driver.asn";
+ end uart2;
+
+ device implementation uart2.others
+    extends ocarina_drivers::serial_ccsds.samrh71 
+ end uart2.others;
+
+ device uart3
+    extends ocarina_drivers::serial_ccsds 
+ features
+    link : refined to requires bus access ocarina_buses::serial.ccsds;
+ properties
+    Deployment::Config => "/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-serial-driver.asn";
+ end uart3;
+
+ device implementation uart3.others
+    extends ocarina_drivers::serial_ccsds.samrh71 
+ end uart3.others;
+
+ device uart4
+    extends ocarina_drivers::serial_ccsds 
+ features
+    link : refined to requires bus access ocarina_buses::serial.ccsds;
+ properties
+    Deployment::Config => "/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-serial-driver.asn";
+ end uart4;
+
+ device implementation uart4.others
+    extends ocarina_drivers::serial_ccsds.samrh71 
+ end uart4.others;
+
+ device can0
+    extends ocarina_drivers::can_generic 
+ features
+    link : refined to requires bus access ocarina_buses::can.generic;
+ properties
+    Deployment::Config => "/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-can-driver.asn";
+ end can0;
+
+ device implementation can0.others
+    extends ocarina_drivers::can_generic.samrh71 
+ end can0.others;
+
+ device can1
+    extends ocarina_drivers::can_generic 
+ features
+    link : refined to requires bus access ocarina_buses::can.generic;
+ properties
+    Deployment::Config => "/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-can-driver.asn";
+ end can1;
+
+ device implementation can1.others
+    extends ocarina_drivers::can_generic.samrh71 
+ end can1.others;
+
+end deploymentview::DV::Node_1;
 
 package deploymentview::DV
 public
@@ -305,43 +305,6 @@ public
  with Interfaceview::IV;
  with TASTE_DV_Properties;
 
- --  Dependencies of node Node_1
- with interfaceview::IV::TestSPCC06::Function_18;
- with interfaceview::IV::TestSPCC06::Function_14;
- with interfaceview::IV::TestSPCC06::Function_19;
- with interfaceview::IV::TestSPCC06::Function_21;
- with interfaceview::IV::TestSPCC06::Function_3;
- with interfaceview::IV::TestSPCC06::Function_4;
- with interfaceview::IV::TestSPCC06::Function_16;
- with interfaceview::IV::TestSPCC06::Function_22;
- with interfaceview::IV::TestSPCC06::Function_20;
- with interfaceview::IV::TestSPCC06::Function_5;
- with interfaceview::IV::TestSPCC06::TestSPCC;
- with interfaceview::IV::TestSPCC06::Function_17;
- with interfaceview::IV::TestSPCC06::Function_9;
- with interfaceview::IV::TestSPCC06::Function_15;
- with interfaceview::IV::TestSPCC06::Function_12;
- with interfaceview::IV::TestSPCC06::Function_13;
- with interfaceview::IV::TestSPCC06::Function_11;
- with interfaceview::IV::TestSPCC06::Function_2;
- with interfaceview::IV::TestSPCC06::Function_23;
- with interfaceview::IV::TestSPCC06::Function_6;
- with interfaceview::IV::TestSPCC06::Function_7;
- with interfaceview::IV::TestSPCC06::Function_8;
- with interfaceview::IV::TestSPCC06::Function_1;
- with interfaceview::IV::TestSPCC06::Function_10;
- with interfaceview::IV::TestStart00;
-    with ocarina_buses; 
-    with ocarina_buses; 
-    with ocarina_buses; 
-    with ocarina_buses; 
-    with ocarina_buses; 
-    with ocarina_buses; 
-    with ocarina_buses; 
-    with ocarina_buses; 
-    with ocarina_buses; 
- with deploymentview::DV::Node_1;
- with ocarina_processors_arm;
  --  Dependencies of node Node_2
  with interfaceview::IV::UartOtherEnd;
     with ocarina_buses; 
@@ -355,143 +318,44 @@ public
     with ocarina_buses; 
  with deploymentview::DV::Node_2;
  with ocarina_processors_arm;
-
- --  Node Node_1
- system Node_1
- features
-    uart1_uart1 : requires bus access ocarina_buses::serial.ccsds;
- end Node_1;
-
- system implementation Node_1.others
- subcomponents
-    IV_Function_18 : system Interfaceview::IV::TestSPCC06::Function_18::Function_18.others {
-       Taste::ImplementationName => "";
-    };
-    IV_Function_14 : system Interfaceview::IV::TestSPCC06::Function_14::Function_14.others {
-       Taste::ImplementationName => "";
-    };
-    IV_Function_19 : system Interfaceview::IV::TestSPCC06::Function_19::Function_19.others {
-       Taste::ImplementationName => "";
-    };
-    IV_Function_21 : system Interfaceview::IV::TestSPCC06::Function_21::Function_21.others {
-       Taste::ImplementationName => "";
-    };
-    IV_Function_3 : system Interfaceview::IV::TestSPCC06::Function_3::Function_3.others {
-       Taste::ImplementationName => "";
-    };
-    IV_Function_4 : system Interfaceview::IV::TestSPCC06::Function_4::Function_4.others {
-       Taste::ImplementationName => "";
-    };
-    IV_Function_16 : system Interfaceview::IV::TestSPCC06::Function_16::Function_16.others {
-       Taste::ImplementationName => "";
-    };
-    IV_Function_22 : system Interfaceview::IV::TestSPCC06::Function_22::Function_22.others {
-       Taste::ImplementationName => "";
-    };
-    IV_Function_20 : system Interfaceview::IV::TestSPCC06::Function_20::Function_20.others {
-       Taste::ImplementationName => "";
-    };
-    IV_Function_5 : system Interfaceview::IV::TestSPCC06::Function_5::Function_5.others {
-       Taste::ImplementationName => "";
-    };
-    IV_TestSPCC : system Interfaceview::IV::TestSPCC06::TestSPCC::TestSPCC.others {
-       Taste::ImplementationName => "";
-    };
-    IV_Function_17 : system Interfaceview::IV::TestSPCC06::Function_17::Function_17.others {
-       Taste::ImplementationName => "";
-    };
-    IV_Function_9 : system Interfaceview::IV::TestSPCC06::Function_9::Function_9.others {
-       Taste::ImplementationName => "";
-    };
-    IV_Function_15 : system Interfaceview::IV::TestSPCC06::Function_15::Function_15.others {
-       Taste::ImplementationName => "";
-    };
-    IV_Function_12 : system Interfaceview::IV::TestSPCC06::Function_12::Function_12.others {
-       Taste::ImplementationName => "";
-    };
-    IV_Function_13 : system Interfaceview::IV::TestSPCC06::Function_13::Function_13.others {
-       Taste::ImplementationName => "";
-    };
-    IV_Function_11 : system Interfaceview::IV::TestSPCC06::Function_11::Function_11.others {
-       Taste::ImplementationName => "";
-    };
-    IV_Function_2 : system Interfaceview::IV::TestSPCC06::Function_2::Function_2.others {
-       Taste::ImplementationName => "";
-    };
-    IV_Function_23 : system Interfaceview::IV::TestSPCC06::Function_23::Function_23.others {
-       Taste::ImplementationName => "";
-    };
-    IV_Function_6 : system Interfaceview::IV::TestSPCC06::Function_6::Function_6.others {
-       Taste::ImplementationName => "";
-    };
-    IV_Function_7 : system Interfaceview::IV::TestSPCC06::Function_7::Function_7.others {
-       Taste::ImplementationName => "";
-    };
-    IV_Function_8 : system Interfaceview::IV::TestSPCC06::Function_8::Function_8.others {
-       Taste::ImplementationName => "";
-    };
-    IV_Function_1 : system Interfaceview::IV::TestSPCC06::Function_1::Function_1.others {
-       Taste::ImplementationName => "";
-    };
-    IV_Function_10 : system Interfaceview::IV::TestSPCC06::Function_10::Function_10.others {
-       Taste::ImplementationName => "";
-    };
-    IV_TestStart00 : system Interfaceview::IV::TestStart00::TestStart00.others {
-       Taste::ImplementationName => "";
-    };
-    Partition_1 : process deploymentview::DV::Node_1::Partition_1.others { 
-       TASTE_DV_Properties::CoverageEnabled => false;
-       TASTE::ExternalLibs => "../../../../tf_common/";
-    };
-    p1 : processor ocarina_processors_arm::samrh71.rtems;
-    spw0 : device deploymentview::DV::Node_1::spw0.others;
-    spw1 : device deploymentview::DV::Node_1::spw1.others;
-    uart0 : device deploymentview::DV::Node_1::uart0.others;
-    uart1 : device deploymentview::DV::Node_1::uart1.others;
-    uart2 : device deploymentview::DV::Node_1::uart2.others;
-    uart3 : device deploymentview::DV::Node_1::uart3.others;
-    uart4 : device deploymentview::DV::Node_1::uart4.others;
-    can0 : device deploymentview::DV::Node_1::can0.others;
-    can1 : device deploymentview::DV::Node_1::can1.others;
- connections
-    uart1_uart1_link : bus access uart1_uart1 -> uart1.link;
- properties
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_18;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_14;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_19;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_21;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_3;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_4;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_16;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_22;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_20;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_5;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_TestSPCC;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_17;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_9;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_15;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_12;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_13;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_11;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_2;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_23;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_6;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_7;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_8;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_1;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_10;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_TestStart00;
-    Actual_Processor_Binding => (reference (p1)) applies to Partition_1;
-    Actual_Processor_Binding => (reference (p1)) applies to spw0;
-    Actual_Processor_Binding => (reference (p1)) applies to spw1;
-    Actual_Processor_Binding => (reference (p1)) applies to uart0;
-    Actual_Processor_Binding => (reference (p1)) applies to uart1;
-    Actual_Processor_Binding => (reference (p1)) applies to uart2;
-    Actual_Processor_Binding => (reference (p1)) applies to uart3;
-    Actual_Processor_Binding => (reference (p1)) applies to uart4;
-    Actual_Processor_Binding => (reference (p1)) applies to can0;
-    Actual_Processor_Binding => (reference (p1)) applies to can1;
- end Node_1.others;
+ --  Dependencies of node Node_1
+ with interfaceview::IV::TestSPCC06::Function_13;
+ with interfaceview::IV::TestSPCC06::Function_3;
+ with interfaceview::IV::TestSPCC06::Function_21;
+ with interfaceview::IV::TestSPCC06::Function_19;
+ with interfaceview::IV::TestSPCC06::Function_23;
+ with interfaceview::IV::TestSPCC06::Function_2;
+ with interfaceview::IV::TestSPCC06::Function_11;
+ with interfaceview::IV::TestSPCC06::Function_14;
+ with interfaceview::IV::TestSPCC06::Function_18;
+ with interfaceview::IV::TestSPCC06::Function_12;
+ with interfaceview::IV::TF_Reporter;
+ with interfaceview::IV::TestSPCC06::Function_8;
+ with interfaceview::IV::TestSPCC06::Function_7;
+ with interfaceview::IV::TestSPCC06::Function_16;
+ with interfaceview::IV::TestSPCC06::Function_20;
+ with interfaceview::IV::TestSPCC06::Function_1;
+ with interfaceview::IV::TestSPCC06::Function_22;
+ with interfaceview::IV::TestSPCC06::Function_4;
+ with interfaceview::IV::TestSPCC06::Function_6;
+ with interfaceview::IV::TestSPCC06::TestSPCC;
+ with interfaceview::IV::TestSPCC06::Function_5;
+ with interfaceview::IV::TestSPCC06::Function_10;
+ with interfaceview::IV::TestSPCC06::Function_15;
+ with interfaceview::IV::TestSPCC06::Function_9;
+ with interfaceview::IV::TestSPCC06::Function_17;
+ with interfaceview::IV::TestStart00;
+    with ocarina_buses; 
+    with ocarina_buses; 
+    with ocarina_buses; 
+    with ocarina_buses; 
+    with ocarina_buses; 
+    with ocarina_buses; 
+    with ocarina_buses; 
+    with ocarina_buses; 
+    with ocarina_buses; 
+ with deploymentview::DV::Node_1;
+ with ocarina_processors_arm;
 
  --  Node Node_2
  system Node_2
@@ -533,6 +397,147 @@ public
     Actual_Processor_Binding => (reference (p1)) applies to can1;
  end Node_2.others;
 
+ --  Node Node_1
+ system Node_1
+ features
+    uart1_uart1 : requires bus access ocarina_buses::serial.ccsds;
+ end Node_1;
+
+ system implementation Node_1.others
+ subcomponents
+    IV_Function_13 : system Interfaceview::IV::TestSPCC06::Function_13::Function_13.others {
+       Taste::ImplementationName => "";
+    };
+    IV_Function_3 : system Interfaceview::IV::TestSPCC06::Function_3::Function_3.others {
+       Taste::ImplementationName => "";
+    };
+    IV_Function_21 : system Interfaceview::IV::TestSPCC06::Function_21::Function_21.others {
+       Taste::ImplementationName => "";
+    };
+    IV_Function_19 : system Interfaceview::IV::TestSPCC06::Function_19::Function_19.others {
+       Taste::ImplementationName => "";
+    };
+    IV_Function_23 : system Interfaceview::IV::TestSPCC06::Function_23::Function_23.others {
+       Taste::ImplementationName => "";
+    };
+    IV_Function_2 : system Interfaceview::IV::TestSPCC06::Function_2::Function_2.others {
+       Taste::ImplementationName => "";
+    };
+    IV_Function_11 : system Interfaceview::IV::TestSPCC06::Function_11::Function_11.others {
+       Taste::ImplementationName => "";
+    };
+    IV_Function_14 : system Interfaceview::IV::TestSPCC06::Function_14::Function_14.others {
+       Taste::ImplementationName => "";
+    };
+    IV_Function_18 : system Interfaceview::IV::TestSPCC06::Function_18::Function_18.others {
+       Taste::ImplementationName => "";
+    };
+    IV_Function_12 : system Interfaceview::IV::TestSPCC06::Function_12::Function_12.others {
+       Taste::ImplementationName => "";
+    };
+    IV_TF_Reporter : system Interfaceview::IV::TF_Reporter::TF_Reporter.others {
+       Taste::ImplementationName => "";
+    };
+    IV_Function_8 : system Interfaceview::IV::TestSPCC06::Function_8::Function_8.others {
+       Taste::ImplementationName => "";
+    };
+    IV_Function_7 : system Interfaceview::IV::TestSPCC06::Function_7::Function_7.others {
+       Taste::ImplementationName => "";
+    };
+    IV_Function_16 : system Interfaceview::IV::TestSPCC06::Function_16::Function_16.others {
+       Taste::ImplementationName => "";
+    };
+    IV_Function_20 : system Interfaceview::IV::TestSPCC06::Function_20::Function_20.others {
+       Taste::ImplementationName => "";
+    };
+    IV_Function_1 : system Interfaceview::IV::TestSPCC06::Function_1::Function_1.others {
+       Taste::ImplementationName => "";
+    };
+    IV_Function_22 : system Interfaceview::IV::TestSPCC06::Function_22::Function_22.others {
+       Taste::ImplementationName => "";
+    };
+    IV_Function_4 : system Interfaceview::IV::TestSPCC06::Function_4::Function_4.others {
+       Taste::ImplementationName => "";
+    };
+    IV_Function_6 : system Interfaceview::IV::TestSPCC06::Function_6::Function_6.others {
+       Taste::ImplementationName => "";
+    };
+    IV_TestSPCC : system Interfaceview::IV::TestSPCC06::TestSPCC::TestSPCC.others {
+       Taste::ImplementationName => "";
+    };
+    IV_Function_5 : system Interfaceview::IV::TestSPCC06::Function_5::Function_5.others {
+       Taste::ImplementationName => "";
+    };
+    IV_Function_10 : system Interfaceview::IV::TestSPCC06::Function_10::Function_10.others {
+       Taste::ImplementationName => "";
+    };
+    IV_Function_15 : system Interfaceview::IV::TestSPCC06::Function_15::Function_15.others {
+       Taste::ImplementationName => "";
+    };
+    IV_Function_9 : system Interfaceview::IV::TestSPCC06::Function_9::Function_9.others {
+       Taste::ImplementationName => "";
+    };
+    IV_Function_17 : system Interfaceview::IV::TestSPCC06::Function_17::Function_17.others {
+       Taste::ImplementationName => "";
+    };
+    IV_TestStart00 : system Interfaceview::IV::TestStart00::TestStart00.others {
+       Taste::ImplementationName => "";
+    };
+    Partition_1 : process deploymentview::DV::Node_1::Partition_1.others { 
+       TASTE_DV_Properties::CoverageEnabled => false;
+       TASTE::ExternalLibs => "../../../../tf_common/";
+    };
+    p1 : processor ocarina_processors_arm::samrh71.rtems;
+    spw0 : device deploymentview::DV::Node_1::spw0.others;
+    spw1 : device deploymentview::DV::Node_1::spw1.others;
+    uart0 : device deploymentview::DV::Node_1::uart0.others;
+    uart1 : device deploymentview::DV::Node_1::uart1.others;
+    uart2 : device deploymentview::DV::Node_1::uart2.others;
+    uart3 : device deploymentview::DV::Node_1::uart3.others;
+    uart4 : device deploymentview::DV::Node_1::uart4.others;
+    can0 : device deploymentview::DV::Node_1::can0.others;
+    can1 : device deploymentview::DV::Node_1::can1.others;
+ connections
+    uart1_uart1_link : bus access uart1_uart1 -> uart1.link;
+ properties
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_13;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_3;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_21;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_19;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_23;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_2;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_11;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_14;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_18;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_12;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_TF_Reporter;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_8;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_7;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_16;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_20;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_1;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_22;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_4;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_6;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_TestSPCC;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_5;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_10;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_15;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_9;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_17;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_TestStart00;
+    Actual_Processor_Binding => (reference (p1)) applies to Partition_1;
+    Actual_Processor_Binding => (reference (p1)) applies to spw0;
+    Actual_Processor_Binding => (reference (p1)) applies to spw1;
+    Actual_Processor_Binding => (reference (p1)) applies to uart0;
+    Actual_Processor_Binding => (reference (p1)) applies to uart1;
+    Actual_Processor_Binding => (reference (p1)) applies to uart2;
+    Actual_Processor_Binding => (reference (p1)) applies to uart3;
+    Actual_Processor_Binding => (reference (p1)) applies to uart4;
+    Actual_Processor_Binding => (reference (p1)) applies to can0;
+    Actual_Processor_Binding => (reference (p1)) applies to can1;
+ end Node_1.others;
+
 
 system deploymentview
 end deploymentview;
@@ -540,14 +545,14 @@ end deploymentview;
 system implementation deploymentview.others
 subcomponents
    interfaceview : system interfaceview::IV::interfaceview.others;
-   Node_1 : system Node_1.others;
    Node_2 : system Node_2.others;
+   Node_1 : system Node_1.others;
    bus_1 : bus ocarina_buses::serial.ccsds;
  connections
-   Node_1_bus_1 : bus access bus_1 -> Node_1.uart1_uart1;
    Node_2_bus_1 : bus access bus_1 -> Node_2.uart1_uart1;
+   Node_1_bus_1 : bus access bus_1 -> Node_1.uart1_uart1;
  properties
-   Actual_Connection_Binding => (reference (bus_1)) applies to interfaceview.TestStart00_RI_samrh71tx_UartOtherEnd_PI_samrh71tx;
+   Actual_Connection_Binding => (reference (bus_1)) applies to interfaceview.TF_Reporter_RI_samrh71tx_UartOtherEnd_PI_samrh71tx;
 end deploymentview.others;
 
 end deploymentview::DV;

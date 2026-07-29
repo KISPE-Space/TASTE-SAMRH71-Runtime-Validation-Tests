@@ -859,7 +859,7 @@ flag asn1SccPID_Range_Equal(const asn1SccPID_Range* pVal1, const asn1SccPID_Rang
 flag asn1SccPID_Range_IsConstraintValid(const asn1SccPID_Range* pVal, int* pErrCode)
 {
     flag ret = TRUE;
-    ret = ((*(pVal)) <= 26UL);
+    ret = ((*(pVal)) <= 27UL);
     *pErrCode = ret ? 0 :  ERR_PID_RANGE;
 
 	return ret;
@@ -885,7 +885,7 @@ flag asn1SccPID_Range_Encode(const asn1SccPID_Range* pVal, BitStream* pBitStrm, 
 	*pErrCode = 0;
 	ret = bCheckConstraints ? asn1SccPID_Range_IsConstraintValid(pVal, pErrCode) : TRUE ;
 	if (ret && *pErrCode == 0) {
-	    BitStream_EncodeConstraintPosWholeNumber(pBitStrm, (*(pVal)), 0, 26);
+	    BitStream_EncodeConstraintPosWholeNumber(pBitStrm, (*(pVal)), 0, 27);
     } /*COVERAGE_IGNORE*/
 
 
@@ -898,7 +898,7 @@ flag asn1SccPID_Range_Decode(asn1SccPID_Range* pVal, BitStream* pBitStrm, int* p
 	*pErrCode = 0;
 
 
-	ret = BitStream_DecodeConstraintPosWholeNumber(pBitStrm, pVal, 0, 26);
+	ret = BitStream_DecodeConstraintPosWholeNumber(pBitStrm, pVal, 0, 27);
 	*pErrCode = ret ? 0 : ERR_UPER_DECODE_PID_RANGE;
 
 	return ret  && asn1SccPID_Range_IsConstraintValid(pVal, pErrCode);
@@ -911,7 +911,7 @@ flag asn1SccPID_Range_ACN_Encode(const asn1SccPID_Range* pVal, BitStream* pBitSt
     *pErrCode = 0;
 	ret = bCheckConstraints ? asn1SccPID_Range_IsConstraintValid(pVal, pErrCode) : TRUE ;
 	if (ret && *pErrCode == 0) {
-	    BitStream_EncodeConstraintPosWholeNumber(pBitStrm, (*(pVal)), 0, 26);
+	    BitStream_EncodeConstraintPosWholeNumber(pBitStrm, (*(pVal)), 0, 27);
     } /*COVERAGE_IGNORE*/
 
 
@@ -924,7 +924,7 @@ flag asn1SccPID_Range_ACN_Decode(asn1SccPID_Range* pVal, BitStream* pBitStrm, in
 	*pErrCode = 0;
 
 
-	ret = BitStream_DecodeConstraintPosWholeNumber(pBitStrm, pVal, 0, 26);
+	ret = BitStream_DecodeConstraintPosWholeNumber(pBitStrm, pVal, 0, 27);
 	*pErrCode = ret ? 0 : ERR_ACN_DECODE_PID_RANGE;
 
     return ret && asn1SccPID_Range_IsConstraintValid(pVal, pErrCode);
@@ -940,7 +940,7 @@ flag asn1SccPID_Equal(const asn1SccPID* pVal1, const asn1SccPID* pVal2)
 flag asn1SccPID_IsConstraintValid(const asn1SccPID* pVal, int* pErrCode)
 {
     flag ret = TRUE;
-    ret = ((((((((((((((((((((((((((((((((((((((((((((((((((((((*(pVal)) == PID_function_1)) || (((*(pVal)) == PID_function_10)))) || (((*(pVal)) == PID_function_11)))) || (((*(pVal)) == PID_function_12)))) || (((*(pVal)) == PID_function_13)))) || (((*(pVal)) == PID_function_14)))) || (((*(pVal)) == PID_function_15)))) || (((*(pVal)) == PID_function_16)))) || (((*(pVal)) == PID_function_17)))) || (((*(pVal)) == PID_function_18)))) || (((*(pVal)) == PID_function_19)))) || (((*(pVal)) == PID_function_2)))) || (((*(pVal)) == PID_function_20)))) || (((*(pVal)) == PID_function_21)))) || (((*(pVal)) == PID_function_22)))) || (((*(pVal)) == PID_function_23)))) || (((*(pVal)) == PID_function_3)))) || (((*(pVal)) == PID_function_4)))) || (((*(pVal)) == PID_function_5)))) || (((*(pVal)) == PID_function_6)))) || (((*(pVal)) == PID_function_7)))) || (((*(pVal)) == PID_function_8)))) || (((*(pVal)) == PID_function_9)))) || (((*(pVal)) == PID_testspcc)))) || (((*(pVal)) == PID_teststart00)))) || (((*(pVal)) == PID_uartotherend)))) || (((*(pVal)) == PID_env)));
+    ret = ((((((((((((((((((((((((((((((((((((((((((((((((((((((((*(pVal)) == PID_function_1)) || (((*(pVal)) == PID_function_10)))) || (((*(pVal)) == PID_function_11)))) || (((*(pVal)) == PID_function_12)))) || (((*(pVal)) == PID_function_13)))) || (((*(pVal)) == PID_function_14)))) || (((*(pVal)) == PID_function_15)))) || (((*(pVal)) == PID_function_16)))) || (((*(pVal)) == PID_function_17)))) || (((*(pVal)) == PID_function_18)))) || (((*(pVal)) == PID_function_19)))) || (((*(pVal)) == PID_function_2)))) || (((*(pVal)) == PID_function_20)))) || (((*(pVal)) == PID_function_21)))) || (((*(pVal)) == PID_function_22)))) || (((*(pVal)) == PID_function_23)))) || (((*(pVal)) == PID_function_3)))) || (((*(pVal)) == PID_function_4)))) || (((*(pVal)) == PID_function_5)))) || (((*(pVal)) == PID_function_6)))) || (((*(pVal)) == PID_function_7)))) || (((*(pVal)) == PID_function_8)))) || (((*(pVal)) == PID_function_9)))) || (((*(pVal)) == PID_tf_reporter)))) || (((*(pVal)) == PID_testspcc)))) || (((*(pVal)) == PID_teststart00)))) || (((*(pVal)) == PID_uartotherend)))) || (((*(pVal)) == PID_env)));
     *pErrCode = ret ? 0 :  ERR_PID;
 
 	return ret;
@@ -969,85 +969,88 @@ flag asn1SccPID_Encode(const asn1SccPID* pVal, BitStream* pBitStrm, int* pErrCod
 	    switch((*(pVal)))
 	    {
 	        case PID_function_1:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 0, 0, 26);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 0, 0, 27);
 	        	break;
 	        case PID_function_10:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 1, 0, 26);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 1, 0, 27);
 	        	break;
 	        case PID_function_11:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 2, 0, 26);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 2, 0, 27);
 	        	break;
 	        case PID_function_12:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 3, 0, 26);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 3, 0, 27);
 	        	break;
 	        case PID_function_13:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 4, 0, 26);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 4, 0, 27);
 	        	break;
 	        case PID_function_14:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 5, 0, 26);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 5, 0, 27);
 	        	break;
 	        case PID_function_15:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 6, 0, 26);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 6, 0, 27);
 	        	break;
 	        case PID_function_16:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 7, 0, 26);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 7, 0, 27);
 	        	break;
 	        case PID_function_17:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 8, 0, 26);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 8, 0, 27);
 	        	break;
 	        case PID_function_18:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 9, 0, 26);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 9, 0, 27);
 	        	break;
 	        case PID_function_19:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 10, 0, 26);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 10, 0, 27);
 	        	break;
 	        case PID_function_2:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 11, 0, 26);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 11, 0, 27);
 	        	break;
 	        case PID_function_20:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 12, 0, 26);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 12, 0, 27);
 	        	break;
 	        case PID_function_21:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 13, 0, 26);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 13, 0, 27);
 	        	break;
 	        case PID_function_22:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 14, 0, 26);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 14, 0, 27);
 	        	break;
 	        case PID_function_23:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 15, 0, 26);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 15, 0, 27);
 	        	break;
 	        case PID_function_3:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 16, 0, 26);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 16, 0, 27);
 	        	break;
 	        case PID_function_4:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 17, 0, 26);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 17, 0, 27);
 	        	break;
 	        case PID_function_5:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 18, 0, 26);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 18, 0, 27);
 	        	break;
 	        case PID_function_6:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 19, 0, 26);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 19, 0, 27);
 	        	break;
 	        case PID_function_7:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 20, 0, 26);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 20, 0, 27);
 	        	break;
 	        case PID_function_8:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 21, 0, 26);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 21, 0, 27);
 	        	break;
 	        case PID_function_9:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 22, 0, 26);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 22, 0, 27);
+	        	break;
+	        case PID_tf_reporter:
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 23, 0, 27);
 	        	break;
 	        case PID_testspcc:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 23, 0, 26);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 24, 0, 27);
 	        	break;
 	        case PID_teststart00:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 24, 0, 26);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 25, 0, 27);
 	        	break;
 	        case PID_uartotherend:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 25, 0, 26);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 26, 0, 27);
 	        	break;
 	        case PID_env:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 26, 0, 26);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 27, 0, 27);
 	        	break;
 	        default:                    /*COVERAGE_IGNORE*/
 	    	    *pErrCode = ERR_UPER_ENCODE_PID; /*COVERAGE_IGNORE*/
@@ -1067,7 +1070,7 @@ flag asn1SccPID_Decode(asn1SccPID* pVal, BitStream* pBitStrm, int* pErrCode)
 
 	{
 	    asn1SccSint enumIndex;
-	    ret = BitStream_DecodeConstraintWholeNumber(pBitStrm, &enumIndex, 0, 26);
+	    ret = BitStream_DecodeConstraintWholeNumber(pBitStrm, &enumIndex, 0, 27);
 	    *pErrCode = ret ? 0 : ERR_UPER_DECODE_PID;
 	    if (ret) {
 	        switch(enumIndex)
@@ -1142,15 +1145,18 @@ flag asn1SccPID_Decode(asn1SccPID* pVal, BitStream* pBitStrm, int* pErrCode)
 	                (*(pVal)) = PID_function_9;
 	                break;
 	            case 23:
-	                (*(pVal)) = PID_testspcc;
+	                (*(pVal)) = PID_tf_reporter;
 	                break;
 	            case 24:
-	                (*(pVal)) = PID_teststart00;
+	                (*(pVal)) = PID_testspcc;
 	                break;
 	            case 25:
-	                (*(pVal)) = PID_uartotherend;
+	                (*(pVal)) = PID_teststart00;
 	                break;
 	            case 26:
+	                (*(pVal)) = PID_uartotherend;
+	                break;
+	            case 27:
 	                (*(pVal)) = PID_env;
 	                break;
 	            default:                        /*COVERAGE_IGNORE*/
@@ -1243,24 +1249,27 @@ flag asn1SccPID_ACN_Encode(const asn1SccPID* pVal, BitStream* pBitStrm, int* pEr
 	        case PID_function_9:
 	            intVal_pVal = 22UL;
 	            break;
-	        case PID_testspcc:
+	        case PID_tf_reporter:
 	            intVal_pVal = 23UL;
 	            break;
-	        case PID_teststart00:
+	        case PID_testspcc:
 	            intVal_pVal = 24UL;
 	            break;
-	        case PID_uartotherend:
+	        case PID_teststart00:
 	            intVal_pVal = 25UL;
 	            break;
-	        case PID_env:
+	        case PID_uartotherend:
 	            intVal_pVal = 26UL;
+	            break;
+	        case PID_env:
+	            intVal_pVal = 27UL;
 	            break;
 	        default:                                    /*COVERAGE_IGNORE*/
 	            ret = FALSE;                            /*COVERAGE_IGNORE*/
 	            *pErrCode = ERR_ACN_ENCODE_PID;                 /*COVERAGE_IGNORE*/
 	    }
 	    if (ret) {
-	    	BitStream_EncodeConstraintPosWholeNumber(pBitStrm, intVal_pVal, 0, 26);
+	    	BitStream_EncodeConstraintPosWholeNumber(pBitStrm, intVal_pVal, 0, 27);
 	    }
     } /*COVERAGE_IGNORE*/
 
@@ -1275,7 +1284,7 @@ flag asn1SccPID_ACN_Decode(asn1SccPID* pVal, BitStream* pBitStrm, int* pErrCode)
 
 	asn1SccUint intVal_pVal;
 
-	ret = BitStream_DecodeConstraintPosWholeNumber(pBitStrm, (&(intVal_pVal)), 0, 26);
+	ret = BitStream_DecodeConstraintPosWholeNumber(pBitStrm, (&(intVal_pVal)), 0, 27);
 	*pErrCode = ret ? 0 : ERR_ACN_DECODE_PID;
 	if (ret) {
 	    switch (intVal_pVal) {
@@ -1349,15 +1358,18 @@ flag asn1SccPID_ACN_Decode(asn1SccPID* pVal, BitStream* pBitStrm, int* pErrCode)
 	            (*(pVal)) = PID_function_9;
 	            break;
 	        case 23:
-	            (*(pVal)) = PID_testspcc;
+	            (*(pVal)) = PID_tf_reporter;
 	            break;
 	        case 24:
-	            (*(pVal)) = PID_teststart00;
+	            (*(pVal)) = PID_testspcc;
 	            break;
 	        case 25:
-	            (*(pVal)) = PID_uartotherend;
+	            (*(pVal)) = PID_teststart00;
 	            break;
 	        case 26:
+	            (*(pVal)) = PID_uartotherend;
+	            break;
+	        case 27:
 	            (*(pVal)) = PID_env;
 	            break;
 	    default:                                    /*COVERAGE_IGNORE*/

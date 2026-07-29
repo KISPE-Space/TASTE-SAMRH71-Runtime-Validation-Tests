@@ -83,7 +83,7 @@ build/system_config.h:	$(wildcard */*/wrappers/*_system_config.h)
 	cat $^ > $@
 
 #  Call DMT/aadl2glueC to generate glue code from the mini-cv.aadl files
-aadl2glueC:	function_1/C/wrappers/aadl2glueC_built function_10/C/wrappers/aadl2glueC_built function_11/C/wrappers/aadl2glueC_built function_12/C/wrappers/aadl2glueC_built function_13/C/wrappers/aadl2glueC_built function_14/C/wrappers/aadl2glueC_built function_15/C/wrappers/aadl2glueC_built function_16/C/wrappers/aadl2glueC_built function_17/C/wrappers/aadl2glueC_built function_18/C/wrappers/aadl2glueC_built function_19/C/wrappers/aadl2glueC_built function_2/C/wrappers/aadl2glueC_built function_20/C/wrappers/aadl2glueC_built function_21/C/wrappers/aadl2glueC_built function_22/C/wrappers/aadl2glueC_built function_23/C/wrappers/aadl2glueC_built function_3/C/wrappers/aadl2glueC_built function_4/C/wrappers/aadl2glueC_built function_5/C/wrappers/aadl2glueC_built function_6/C/wrappers/aadl2glueC_built function_7/C/wrappers/aadl2glueC_built function_8/C/wrappers/aadl2glueC_built function_9/C/wrappers/aadl2glueC_built testspcc/C/wrappers/aadl2glueC_built teststart00/C/wrappers/aadl2glueC_built uartotherend/C/wrappers/aadl2glueC_built
+aadl2glueC:	function_1/C/wrappers/aadl2glueC_built function_10/C/wrappers/aadl2glueC_built function_11/C/wrappers/aadl2glueC_built function_12/C/wrappers/aadl2glueC_built function_13/C/wrappers/aadl2glueC_built function_14/C/wrappers/aadl2glueC_built function_15/C/wrappers/aadl2glueC_built function_16/C/wrappers/aadl2glueC_built function_17/C/wrappers/aadl2glueC_built function_18/C/wrappers/aadl2glueC_built function_19/C/wrappers/aadl2glueC_built function_2/C/wrappers/aadl2glueC_built function_20/C/wrappers/aadl2glueC_built function_21/C/wrappers/aadl2glueC_built function_22/C/wrappers/aadl2glueC_built function_23/C/wrappers/aadl2glueC_built function_3/C/wrappers/aadl2glueC_built function_4/C/wrappers/aadl2glueC_built function_5/C/wrappers/aadl2glueC_built function_6/C/wrappers/aadl2glueC_built function_7/C/wrappers/aadl2glueC_built function_8/C/wrappers/aadl2glueC_built function_9/C/wrappers/aadl2glueC_built testspcc/C/wrappers/aadl2glueC_built teststart00/C/wrappers/aadl2glueC_built tf_reporter/C/wrappers/aadl2glueC_built uartotherend/C/wrappers/aadl2glueC_built
 
 function_1/C/wrappers/aadl2glueC_built: function_1/C/wrappers/function_1_mini_cv.aadl ${DATAVIEW_AADLV1}
 	touch $@
@@ -158,6 +158,9 @@ testspcc/C/wrappers/aadl2glueC_built: testspcc/C/wrappers/testspcc_mini_cv.aadl 
 	touch $@
 
 teststart00/C/wrappers/aadl2glueC_built: teststart00/C/wrappers/teststart00_mini_cv.aadl ${DATAVIEW_AADLV1}
+	touch $@
+
+tf_reporter/C/wrappers/aadl2glueC_built: tf_reporter/C/wrappers/tf_reporter_mini_cv.aadl ${DATAVIEW_AADLV1}
 	touch $@
 
 uartotherend/C/wrappers/aadl2glueC_built: uartotherend/C/wrappers/uartotherend_mini_cv.aadl ${DATAVIEW_AADLV1}

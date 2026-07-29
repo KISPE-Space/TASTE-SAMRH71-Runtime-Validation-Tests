@@ -4,6 +4,7 @@ CONFIG += generateC
 
 DISTFILES +=  $(HOME)/tool-inst/share/taste-types/taste-types.asn \
     samrh71.dv.xml \
+    samrh71.dv.xml \
     samrh71.dv.xml
 DISTFILES += model_max_tasks.msc
 DISTFILES += interfaceview.xml

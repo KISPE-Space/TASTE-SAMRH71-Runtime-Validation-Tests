@@ -314,15 +314,18 @@ void PrintASN1PID(const char *paramName, const asn1SccPID *pData)
         printf("function-9");
         break;
     case 23:
-        printf("testspcc");
+        printf("tf-reporter");
         break;
     case 24:
-        printf("teststart00");
+        printf("testspcc");
         break;
     case 25:
-        printf("uartotherend");
+        printf("teststart00");
         break;
     case 26:
+        printf("uartotherend");
+        break;
+    case 27:
         printf("env");
         break;
     default:

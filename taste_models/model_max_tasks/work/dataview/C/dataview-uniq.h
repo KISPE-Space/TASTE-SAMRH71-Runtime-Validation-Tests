@@ -354,7 +354,7 @@ typedef asn1SccUint asn1SccPID_Range;
 
 flag asn1SccPID_Range_Equal(const asn1SccPID_Range* pVal1, const asn1SccPID_Range* pVal2);
 
-#define ERR_PID_RANGE		76  /*(0..26)*/
+#define ERR_PID_RANGE		76  /*(0..27)*/
 flag asn1SccPID_Range_IsConstraintValid(const asn1SccPID_Range* pVal, int* pErrCode);
 
 #ifdef __cplusplus
@@ -407,10 +407,11 @@ typedef enum {
     PID_function_7 = 20,
     PID_function_8 = 21,
     PID_function_9 = 22,
-    PID_testspcc = 23,
-    PID_teststart00 = 24,
-    PID_uartotherend = 25,
-    PID_env = 26
+    PID_tf_reporter = 23,
+    PID_testspcc = 24,
+    PID_teststart00 = 25,
+    PID_uartotherend = 26,
+    PID_env = 27
 } asn1SccPID;
 
 // please use the following macros to avoid breaking code.
@@ -437,6 +438,7 @@ typedef enum {
 #define asn1SccPID_function_7 PID_function_7
 #define asn1SccPID_function_8 PID_function_8
 #define asn1SccPID_function_9 PID_function_9
+#define asn1SccPID_tf_reporter PID_tf_reporter
 #define asn1SccPID_testspcc PID_testspcc
 #define asn1SccPID_teststart00 PID_teststart00
 #define asn1SccPID_uartotherend PID_uartotherend
@@ -444,7 +446,7 @@ typedef enum {
 
 flag asn1SccPID_Equal(const asn1SccPID* pVal1, const asn1SccPID* pVal2);
 
-#define ERR_PID		81  /*function-1 | function-10 | function-11 | function-12 | function-13 | function-14 | function-15 | function-16 | function-17 | function-18 | function-19 | function-2 | function-20 | function-21 | function-22 | function-23 | function-3 | function-4 | function-5 | function-6 | function-7 | function-8 | function-9 | testspcc | teststart00 | uartotherend | env*/
+#define ERR_PID		81  /*function-1 | function-10 | function-11 | function-12 | function-13 | function-14 | function-15 | function-16 | function-17 | function-18 | function-19 | function-2 | function-20 | function-21 | function-22 | function-23 | function-3 | function-4 | function-5 | function-6 | function-7 | function-8 | function-9 | tf-reporter | testspcc | teststart00 | uartotherend | env*/
 flag asn1SccPID_IsConstraintValid(const asn1SccPID* pVal, int* pErrCode);
 
 #ifdef __cplusplus

@@ -33,3 +33,12 @@ void transmit_bytes_over_uart(char* pBytes)
 }
 
 
+/*
+ * Refer to header for function usage docs
+ */
+void transmit_log_info(char* pString)
+{
+    transmit_bytes_over_uart("INFO:");
+    transmit_bytes_over_uart(pString);
+    transmit_bytes_over_uart("\n");
+}

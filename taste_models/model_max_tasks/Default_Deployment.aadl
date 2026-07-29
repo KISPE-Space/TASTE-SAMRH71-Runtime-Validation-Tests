@@ -21,6 +21,8 @@ PUBLIC
 
 WITH interfaceview::IV::UartOtherEnd;
 
+WITH interfaceview::IV::TF_Reporter;
+
 WITH interfaceview::IV::TestStart00;
  
 WITH interfaceview::IV::TestSPCC06::Function_1;
@@ -87,6 +89,10 @@ SYSTEM IMPLEMENTATION Node_Linux.others
 SUBCOMPONENTS
    IV_UartOtherEnd : SYSTEM interfaceview::IV::UartOtherEnd::UartOtherEnd.others {
       Taste::FunctionName => "UartOtherEnd";
+   };
+
+   IV_TF_Reporter : SYSTEM interfaceview::IV::TF_Reporter::TF_Reporter.others {
+      Taste::FunctionName => "TF_Reporter";
    };
 
    IV_TestStart00 : SYSTEM interfaceview::IV::TestStart00::TestStart00.others {
@@ -200,6 +206,16 @@ SUBCOMPONENTS
 PROPERTIES
    
    Taste::APLC_Binding => (reference (demo)) APPLIES TO IV_UartOtherEnd;
+   
+   
+   
+   
+   
+   
+   
+
+   
+   Taste::APLC_Binding => (reference (demo)) APPLIES TO IV_TF_Reporter;
    
    
    

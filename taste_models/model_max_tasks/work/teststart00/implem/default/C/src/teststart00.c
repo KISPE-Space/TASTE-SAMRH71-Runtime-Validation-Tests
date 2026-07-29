@@ -35,8 +35,6 @@ static int iResultsTransmitted = 0;
  */
 void teststart00_startup(void)
 {
-    // Register the sporadic interface (C function) over which this model can transmit data out from the target hardware
-    register_uart_byte_transmitter_function(teststart00_RI_samrh71tx);
 }
 
 
@@ -203,31 +201,10 @@ void teststart00_PI_PI_1_CYCLIC( void )
     asn1SccT_Int32 Ignored1 = 0;
     asn1SccT_Boolean Ignored2 = false;
 
-    // Already done this once? Then do not do this again
-    if (iResultsTransmitted) {
-        return;
-    }
-    transmit_bytes_over_uart("DEBUG: Starting test main\n");
+    transmit_log_info("Starting TestStart00");
 
-    // TODO: Invoke / allow time for tests to run
+    // Trigger tests to run
     teststart00_RI_PI_1_StartTestCC06( &Ignored1, &Ignored2);
-
-    // Note that some tests are triggered by cyclic interfaces, so we just need to give them time to run and
-    // report their results. Each test can report its results directly, using similar code to the example below.
-    // E.g, could call teststart00_ep_orig() here to trigger tests to start ... byut likely want to cleanup / split that first
-
-    // TODO: Add test registering and test result count checking before flushing results
-
-    // Send example test results over UART
-    testresult_report_fail("Test001", "Spindle no longer aligned within tolerance");
-    testresult_report_pass("Test002");
-    testresult_report_fail("Test006", "Oxygen level depleted below acceptable limit");
-
-    // Transmit all gcov data over UARTS
-    coverage_transmit_all();
-
-    // Set the flag so we don't do this again
-    iResultsTransmitted = 1;
 }
 
 

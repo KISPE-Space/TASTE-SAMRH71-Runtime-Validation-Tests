@@ -13,7 +13,6 @@ WITH Taste;
 WITH DataView;
 WITH TASTE_IV_Properties;
 WITH interfaceview::IV::TestSPCC06::TestSPCC;
-WITH interfaceview::IV::UartOtherEnd;
 
 SUBPROGRAM PI_PI_1_CYCLIC
 END PI_PI_1_CYCLIC;
@@ -36,17 +35,6 @@ SUBPROGRAM IMPLEMENTATION RI_PI_1_StartTestCC06.others
 END RI_PI_1_StartTestCC06.others;
 
 
-SUBPROGRAM RI_samrh71tx
-FEATURES
-    iS71OutValue : IN PARAMETER DataView::T_UInt8 {
-       Taste::encoding => ACN;
-    };
-END RI_samrh71tx;
-
-SUBPROGRAM IMPLEMENTATION RI_samrh71tx.others
-END RI_samrh71tx.others;
-
-
 
 SYSTEM TestStart00
 FEATURES
@@ -57,11 +45,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
-      Taste::Interface_Stack_Size    => 1024;      
       Taste::Interface_Cyclic_Offset => 0;      
-      Compute_Execution_Time => 0 ms .. 0 ms;      
       Taste::RCMperiod               => 10000 ms;      
       Taste::Interface_Priority      => 1;      
+      Taste::Interface_Stack_Size    => 1024;      
+      Compute_Execution_Time => 0 ms .. 0 ms;      
    };
    RI_PI_1_StartTestCC06 : REQUIRES SUBPROGRAM ACCESS interfaceview::IV:: TestSPCC06:: TestSPCC:: PI_PI_1_Start.others {
       Taste::labelInheritance        => "true";
@@ -73,20 +61,6 @@ FEATURES
       -- Unrecognized property: is_simulink_interface => false      
       Compute_Execution_Time => 0 ms .. 0 ms;      
    };
-   RI_samrh71tx : REQUIRES SUBPROGRAM ACCESS interfaceview::IV:: UartOtherEnd:: PI_samrh71tx.others {
-      Taste::labelInheritance        => "true";
-      Taste::InterfaceName           => "samrh71tx";            
-      Taste::RCMoperationKind        => sporadic;      
-      -- Unrecognized property: enable_multicast => true      
-      Taste::Communication_Layer     => "default";      
-      -- Unrecognized property: required_system_element => NO      
-      -- Unrecognized property: is_simulink_interface => false      
-      Taste::Interface_Stack_Size    => 1024;      
-      Compute_Execution_Time => 0 ms .. 0 ms;      
-      Taste::RCMperiod               => 0 ms;      
-      Taste::Associated_Queue_Size   => 1;      
-      Taste::Interface_Priority      => 1;      
-   };
 PROPERTIES
    -- ignored property: name = TestStart00
    -- ignored property: is_type = NO
@@ -94,9 +68,9 @@ PROPERTIES
    -- ignored property: default_implementation = default
    -- ignored property: fixed_system_element = NO
    -- ignored property: required_system_element = NO
+   Taste::Instances_Min => 1;
    Taste::Startup_Priority => 1;
    Taste::Instances_Max => 1;
-   Taste::Instances_Min => 1;
    TASTE_IV_Properties::Default_Codegen => C;
 
 END TestStart00;
@@ -157,11 +131,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
-      Taste::Interface_Stack_Size    => 50;      
       Taste::Interface_Cyclic_Offset => 0;      
-      Compute_Execution_Time => 0 ms .. 0 ms;      
       Taste::RCMperiod               => 1000 ms;      
       Taste::Interface_Priority      => 1;      
+      Taste::Interface_Stack_Size    => 50;      
+      Compute_Execution_Time => 0 ms .. 0 ms;      
    };
    PI_PI_2_Start : PROVIDES SUBPROGRAM ACCESS interfaceview::IV:: TestSPCC06:: Function_1:: PI_PI_2_Start.others {
       Taste::InterfaceName           => "PI_2_Start";            
@@ -170,11 +144,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
+      Taste::RCMperiod               => 0 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::Associated_Queue_Size   => 1;      
       Taste::Interface_Stack_Size    => 1024;      
       Compute_Execution_Time => 0 ms .. 0 ms;      
-      Taste::RCMperiod               => 0 ms;      
-      Taste::Associated_Queue_Size   => 1;      
-      Taste::Interface_Priority      => 1;      
    };
    RI_PI_2 : REQUIRES SUBPROGRAM ACCESS interfaceview::IV:: TestSPCC06:: Function_2:: PI_PI_2.others {
       Taste::labelInheritance        => "true";
@@ -184,11 +158,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
+      Taste::RCMperiod               => 0 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::Associated_Queue_Size   => 7;      
       Taste::Interface_Stack_Size    => 5025;      
       Compute_Execution_Time => 0 ms .. 0 ms;      
-      Taste::RCMperiod               => 0 ms;      
-      Taste::Associated_Queue_Size   => 7;      
-      Taste::Interface_Priority      => 1;      
    };
 PROPERTIES
    -- ignored property: name = Function_1
@@ -197,9 +171,9 @@ PROPERTIES
    -- ignored property: default_implementation = default
    -- ignored property: fixed_system_element = NO
    -- ignored property: required_system_element = NO
+   Taste::Instances_Min => 1;
    Taste::Startup_Priority => 1;
    Taste::Instances_Max => 1;
-   Taste::Instances_Min => 1;
    TASTE_IV_Properties::Default_Codegen => C;
 
 END Function_1;
@@ -259,11 +233,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
-      Taste::Interface_Stack_Size    => 50;      
       Taste::Interface_Cyclic_Offset => 0;      
-      Compute_Execution_Time => 0 ms .. 0 ms;      
       Taste::RCMperiod               => 1100 ms;      
       Taste::Interface_Priority      => 1;      
+      Taste::Interface_Stack_Size    => 50;      
+      Compute_Execution_Time => 0 ms .. 0 ms;      
    };
    PI_PI_2 : PROVIDES SUBPROGRAM ACCESS interfaceview::IV:: TestSPCC06:: Function_2:: PI_PI_2.others {
       Taste::InterfaceName           => "PI_2";            
@@ -272,11 +246,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
+      Taste::RCMperiod               => 0 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::Associated_Queue_Size   => 7;      
       Taste::Interface_Stack_Size    => 5025;      
       Compute_Execution_Time => 0 ms .. 0 ms;      
-      Taste::RCMperiod               => 0 ms;      
-      Taste::Associated_Queue_Size   => 7;      
-      Taste::Interface_Priority      => 1;      
    };
    RI_PI_3 : REQUIRES SUBPROGRAM ACCESS interfaceview::IV:: TestSPCC06:: Function_3:: PI_PI_3.others {
       Taste::labelInheritance        => "true";
@@ -286,11 +260,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
+      Taste::RCMperiod               => 0 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::Associated_Queue_Size   => 1;      
       Taste::Interface_Stack_Size    => 50;      
       Compute_Execution_Time => 0 ms .. 0 ms;      
-      Taste::RCMperiod               => 0 ms;      
-      Taste::Associated_Queue_Size   => 1;      
-      Taste::Interface_Priority      => 1;      
    };
 PROPERTIES
    -- ignored property: name = Function_2
@@ -299,9 +273,9 @@ PROPERTIES
    -- ignored property: default_implementation = default
    -- ignored property: fixed_system_element = NO
    -- ignored property: required_system_element = NO
+   Taste::Instances_Min => 1;
    Taste::Startup_Priority => 1;
    Taste::Instances_Max => 1;
-   Taste::Instances_Min => 1;
    TASTE_IV_Properties::Default_Codegen => C;
 
 END Function_2;
@@ -361,11 +335,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
-      Taste::Interface_Stack_Size    => 50;      
       Taste::Interface_Cyclic_Offset => 0;      
-      Compute_Execution_Time => 0 ms .. 0 ms;      
       Taste::RCMperiod               => 1300 ms;      
       Taste::Interface_Priority      => 1;      
+      Taste::Interface_Stack_Size    => 50;      
+      Compute_Execution_Time => 0 ms .. 0 ms;      
    };
    PI_PI_4 : PROVIDES SUBPROGRAM ACCESS interfaceview::IV:: TestSPCC06:: Function_4:: PI_PI_4.others {
       Taste::InterfaceName           => "PI_4";            
@@ -374,11 +348,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
+      Taste::RCMperiod               => 0 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::Associated_Queue_Size   => 1;      
       Taste::Interface_Stack_Size    => 50;      
       Compute_Execution_Time => 0 ms .. 0 ms;      
-      Taste::RCMperiod               => 0 ms;      
-      Taste::Associated_Queue_Size   => 1;      
-      Taste::Interface_Priority      => 1;      
    };
    RI_PI_5 : REQUIRES SUBPROGRAM ACCESS interfaceview::IV:: TestSPCC06:: Function_5:: PI_PI_5.others {
       Taste::labelInheritance        => "true";
@@ -388,11 +362,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
+      Taste::RCMperiod               => 0 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::Associated_Queue_Size   => 1;      
       Taste::Interface_Stack_Size    => 50;      
       Compute_Execution_Time => 0 ms .. 0 ms;      
-      Taste::RCMperiod               => 0 ms;      
-      Taste::Associated_Queue_Size   => 1;      
-      Taste::Interface_Priority      => 1;      
    };
 PROPERTIES
    -- ignored property: name = Function_4
@@ -401,9 +375,9 @@ PROPERTIES
    -- ignored property: default_implementation = default
    -- ignored property: fixed_system_element = NO
    -- ignored property: required_system_element = NO
+   Taste::Instances_Min => 1;
    Taste::Startup_Priority => 1;
    Taste::Instances_Max => 1;
-   Taste::Instances_Min => 1;
    TASTE_IV_Properties::Default_Codegen => C;
 
 END Function_4;
@@ -463,11 +437,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
-      Taste::Interface_Stack_Size    => 50;      
       Taste::Interface_Cyclic_Offset => 0;      
-      Compute_Execution_Time => 0 ms .. 0 ms;      
       Taste::RCMperiod               => 1200 ms;      
       Taste::Interface_Priority      => 1;      
+      Taste::Interface_Stack_Size    => 50;      
+      Compute_Execution_Time => 0 ms .. 0 ms;      
    };
    PI_PI_3 : PROVIDES SUBPROGRAM ACCESS interfaceview::IV:: TestSPCC06:: Function_3:: PI_PI_3.others {
       Taste::InterfaceName           => "PI_3";            
@@ -476,11 +450,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
+      Taste::RCMperiod               => 0 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::Associated_Queue_Size   => 1;      
       Taste::Interface_Stack_Size    => 50;      
       Compute_Execution_Time => 0 ms .. 0 ms;      
-      Taste::RCMperiod               => 0 ms;      
-      Taste::Associated_Queue_Size   => 1;      
-      Taste::Interface_Priority      => 1;      
    };
    RI_PI_4 : REQUIRES SUBPROGRAM ACCESS interfaceview::IV:: TestSPCC06:: Function_4:: PI_PI_4.others {
       Taste::labelInheritance        => "true";
@@ -490,11 +464,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
+      Taste::RCMperiod               => 0 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::Associated_Queue_Size   => 1;      
       Taste::Interface_Stack_Size    => 50;      
       Compute_Execution_Time => 0 ms .. 0 ms;      
-      Taste::RCMperiod               => 0 ms;      
-      Taste::Associated_Queue_Size   => 1;      
-      Taste::Interface_Priority      => 1;      
    };
 PROPERTIES
    -- ignored property: name = Function_3
@@ -503,9 +477,9 @@ PROPERTIES
    -- ignored property: default_implementation = default
    -- ignored property: fixed_system_element = NO
    -- ignored property: required_system_element = NO
+   Taste::Instances_Min => 1;
    Taste::Startup_Priority => 1;
    Taste::Instances_Max => 1;
-   Taste::Instances_Min => 1;
    TASTE_IV_Properties::Default_Codegen => C;
 
 END Function_3;
@@ -565,11 +539,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
-      Taste::Interface_Stack_Size    => 50;      
       Taste::Interface_Cyclic_Offset => 0;      
-      Compute_Execution_Time => 0 ms .. 0 ms;      
       Taste::RCMperiod               => 1500 ms;      
       Taste::Interface_Priority      => 1;      
+      Taste::Interface_Stack_Size    => 50;      
+      Compute_Execution_Time => 0 ms .. 0 ms;      
    };
    PI_PI_5 : PROVIDES SUBPROGRAM ACCESS interfaceview::IV:: TestSPCC06:: Function_5:: PI_PI_5.others {
       Taste::InterfaceName           => "PI_5";            
@@ -578,11 +552,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
+      Taste::RCMperiod               => 0 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::Associated_Queue_Size   => 1;      
       Taste::Interface_Stack_Size    => 50;      
       Compute_Execution_Time => 0 ms .. 0 ms;      
-      Taste::RCMperiod               => 0 ms;      
-      Taste::Associated_Queue_Size   => 1;      
-      Taste::Interface_Priority      => 1;      
    };
    RI_PI_6 : REQUIRES SUBPROGRAM ACCESS interfaceview::IV:: TestSPCC06:: Function_6:: PI_PI_6.others {
       Taste::labelInheritance        => "true";
@@ -592,11 +566,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
+      Taste::RCMperiod               => 0 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::Associated_Queue_Size   => 1;      
       Taste::Interface_Stack_Size    => 50;      
       Compute_Execution_Time => 0 ms .. 0 ms;      
-      Taste::RCMperiod               => 0 ms;      
-      Taste::Associated_Queue_Size   => 1;      
-      Taste::Interface_Priority      => 1;      
    };
 PROPERTIES
    -- ignored property: name = Function_5
@@ -605,9 +579,9 @@ PROPERTIES
    -- ignored property: default_implementation = default
    -- ignored property: fixed_system_element = NO
    -- ignored property: required_system_element = NO
+   Taste::Instances_Min => 1;
    Taste::Startup_Priority => 1;
    Taste::Instances_Max => 1;
-   Taste::Instances_Min => 1;
    TASTE_IV_Properties::Default_Codegen => C;
 
 END Function_5;
@@ -667,11 +641,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
-      Taste::Interface_Stack_Size    => 50;      
       Taste::Interface_Cyclic_Offset => 0;      
-      Compute_Execution_Time => 0 ms .. 0 ms;      
       Taste::RCMperiod               => 1600 ms;      
       Taste::Interface_Priority      => 1;      
+      Taste::Interface_Stack_Size    => 50;      
+      Compute_Execution_Time => 0 ms .. 0 ms;      
    };
    PI_PI_6 : PROVIDES SUBPROGRAM ACCESS interfaceview::IV:: TestSPCC06:: Function_6:: PI_PI_6.others {
       Taste::InterfaceName           => "PI_6";            
@@ -680,11 +654,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
+      Taste::RCMperiod               => 0 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::Associated_Queue_Size   => 1;      
       Taste::Interface_Stack_Size    => 50;      
       Compute_Execution_Time => 0 ms .. 0 ms;      
-      Taste::RCMperiod               => 0 ms;      
-      Taste::Associated_Queue_Size   => 1;      
-      Taste::Interface_Priority      => 1;      
    };
    RI_PI_7 : REQUIRES SUBPROGRAM ACCESS interfaceview::IV:: TestSPCC06:: Function_7:: PI_PI_7.others {
       Taste::labelInheritance        => "true";
@@ -694,11 +668,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
+      Taste::RCMperiod               => 0 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::Associated_Queue_Size   => 1;      
       Taste::Interface_Stack_Size    => 50;      
       Compute_Execution_Time => 0 ms .. 0 ms;      
-      Taste::RCMperiod               => 0 ms;      
-      Taste::Associated_Queue_Size   => 1;      
-      Taste::Interface_Priority      => 1;      
    };
 PROPERTIES
    -- ignored property: name = Function_6
@@ -707,9 +681,9 @@ PROPERTIES
    -- ignored property: default_implementation = default
    -- ignored property: fixed_system_element = NO
    -- ignored property: required_system_element = NO
+   Taste::Instances_Min => 1;
    Taste::Startup_Priority => 1;
    Taste::Instances_Max => 1;
-   Taste::Instances_Min => 1;
    TASTE_IV_Properties::Default_Codegen => C;
 
 END Function_6;
@@ -769,11 +743,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
-      Taste::Interface_Stack_Size    => 50;      
       Taste::Interface_Cyclic_Offset => 0;      
-      Compute_Execution_Time => 0 ms .. 0 ms;      
       Taste::RCMperiod               => 1800 ms;      
       Taste::Interface_Priority      => 1;      
+      Taste::Interface_Stack_Size    => 50;      
+      Compute_Execution_Time => 0 ms .. 0 ms;      
    };
    PI_PI_8 : PROVIDES SUBPROGRAM ACCESS interfaceview::IV:: TestSPCC06:: Function_8:: PI_PI_8.others {
       Taste::InterfaceName           => "PI_8";            
@@ -782,11 +756,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
+      Taste::RCMperiod               => 0 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::Associated_Queue_Size   => 1;      
       Taste::Interface_Stack_Size    => 50;      
       Compute_Execution_Time => 0 ms .. 0 ms;      
-      Taste::RCMperiod               => 0 ms;      
-      Taste::Associated_Queue_Size   => 1;      
-      Taste::Interface_Priority      => 1;      
    };
    RI_PI_2 : REQUIRES SUBPROGRAM ACCESS interfaceview::IV:: TestSPCC06:: Function_16:: PI_PI_2.others {
       Taste::labelInheritance        => "true";
@@ -796,11 +770,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
+      Taste::RCMperiod               => 0 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::Associated_Queue_Size   => 1;      
       Taste::Interface_Stack_Size    => 50;      
       Compute_Execution_Time => 0 ms .. 0 ms;      
-      Taste::RCMperiod               => 0 ms;      
-      Taste::Associated_Queue_Size   => 1;      
-      Taste::Interface_Priority      => 1;      
    };
 PROPERTIES
    -- ignored property: name = Function_8
@@ -809,9 +783,9 @@ PROPERTIES
    -- ignored property: default_implementation = default
    -- ignored property: fixed_system_element = NO
    -- ignored property: required_system_element = NO
+   Taste::Instances_Min => 1;
    Taste::Startup_Priority => 1;
    Taste::Instances_Max => 1;
-   Taste::Instances_Min => 1;
    TASTE_IV_Properties::Default_Codegen => C;
 
 END Function_8;
@@ -871,11 +845,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
-      Taste::Interface_Stack_Size    => 50;      
       Taste::Interface_Cyclic_Offset => 0;      
-      Compute_Execution_Time => 0 ms .. 0 ms;      
       Taste::RCMperiod               => 1700 ms;      
       Taste::Interface_Priority      => 1;      
+      Taste::Interface_Stack_Size    => 50;      
+      Compute_Execution_Time => 0 ms .. 0 ms;      
    };
    PI_PI_7 : PROVIDES SUBPROGRAM ACCESS interfaceview::IV:: TestSPCC06:: Function_7:: PI_PI_7.others {
       Taste::InterfaceName           => "PI_7";            
@@ -884,11 +858,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
+      Taste::RCMperiod               => 0 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::Associated_Queue_Size   => 1;      
       Taste::Interface_Stack_Size    => 50;      
       Compute_Execution_Time => 0 ms .. 0 ms;      
-      Taste::RCMperiod               => 0 ms;      
-      Taste::Associated_Queue_Size   => 1;      
-      Taste::Interface_Priority      => 1;      
    };
    RI_PI_8 : REQUIRES SUBPROGRAM ACCESS interfaceview::IV:: TestSPCC06:: Function_8:: PI_PI_8.others {
       Taste::labelInheritance        => "true";
@@ -898,11 +872,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
+      Taste::RCMperiod               => 0 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::Associated_Queue_Size   => 1;      
       Taste::Interface_Stack_Size    => 50;      
       Compute_Execution_Time => 0 ms .. 0 ms;      
-      Taste::RCMperiod               => 0 ms;      
-      Taste::Associated_Queue_Size   => 1;      
-      Taste::Interface_Priority      => 1;      
    };
 PROPERTIES
    -- ignored property: name = Function_7
@@ -911,9 +885,9 @@ PROPERTIES
    -- ignored property: default_implementation = default
    -- ignored property: fixed_system_element = NO
    -- ignored property: required_system_element = NO
+   Taste::Instances_Min => 1;
    Taste::Startup_Priority => 1;
    Taste::Instances_Max => 1;
-   Taste::Instances_Min => 1;
    TASTE_IV_Properties::Default_Codegen => C;
 
 END Function_7;
@@ -973,11 +947,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
-      Taste::Interface_Stack_Size    => 50;      
       Taste::Interface_Cyclic_Offset => 0;      
-      Compute_Execution_Time => 0 ms .. 0 ms;      
       Taste::RCMperiod               => 2700 ms;      
       Taste::Interface_Priority      => 1;      
+      Taste::Interface_Stack_Size    => 50;      
+      Compute_Execution_Time => 0 ms .. 0 ms;      
    };
    PI_PI_2 : PROVIDES SUBPROGRAM ACCESS interfaceview::IV:: TestSPCC06:: Function_9:: PI_PI_2.others {
       Taste::InterfaceName           => "PI_2";            
@@ -986,11 +960,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
+      Taste::RCMperiod               => 0 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::Associated_Queue_Size   => 1;      
       Taste::Interface_Stack_Size    => 50;      
       Compute_Execution_Time => 0 ms .. 0 ms;      
-      Taste::RCMperiod               => 0 ms;      
-      Taste::Associated_Queue_Size   => 1;      
-      Taste::Interface_Priority      => 1;      
    };
    RI_PI_2 : REQUIRES SUBPROGRAM ACCESS interfaceview::IV:: TestSPCC06:: Function_17:: PI_PI_2.others {
       Taste::labelInheritance        => "true";
@@ -1000,11 +974,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
+      Taste::RCMperiod               => 0 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::Associated_Queue_Size   => 1;      
       Taste::Interface_Stack_Size    => 50;      
       Compute_Execution_Time => 0 ms .. 0 ms;      
-      Taste::RCMperiod               => 0 ms;      
-      Taste::Associated_Queue_Size   => 1;      
-      Taste::Interface_Priority      => 1;      
    };
 PROPERTIES
    -- ignored property: name = Function_9
@@ -1013,9 +987,9 @@ PROPERTIES
    -- ignored property: default_implementation = default
    -- ignored property: fixed_system_element = NO
    -- ignored property: required_system_element = NO
+   Taste::Instances_Min => 1;
    Taste::Startup_Priority => 1;
    Taste::Instances_Max => 1;
-   Taste::Instances_Min => 1;
    TASTE_IV_Properties::Default_Codegen => C;
 
 END Function_9;
@@ -1075,11 +1049,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
-      Taste::Interface_Stack_Size    => 50;      
       Taste::Interface_Cyclic_Offset => 0;      
-      Compute_Execution_Time => 0 ms .. 0 ms;      
       Taste::RCMperiod               => 2600 ms;      
       Taste::Interface_Priority      => 1;      
+      Taste::Interface_Stack_Size    => 50;      
+      Compute_Execution_Time => 0 ms .. 0 ms;      
    };
    PI_PI_2 : PROVIDES SUBPROGRAM ACCESS interfaceview::IV:: TestSPCC06:: Function_10:: PI_PI_2.others {
       Taste::InterfaceName           => "PI_2";            
@@ -1088,11 +1062,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
+      Taste::RCMperiod               => 0 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::Associated_Queue_Size   => 1;      
       Taste::Interface_Stack_Size    => 50;      
       Compute_Execution_Time => 0 ms .. 0 ms;      
-      Taste::RCMperiod               => 0 ms;      
-      Taste::Associated_Queue_Size   => 1;      
-      Taste::Interface_Priority      => 1;      
    };
    RI_PI_2 : REQUIRES SUBPROGRAM ACCESS interfaceview::IV:: TestSPCC06:: Function_9:: PI_PI_2.others {
       Taste::labelInheritance        => "true";
@@ -1102,11 +1076,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
+      Taste::RCMperiod               => 0 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::Associated_Queue_Size   => 1;      
       Taste::Interface_Stack_Size    => 50;      
       Compute_Execution_Time => 0 ms .. 0 ms;      
-      Taste::RCMperiod               => 0 ms;      
-      Taste::Associated_Queue_Size   => 1;      
-      Taste::Interface_Priority      => 1;      
    };
 PROPERTIES
    -- ignored property: name = Function_10
@@ -1115,9 +1089,9 @@ PROPERTIES
    -- ignored property: default_implementation = default
    -- ignored property: fixed_system_element = NO
    -- ignored property: required_system_element = NO
+   Taste::Instances_Min => 1;
    Taste::Startup_Priority => 1;
    Taste::Instances_Max => 1;
-   Taste::Instances_Min => 1;
    TASTE_IV_Properties::Default_Codegen => C;
 
 END Function_10;
@@ -1177,11 +1151,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
-      Taste::Interface_Stack_Size    => 50;      
       Taste::Interface_Cyclic_Offset => 0;      
-      Compute_Execution_Time => 0 ms .. 0 ms;      
       Taste::RCMperiod               => 2500 ms;      
       Taste::Interface_Priority      => 1;      
+      Taste::Interface_Stack_Size    => 50;      
+      Compute_Execution_Time => 0 ms .. 0 ms;      
    };
    PI_PI_2 : PROVIDES SUBPROGRAM ACCESS interfaceview::IV:: TestSPCC06:: Function_11:: PI_PI_2.others {
       Taste::InterfaceName           => "PI_2";            
@@ -1190,11 +1164,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
+      Taste::RCMperiod               => 0 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::Associated_Queue_Size   => 1;      
       Taste::Interface_Stack_Size    => 50;      
       Compute_Execution_Time => 0 ms .. 0 ms;      
-      Taste::RCMperiod               => 0 ms;      
-      Taste::Associated_Queue_Size   => 1;      
-      Taste::Interface_Priority      => 1;      
    };
    RI_PI_2 : REQUIRES SUBPROGRAM ACCESS interfaceview::IV:: TestSPCC06:: Function_10:: PI_PI_2.others {
       Taste::labelInheritance        => "true";
@@ -1204,11 +1178,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
+      Taste::RCMperiod               => 0 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::Associated_Queue_Size   => 1;      
       Taste::Interface_Stack_Size    => 50;      
       Compute_Execution_Time => 0 ms .. 0 ms;      
-      Taste::RCMperiod               => 0 ms;      
-      Taste::Associated_Queue_Size   => 1;      
-      Taste::Interface_Priority      => 1;      
    };
 PROPERTIES
    -- ignored property: name = Function_11
@@ -1217,9 +1191,9 @@ PROPERTIES
    -- ignored property: default_implementation = default
    -- ignored property: fixed_system_element = NO
    -- ignored property: required_system_element = NO
+   Taste::Instances_Min => 1;
    Taste::Startup_Priority => 1;
    Taste::Instances_Max => 1;
-   Taste::Instances_Min => 1;
    TASTE_IV_Properties::Default_Codegen => C;
 
 END Function_11;
@@ -1279,11 +1253,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
-      Taste::Interface_Stack_Size    => 50;      
       Taste::Interface_Cyclic_Offset => 0;      
-      Compute_Execution_Time => 0 ms .. 0 ms;      
       Taste::RCMperiod               => 2400 ms;      
       Taste::Interface_Priority      => 1;      
+      Taste::Interface_Stack_Size    => 50;      
+      Compute_Execution_Time => 0 ms .. 0 ms;      
    };
    PI_PI_2 : PROVIDES SUBPROGRAM ACCESS interfaceview::IV:: TestSPCC06:: Function_12:: PI_PI_2.others {
       Taste::InterfaceName           => "PI_2";            
@@ -1292,11 +1266,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
+      Taste::RCMperiod               => 0 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::Associated_Queue_Size   => 1;      
       Taste::Interface_Stack_Size    => 50;      
       Compute_Execution_Time => 0 ms .. 0 ms;      
-      Taste::RCMperiod               => 0 ms;      
-      Taste::Associated_Queue_Size   => 1;      
-      Taste::Interface_Priority      => 1;      
    };
    RI_PI_2 : REQUIRES SUBPROGRAM ACCESS interfaceview::IV:: TestSPCC06:: Function_11:: PI_PI_2.others {
       Taste::labelInheritance        => "true";
@@ -1306,11 +1280,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
+      Taste::RCMperiod               => 0 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::Associated_Queue_Size   => 1;      
       Taste::Interface_Stack_Size    => 50;      
       Compute_Execution_Time => 0 ms .. 0 ms;      
-      Taste::RCMperiod               => 0 ms;      
-      Taste::Associated_Queue_Size   => 1;      
-      Taste::Interface_Priority      => 1;      
    };
 PROPERTIES
    -- ignored property: name = Function_12
@@ -1319,9 +1293,9 @@ PROPERTIES
    -- ignored property: default_implementation = default
    -- ignored property: fixed_system_element = NO
    -- ignored property: required_system_element = NO
+   Taste::Instances_Min => 1;
    Taste::Startup_Priority => 1;
    Taste::Instances_Max => 1;
-   Taste::Instances_Min => 1;
    TASTE_IV_Properties::Default_Codegen => C;
 
 END Function_12;
@@ -1381,11 +1355,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
-      Taste::Interface_Stack_Size    => 50;      
       Taste::Interface_Cyclic_Offset => 0;      
-      Compute_Execution_Time => 0 ms .. 0 ms;      
       Taste::RCMperiod               => 2300 ms;      
       Taste::Interface_Priority      => 1;      
+      Taste::Interface_Stack_Size    => 50;      
+      Compute_Execution_Time => 0 ms .. 0 ms;      
    };
    PI_PI_2 : PROVIDES SUBPROGRAM ACCESS interfaceview::IV:: TestSPCC06:: Function_13:: PI_PI_2.others {
       Taste::InterfaceName           => "PI_2";            
@@ -1394,11 +1368,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
+      Taste::RCMperiod               => 0 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::Associated_Queue_Size   => 1;      
       Taste::Interface_Stack_Size    => 50;      
       Compute_Execution_Time => 0 ms .. 0 ms;      
-      Taste::RCMperiod               => 0 ms;      
-      Taste::Associated_Queue_Size   => 1;      
-      Taste::Interface_Priority      => 1;      
    };
    RI_PI_2 : REQUIRES SUBPROGRAM ACCESS interfaceview::IV:: TestSPCC06:: Function_12:: PI_PI_2.others {
       Taste::labelInheritance        => "true";
@@ -1408,11 +1382,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
+      Taste::RCMperiod               => 0 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::Associated_Queue_Size   => 1;      
       Taste::Interface_Stack_Size    => 50;      
       Compute_Execution_Time => 0 ms .. 0 ms;      
-      Taste::RCMperiod               => 0 ms;      
-      Taste::Associated_Queue_Size   => 1;      
-      Taste::Interface_Priority      => 1;      
    };
 PROPERTIES
    -- ignored property: name = Function_13
@@ -1421,9 +1395,9 @@ PROPERTIES
    -- ignored property: default_implementation = default
    -- ignored property: fixed_system_element = NO
    -- ignored property: required_system_element = NO
+   Taste::Instances_Min => 1;
    Taste::Startup_Priority => 1;
    Taste::Instances_Max => 1;
-   Taste::Instances_Min => 1;
    TASTE_IV_Properties::Default_Codegen => C;
 
 END Function_13;
@@ -1483,11 +1457,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
-      Taste::Interface_Stack_Size    => 5025;      
       Taste::Interface_Cyclic_Offset => 0;      
-      Compute_Execution_Time => 0 ms .. 0 ms;      
       Taste::RCMperiod               => 2200 ms;      
       Taste::Interface_Priority      => 1;      
+      Taste::Interface_Stack_Size    => 5025;      
+      Compute_Execution_Time => 0 ms .. 0 ms;      
    };
    PI_PI_2 : PROVIDES SUBPROGRAM ACCESS interfaceview::IV:: TestSPCC06:: Function_14:: PI_PI_2.others {
       Taste::InterfaceName           => "PI_2";            
@@ -1496,11 +1470,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
+      Taste::RCMperiod               => 0 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::Associated_Queue_Size   => 10;      
       Taste::Interface_Stack_Size    => 2000;      
       Compute_Execution_Time => 0 ms .. 0 ms;      
-      Taste::RCMperiod               => 0 ms;      
-      Taste::Associated_Queue_Size   => 10;      
-      Taste::Interface_Priority      => 1;      
    };
    RI_PI_2 : REQUIRES SUBPROGRAM ACCESS interfaceview::IV:: TestSPCC06:: Function_13:: PI_PI_2.others {
       Taste::labelInheritance        => "true";
@@ -1510,11 +1484,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
+      Taste::RCMperiod               => 0 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::Associated_Queue_Size   => 1;      
       Taste::Interface_Stack_Size    => 50;      
       Compute_Execution_Time => 0 ms .. 0 ms;      
-      Taste::RCMperiod               => 0 ms;      
-      Taste::Associated_Queue_Size   => 1;      
-      Taste::Interface_Priority      => 1;      
    };
 PROPERTIES
    -- ignored property: name = Function_14
@@ -1523,9 +1497,9 @@ PROPERTIES
    -- ignored property: default_implementation = default
    -- ignored property: fixed_system_element = NO
    -- ignored property: required_system_element = NO
+   Taste::Instances_Min => 1;
    Taste::Startup_Priority => 1;
    Taste::Instances_Max => 1;
-   Taste::Instances_Min => 1;
    TASTE_IV_Properties::Default_Codegen => C;
 
 END Function_14;
@@ -1585,11 +1559,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
-      Taste::Interface_Stack_Size    => 50;      
       Taste::Interface_Cyclic_Offset => 0;      
-      Compute_Execution_Time => 0 ms .. 0 ms;      
       Taste::RCMperiod               => 2000 ms;      
       Taste::Interface_Priority      => 1;      
+      Taste::Interface_Stack_Size    => 50;      
+      Compute_Execution_Time => 0 ms .. 0 ms;      
    };
    PI_PI_2 : PROVIDES SUBPROGRAM ACCESS interfaceview::IV:: TestSPCC06:: Function_15:: PI_PI_2.others {
       Taste::InterfaceName           => "PI_2";            
@@ -1598,11 +1572,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
+      Taste::RCMperiod               => 0 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::Associated_Queue_Size   => 1;      
       Taste::Interface_Stack_Size    => 50;      
       Compute_Execution_Time => 0 ms .. 0 ms;      
-      Taste::RCMperiod               => 0 ms;      
-      Taste::Associated_Queue_Size   => 1;      
-      Taste::Interface_Priority      => 1;      
    };
    RI_PI_2 : REQUIRES SUBPROGRAM ACCESS interfaceview::IV:: TestSPCC06:: Function_14:: PI_PI_2.others {
       Taste::labelInheritance        => "true";
@@ -1612,11 +1586,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
+      Taste::RCMperiod               => 0 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::Associated_Queue_Size   => 10;      
       Taste::Interface_Stack_Size    => 2000;      
       Compute_Execution_Time => 0 ms .. 0 ms;      
-      Taste::RCMperiod               => 0 ms;      
-      Taste::Associated_Queue_Size   => 10;      
-      Taste::Interface_Priority      => 1;      
    };
 PROPERTIES
    -- ignored property: name = Function_15
@@ -1625,9 +1599,9 @@ PROPERTIES
    -- ignored property: default_implementation = default
    -- ignored property: fixed_system_element = NO
    -- ignored property: required_system_element = NO
+   Taste::Instances_Min => 1;
    Taste::Startup_Priority => 1;
    Taste::Instances_Max => 1;
-   Taste::Instances_Min => 1;
    TASTE_IV_Properties::Default_Codegen => C;
 
 END Function_15;
@@ -1687,11 +1661,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
-      Taste::Interface_Stack_Size    => 50;      
       Taste::Interface_Cyclic_Offset => 0;      
-      Compute_Execution_Time => 0 ms .. 0 ms;      
       Taste::RCMperiod               => 2900 ms;      
       Taste::Interface_Priority      => 1;      
+      Taste::Interface_Stack_Size    => 50;      
+      Compute_Execution_Time => 0 ms .. 0 ms;      
    };
    PI_PI_2 : PROVIDES SUBPROGRAM ACCESS interfaceview::IV:: TestSPCC06:: Function_18:: PI_PI_2.others {
       Taste::InterfaceName           => "PI_2";            
@@ -1700,11 +1674,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
+      Taste::RCMperiod               => 0 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::Associated_Queue_Size   => 1;      
       Taste::Interface_Stack_Size    => 50;      
       Compute_Execution_Time => 0 ms .. 0 ms;      
-      Taste::RCMperiod               => 0 ms;      
-      Taste::Associated_Queue_Size   => 1;      
-      Taste::Interface_Priority      => 1;      
    };
    RI_PI_2 : REQUIRES SUBPROGRAM ACCESS interfaceview::IV:: TestSPCC06:: Function_19:: PI_PI_2.others {
       Taste::labelInheritance        => "true";
@@ -1714,11 +1688,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
+      Taste::RCMperiod               => 0 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::Associated_Queue_Size   => 1;      
       Taste::Interface_Stack_Size    => 50;      
       Compute_Execution_Time => 0 ms .. 0 ms;      
-      Taste::RCMperiod               => 0 ms;      
-      Taste::Associated_Queue_Size   => 1;      
-      Taste::Interface_Priority      => 1;      
    };
 PROPERTIES
    -- ignored property: name = Function_18
@@ -1727,9 +1701,9 @@ PROPERTIES
    -- ignored property: default_implementation = default
    -- ignored property: fixed_system_element = NO
    -- ignored property: required_system_element = NO
+   Taste::Instances_Min => 1;
    Taste::Startup_Priority => 1;
    Taste::Instances_Max => 1;
-   Taste::Instances_Min => 1;
    TASTE_IV_Properties::Default_Codegen => C;
 
 END Function_18;
@@ -1789,11 +1763,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
-      Taste::Interface_Stack_Size    => 50;      
       Taste::Interface_Cyclic_Offset => 0;      
-      Compute_Execution_Time => 0 ms .. 0 ms;      
       Taste::RCMperiod               => 3000 ms;      
       Taste::Interface_Priority      => 1;      
+      Taste::Interface_Stack_Size    => 50;      
+      Compute_Execution_Time => 0 ms .. 0 ms;      
    };
    PI_PI_2 : PROVIDES SUBPROGRAM ACCESS interfaceview::IV:: TestSPCC06:: Function_19:: PI_PI_2.others {
       Taste::InterfaceName           => "PI_2";            
@@ -1802,11 +1776,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
+      Taste::RCMperiod               => 0 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::Associated_Queue_Size   => 1;      
       Taste::Interface_Stack_Size    => 50;      
       Compute_Execution_Time => 0 ms .. 0 ms;      
-      Taste::RCMperiod               => 0 ms;      
-      Taste::Associated_Queue_Size   => 1;      
-      Taste::Interface_Priority      => 1;      
    };
    RI_PI_2_20 : REQUIRES SUBPROGRAM ACCESS interfaceview::IV:: TestSPCC06:: Function_20:: PI_PI_2_20.others {
       Taste::labelInheritance        => "true";
@@ -1816,11 +1790,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
+      Taste::RCMperiod               => 0 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::Associated_Queue_Size   => 1;      
       Taste::Interface_Stack_Size    => 50;      
       Compute_Execution_Time => 0 ms .. 0 ms;      
-      Taste::RCMperiod               => 0 ms;      
-      Taste::Associated_Queue_Size   => 1;      
-      Taste::Interface_Priority      => 1;      
    };
 PROPERTIES
    -- ignored property: name = Function_19
@@ -1829,9 +1803,9 @@ PROPERTIES
    -- ignored property: default_implementation = default
    -- ignored property: fixed_system_element = NO
    -- ignored property: required_system_element = NO
+   Taste::Instances_Min => 1;
    Taste::Startup_Priority => 1;
    Taste::Instances_Max => 1;
-   Taste::Instances_Min => 1;
    TASTE_IV_Properties::Default_Codegen => C;
 
 END Function_19;
@@ -1891,11 +1865,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
-      Taste::Interface_Stack_Size    => 50;      
       Taste::Interface_Cyclic_Offset => 0;      
-      Compute_Execution_Time => 0 ms .. 0 ms;      
       Taste::RCMperiod               => 2800 ms;      
       Taste::Interface_Priority      => 1;      
+      Taste::Interface_Stack_Size    => 50;      
+      Compute_Execution_Time => 0 ms .. 0 ms;      
    };
    PI_PI_2 : PROVIDES SUBPROGRAM ACCESS interfaceview::IV:: TestSPCC06:: Function_17:: PI_PI_2.others {
       Taste::InterfaceName           => "PI_2";            
@@ -1904,11 +1878,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
+      Taste::RCMperiod               => 0 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::Associated_Queue_Size   => 1;      
       Taste::Interface_Stack_Size    => 50;      
       Compute_Execution_Time => 0 ms .. 0 ms;      
-      Taste::RCMperiod               => 0 ms;      
-      Taste::Associated_Queue_Size   => 1;      
-      Taste::Interface_Priority      => 1;      
    };
    RI_PI_2 : REQUIRES SUBPROGRAM ACCESS interfaceview::IV:: TestSPCC06:: Function_18:: PI_PI_2.others {
       Taste::labelInheritance        => "true";
@@ -1918,11 +1892,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
+      Taste::RCMperiod               => 0 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::Associated_Queue_Size   => 1;      
       Taste::Interface_Stack_Size    => 50;      
       Compute_Execution_Time => 0 ms .. 0 ms;      
-      Taste::RCMperiod               => 0 ms;      
-      Taste::Associated_Queue_Size   => 1;      
-      Taste::Interface_Priority      => 1;      
    };
 PROPERTIES
    -- ignored property: name = Function_17
@@ -1931,9 +1905,9 @@ PROPERTIES
    -- ignored property: default_implementation = default
    -- ignored property: fixed_system_element = NO
    -- ignored property: required_system_element = NO
+   Taste::Instances_Min => 1;
    Taste::Startup_Priority => 1;
    Taste::Instances_Max => 1;
-   Taste::Instances_Min => 1;
    TASTE_IV_Properties::Default_Codegen => C;
 
 END Function_17;
@@ -1993,11 +1967,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
-      Taste::Interface_Stack_Size    => 50;      
       Taste::Interface_Cyclic_Offset => 0;      
-      Compute_Execution_Time => 0 ms .. 0 ms;      
       Taste::RCMperiod               => 3100 ms;      
       Taste::Interface_Priority      => 1;      
+      Taste::Interface_Stack_Size    => 50;      
+      Compute_Execution_Time => 0 ms .. 0 ms;      
    };
    PI_PI_2_20 : PROVIDES SUBPROGRAM ACCESS interfaceview::IV:: TestSPCC06:: Function_20:: PI_PI_2_20.others {
       Taste::InterfaceName           => "PI_2_20";            
@@ -2006,11 +1980,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
+      Taste::RCMperiod               => 0 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::Associated_Queue_Size   => 1;      
       Taste::Interface_Stack_Size    => 50;      
       Compute_Execution_Time => 0 ms .. 0 ms;      
-      Taste::RCMperiod               => 0 ms;      
-      Taste::Associated_Queue_Size   => 1;      
-      Taste::Interface_Priority      => 1;      
    };
    RI_PI_2 : REQUIRES SUBPROGRAM ACCESS interfaceview::IV:: TestSPCC06:: Function_21:: PI_PI_2.others {
       Taste::labelInheritance        => "true";
@@ -2020,11 +1994,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
+      Taste::RCMperiod               => 0 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::Associated_Queue_Size   => 1;      
       Taste::Interface_Stack_Size    => 50;      
       Compute_Execution_Time => 0 ms .. 0 ms;      
-      Taste::RCMperiod               => 0 ms;      
-      Taste::Associated_Queue_Size   => 1;      
-      Taste::Interface_Priority      => 1;      
    };
 PROPERTIES
    -- ignored property: name = Function_20
@@ -2033,9 +2007,9 @@ PROPERTIES
    -- ignored property: default_implementation = default
    -- ignored property: fixed_system_element = NO
    -- ignored property: required_system_element = NO
+   Taste::Instances_Min => 1;
    Taste::Startup_Priority => 1;
    Taste::Instances_Max => 1;
-   Taste::Instances_Min => 1;
    TASTE_IV_Properties::Default_Codegen => C;
 
 END Function_20;
@@ -2095,11 +2069,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
-      Taste::Interface_Stack_Size    => 50;      
       Taste::Interface_Cyclic_Offset => 0;      
-      Compute_Execution_Time => 0 ms .. 0 ms;      
       Taste::RCMperiod               => 3200 ms;      
       Taste::Interface_Priority      => 1;      
+      Taste::Interface_Stack_Size    => 50;      
+      Compute_Execution_Time => 0 ms .. 0 ms;      
    };
    PI_PI_2 : PROVIDES SUBPROGRAM ACCESS interfaceview::IV:: TestSPCC06:: Function_21:: PI_PI_2.others {
       Taste::InterfaceName           => "PI_2";            
@@ -2108,11 +2082,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
+      Taste::RCMperiod               => 0 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::Associated_Queue_Size   => 1;      
       Taste::Interface_Stack_Size    => 50;      
       Compute_Execution_Time => 0 ms .. 0 ms;      
-      Taste::RCMperiod               => 0 ms;      
-      Taste::Associated_Queue_Size   => 1;      
-      Taste::Interface_Priority      => 1;      
    };
    RI_PI_2 : REQUIRES SUBPROGRAM ACCESS interfaceview::IV:: TestSPCC06:: Function_22:: PI_PI_2.others {
       Taste::labelInheritance        => "true";
@@ -2122,11 +2096,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
+      Taste::RCMperiod               => 0 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::Associated_Queue_Size   => 1;      
       Taste::Interface_Stack_Size    => 50;      
       Compute_Execution_Time => 0 ms .. 0 ms;      
-      Taste::RCMperiod               => 0 ms;      
-      Taste::Associated_Queue_Size   => 1;      
-      Taste::Interface_Priority      => 1;      
    };
 PROPERTIES
    -- ignored property: name = Function_21
@@ -2135,9 +2109,9 @@ PROPERTIES
    -- ignored property: default_implementation = default
    -- ignored property: fixed_system_element = NO
    -- ignored property: required_system_element = NO
+   Taste::Instances_Min => 1;
    Taste::Startup_Priority => 1;
    Taste::Instances_Max => 1;
-   Taste::Instances_Min => 1;
    TASTE_IV_Properties::Default_Codegen => C;
 
 END Function_21;
@@ -2197,11 +2171,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
-      Taste::Interface_Stack_Size    => 50;      
       Taste::Interface_Cyclic_Offset => 0;      
-      Compute_Execution_Time => 0 ms .. 0 ms;      
       Taste::RCMperiod               => 2400 ms;      
       Taste::Interface_Priority      => 1;      
+      Taste::Interface_Stack_Size    => 50;      
+      Compute_Execution_Time => 0 ms .. 0 ms;      
    };
    PI_PI_2 : PROVIDES SUBPROGRAM ACCESS interfaceview::IV:: TestSPCC06:: Function_22:: PI_PI_2.others {
       Taste::InterfaceName           => "PI_2";            
@@ -2210,11 +2184,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
+      Taste::RCMperiod               => 0 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::Associated_Queue_Size   => 1;      
       Taste::Interface_Stack_Size    => 50;      
       Compute_Execution_Time => 0 ms .. 0 ms;      
-      Taste::RCMperiod               => 0 ms;      
-      Taste::Associated_Queue_Size   => 1;      
-      Taste::Interface_Priority      => 1;      
    };
    RI_PI_2 : REQUIRES SUBPROGRAM ACCESS interfaceview::IV:: TestSPCC06:: Function_23:: PI_PI_2.others {
       Taste::labelInheritance        => "true";
@@ -2224,11 +2198,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
+      Taste::RCMperiod               => 0 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::Associated_Queue_Size   => 1;      
       Taste::Interface_Stack_Size    => 50;      
       Compute_Execution_Time => 0 ms .. 0 ms;      
-      Taste::RCMperiod               => 0 ms;      
-      Taste::Associated_Queue_Size   => 1;      
-      Taste::Interface_Priority      => 1;      
    };
 PROPERTIES
    -- ignored property: name = Function_22
@@ -2237,9 +2211,9 @@ PROPERTIES
    -- ignored property: default_implementation = default
    -- ignored property: fixed_system_element = NO
    -- ignored property: required_system_element = NO
+   Taste::Instances_Min => 1;
    Taste::Startup_Priority => 1;
    Taste::Instances_Max => 1;
-   Taste::Instances_Min => 1;
    TASTE_IV_Properties::Default_Codegen => C;
 
 END Function_22;
@@ -2287,11 +2261,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
-      Taste::Interface_Stack_Size    => 50;      
       Taste::Interface_Cyclic_Offset => 0;      
-      Compute_Execution_Time => 0 ms .. 0 ms;      
       Taste::RCMperiod               => 2500 ms;      
       Taste::Interface_Priority      => 1;      
+      Taste::Interface_Stack_Size    => 50;      
+      Compute_Execution_Time => 0 ms .. 0 ms;      
    };
    PI_PI_2 : PROVIDES SUBPROGRAM ACCESS interfaceview::IV:: TestSPCC06:: Function_23:: PI_PI_2.others {
       Taste::InterfaceName           => "PI_2";            
@@ -2300,11 +2274,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
+      Taste::RCMperiod               => 0 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::Associated_Queue_Size   => 1;      
       Taste::Interface_Stack_Size    => 50;      
       Compute_Execution_Time => 0 ms .. 0 ms;      
-      Taste::RCMperiod               => 0 ms;      
-      Taste::Associated_Queue_Size   => 1;      
-      Taste::Interface_Priority      => 1;      
    };
 PROPERTIES
    -- ignored property: name = Function_23
@@ -2313,9 +2287,9 @@ PROPERTIES
    -- ignored property: default_implementation = default
    -- ignored property: fixed_system_element = NO
    -- ignored property: required_system_element = NO
+   Taste::Instances_Min => 1;
    Taste::Startup_Priority => 1;
    Taste::Instances_Max => 1;
-   Taste::Instances_Min => 1;
    TASTE_IV_Properties::Default_Codegen => C;
 
 END Function_23;
@@ -2375,11 +2349,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
-      Taste::Interface_Stack_Size    => 50;      
       Taste::Interface_Cyclic_Offset => 0;      
-      Compute_Execution_Time => 0 ms .. 0 ms;      
       Taste::RCMperiod               => 1900 ms;      
       Taste::Interface_Priority      => 1;      
+      Taste::Interface_Stack_Size    => 50;      
+      Compute_Execution_Time => 0 ms .. 0 ms;      
    };
    PI_PI_2 : PROVIDES SUBPROGRAM ACCESS interfaceview::IV:: TestSPCC06:: Function_16:: PI_PI_2.others {
       Taste::InterfaceName           => "PI_2";            
@@ -2388,11 +2362,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
+      Taste::RCMperiod               => 0 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::Associated_Queue_Size   => 1;      
       Taste::Interface_Stack_Size    => 50;      
       Compute_Execution_Time => 0 ms .. 0 ms;      
-      Taste::RCMperiod               => 0 ms;      
-      Taste::Associated_Queue_Size   => 1;      
-      Taste::Interface_Priority      => 1;      
    };
    RI_PI_2 : REQUIRES SUBPROGRAM ACCESS interfaceview::IV:: TestSPCC06:: Function_15:: PI_PI_2.others {
       Taste::labelInheritance        => "true";
@@ -2402,11 +2376,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
+      Taste::RCMperiod               => 0 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::Associated_Queue_Size   => 1;      
       Taste::Interface_Stack_Size    => 50;      
       Compute_Execution_Time => 0 ms .. 0 ms;      
-      Taste::RCMperiod               => 0 ms;      
-      Taste::Associated_Queue_Size   => 1;      
-      Taste::Interface_Priority      => 1;      
    };
 PROPERTIES
    -- ignored property: name = Function_16
@@ -2415,9 +2389,9 @@ PROPERTIES
    -- ignored property: default_implementation = default
    -- ignored property: fixed_system_element = NO
    -- ignored property: required_system_element = NO
+   Taste::Instances_Min => 1;
    Taste::Startup_Priority => 1;
    Taste::Instances_Max => 1;
-   Taste::Instances_Min => 1;
    TASTE_IV_Properties::Default_Codegen => C;
 
 END Function_16;
@@ -2483,11 +2457,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
+      Taste::RCMperiod               => 0 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::Associated_Queue_Size   => 1;      
       Taste::Interface_Stack_Size    => 1024;      
       Compute_Execution_Time => 0 ms .. 0 ms;      
-      Taste::RCMperiod               => 0 ms;      
-      Taste::Associated_Queue_Size   => 1;      
-      Taste::Interface_Priority      => 1;      
    };
 PROPERTIES
    -- ignored property: name = TestSPCC
@@ -2496,9 +2470,9 @@ PROPERTIES
    -- ignored property: default_implementation = default
    -- ignored property: fixed_system_element = NO
    -- ignored property: required_system_element = NO
+   Taste::Instances_Min => 1;
    Taste::Startup_Priority => 1;
    Taste::Instances_Max => 1;
-   Taste::Instances_Min => 1;
    TASTE_IV_Properties::Default_Codegen => C;
 
 END TestSPCC;
@@ -2574,9 +2548,9 @@ PROPERTIES
    -- ignored property: default_implementation = default
    -- ignored property: fixed_system_element = NO
    -- ignored property: required_system_element = NO
+   Taste::Instances_Min => 1;
    Taste::Startup_Priority => 1;
    Taste::Instances_Max => 1;
-   Taste::Instances_Min => 1;
    TASTE_IV_Properties::Default_Codegen => Ada;
 
 END TestSPCC06;
@@ -2641,13 +2615,90 @@ END interfaceview::IV::TestSPCC06;
 
 
 
+PACKAGE interfaceview::IV::TF_Reporter
+PUBLIC
+
+WITH Taste;
+WITH DataView;
+WITH TASTE_IV_Properties;
+WITH interfaceview::IV::UartOtherEnd;
+
+SUBPROGRAM PI_PeriodicStarter
+END PI_PeriodicStarter;
+
+SUBPROGRAM IMPLEMENTATION PI_PeriodicStarter.others
+END PI_PeriodicStarter.others;
+
+
+SUBPROGRAM RI_samrh71tx
+FEATURES
+    iS71OutValue : IN PARAMETER DataView::T_UInt8 {
+       Taste::encoding => ACN;
+    };
+END RI_samrh71tx;
+
+SUBPROGRAM IMPLEMENTATION RI_samrh71tx.others
+END RI_samrh71tx.others;
+
+
+
+SYSTEM TF_Reporter
+FEATURES
+   PI_PeriodicStarter : PROVIDES SUBPROGRAM ACCESS interfaceview::IV:: TF_Reporter:: PI_PeriodicStarter.others {
+      Taste::InterfaceName           => "PeriodicStarter";            
+      Taste::RCMoperationKind        => cyclic;      
+      -- Unrecognized property: enable_multicast => true      
+      Taste::Communication_Layer     => "default";      
+      -- Unrecognized property: required_system_element => NO      
+      -- Unrecognized property: is_simulink_interface => false      
+      Taste::Interface_Cyclic_Offset => 0;      
+      Taste::RCMperiod               => 1000 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::Interface_Stack_Size    => 1024;      
+      Compute_Execution_Time => 0 ms .. 0 ms;      
+   };
+   RI_samrh71tx : REQUIRES SUBPROGRAM ACCESS interfaceview::IV:: UartOtherEnd:: PI_samrh71tx.others {
+      Taste::labelInheritance        => "true";
+      Taste::InterfaceName           => "samrh71tx";            
+      Taste::RCMoperationKind        => sporadic;      
+      -- Unrecognized property: enable_multicast => true      
+      Taste::Communication_Layer     => "default";      
+      -- Unrecognized property: required_system_element => NO      
+      -- Unrecognized property: is_simulink_interface => false      
+      Taste::RCMperiod               => 0 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::Associated_Queue_Size   => 1;      
+      Taste::Interface_Stack_Size    => 1024;      
+      Compute_Execution_Time => 0 ms .. 0 ms;      
+   };
+PROPERTIES
+   -- ignored property: name = TF_Reporter
+   -- ignored property: is_type = NO
+   Source_Language => (C);
+   -- ignored property: default_implementation = default
+   -- ignored property: fixed_system_element = NO
+   -- ignored property: required_system_element = NO
+   Taste::Instances_Min => 1;
+   Taste::Startup_Priority => 1;
+   Taste::Instances_Max => 1;
+   TASTE_IV_Properties::Default_Codegen => Ada;
+
+END TF_Reporter;
+
+SYSTEM IMPLEMENTATION TF_Reporter.others
+END TF_Reporter.others;
+
+END interfaceview::IV::TF_Reporter;
+
+
+
 PACKAGE interfaceview::IV::UartOtherEnd
 PUBLIC
 
 WITH Taste;
 WITH DataView;
 WITH TASTE_IV_Properties;
-WITH interfaceview::IV::TestStart00;
+WITH interfaceview::IV::TF_Reporter;
 
 SUBPROGRAM PI_samrh71tx
 FEATURES
@@ -2670,11 +2721,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
+      Taste::RCMperiod               => 0 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::Associated_Queue_Size   => 1;      
       Taste::Interface_Stack_Size    => 1024;      
       Compute_Execution_Time => 0 ms .. 0 ms;      
-      Taste::RCMperiod               => 0 ms;      
-      Taste::Associated_Queue_Size   => 1;      
-      Taste::Interface_Priority      => 1;      
    };
 PROPERTIES
    -- ignored property: name = UartOtherEnd
@@ -2683,9 +2734,9 @@ PROPERTIES
    -- ignored property: default_implementation = default
    -- ignored property: fixed_system_element = NO
    -- ignored property: required_system_element = NO
+   Taste::Instances_Min => 1;
    Taste::Startup_Priority => 1;
    Taste::Instances_Max => 1;
-   Taste::Instances_Min => 1;
    TASTE_IV_Properties::Default_Codegen => Ada;
 
 END UartOtherEnd;
@@ -2701,6 +2752,7 @@ PUBLIC
 
 WITH interfaceview::IV::TestStart00;
 WITH interfaceview::IV::TestSPCC06;
+WITH interfaceview::IV::TF_Reporter;
 WITH interfaceview::IV::UartOtherEnd;
 WITH Taste;
 WITH DataView;
@@ -2716,10 +2768,11 @@ SYSTEM IMPLEMENTATION interfaceview.others
 SUBCOMPONENTS
   TestStart00 : SYSTEM interfaceview::IV::TestStart00::TestStart00.others;
   TestSPCC06 : SYSTEM interfaceview::IV::TestSPCC06::TestSPCC06.others;
+  TF_Reporter : SYSTEM interfaceview::IV::TF_Reporter::TF_Reporter.others;
   UartOtherEnd : SYSTEM interfaceview::IV::UartOtherEnd::UartOtherEnd.others;
 CONNECTIONS
+   TF_Reporter_RI_samrh71tx_UartOtherEnd_PI_samrh71tx : SUBPROGRAM ACCESS UartOtherEnd.PI_samrh71tx -> TF_Reporter.RI_samrh71tx;
    TestStart00_RI_PI_1_StartTestCC06_TestSPCC06_PI_PI_1_StartTestCC06 : SUBPROGRAM ACCESS TestSPCC06.PI_PI_1_StartTestCC06 -> TestStart00.RI_PI_1_StartTestCC06;
-   TestStart00_RI_samrh71tx_UartOtherEnd_PI_samrh71tx : SUBPROGRAM ACCESS UartOtherEnd.PI_samrh71tx -> TestStart00.RI_samrh71tx;
 END interfaceview.others;
 
 PROPERTIES

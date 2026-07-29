@@ -26,5 +26,6 @@ include(function_8/function_8.pro)
 include(function_9/function_9.pro)
 include(testspcc/testspcc.pro)
 include(teststart00/teststart00.pro)
+include(tf_reporter/tf_reporter.pro)
 include(uartotherend/uartotherend.pro)
 
