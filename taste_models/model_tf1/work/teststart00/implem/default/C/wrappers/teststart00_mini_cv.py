@@ -625,3 +625,39 @@ sp._fpgaConfigurations = ""   # initialization
 ast.g_subProgramImplementations.append(["TPI_1_TestComms10", "C", "C", "teststart00", sp._fpgaConfigurations])
 sp._language = "C"
 
+
+# Interface "samrh71tx"
+sp = ast.ApLevelContainer("samrh71tx")
+ast.g_apLevelContainers["samrh71tx"] = sp
+subProgramParameters = []
+param = ast.AadlParameter("OUT", "DataView::T_UInt8")
+param._encoding = "ACN"
+subProgramFeature = ast.AadlSubProgramFeature("iS71OutValue", param)
+subProgramParameters.append(subProgramFeature)
+for spFeature in subProgramParameters:
+    if spFeature is None: continue
+    param_type = "T_UInt8"
+    signal = ast.g_signals[param_type]
+    if spFeature._parameter._direction == "IN":
+        param = ast.InParam("samrh71tx", "iS71OutValue", signal, spFeature._parameter)
+    elif spFeature._parameter._direction == "OUT":
+        param = ast.OutParam("samrh71tx", "iS71OutValue", signal, spFeature._parameter)
+    sp.AddParam(param)
+
+# Compute_Execution_Time = 0ms..0ms
+# Taste::Associated_Queue_Size = 1
+# Taste::Communication_Layer = default
+# Taste::Interface_Priority = 1
+# Taste::Interface_Stack_Size = 1024
+# Taste::InterfaceName = samrh71tx
+# Taste::labelInheritance = true
+# Taste::RCMoperationKind = sporadic
+# Taste::RCMperiod = 0 ms
+sp._fpgaConfigurations = ""   # initialization
+# Taste::Instances_Max = 1
+# Taste::Instances_Min = 1
+# Taste::Startup_Priority = 1
+# TASTE_IV_Properties::Default_Codegen = C
+ast.g_subProgramImplementations.append(["samrh71tx", "C", "C", "teststart00", sp._fpgaConfigurations])
+sp._language = "C"
+

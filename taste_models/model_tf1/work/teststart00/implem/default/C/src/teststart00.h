@@ -60,6 +60,9 @@ extern void teststart00_RI_PI_STARTSDL08( const asn1SccCounter * );
 extern void teststart00_RI_TPI_1_TestComms10( asn1SccT_Int32 *, asn1SccT_Boolean * );
 
 
+extern void teststart00_RI_samrh71tx( const asn1SccT_UInt8 * );
+
+
 #ifdef __cplusplus
 }
 #endif

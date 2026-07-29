@@ -8,7 +8,7 @@
     !! file. The up-to-date signatures can be found in the header file. !!
 */
 #include "faulthandler00b.h"
-#include "../../../../../taste-setup/TASTE-SAMX-RTEMS-Runtime/src/FaultHandler/FaultHandler.h"
+#include "../../../../../tool-inst/include/TASTE-SAMX-RTEMS-Runtime/src/FaultHandler/FaultHandler.h"
 
 //#include <stdio.h>
 

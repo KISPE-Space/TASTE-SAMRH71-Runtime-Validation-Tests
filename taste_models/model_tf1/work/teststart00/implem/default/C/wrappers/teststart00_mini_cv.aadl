@@ -289,3 +289,22 @@ PROPERTIES
 
 END SP_TPI_1_TestComms10.C;
 
+
+SUBPROGRAM SP_samrh71tx
+FEATURES
+   iS71OutValue : OUT PARAMETER DataView::T_UInt8 {encoding=>ACN;};
+
+END SP_samrh71tx;
+
+SUBPROGRAM IMPLEMENTATION SP_samrh71tx.C
+PROPERTIES
+   FV_Name        => "teststart00";
+   interface_name => "samrh71tx";
+   Source_Language => C;
+   Taste::Instances_Max => "1";
+   Taste::Instances_Min => "1";
+   Taste::Startup_Priority => "1";
+   TASTE_IV_Properties::Default_Codegen => "C";
+
+END SP_samrh71tx.C;
+

@@ -8,7 +8,7 @@
     !! file. The up-to-date signatures can be found in the header file. !!
 */
 #include "boothelper00f.h"
-#include "../../../../../taste-setup/TASTE-SAMX-RTEMS-Runtime/src/BootHelper/BootHelper.h"
+#include "../../../../../tool-inst/include/TASTE-SAMX-RTEMS-Runtime/src/BootHelper/BootHelper.h"
 //#include <stdio.h>
 
 

@@ -9,8 +9,8 @@
 */
 #include "samrh71core00h.h"
 #include "../../../../test_defines.h"           // Custom include, NOT managed by TASTE
-#include "../../../../../taste-setup/TASTE-SAMX-RTEMS-Runtime/src/SamRH71Core/SamRH71Core.h"
-//#include "../../../../../taste-setup/TASTE-SAMX-RTEMS-Runtime/arm-bsp/src/Pmc/Pmc.h"
+#include "../../../../../tool-inst/include/TASTE-SAMX-RTEMS-Runtime/src/SamRH71Core/SamRH71Core.h"
+//#include "../../../../../tool-inst/include/TASTE-SAMX-RTEMS-Runtime/arm-bsp/src/Pmc/Pmc.h"
 
 //#include <stdio.h>
 

@@ -10,8 +10,8 @@
 #include "hal00d.h"
 #include <stdio.h>
 #include "../../../../test_defines.h"           // Custom include, NOT managed by TASTE
-#include "../../../../../taste-setup/TASTE-SAMX-RTEMS-Runtime/src/Hal/Hal.h"
-#include "../../../../../taste-setup/TASTE-SAMX-RTEMS-Runtime/src/BootHelper/BootHelper.h"
+#include "../../../../../tool-inst/include/TASTE-SAMX-RTEMS-Runtime/src/Hal/Hal.h"
+#include "../../../../../tool-inst/include/TASTE-SAMX-RTEMS-Runtime/src/BootHelper/BootHelper.h"
 
 void hal00d_startup(void)
 {

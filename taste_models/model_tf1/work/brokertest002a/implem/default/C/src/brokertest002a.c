@@ -8,7 +8,7 @@
     !! file. The up-to-date signatures can be found in the header file. !!
 */
 #include "brokertest002a.h"
-#include "../../../../../taste-setup/TASTE-Runtime-Common/src/Broker/Broker.h"
+#include "../../../../../tool-inst/include/TASTE-Runtime-Common/src/Broker/Broker.h"
 //#include <stdio.h>
 
 

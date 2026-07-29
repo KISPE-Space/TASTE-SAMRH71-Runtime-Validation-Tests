@@ -9,7 +9,7 @@
 */
 #include "escapertest002b.h"
 //#include <stdio.h>
-#include "../../../../../taste-setup/TASTE-Runtime-Common/src/Escaper/Escaper.h"
+#include "../../../../../tool-inst/include/TASTE-Runtime-Common/src/Escaper/Escaper.h"
 
 
 void escapertest002b_startup(void)

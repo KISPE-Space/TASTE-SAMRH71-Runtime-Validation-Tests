@@ -10,6 +10,24 @@ public
  with TASTE;
  with TASTE_DV_Properties;
 
+    with ocarina_buses; 
+    with ocarina_drivers; 
+    with ocarina_buses; 
+    with ocarina_drivers; 
+    with ocarina_buses; 
+    with ocarina_drivers; 
+    with ocarina_buses; 
+    with ocarina_drivers; 
+    with ocarina_buses; 
+    with ocarina_drivers; 
+    with ocarina_buses; 
+    with ocarina_drivers; 
+    with ocarina_buses; 
+    with ocarina_drivers; 
+    with ocarina_buses; 
+    with ocarina_drivers; 
+    with ocarina_buses; 
+    with ocarina_drivers; 
 
  --  Declare partition(s) of node "Node_1" (aka "SAM RH71 RTEMS N7S_1").
  process Partition_1
@@ -18,7 +36,266 @@ public
  process implementation Partition_1.others
  end Partition_1.others;
 
+ device spw0
+    extends ocarina_drivers::spacewire_generic 
+ features
+    link : refined to requires bus access ocarina_buses::spacewire.generic;
+ properties
+    Deployment::Config => "/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-spw-driver.asn";
+ end spw0;
+
+ device implementation spw0.others
+    extends ocarina_drivers::spacewire_generic.samrh71 
+ end spw0.others;
+
+ device spw1
+    extends ocarina_drivers::spacewire_generic 
+ features
+    link : refined to requires bus access ocarina_buses::spacewire.generic;
+ properties
+    Deployment::Config => "/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-spw-driver.asn";
+ end spw1;
+
+ device implementation spw1.others
+    extends ocarina_drivers::spacewire_generic.samrh71 
+ end spw1.others;
+
+ device uart0
+    extends ocarina_drivers::serial_ccsds 
+ features
+    link : refined to requires bus access ocarina_buses::serial.ccsds;
+ properties
+    Deployment::Config => "/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-serial-driver.asn";
+ end uart0;
+
+ device implementation uart0.others
+    extends ocarina_drivers::serial_ccsds.samrh71 
+ end uart0.others;
+
+ device uart1
+    extends ocarina_drivers::serial_ccsds 
+ features
+    link : refined to requires bus access ocarina_buses::serial.ccsds;
+ properties
+    Deployment::Packetizer => "passthrough"; 
+    Deployment::Configuration => "{ devname  uart1, speed  b115200, parity  even, transmit-mode  raw-single-byte }"; 
+    Deployment::Config => "/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-serial-driver.asn";
+ end uart1;
+
+ device implementation uart1.others
+    extends ocarina_drivers::serial_ccsds.samrh71 
+ end uart1.others;
+
+ device uart2
+    extends ocarina_drivers::serial_ccsds 
+ features
+    link : refined to requires bus access ocarina_buses::serial.ccsds;
+ properties
+    Deployment::Config => "/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-serial-driver.asn";
+ end uart2;
+
+ device implementation uart2.others
+    extends ocarina_drivers::serial_ccsds.samrh71 
+ end uart2.others;
+
+ device uart3
+    extends ocarina_drivers::serial_ccsds 
+ features
+    link : refined to requires bus access ocarina_buses::serial.ccsds;
+ properties
+    Deployment::Config => "/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-serial-driver.asn";
+ end uart3;
+
+ device implementation uart3.others
+    extends ocarina_drivers::serial_ccsds.samrh71 
+ end uart3.others;
+
+ device uart4
+    extends ocarina_drivers::serial_ccsds 
+ features
+    link : refined to requires bus access ocarina_buses::serial.ccsds;
+ properties
+    Deployment::Config => "/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-serial-driver.asn";
+ end uart4;
+
+ device implementation uart4.others
+    extends ocarina_drivers::serial_ccsds.samrh71 
+ end uart4.others;
+
+ device can0
+    extends ocarina_drivers::can_generic 
+ features
+    link : refined to requires bus access ocarina_buses::can.generic;
+ properties
+    Deployment::Config => "/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-can-driver.asn";
+ end can0;
+
+ device implementation can0.others
+    extends ocarina_drivers::can_generic.samrh71 
+ end can0.others;
+
+ device can1
+    extends ocarina_drivers::can_generic 
+ features
+    link : refined to requires bus access ocarina_buses::can.generic;
+ properties
+    Deployment::Config => "/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-can-driver.asn";
+ end can1;
+
+ device implementation can1.others
+    extends ocarina_drivers::can_generic.samrh71 
+ end can1.others;
+
 end deploymentview::DV::Node_1;
+--  This file was generated automatically - do not modify it manually
+--  If you wish to modify the template used to create this file, it is located
+--  in ~/tool-src/misc/space-creator/dv2aadl/deploymentview.tmplt
+--  After modifications, install it by running ~/tool-src/install/90_misc
+--  Template written by Maxime Perrotin (maxime.perrotin@esa.int) 2021-09
+package deploymentview::DV::Node_2
+public
+
+ with Deployment;
+ with TASTE;
+ with TASTE_DV_Properties;
+
+    with ocarina_buses; 
+    with ocarina_drivers; 
+    with ocarina_buses; 
+    with ocarina_drivers; 
+    with ocarina_buses; 
+    with ocarina_drivers; 
+    with ocarina_buses; 
+    with ocarina_drivers; 
+    with ocarina_buses; 
+    with ocarina_drivers; 
+    with ocarina_buses; 
+    with ocarina_drivers; 
+    with ocarina_buses; 
+    with ocarina_drivers; 
+    with ocarina_buses; 
+    with ocarina_drivers; 
+    with ocarina_buses; 
+    with ocarina_drivers; 
+
+ --  Declare partition(s) of node "Node_2" (aka "SAM RH71 RTEMS N7S_2").
+ process Partition_2
+ end Partition_2;
+
+ process implementation Partition_2.others
+ end Partition_2.others;
+
+ device spw0
+    extends ocarina_drivers::spacewire_generic 
+ features
+    link : refined to requires bus access ocarina_buses::spacewire.generic;
+ properties
+    Deployment::Config => "/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-spw-driver.asn";
+ end spw0;
+
+ device implementation spw0.others
+    extends ocarina_drivers::spacewire_generic.samrh71 
+ end spw0.others;
+
+ device spw1
+    extends ocarina_drivers::spacewire_generic 
+ features
+    link : refined to requires bus access ocarina_buses::spacewire.generic;
+ properties
+    Deployment::Config => "/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-spw-driver.asn";
+ end spw1;
+
+ device implementation spw1.others
+    extends ocarina_drivers::spacewire_generic.samrh71 
+ end spw1.others;
+
+ device uart0
+    extends ocarina_drivers::serial_ccsds 
+ features
+    link : refined to requires bus access ocarina_buses::serial.ccsds;
+ properties
+    Deployment::Config => "/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-serial-driver.asn";
+ end uart0;
+
+ device implementation uart0.others
+    extends ocarina_drivers::serial_ccsds.samrh71 
+ end uart0.others;
+
+ device uart1
+    extends ocarina_drivers::serial_ccsds 
+ features
+    link : refined to requires bus access ocarina_buses::serial.ccsds;
+ properties
+    Deployment::Packetizer => "passthrough"; 
+    Deployment::Configuration => "{ devname  uart1, speed  b115200, parity  even, transmit-mode  raw-single-byte }"; 
+    Deployment::Config => "/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-serial-driver.asn";
+ end uart1;
+
+ device implementation uart1.others
+    extends ocarina_drivers::serial_ccsds.samrh71 
+ end uart1.others;
+
+ device uart2
+    extends ocarina_drivers::serial_ccsds 
+ features
+    link : refined to requires bus access ocarina_buses::serial.ccsds;
+ properties
+    Deployment::Config => "/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-serial-driver.asn";
+ end uart2;
+
+ device implementation uart2.others
+    extends ocarina_drivers::serial_ccsds.samrh71 
+ end uart2.others;
+
+ device uart3
+    extends ocarina_drivers::serial_ccsds 
+ features
+    link : refined to requires bus access ocarina_buses::serial.ccsds;
+ properties
+    Deployment::Config => "/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-serial-driver.asn";
+ end uart3;
+
+ device implementation uart3.others
+    extends ocarina_drivers::serial_ccsds.samrh71 
+ end uart3.others;
+
+ device uart4
+    extends ocarina_drivers::serial_ccsds 
+ features
+    link : refined to requires bus access ocarina_buses::serial.ccsds;
+ properties
+    Deployment::Config => "/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-serial-driver.asn";
+ end uart4;
+
+ device implementation uart4.others
+    extends ocarina_drivers::serial_ccsds.samrh71 
+ end uart4.others;
+
+ device can0
+    extends ocarina_drivers::can_generic 
+ features
+    link : refined to requires bus access ocarina_buses::can.generic;
+ properties
+    Deployment::Config => "/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-can-driver.asn";
+ end can0;
+
+ device implementation can0.others
+    extends ocarina_drivers::can_generic.samrh71 
+ end can0.others;
+
+ device can1
+    extends ocarina_drivers::can_generic 
+ features
+    link : refined to requires bus access ocarina_buses::can.generic;
+ properties
+    Deployment::Config => "/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-can-driver.asn";
+ end can1;
+
+ device implementation can1.others
+    extends ocarina_drivers::can_generic.samrh71 
+ end can1.others;
+
+end deploymentview::DV::Node_2;
 
 package deploymentview::DV
 public
@@ -29,123 +306,132 @@ public
  with TASTE_DV_Properties;
 
  --  Dependencies of node Node_1
- with interfaceview::IV::TestUnProt13::TestUnProtIN05;
- with interfaceview::IV::TestStart00;
- with interfaceview::IV::TestModules01::SAMRH71Core00H;
- with interfaceview::IV::TestProt04::TestProtected;
- with interfaceview::IV::TestProt04::Prot05IFIN;
- with interfaceview::IV::TestACN11::SendACN;
- with interfaceview::IV::TestComms09::Sender005;
- with interfaceview::IV::TestACN11::RcvACN01;
+ with interfaceview::IV::TestComms10::Receiver020;
+ with interfaceview::IV::TestUnProt13::TestUnProt00;
+ with interfaceview::IV::TestSPCC06::Function_10;
+ with interfaceview::IV::TestComms09::Sender007;
  with interfaceview::IV::TestComms10::Receiver019;
- with interfaceview::IV::TestModules01::Hal00D;
  with interfaceview::IV::MQueueCallBack12;
  with interfaceview::IV::TestRTCommon02::Paketizer002C;
- with interfaceview::IV::TestUnProt13::TestUnProt00;
- with interfaceview::IV::TestComms10::Receiver020;
- with interfaceview::IV::TestComms09::Sender007;
- with interfaceview::IV::TestSPCC06::Function_10;
- with interfaceview::IV::TestUnProt13::TestUnProtOUT05;
- with interfaceview::IV::TestSPCC06::Function_6;
- with interfaceview::IV::TestRTCommon02::EscaperTest002B;
- with interfaceview::IV::TestSPCC06::Function_7;
- with interfaceview::IV::TestSPCC06::Function_8;
- with interfaceview::IV::TestComms10::Receiver016;
- with interfaceview::IV::TestSPCC06::Function_1;
- with interfaceview::IV::TestComms09::Sender004;
- with interfaceview::IV::TestModules01::MonitorCallback;
- with interfaceview::IV::TestComms09::Sender003;
- with interfaceview::IV::TestSPCC06::Function_12;
- with interfaceview::IV::TestComms10::Receiver017;
+ with interfaceview::IV::TestModules01::Hal00D;
+ with interfaceview::IV::TestProt04::Prot05IFIN;
+ with interfaceview::IV::TestComms09::Sender005;
+ with interfaceview::IV::TestACN11::SendACN;
+ with interfaceview::IV::TestProt04::TestProtected;
+ with interfaceview::IV::TestACN11::RcvACN01;
+ with interfaceview::IV::TestStart00;
+ with interfaceview::IV::TestUnProt13::TestUnProtIN05;
+ with interfaceview::IV::TestModules01::SAMRH71Core00H;
+ with interfaceview::IV::TestModules01::BootHelper00F;
  with interfaceview::IV::TestComms10::Sender011;
  with interfaceview::IV::TestProt04::Prot05IFOUT;
  with interfaceview::IV::TestSPCC06::Function_13;
- with interfaceview::IV::TestModules01::BootHelper00F;
- with interfaceview::IV::TestComms10::Receiver015;
  with interfaceview::IV::TestSPCC06::Function_11;
- with interfaceview::IV::TestSPCC06::Function_23;
  with interfaceview::IV::TestSPCC06::Function_2;
- with interfaceview::IV::TestComms09::Sender001;
- with interfaceview::IV::TestSPCC06::Function_9;
- with interfaceview::IV::TestComms09::TestSendComms09;
- with interfaceview::IV::TestSPCC06::Function_17;
- with interfaceview::IV::TestSPCC06::Function_24;
- with interfaceview::IV::TestComms10::Receiver014;
- with interfaceview::IV::TestACN11::rcvACN05;
- with interfaceview::IV::TestACN11::RcvACN02;
- with interfaceview::IV::TestComms10::Receiver018;
- with interfaceview::IV::TestCyclic05;
+ with interfaceview::IV::TestSPCC06::Function_23;
+ with interfaceview::IV::TestComms10::Receiver015;
+ with interfaceview::IV::TestModules01::MonitorCallback;
+ with interfaceview::IV::TestSPCC06::Function_12;
+ with interfaceview::IV::TestComms09::Sender003;
+ with interfaceview::IV::TestComms10::Receiver017;
+ with interfaceview::IV::TestSPCC06::Function_7;
+ with interfaceview::IV::TestRTCommon02::EscaperTest002B;
+ with interfaceview::IV::TestSPCC06::Function_8;
+ with interfaceview::IV::TestComms10::Receiver016;
+ with interfaceview::IV::TestComms09::Sender004;
+ with interfaceview::IV::TestSPCC06::Function_1;
+ with interfaceview::IV::TestSPCC06::Function_6;
+ with interfaceview::IV::TestUnProt13::TestUnProtOUT05;
+ with interfaceview::IV::TestSPCC06::Function_5;
+ with interfaceview::IV::TestSPCC06::TestSPCC;
+ with interfaceview::IV::TestSDL08;
+ with interfaceview::IV::TestComms09::Receiver001;
+ with interfaceview::IV::TestComms10::Receiver012;
  with interfaceview::IV::TestRTCommon02::BrokerTest002A;
  with interfaceview::IV::TestSPCC06::Function_15;
  with interfaceview::IV::TestACN11::RcvACN03;
  with interfaceview::IV::TestModules01::TestModules;
  with interfaceview::IV::TestACN11::RcvACN04;
- with interfaceview::IV::TestSDL08;
- with interfaceview::IV::TestComms09::Receiver001;
- with interfaceview::IV::TestComms10::Receiver012;
- with interfaceview::IV::TestSPCC06::TestSPCC;
- with interfaceview::IV::TestSPCC06::Function_5;
- with interfaceview::IV::TestProt04::Prot00IF;
- with interfaceview::IV::TestSPCC06::Function_4;
- with interfaceview::IV::TestModules01::BrokerLock00G;
- with interfaceview::IV::TestComms10::Receiver013;
- with interfaceview::IV::TestModules01::Monitoring00A;
- with interfaceview::IV::TestComms09::Sender008;
- with interfaceview::IV::TestSPCC06::Function_16;
- with interfaceview::IV::TestSPCC06::Function_20;
- with interfaceview::IV::TestModules01::ActivationLog;
- with interfaceview::IV::TestSPCC06::Function_22;
- with interfaceview::IV::TestComms09::Sender006;
- with interfaceview::IV::TestModules01::DeathReport00C;
+ with interfaceview::IV::TestSPCC06::Function_24;
+ with interfaceview::IV::TestComms10::Receiver014;
+ with interfaceview::IV::TestComms09::Sender001;
+ with interfaceview::IV::TestSPCC06::Function_17;
+ with interfaceview::IV::TestSPCC06::Function_9;
+ with interfaceview::IV::TestComms09::TestSendComms09;
+ with interfaceview::IV::TestCyclic05;
+ with interfaceview::IV::TestACN11::RcvACN02;
+ with interfaceview::IV::TestACN11::rcvACN05;
+ with interfaceview::IV::TestComms10::Receiver018;
+ with interfaceview::IV::TestComms09::Sender009;
+ with interfaceview::IV::TestComms10::Receiver011;
+ with interfaceview::IV::TestModules01::Threads00E;
+ with interfaceview::IV::TestSPCC06::Function_19;
+ with interfaceview::IV::TestSPCC06::Function_21;
+ with interfaceview::IV::TestUnProt13::TestUnProtected;
+ with interfaceview::IV::TestSPCC06::Function_3;
+ with interfaceview::IV::TestComms09::Sender002;
  with interfaceview::IV::TestSDL14;
  with interfaceview::IV::TestComms09::Sender010;
- with interfaceview::IV::TestComms09::Sender002;
- with interfaceview::IV::TestSPCC06::Function_14;
  with interfaceview::IV::TestSPCC06::Function_18;
- with interfaceview::IV::TestModules01::Threads00E;
- with interfaceview::IV::TestComms10::Receiver011;
- with interfaceview::IV::TestComms09::Sender009;
- with interfaceview::IV::TestUnProt13::TestUnProtected;
- with interfaceview::IV::TestSPCC06::Function_21;
- with interfaceview::IV::TestSPCC06::Function_3;
- with interfaceview::IV::TestSPCC06::Function_19;
+ with interfaceview::IV::TestSPCC06::Function_14;
+ with interfaceview::IV::TestSPCC06::Function_16;
+ with interfaceview::IV::TestComms09::Sender008;
+ with interfaceview::IV::TestModules01::Monitoring00A;
+ with interfaceview::IV::TestModules01::DeathReport00C;
+ with interfaceview::IV::TestSPCC06::Function_22;
+ with interfaceview::IV::TestModules01::ActivationLog;
+ with interfaceview::IV::TestComms09::Sender006;
+ with interfaceview::IV::TestSPCC06::Function_20;
+ with interfaceview::IV::TestProt04::Prot00IF;
+ with interfaceview::IV::TestComms10::Receiver013;
+ with interfaceview::IV::TestSPCC06::Function_4;
+ with interfaceview::IV::TestModules01::BrokerLock00G;
+    with ocarina_buses; 
+    with ocarina_buses; 
+    with ocarina_buses; 
+    with ocarina_buses; 
+    with ocarina_buses; 
+    with ocarina_buses; 
+    with ocarina_buses; 
+    with ocarina_buses; 
+    with ocarina_buses; 
  with deploymentview::DV::Node_1;
+ with ocarina_processors_arm;
+ --  Dependencies of node Node_2
+ with interfaceview::IV::UartOtherEnd;
+    with ocarina_buses; 
+    with ocarina_buses; 
+    with ocarina_buses; 
+    with ocarina_buses; 
+    with ocarina_buses; 
+    with ocarina_buses; 
+    with ocarina_buses; 
+    with ocarina_buses; 
+    with ocarina_buses; 
+ with deploymentview::DV::Node_2;
  with ocarina_processors_arm;
 
  --  Node Node_1
  system Node_1
+ features
+    uart1_uart1 : requires bus access ocarina_buses::serial.ccsds;
  end Node_1;
 
  system implementation Node_1.others
  subcomponents
-    IV_TestUnProtIN05 : system Interfaceview::IV::TestUnProt13::TestUnProtIN05::TestUnProtIN05.others {
+    IV_Receiver020 : system Interfaceview::IV::TestComms10::Receiver020::Receiver020.others {
        Taste::ImplementationName => "";
     };
-    IV_TestStart00 : system Interfaceview::IV::TestStart00::TestStart00.others {
+    IV_TestUnProt00 : system Interfaceview::IV::TestUnProt13::TestUnProt00::TestUnProt00.others {
        Taste::ImplementationName => "";
     };
-    IV_SAMRH71Core00H : system Interfaceview::IV::TestModules01::SAMRH71Core00H::SAMRH71Core00H.others {
+    IV_Function_10 : system Interfaceview::IV::TestSPCC06::Function_10::Function_10.others {
        Taste::ImplementationName => "";
     };
-    IV_TestProtected : system Interfaceview::IV::TestProt04::TestProtected::TestProtected.others {
-       Taste::ImplementationName => "";
-    };
-    IV_Prot05IFIN : system Interfaceview::IV::TestProt04::Prot05IFIN::Prot05IFIN.others {
-       Taste::ImplementationName => "";
-    };
-    IV_SendACN : system Interfaceview::IV::TestACN11::SendACN::SendACN.others {
-       Taste::ImplementationName => "";
-    };
-    IV_Sender005 : system Interfaceview::IV::TestComms09::Sender005::Sender005.others {
-       Taste::ImplementationName => "";
-    };
-    IV_RcvACN01 : system Interfaceview::IV::TestACN11::RcvACN01::RcvACN01.others {
+    IV_Sender007 : system Interfaceview::IV::TestComms09::Sender007::Sender007.others {
        Taste::ImplementationName => "";
     };
     IV_Receiver019 : system Interfaceview::IV::TestComms10::Receiver019::Receiver019.others {
-       Taste::ImplementationName => "";
-    };
-    IV_Hal00D : system Interfaceview::IV::TestModules01::Hal00D::Hal00D.others {
        Taste::ImplementationName => "";
     };
     IV_MQueueCallBack12 : system Interfaceview::IV::MQueueCallBack12::MQueueCallBack12.others {
@@ -154,52 +440,34 @@ public
     IV_Paketizer002C : system Interfaceview::IV::TestRTCommon02::Paketizer002C::Paketizer002C.others {
        Taste::ImplementationName => "";
     };
-    IV_TestUnProt00 : system Interfaceview::IV::TestUnProt13::TestUnProt00::TestUnProt00.others {
+    IV_Hal00D : system Interfaceview::IV::TestModules01::Hal00D::Hal00D.others {
        Taste::ImplementationName => "";
     };
-    IV_Receiver020 : system Interfaceview::IV::TestComms10::Receiver020::Receiver020.others {
+    IV_Prot05IFIN : system Interfaceview::IV::TestProt04::Prot05IFIN::Prot05IFIN.others {
        Taste::ImplementationName => "";
     };
-    IV_Sender007 : system Interfaceview::IV::TestComms09::Sender007::Sender007.others {
+    IV_Sender005 : system Interfaceview::IV::TestComms09::Sender005::Sender005.others {
        Taste::ImplementationName => "";
     };
-    IV_Function_10 : system Interfaceview::IV::TestSPCC06::Function_10::Function_10.others {
+    IV_SendACN : system Interfaceview::IV::TestACN11::SendACN::SendACN.others {
        Taste::ImplementationName => "";
     };
-    IV_TestUnProtOUT05 : system Interfaceview::IV::TestUnProt13::TestUnProtOUT05::TestUnProtOUT05.others {
+    IV_TestProtected : system Interfaceview::IV::TestProt04::TestProtected::TestProtected.others {
        Taste::ImplementationName => "";
     };
-    IV_Function_6 : system Interfaceview::IV::TestSPCC06::Function_6::Function_6.others {
+    IV_RcvACN01 : system Interfaceview::IV::TestACN11::RcvACN01::RcvACN01.others {
        Taste::ImplementationName => "";
     };
-    IV_EscaperTest002B : system Interfaceview::IV::TestRTCommon02::EscaperTest002B::EscaperTest002B.others {
+    IV_TestStart00 : system Interfaceview::IV::TestStart00::TestStart00.others {
        Taste::ImplementationName => "";
     };
-    IV_Function_7 : system Interfaceview::IV::TestSPCC06::Function_7::Function_7.others {
+    IV_TestUnProtIN05 : system Interfaceview::IV::TestUnProt13::TestUnProtIN05::TestUnProtIN05.others {
        Taste::ImplementationName => "";
     };
-    IV_Function_8 : system Interfaceview::IV::TestSPCC06::Function_8::Function_8.others {
+    IV_SAMRH71Core00H : system Interfaceview::IV::TestModules01::SAMRH71Core00H::SAMRH71Core00H.others {
        Taste::ImplementationName => "";
     };
-    IV_Receiver016 : system Interfaceview::IV::TestComms10::Receiver016::Receiver016.others {
-       Taste::ImplementationName => "";
-    };
-    IV_Function_1 : system Interfaceview::IV::TestSPCC06::Function_1::Function_1.others {
-       Taste::ImplementationName => "";
-    };
-    IV_Sender004 : system Interfaceview::IV::TestComms09::Sender004::Sender004.others {
-       Taste::ImplementationName => "";
-    };
-    IV_MonitorCallback : system Interfaceview::IV::TestModules01::MonitorCallback::MonitorCallback.others {
-       Taste::ImplementationName => "";
-    };
-    IV_Sender003 : system Interfaceview::IV::TestComms09::Sender003::Sender003.others {
-       Taste::ImplementationName => "";
-    };
-    IV_Function_12 : system Interfaceview::IV::TestSPCC06::Function_12::Function_12.others {
-       Taste::ImplementationName => "";
-    };
-    IV_Receiver017 : system Interfaceview::IV::TestComms10::Receiver017::Receiver017.others {
+    IV_BootHelper00F : system Interfaceview::IV::TestModules01::BootHelper00F::BootHelper00F.others {
        Taste::ImplementationName => "";
     };
     IV_Sender011 : system Interfaceview::IV::TestComms10::Sender011::Sender011.others {
@@ -211,49 +479,67 @@ public
     IV_Function_13 : system Interfaceview::IV::TestSPCC06::Function_13::Function_13.others {
        Taste::ImplementationName => "";
     };
-    IV_BootHelper00F : system Interfaceview::IV::TestModules01::BootHelper00F::BootHelper00F.others {
-       Taste::ImplementationName => "";
-    };
-    IV_Receiver015 : system Interfaceview::IV::TestComms10::Receiver015::Receiver015.others {
-       Taste::ImplementationName => "";
-    };
     IV_Function_11 : system Interfaceview::IV::TestSPCC06::Function_11::Function_11.others {
-       Taste::ImplementationName => "";
-    };
-    IV_Function_23 : system Interfaceview::IV::TestSPCC06::Function_23::Function_23.others {
        Taste::ImplementationName => "";
     };
     IV_Function_2 : system Interfaceview::IV::TestSPCC06::Function_2::Function_2.others {
        Taste::ImplementationName => "";
     };
-    IV_Sender001 : system Interfaceview::IV::TestComms09::Sender001::Sender001.others {
+    IV_Function_23 : system Interfaceview::IV::TestSPCC06::Function_23::Function_23.others {
        Taste::ImplementationName => "";
     };
-    IV_Function_9 : system Interfaceview::IV::TestSPCC06::Function_9::Function_9.others {
+    IV_Receiver015 : system Interfaceview::IV::TestComms10::Receiver015::Receiver015.others {
        Taste::ImplementationName => "";
     };
-    IV_TestSendComms09 : system Interfaceview::IV::TestComms09::TestSendComms09::TestSendComms09.others {
+    IV_MonitorCallback : system Interfaceview::IV::TestModules01::MonitorCallback::MonitorCallback.others {
        Taste::ImplementationName => "";
     };
-    IV_Function_17 : system Interfaceview::IV::TestSPCC06::Function_17::Function_17.others {
+    IV_Function_12 : system Interfaceview::IV::TestSPCC06::Function_12::Function_12.others {
        Taste::ImplementationName => "";
     };
-    IV_Function_24 : system Interfaceview::IV::TestSPCC06::Function_24::Function_24.others {
+    IV_Sender003 : system Interfaceview::IV::TestComms09::Sender003::Sender003.others {
        Taste::ImplementationName => "";
     };
-    IV_Receiver014 : system Interfaceview::IV::TestComms10::Receiver014::Receiver014.others {
+    IV_Receiver017 : system Interfaceview::IV::TestComms10::Receiver017::Receiver017.others {
        Taste::ImplementationName => "";
     };
-    IV_rcvACN05 : system Interfaceview::IV::TestACN11::rcvACN05::rcvACN05.others {
+    IV_Function_7 : system Interfaceview::IV::TestSPCC06::Function_7::Function_7.others {
        Taste::ImplementationName => "";
     };
-    IV_RcvACN02 : system Interfaceview::IV::TestACN11::RcvACN02::RcvACN02.others {
+    IV_EscaperTest002B : system Interfaceview::IV::TestRTCommon02::EscaperTest002B::EscaperTest002B.others {
        Taste::ImplementationName => "";
     };
-    IV_Receiver018 : system Interfaceview::IV::TestComms10::Receiver018::Receiver018.others {
+    IV_Function_8 : system Interfaceview::IV::TestSPCC06::Function_8::Function_8.others {
        Taste::ImplementationName => "";
     };
-    IV_TestCyclic05 : system Interfaceview::IV::TestCyclic05::TestCyclic05.others {
+    IV_Receiver016 : system Interfaceview::IV::TestComms10::Receiver016::Receiver016.others {
+       Taste::ImplementationName => "";
+    };
+    IV_Sender004 : system Interfaceview::IV::TestComms09::Sender004::Sender004.others {
+       Taste::ImplementationName => "";
+    };
+    IV_Function_1 : system Interfaceview::IV::TestSPCC06::Function_1::Function_1.others {
+       Taste::ImplementationName => "";
+    };
+    IV_Function_6 : system Interfaceview::IV::TestSPCC06::Function_6::Function_6.others {
+       Taste::ImplementationName => "";
+    };
+    IV_TestUnProtOUT05 : system Interfaceview::IV::TestUnProt13::TestUnProtOUT05::TestUnProtOUT05.others {
+       Taste::ImplementationName => "";
+    };
+    IV_Function_5 : system Interfaceview::IV::TestSPCC06::Function_5::Function_5.others {
+       Taste::ImplementationName => "";
+    };
+    IV_TestSPCC : system Interfaceview::IV::TestSPCC06::TestSPCC::TestSPCC.others {
+       Taste::ImplementationName => "";
+    };
+    IV_TestSDL08 : system Interfaceview::IV::TestSDL08::TestSDL08.others {
+       Taste::ImplementationName => "";
+    };
+    IV_Receiver001 : system Interfaceview::IV::TestComms09::Receiver001::Receiver001.others {
+       Taste::ImplementationName => "";
+    };
+    IV_Receiver012 : system Interfaceview::IV::TestComms10::Receiver012::Receiver012.others {
        Taste::ImplementationName => "";
     };
     IV_BrokerTest002A : system Interfaceview::IV::TestRTCommon02::BrokerTest002A::BrokerTest002A.others {
@@ -271,55 +557,58 @@ public
     IV_RcvACN04 : system Interfaceview::IV::TestACN11::RcvACN04::RcvACN04.others {
        Taste::ImplementationName => "";
     };
-    IV_TestSDL08 : system Interfaceview::IV::TestSDL08::TestSDL08.others {
+    IV_Function_24 : system Interfaceview::IV::TestSPCC06::Function_24::Function_24.others {
        Taste::ImplementationName => "";
     };
-    IV_Receiver001 : system Interfaceview::IV::TestComms09::Receiver001::Receiver001.others {
+    IV_Receiver014 : system Interfaceview::IV::TestComms10::Receiver014::Receiver014.others {
        Taste::ImplementationName => "";
     };
-    IV_Receiver012 : system Interfaceview::IV::TestComms10::Receiver012::Receiver012.others {
+    IV_Sender001 : system Interfaceview::IV::TestComms09::Sender001::Sender001.others {
        Taste::ImplementationName => "";
     };
-    IV_TestSPCC : system Interfaceview::IV::TestSPCC06::TestSPCC::TestSPCC.others {
+    IV_Function_17 : system Interfaceview::IV::TestSPCC06::Function_17::Function_17.others {
        Taste::ImplementationName => "";
     };
-    IV_Function_5 : system Interfaceview::IV::TestSPCC06::Function_5::Function_5.others {
+    IV_Function_9 : system Interfaceview::IV::TestSPCC06::Function_9::Function_9.others {
        Taste::ImplementationName => "";
     };
-    IV_Prot00IF : system Interfaceview::IV::TestProt04::Prot00IF::Prot00IF.others {
+    IV_TestSendComms09 : system Interfaceview::IV::TestComms09::TestSendComms09::TestSendComms09.others {
        Taste::ImplementationName => "";
     };
-    IV_Function_4 : system Interfaceview::IV::TestSPCC06::Function_4::Function_4.others {
+    IV_TestCyclic05 : system Interfaceview::IV::TestCyclic05::TestCyclic05.others {
        Taste::ImplementationName => "";
     };
-    IV_BrokerLock00G : system Interfaceview::IV::TestModules01::BrokerLock00G::BrokerLock00G.others {
+    IV_RcvACN02 : system Interfaceview::IV::TestACN11::RcvACN02::RcvACN02.others {
        Taste::ImplementationName => "";
     };
-    IV_Receiver013 : system Interfaceview::IV::TestComms10::Receiver013::Receiver013.others {
+    IV_rcvACN05 : system Interfaceview::IV::TestACN11::rcvACN05::rcvACN05.others {
        Taste::ImplementationName => "";
     };
-    IV_Monitoring00A : system Interfaceview::IV::TestModules01::Monitoring00A::Monitoring00A.others {
+    IV_Receiver018 : system Interfaceview::IV::TestComms10::Receiver018::Receiver018.others {
        Taste::ImplementationName => "";
     };
-    IV_Sender008 : system Interfaceview::IV::TestComms09::Sender008::Sender008.others {
+    IV_Sender009 : system Interfaceview::IV::TestComms09::Sender009::Sender009.others {
        Taste::ImplementationName => "";
     };
-    IV_Function_16 : system Interfaceview::IV::TestSPCC06::Function_16::Function_16.others {
+    IV_Receiver011 : system Interfaceview::IV::TestComms10::Receiver011::Receiver011.others {
        Taste::ImplementationName => "";
     };
-    IV_Function_20 : system Interfaceview::IV::TestSPCC06::Function_20::Function_20.others {
+    IV_Threads00E : system Interfaceview::IV::TestModules01::Threads00E::Threads00E.others {
        Taste::ImplementationName => "";
     };
-    IV_ActivationLog : system Interfaceview::IV::TestModules01::ActivationLog::ActivationLog.others {
+    IV_Function_19 : system Interfaceview::IV::TestSPCC06::Function_19::Function_19.others {
        Taste::ImplementationName => "";
     };
-    IV_Function_22 : system Interfaceview::IV::TestSPCC06::Function_22::Function_22.others {
+    IV_Function_21 : system Interfaceview::IV::TestSPCC06::Function_21::Function_21.others {
        Taste::ImplementationName => "";
     };
-    IV_Sender006 : system Interfaceview::IV::TestComms09::Sender006::Sender006.others {
+    IV_TestUnProtected : system Interfaceview::IV::TestUnProt13::TestUnProtected::TestUnProtected.others {
        Taste::ImplementationName => "";
     };
-    IV_DeathReport00C : system Interfaceview::IV::TestModules01::DeathReport00C::DeathReport00C.others {
+    IV_Function_3 : system Interfaceview::IV::TestSPCC06::Function_3::Function_3.others {
+       Taste::ImplementationName => "";
+    };
+    IV_Sender002 : system Interfaceview::IV::TestComms09::Sender002::Sender002.others {
        Taste::ImplementationName => "";
     };
     IV_TestSDL14 : system Interfaceview::IV::TestSDL14::TestSDL14.others {
@@ -328,123 +617,196 @@ public
     IV_Sender010 : system Interfaceview::IV::TestComms09::Sender010::Sender010.others {
        Taste::ImplementationName => "";
     };
-    IV_Sender002 : system Interfaceview::IV::TestComms09::Sender002::Sender002.others {
+    IV_Function_18 : system Interfaceview::IV::TestSPCC06::Function_18::Function_18.others {
        Taste::ImplementationName => "";
     };
     IV_Function_14 : system Interfaceview::IV::TestSPCC06::Function_14::Function_14.others {
        Taste::ImplementationName => "";
     };
-    IV_Function_18 : system Interfaceview::IV::TestSPCC06::Function_18::Function_18.others {
+    IV_Function_16 : system Interfaceview::IV::TestSPCC06::Function_16::Function_16.others {
        Taste::ImplementationName => "";
     };
-    IV_Threads00E : system Interfaceview::IV::TestModules01::Threads00E::Threads00E.others {
+    IV_Sender008 : system Interfaceview::IV::TestComms09::Sender008::Sender008.others {
        Taste::ImplementationName => "";
     };
-    IV_Receiver011 : system Interfaceview::IV::TestComms10::Receiver011::Receiver011.others {
+    IV_Monitoring00A : system Interfaceview::IV::TestModules01::Monitoring00A::Monitoring00A.others {
        Taste::ImplementationName => "";
     };
-    IV_Sender009 : system Interfaceview::IV::TestComms09::Sender009::Sender009.others {
+    IV_DeathReport00C : system Interfaceview::IV::TestModules01::DeathReport00C::DeathReport00C.others {
        Taste::ImplementationName => "";
     };
-    IV_TestUnProtected : system Interfaceview::IV::TestUnProt13::TestUnProtected::TestUnProtected.others {
+    IV_Function_22 : system Interfaceview::IV::TestSPCC06::Function_22::Function_22.others {
        Taste::ImplementationName => "";
     };
-    IV_Function_21 : system Interfaceview::IV::TestSPCC06::Function_21::Function_21.others {
+    IV_ActivationLog : system Interfaceview::IV::TestModules01::ActivationLog::ActivationLog.others {
        Taste::ImplementationName => "";
     };
-    IV_Function_3 : system Interfaceview::IV::TestSPCC06::Function_3::Function_3.others {
+    IV_Sender006 : system Interfaceview::IV::TestComms09::Sender006::Sender006.others {
        Taste::ImplementationName => "";
     };
-    IV_Function_19 : system Interfaceview::IV::TestSPCC06::Function_19::Function_19.others {
+    IV_Function_20 : system Interfaceview::IV::TestSPCC06::Function_20::Function_20.others {
+       Taste::ImplementationName => "";
+    };
+    IV_Prot00IF : system Interfaceview::IV::TestProt04::Prot00IF::Prot00IF.others {
+       Taste::ImplementationName => "";
+    };
+    IV_Receiver013 : system Interfaceview::IV::TestComms10::Receiver013::Receiver013.others {
+       Taste::ImplementationName => "";
+    };
+    IV_Function_4 : system Interfaceview::IV::TestSPCC06::Function_4::Function_4.others {
+       Taste::ImplementationName => "";
+    };
+    IV_BrokerLock00G : system Interfaceview::IV::TestModules01::BrokerLock00G::BrokerLock00G.others {
        Taste::ImplementationName => "";
     };
     Partition_1 : process deploymentview::DV::Node_1::Partition_1.others { 
        TASTE_DV_Properties::CoverageEnabled => false;
+       TASTE::ExternalLibs => "../../../../tf_common/";
     };
     p1 : processor ocarina_processors_arm::samrh71.rtems;
+    spw0 : device deploymentview::DV::Node_1::spw0.others;
+    spw1 : device deploymentview::DV::Node_1::spw1.others;
+    uart0 : device deploymentview::DV::Node_1::uart0.others;
+    uart1 : device deploymentview::DV::Node_1::uart1.others;
+    uart2 : device deploymentview::DV::Node_1::uart2.others;
+    uart3 : device deploymentview::DV::Node_1::uart3.others;
+    uart4 : device deploymentview::DV::Node_1::uart4.others;
+    can0 : device deploymentview::DV::Node_1::can0.others;
+    can1 : device deploymentview::DV::Node_1::can1.others;
+ connections
+    uart1_uart1_link : bus access uart1_uart1 -> uart1.link;
  properties
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_TestUnProtIN05;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_TestStart00;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_SAMRH71Core00H;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_TestProtected;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Prot05IFIN;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_SendACN;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Sender005;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_RcvACN01;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Receiver020;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_TestUnProt00;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_10;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Sender007;
     TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Receiver019;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Hal00D;
     TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_MQueueCallBack12;
     TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Paketizer002C;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_TestUnProt00;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Receiver020;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Sender007;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_10;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_TestUnProtOUT05;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_6;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_EscaperTest002B;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_7;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_8;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Receiver016;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_1;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Sender004;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_MonitorCallback;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Sender003;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_12;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Receiver017;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Hal00D;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Prot05IFIN;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Sender005;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_SendACN;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_TestProtected;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_RcvACN01;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_TestStart00;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_TestUnProtIN05;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_SAMRH71Core00H;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_BootHelper00F;
     TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Sender011;
     TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Prot05IFOUT;
     TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_13;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_BootHelper00F;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Receiver015;
     TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_11;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_23;
     TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_2;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Sender001;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_9;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_TestSendComms09;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_17;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_24;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Receiver014;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_rcvACN05;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_RcvACN02;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Receiver018;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_TestCyclic05;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_23;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Receiver015;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_MonitorCallback;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_12;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Sender003;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Receiver017;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_7;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_EscaperTest002B;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_8;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Receiver016;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Sender004;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_1;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_6;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_TestUnProtOUT05;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_5;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_TestSPCC;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_TestSDL08;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Receiver001;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Receiver012;
     TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_BrokerTest002A;
     TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_15;
     TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_RcvACN03;
     TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_TestModules;
     TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_RcvACN04;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_TestSDL08;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Receiver001;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Receiver012;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_TestSPCC;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_5;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Prot00IF;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_4;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_BrokerLock00G;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Receiver013;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Monitoring00A;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Sender008;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_16;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_20;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_ActivationLog;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_22;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Sender006;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_DeathReport00C;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_24;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Receiver014;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Sender001;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_17;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_9;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_TestSendComms09;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_TestCyclic05;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_RcvACN02;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_rcvACN05;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Receiver018;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Sender009;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Receiver011;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Threads00E;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_19;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_21;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_TestUnProtected;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_3;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Sender002;
     TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_TestSDL14;
     TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Sender010;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Sender002;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_14;
     TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_18;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Threads00E;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Receiver011;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Sender009;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_TestUnProtected;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_21;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_3;
-    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_19;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_14;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_16;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Sender008;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Monitoring00A;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_DeathReport00C;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_22;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_ActivationLog;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Sender006;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_20;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Prot00IF;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Receiver013;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_Function_4;
+    TASTE::APLC_Binding => (reference (Partition_1)) applies to IV_BrokerLock00G;
     Actual_Processor_Binding => (reference (p1)) applies to Partition_1;
+    Actual_Processor_Binding => (reference (p1)) applies to spw0;
+    Actual_Processor_Binding => (reference (p1)) applies to spw1;
+    Actual_Processor_Binding => (reference (p1)) applies to uart0;
+    Actual_Processor_Binding => (reference (p1)) applies to uart1;
+    Actual_Processor_Binding => (reference (p1)) applies to uart2;
+    Actual_Processor_Binding => (reference (p1)) applies to uart3;
+    Actual_Processor_Binding => (reference (p1)) applies to uart4;
+    Actual_Processor_Binding => (reference (p1)) applies to can0;
+    Actual_Processor_Binding => (reference (p1)) applies to can1;
  end Node_1.others;
+
+ --  Node Node_2
+ system Node_2
+ features
+    uart1_uart1 : requires bus access ocarina_buses::serial.ccsds;
+ end Node_2;
+
+ system implementation Node_2.others
+ subcomponents
+    IV_UartOtherEnd : system Interfaceview::IV::UartOtherEnd::UartOtherEnd.others {
+       Taste::ImplementationName => "";
+    };
+    Partition_2 : process deploymentview::DV::Node_2::Partition_2.others { 
+       TASTE_DV_Properties::CoverageEnabled => false;
+    };
+    p1 : processor ocarina_processors_arm::samrh71.rtems;
+    spw0 : device deploymentview::DV::Node_2::spw0.others;
+    spw1 : device deploymentview::DV::Node_2::spw1.others;
+    uart0 : device deploymentview::DV::Node_2::uart0.others;
+    uart1 : device deploymentview::DV::Node_2::uart1.others;
+    uart2 : device deploymentview::DV::Node_2::uart2.others;
+    uart3 : device deploymentview::DV::Node_2::uart3.others;
+    uart4 : device deploymentview::DV::Node_2::uart4.others;
+    can0 : device deploymentview::DV::Node_2::can0.others;
+    can1 : device deploymentview::DV::Node_2::can1.others;
+ connections
+    uart1_uart1_link : bus access uart1_uart1 -> uart1.link;
+ properties
+    TASTE::APLC_Binding => (reference (Partition_2)) applies to IV_UartOtherEnd;
+    Actual_Processor_Binding => (reference (p1)) applies to Partition_2;
+    Actual_Processor_Binding => (reference (p1)) applies to spw0;
+    Actual_Processor_Binding => (reference (p1)) applies to spw1;
+    Actual_Processor_Binding => (reference (p1)) applies to uart0;
+    Actual_Processor_Binding => (reference (p1)) applies to uart1;
+    Actual_Processor_Binding => (reference (p1)) applies to uart2;
+    Actual_Processor_Binding => (reference (p1)) applies to uart3;
+    Actual_Processor_Binding => (reference (p1)) applies to uart4;
+    Actual_Processor_Binding => (reference (p1)) applies to can0;
+    Actual_Processor_Binding => (reference (p1)) applies to can1;
+ end Node_2.others;
 
 
 system deploymentview
@@ -454,6 +816,13 @@ system implementation deploymentview.others
 subcomponents
    interfaceview : system interfaceview::IV::interfaceview.others;
    Node_1 : system Node_1.others;
+   Node_2 : system Node_2.others;
+   bus_1 : bus ocarina_buses::serial.ccsds;
+ connections
+   Node_2_bus_1 : bus access bus_1 -> Node_2.uart1_uart1;
+   Node_1_bus_1 : bus access bus_1 -> Node_1.uart1_uart1;
+ properties
+   Actual_Connection_Binding => (reference (bus_1)) applies to interfaceview.TestStart00_RI_samrh71tx_UartOtherEnd_PI_samrh71tx;
 end deploymentview.others;
 
 end deploymentview::DV;

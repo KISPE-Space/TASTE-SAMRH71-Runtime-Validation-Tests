@@ -859,7 +859,7 @@ flag asn1SccPID_Range_Equal(const asn1SccPID_Range* pVal1, const asn1SccPID_Rang
 flag asn1SccPID_Range_IsConstraintValid(const asn1SccPID_Range* pVal, int* pErrCode)
 {
     flag ret = TRUE;
-    ret = ((*(pVal)) <= 81UL);
+    ret = ((*(pVal)) <= 82UL);
     *pErrCode = ret ? 0 :  ERR_PID_RANGE;
 
 	return ret;
@@ -885,7 +885,7 @@ flag asn1SccPID_Range_Encode(const asn1SccPID_Range* pVal, BitStream* pBitStrm, 
 	*pErrCode = 0;
 	ret = bCheckConstraints ? asn1SccPID_Range_IsConstraintValid(pVal, pErrCode) : TRUE ;
 	if (ret && *pErrCode == 0) {
-	    BitStream_EncodeConstraintPosWholeNumber(pBitStrm, (*(pVal)), 0, 81);
+	    BitStream_EncodeConstraintPosWholeNumber(pBitStrm, (*(pVal)), 0, 82);
     } /*COVERAGE_IGNORE*/
 
 
@@ -898,7 +898,7 @@ flag asn1SccPID_Range_Decode(asn1SccPID_Range* pVal, BitStream* pBitStrm, int* p
 	*pErrCode = 0;
 
 
-	ret = BitStream_DecodeConstraintPosWholeNumber(pBitStrm, pVal, 0, 81);
+	ret = BitStream_DecodeConstraintPosWholeNumber(pBitStrm, pVal, 0, 82);
 	*pErrCode = ret ? 0 : ERR_UPER_DECODE_PID_RANGE;
 
 	return ret  && asn1SccPID_Range_IsConstraintValid(pVal, pErrCode);
@@ -911,7 +911,7 @@ flag asn1SccPID_Range_ACN_Encode(const asn1SccPID_Range* pVal, BitStream* pBitSt
     *pErrCode = 0;
 	ret = bCheckConstraints ? asn1SccPID_Range_IsConstraintValid(pVal, pErrCode) : TRUE ;
 	if (ret && *pErrCode == 0) {
-	    BitStream_EncodeConstraintPosWholeNumber(pBitStrm, (*(pVal)), 0, 81);
+	    BitStream_EncodeConstraintPosWholeNumber(pBitStrm, (*(pVal)), 0, 82);
     } /*COVERAGE_IGNORE*/
 
 
@@ -924,7 +924,7 @@ flag asn1SccPID_Range_ACN_Decode(asn1SccPID_Range* pVal, BitStream* pBitStrm, in
 	*pErrCode = 0;
 
 
-	ret = BitStream_DecodeConstraintPosWholeNumber(pBitStrm, pVal, 0, 81);
+	ret = BitStream_DecodeConstraintPosWholeNumber(pBitStrm, pVal, 0, 82);
 	*pErrCode = ret ? 0 : ERR_ACN_DECODE_PID_RANGE;
 
     return ret && asn1SccPID_Range_IsConstraintValid(pVal, pErrCode);
@@ -940,7 +940,7 @@ flag asn1SccPID_Equal(const asn1SccPID* pVal1, const asn1SccPID* pVal2)
 flag asn1SccPID_IsConstraintValid(const asn1SccPID* pVal, int* pErrCode)
 {
     flag ret = TRUE;
-    ret = ((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((*(pVal)) == PID_activationlog)) || (((*(pVal)) == PID_boothelper00f)))) || (((*(pVal)) == PID_brokerlock00g)))) || (((*(pVal)) == PID_brokertest002a)))) || (((*(pVal)) == PID_deathreport00c)))) || (((*(pVal)) == PID_escapertest002b)))) || (((*(pVal)) == PID_function_1)))) || (((*(pVal)) == PID_function_10)))) || (((*(pVal)) == PID_function_11)))) || (((*(pVal)) == PID_function_12)))) || (((*(pVal)) == PID_function_13)))) || (((*(pVal)) == PID_function_14)))) || (((*(pVal)) == PID_function_15)))) || (((*(pVal)) == PID_function_16)))) || (((*(pVal)) == PID_function_17)))) || (((*(pVal)) == PID_function_18)))) || (((*(pVal)) == PID_function_19)))) || (((*(pVal)) == PID_function_2)))) || (((*(pVal)) == PID_function_20)))) || (((*(pVal)) == PID_function_21)))) || (((*(pVal)) == PID_function_22)))) || (((*(pVal)) == PID_function_23)))) || (((*(pVal)) == PID_function_24)))) || (((*(pVal)) == PID_function_3)))) || (((*(pVal)) == PID_function_4)))) || (((*(pVal)) == PID_function_5)))) || (((*(pVal)) == PID_function_6)))) || (((*(pVal)) == PID_function_7)))) || (((*(pVal)) == PID_function_8)))) || (((*(pVal)) == PID_function_9)))) || (((*(pVal)) == PID_hal00d)))) || (((*(pVal)) == PID_mqueuecallback12)))) || (((*(pVal)) == PID_monitorcallback)))) || (((*(pVal)) == PID_monitoring00a)))) || (((*(pVal)) == PID_paketizer002c)))) || (((*(pVal)) == PID_prot00if)))) || (((*(pVal)) == PID_prot05ifin)))) || (((*(pVal)) == PID_prot05ifout)))) || (((*(pVal)) == PID_rcvacn01)))) || (((*(pVal)) == PID_rcvacn02)))) || (((*(pVal)) == PID_rcvacn03)))) || (((*(pVal)) == PID_rcvacn04)))) || (((*(pVal)) == PID_receiver001)))) || (((*(pVal)) == PID_receiver011)))) || (((*(pVal)) == PID_receiver012)))) || (((*(pVal)) == PID_receiver013)))) || (((*(pVal)) == PID_receiver014)))) || (((*(pVal)) == PID_receiver015)))) || (((*(pVal)) == PID_receiver016)))) || (((*(pVal)) == PID_receiver017)))) || (((*(pVal)) == PID_receiver018)))) || (((*(pVal)) == PID_receiver019)))) || (((*(pVal)) == PID_receiver020)))) || (((*(pVal)) == PID_samrh71core00h)))) || (((*(pVal)) == PID_sendacn)))) || (((*(pVal)) == PID_sender001)))) || (((*(pVal)) == PID_sender002)))) || (((*(pVal)) == PID_sender003)))) || (((*(pVal)) == PID_sender004)))) || (((*(pVal)) == PID_sender005)))) || (((*(pVal)) == PID_sender006)))) || (((*(pVal)) == PID_sender007)))) || (((*(pVal)) == PID_sender008)))) || (((*(pVal)) == PID_sender009)))) || (((*(pVal)) == PID_sender010)))) || (((*(pVal)) == PID_sender011)))) || (((*(pVal)) == PID_testcyclic05)))) || (((*(pVal)) == PID_testmodules)))) || (((*(pVal)) == PID_testprotected)))) || (((*(pVal)) == PID_testsdl08)))) || (((*(pVal)) == PID_testsdl14)))) || (((*(pVal)) == PID_testspcc)))) || (((*(pVal)) == PID_testsendcomms09)))) || (((*(pVal)) == PID_teststart00)))) || (((*(pVal)) == PID_testunprot00)))) || (((*(pVal)) == PID_testunprotin05)))) || (((*(pVal)) == PID_testunprotout05)))) || (((*(pVal)) == PID_testunprotected)))) || (((*(pVal)) == PID_threads00e)))) || (((*(pVal)) == PID_partition_1_timer_manager)))) || (((*(pVal)) == PID_rcvacn05)))) || (((*(pVal)) == PID_env)));
+    ret = ((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((*(pVal)) == PID_activationlog)) || (((*(pVal)) == PID_boothelper00f)))) || (((*(pVal)) == PID_brokerlock00g)))) || (((*(pVal)) == PID_brokertest002a)))) || (((*(pVal)) == PID_deathreport00c)))) || (((*(pVal)) == PID_escapertest002b)))) || (((*(pVal)) == PID_function_1)))) || (((*(pVal)) == PID_function_10)))) || (((*(pVal)) == PID_function_11)))) || (((*(pVal)) == PID_function_12)))) || (((*(pVal)) == PID_function_13)))) || (((*(pVal)) == PID_function_14)))) || (((*(pVal)) == PID_function_15)))) || (((*(pVal)) == PID_function_16)))) || (((*(pVal)) == PID_function_17)))) || (((*(pVal)) == PID_function_18)))) || (((*(pVal)) == PID_function_19)))) || (((*(pVal)) == PID_function_2)))) || (((*(pVal)) == PID_function_20)))) || (((*(pVal)) == PID_function_21)))) || (((*(pVal)) == PID_function_22)))) || (((*(pVal)) == PID_function_23)))) || (((*(pVal)) == PID_function_24)))) || (((*(pVal)) == PID_function_3)))) || (((*(pVal)) == PID_function_4)))) || (((*(pVal)) == PID_function_5)))) || (((*(pVal)) == PID_function_6)))) || (((*(pVal)) == PID_function_7)))) || (((*(pVal)) == PID_function_8)))) || (((*(pVal)) == PID_function_9)))) || (((*(pVal)) == PID_hal00d)))) || (((*(pVal)) == PID_mqueuecallback12)))) || (((*(pVal)) == PID_monitorcallback)))) || (((*(pVal)) == PID_monitoring00a)))) || (((*(pVal)) == PID_paketizer002c)))) || (((*(pVal)) == PID_prot00if)))) || (((*(pVal)) == PID_prot05ifin)))) || (((*(pVal)) == PID_prot05ifout)))) || (((*(pVal)) == PID_rcvacn01)))) || (((*(pVal)) == PID_rcvacn02)))) || (((*(pVal)) == PID_rcvacn03)))) || (((*(pVal)) == PID_rcvacn04)))) || (((*(pVal)) == PID_receiver001)))) || (((*(pVal)) == PID_receiver011)))) || (((*(pVal)) == PID_receiver012)))) || (((*(pVal)) == PID_receiver013)))) || (((*(pVal)) == PID_receiver014)))) || (((*(pVal)) == PID_receiver015)))) || (((*(pVal)) == PID_receiver016)))) || (((*(pVal)) == PID_receiver017)))) || (((*(pVal)) == PID_receiver018)))) || (((*(pVal)) == PID_receiver019)))) || (((*(pVal)) == PID_receiver020)))) || (((*(pVal)) == PID_samrh71core00h)))) || (((*(pVal)) == PID_sendacn)))) || (((*(pVal)) == PID_sender001)))) || (((*(pVal)) == PID_sender002)))) || (((*(pVal)) == PID_sender003)))) || (((*(pVal)) == PID_sender004)))) || (((*(pVal)) == PID_sender005)))) || (((*(pVal)) == PID_sender006)))) || (((*(pVal)) == PID_sender007)))) || (((*(pVal)) == PID_sender008)))) || (((*(pVal)) == PID_sender009)))) || (((*(pVal)) == PID_sender010)))) || (((*(pVal)) == PID_sender011)))) || (((*(pVal)) == PID_testcyclic05)))) || (((*(pVal)) == PID_testmodules)))) || (((*(pVal)) == PID_testprotected)))) || (((*(pVal)) == PID_testsdl08)))) || (((*(pVal)) == PID_testsdl14)))) || (((*(pVal)) == PID_testspcc)))) || (((*(pVal)) == PID_testsendcomms09)))) || (((*(pVal)) == PID_teststart00)))) || (((*(pVal)) == PID_testunprot00)))) || (((*(pVal)) == PID_testunprotin05)))) || (((*(pVal)) == PID_testunprotout05)))) || (((*(pVal)) == PID_testunprotected)))) || (((*(pVal)) == PID_threads00e)))) || (((*(pVal)) == PID_uartotherend)))) || (((*(pVal)) == PID_partition_1_timer_manager)))) || (((*(pVal)) == PID_rcvacn05)))) || (((*(pVal)) == PID_env)));
     *pErrCode = ret ? 0 :  ERR_PID;
 
 	return ret;
@@ -969,250 +969,253 @@ flag asn1SccPID_Encode(const asn1SccPID* pVal, BitStream* pBitStrm, int* pErrCod
 	    switch((*(pVal)))
 	    {
 	        case PID_activationlog:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 0, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 0, 0, 82);
 	        	break;
 	        case PID_boothelper00f:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 1, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 1, 0, 82);
 	        	break;
 	        case PID_brokerlock00g:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 2, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 2, 0, 82);
 	        	break;
 	        case PID_brokertest002a:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 3, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 3, 0, 82);
 	        	break;
 	        case PID_deathreport00c:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 4, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 4, 0, 82);
 	        	break;
 	        case PID_escapertest002b:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 5, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 5, 0, 82);
 	        	break;
 	        case PID_function_1:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 6, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 6, 0, 82);
 	        	break;
 	        case PID_function_10:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 7, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 7, 0, 82);
 	        	break;
 	        case PID_function_11:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 8, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 8, 0, 82);
 	        	break;
 	        case PID_function_12:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 9, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 9, 0, 82);
 	        	break;
 	        case PID_function_13:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 10, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 10, 0, 82);
 	        	break;
 	        case PID_function_14:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 11, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 11, 0, 82);
 	        	break;
 	        case PID_function_15:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 12, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 12, 0, 82);
 	        	break;
 	        case PID_function_16:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 13, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 13, 0, 82);
 	        	break;
 	        case PID_function_17:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 14, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 14, 0, 82);
 	        	break;
 	        case PID_function_18:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 15, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 15, 0, 82);
 	        	break;
 	        case PID_function_19:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 16, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 16, 0, 82);
 	        	break;
 	        case PID_function_2:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 17, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 17, 0, 82);
 	        	break;
 	        case PID_function_20:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 18, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 18, 0, 82);
 	        	break;
 	        case PID_function_21:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 19, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 19, 0, 82);
 	        	break;
 	        case PID_function_22:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 20, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 20, 0, 82);
 	        	break;
 	        case PID_function_23:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 21, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 21, 0, 82);
 	        	break;
 	        case PID_function_24:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 22, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 22, 0, 82);
 	        	break;
 	        case PID_function_3:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 23, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 23, 0, 82);
 	        	break;
 	        case PID_function_4:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 24, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 24, 0, 82);
 	        	break;
 	        case PID_function_5:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 25, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 25, 0, 82);
 	        	break;
 	        case PID_function_6:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 26, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 26, 0, 82);
 	        	break;
 	        case PID_function_7:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 27, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 27, 0, 82);
 	        	break;
 	        case PID_function_8:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 28, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 28, 0, 82);
 	        	break;
 	        case PID_function_9:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 29, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 29, 0, 82);
 	        	break;
 	        case PID_hal00d:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 30, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 30, 0, 82);
 	        	break;
 	        case PID_mqueuecallback12:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 31, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 31, 0, 82);
 	        	break;
 	        case PID_monitorcallback:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 32, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 32, 0, 82);
 	        	break;
 	        case PID_monitoring00a:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 33, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 33, 0, 82);
 	        	break;
 	        case PID_paketizer002c:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 34, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 34, 0, 82);
 	        	break;
 	        case PID_prot00if:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 35, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 35, 0, 82);
 	        	break;
 	        case PID_prot05ifin:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 36, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 36, 0, 82);
 	        	break;
 	        case PID_prot05ifout:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 37, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 37, 0, 82);
 	        	break;
 	        case PID_rcvacn01:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 38, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 38, 0, 82);
 	        	break;
 	        case PID_rcvacn02:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 39, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 39, 0, 82);
 	        	break;
 	        case PID_rcvacn03:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 40, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 40, 0, 82);
 	        	break;
 	        case PID_rcvacn04:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 41, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 41, 0, 82);
 	        	break;
 	        case PID_receiver001:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 42, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 42, 0, 82);
 	        	break;
 	        case PID_receiver011:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 43, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 43, 0, 82);
 	        	break;
 	        case PID_receiver012:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 44, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 44, 0, 82);
 	        	break;
 	        case PID_receiver013:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 45, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 45, 0, 82);
 	        	break;
 	        case PID_receiver014:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 46, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 46, 0, 82);
 	        	break;
 	        case PID_receiver015:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 47, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 47, 0, 82);
 	        	break;
 	        case PID_receiver016:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 48, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 48, 0, 82);
 	        	break;
 	        case PID_receiver017:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 49, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 49, 0, 82);
 	        	break;
 	        case PID_receiver018:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 50, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 50, 0, 82);
 	        	break;
 	        case PID_receiver019:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 51, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 51, 0, 82);
 	        	break;
 	        case PID_receiver020:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 52, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 52, 0, 82);
 	        	break;
 	        case PID_samrh71core00h:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 53, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 53, 0, 82);
 	        	break;
 	        case PID_sendacn:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 54, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 54, 0, 82);
 	        	break;
 	        case PID_sender001:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 55, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 55, 0, 82);
 	        	break;
 	        case PID_sender002:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 56, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 56, 0, 82);
 	        	break;
 	        case PID_sender003:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 57, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 57, 0, 82);
 	        	break;
 	        case PID_sender004:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 58, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 58, 0, 82);
 	        	break;
 	        case PID_sender005:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 59, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 59, 0, 82);
 	        	break;
 	        case PID_sender006:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 60, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 60, 0, 82);
 	        	break;
 	        case PID_sender007:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 61, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 61, 0, 82);
 	        	break;
 	        case PID_sender008:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 62, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 62, 0, 82);
 	        	break;
 	        case PID_sender009:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 63, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 63, 0, 82);
 	        	break;
 	        case PID_sender010:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 64, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 64, 0, 82);
 	        	break;
 	        case PID_sender011:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 65, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 65, 0, 82);
 	        	break;
 	        case PID_testcyclic05:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 66, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 66, 0, 82);
 	        	break;
 	        case PID_testmodules:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 67, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 67, 0, 82);
 	        	break;
 	        case PID_testprotected:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 68, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 68, 0, 82);
 	        	break;
 	        case PID_testsdl08:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 69, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 69, 0, 82);
 	        	break;
 	        case PID_testsdl14:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 70, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 70, 0, 82);
 	        	break;
 	        case PID_testspcc:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 71, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 71, 0, 82);
 	        	break;
 	        case PID_testsendcomms09:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 72, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 72, 0, 82);
 	        	break;
 	        case PID_teststart00:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 73, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 73, 0, 82);
 	        	break;
 	        case PID_testunprot00:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 74, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 74, 0, 82);
 	        	break;
 	        case PID_testunprotin05:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 75, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 75, 0, 82);
 	        	break;
 	        case PID_testunprotout05:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 76, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 76, 0, 82);
 	        	break;
 	        case PID_testunprotected:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 77, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 77, 0, 82);
 	        	break;
 	        case PID_threads00e:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 78, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 78, 0, 82);
+	        	break;
+	        case PID_uartotherend:
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 79, 0, 82);
 	        	break;
 	        case PID_partition_1_timer_manager:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 79, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 80, 0, 82);
 	        	break;
 	        case PID_rcvacn05:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 80, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 81, 0, 82);
 	        	break;
 	        case PID_env:
-	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 81, 0, 81);
+	            BitStream_EncodeConstraintWholeNumber(pBitStrm, 82, 0, 82);
 	        	break;
 	        default:                    /*COVERAGE_IGNORE*/
 	    	    *pErrCode = ERR_UPER_ENCODE_PID; /*COVERAGE_IGNORE*/
@@ -1232,7 +1235,7 @@ flag asn1SccPID_Decode(asn1SccPID* pVal, BitStream* pBitStrm, int* pErrCode)
 
 	{
 	    asn1SccSint enumIndex;
-	    ret = BitStream_DecodeConstraintWholeNumber(pBitStrm, &enumIndex, 0, 81);
+	    ret = BitStream_DecodeConstraintWholeNumber(pBitStrm, &enumIndex, 0, 82);
 	    *pErrCode = ret ? 0 : ERR_UPER_DECODE_PID;
 	    if (ret) {
 	        switch(enumIndex)
@@ -1475,12 +1478,15 @@ flag asn1SccPID_Decode(asn1SccPID* pVal, BitStream* pBitStrm, int* pErrCode)
 	                (*(pVal)) = PID_threads00e;
 	                break;
 	            case 79:
-	                (*(pVal)) = PID_partition_1_timer_manager;
+	                (*(pVal)) = PID_uartotherend;
 	                break;
 	            case 80:
-	                (*(pVal)) = PID_rcvacn05;
+	                (*(pVal)) = PID_partition_1_timer_manager;
 	                break;
 	            case 81:
+	                (*(pVal)) = PID_rcvacn05;
+	                break;
+	            case 82:
 	                (*(pVal)) = PID_env;
 	                break;
 	            default:                        /*COVERAGE_IGNORE*/
@@ -1741,21 +1747,24 @@ flag asn1SccPID_ACN_Encode(const asn1SccPID* pVal, BitStream* pBitStrm, int* pEr
 	        case PID_threads00e:
 	            intVal_pVal = 78UL;
 	            break;
-	        case PID_partition_1_timer_manager:
+	        case PID_uartotherend:
 	            intVal_pVal = 79UL;
 	            break;
-	        case PID_rcvacn05:
+	        case PID_partition_1_timer_manager:
 	            intVal_pVal = 80UL;
 	            break;
-	        case PID_env:
+	        case PID_rcvacn05:
 	            intVal_pVal = 81UL;
+	            break;
+	        case PID_env:
+	            intVal_pVal = 82UL;
 	            break;
 	        default:                                    /*COVERAGE_IGNORE*/
 	            ret = FALSE;                            /*COVERAGE_IGNORE*/
 	            *pErrCode = ERR_ACN_ENCODE_PID;                 /*COVERAGE_IGNORE*/
 	    }
 	    if (ret) {
-	    	BitStream_EncodeConstraintPosWholeNumber(pBitStrm, intVal_pVal, 0, 81);
+	    	BitStream_EncodeConstraintPosWholeNumber(pBitStrm, intVal_pVal, 0, 82);
 	    }
     } /*COVERAGE_IGNORE*/
 
@@ -1770,7 +1779,7 @@ flag asn1SccPID_ACN_Decode(asn1SccPID* pVal, BitStream* pBitStrm, int* pErrCode)
 
 	asn1SccUint intVal_pVal;
 
-	ret = BitStream_DecodeConstraintPosWholeNumber(pBitStrm, (&(intVal_pVal)), 0, 81);
+	ret = BitStream_DecodeConstraintPosWholeNumber(pBitStrm, (&(intVal_pVal)), 0, 82);
 	*pErrCode = ret ? 0 : ERR_ACN_DECODE_PID;
 	if (ret) {
 	    switch (intVal_pVal) {
@@ -2012,12 +2021,15 @@ flag asn1SccPID_ACN_Decode(asn1SccPID* pVal, BitStream* pBitStrm, int* pErrCode)
 	            (*(pVal)) = PID_threads00e;
 	            break;
 	        case 79:
-	            (*(pVal)) = PID_partition_1_timer_manager;
+	            (*(pVal)) = PID_uartotherend;
 	            break;
 	        case 80:
-	            (*(pVal)) = PID_rcvacn05;
+	            (*(pVal)) = PID_partition_1_timer_manager;
 	            break;
 	        case 81:
+	            (*(pVal)) = PID_rcvacn05;
+	            break;
+	        case 82:
 	            (*(pVal)) = PID_env;
 	            break;
 	    default:                                    /*COVERAGE_IGNORE*/

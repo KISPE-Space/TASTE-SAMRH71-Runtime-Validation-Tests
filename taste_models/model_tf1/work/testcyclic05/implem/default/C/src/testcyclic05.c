@@ -9,7 +9,7 @@
 */
 #include "testcyclic05.h"
 #include "../../../../test_defines.h"           // Custom include, NOT managed by TASTE
-#include "../../../../../taste-setup/TASTE-SAMX-RTEMS-Runtime/src/Hal/Hal.h"
+#include "../../../../../tool-inst/include/TASTE-SAMX-RTEMS-Runtime/src/Hal/Hal.h"
 #include <stdint.h>
 #include <stdio.h>
 

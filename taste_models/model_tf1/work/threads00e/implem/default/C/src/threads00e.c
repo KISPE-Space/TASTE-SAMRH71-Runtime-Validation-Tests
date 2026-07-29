@@ -9,7 +9,7 @@
 */
 #include "threads00e.h"
 //#include <stdio.h>
-#include "../../../../../taste-setup/TASTE-SAMX-RTEMS-Runtime/src/ThreadsCommon/ThreadsCommon.h"
+#include "../../../../../tool-inst/include/TASTE-SAMX-RTEMS-Runtime/src/ThreadsCommon/ThreadsCommon.h"
 
 void threads00e_startup(void)
 {

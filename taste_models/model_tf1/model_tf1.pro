@@ -3,6 +3,7 @@ CONFIG -= qt
 CONFIG += generateC
 
 DISTFILES +=  $(HOME)/tool-inst/share/taste-types/taste-types.asn \
+    samrh71.dv.xml \
     samrh71.dv.xml
 DISTFILES += model_tf1.msc
 DISTFILES += interfaceview.xml

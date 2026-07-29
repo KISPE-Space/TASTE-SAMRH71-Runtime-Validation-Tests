@@ -11,10 +11,20 @@ SPACECREATOR?=spacecreator.AppImage
 #
 # NOTE: this can also be done in the Deployment View directly
 
-# RGP added to make the activation log active
-export PARTITION_1_USER_CFLAGS=-DRT_EXEC_LOG_ACTIVE
+#export PARTITION_1_USER_CFLAGS = -DRT_RTOS_NO_INIT
 
-export PARTITION_1USER_CFLAGS = -DRT_RTOS_NO_INIT
+
+# RGP added to make the activation log active
+# ADC added gcov flags
+# Map file can be found in work/node_X/partition_X_obj/
+export PARTITION_1_USER_CFLAGS=--coverage -fprofile-info-section -DRT_EXEC_LOG_ACTIVE
+export PARTITION_1_USER_LDFLAGS=--coverage 
+
+# ADC added custom linker script, for defining .gcov_info section
+CURRENT_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
+export PARTITION_1_USER_LDSCRIPT_DIR=$(CURRENT_DIR)work/linker_script
+export PARTITION_1_USER_LDSCRIPT=$(CURRENT_DIR)work/linker_script/linkcmds.intsram
+
 
 # If you need to reset this Makefile to its original state, run:
 # $ taste reset

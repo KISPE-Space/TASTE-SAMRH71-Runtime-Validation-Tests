@@ -82,4 +82,5 @@ include(testunprotected/testunprotected.pro)
 include(testunprotin05/testunprotin05.pro)
 include(testunprotout05/testunprotout05.pro)
 include(threads00e/threads00e.pro)
+include(uartotherend/uartotherend.pro)
 

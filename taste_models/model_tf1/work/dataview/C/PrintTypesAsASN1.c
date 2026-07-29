@@ -482,12 +482,15 @@ void PrintASN1PID(const char *paramName, const asn1SccPID *pData)
         printf("threads00e");
         break;
     case 79:
-        printf("partition-1-timer-manager");
+        printf("uartotherend");
         break;
     case 80:
-        printf("rcvacn05");
+        printf("partition-1-timer-manager");
         break;
     case 81:
+        printf("rcvacn05");
+        break;
+    case 82:
         printf("env");
         break;
     default:

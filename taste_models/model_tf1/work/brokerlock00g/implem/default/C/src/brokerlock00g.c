@@ -8,8 +8,8 @@
     !! file. The up-to-date signatures can be found in the header file. !!
 */
 #include "brokerlock00g.h"
-#include "../../../../../taste-setup/TASTE-SAMX-RTEMS-Runtime/src/ThreadsCommon/ThreadsCommon.h"
-#include "../../../../../taste-setup/TASTE-SAMX-RTEMS-Runtime/src/BrokerLock/BrokerLock.h"
+#include "../../../../../tool-inst/include/TASTE-SAMX-RTEMS-Runtime/src/ThreadsCommon/ThreadsCommon.h"
+#include "../../../../../tool-inst/include/TASTE-SAMX-RTEMS-Runtime/src/BrokerLock/BrokerLock.h"
 
 
 //#include <stdio.h>

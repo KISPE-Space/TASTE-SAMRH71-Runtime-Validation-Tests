@@ -8,8 +8,8 @@
     !! file. The up-to-date signatures can be found in the header file. !!
 */
 #include "monitoring00a.h"
-#include "../../../../../taste-setup/TASTE-SAMX-RTEMS-Runtime/src/Monitoring00A/Monitoring00A.h"
-#include "../../../../../taste-setup/TASTE-SAMX-RTEMS-Runtime/src/Mocks/interfaces_info.h"
+#include "../../../../../tool-inst/include/TASTE-SAMX-RTEMS-Runtime/src/Monitoring00A/Monitoring00A.h"
+#include "../../../../../tool-inst/include/TASTE-SAMX-RTEMS-Runtime/src/Mocks/interfaces_info.h"
 
 
 

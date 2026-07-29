@@ -9,10 +9,9 @@
 */
 #include "activationlog.h"
 #include "../../../../test_defines.h"           // Custom include, NOT managed by TASTE
-#include "../../../../../taste-setup/TASTE-SAMX-RTEMS-Runtime/src/Monitor/Monitor.h"
-#include "../../../../../taste-setup/TASTE-SAMX-RTEMS-Runtime/src/Mocks/interfaces_info.h"
-#include "../../../../../taste-setup/TASTE-SAMX-RTEMS-Runtime/src/Hal/Hal.h"
-
+#include "../../../../../tool-inst/include/TASTE-SAMX-RTEMS-Runtime/src/Monitor/Monitor.h"
+#include "../../../../../tool-inst/include/TASTE-SAMX-RTEMS-Runtime/src/Mocks/interfaces_info.h"
+#include "../../../../../tool-inst/include/TASTE-SAMX-RTEMS-Runtime/src/Hal/Hal.h"
 
 void activationlog_startup(void)
 {

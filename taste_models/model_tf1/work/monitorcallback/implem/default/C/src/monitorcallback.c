@@ -9,8 +9,8 @@
 */
 
 #include "monitorcallback.h"
-#include "../../../../../taste-setup/TASTE-SAMX-RTEMS-Runtime/src/Monitor/Monitor.h"
-#include "../../../../../taste-setup/TASTE-SAMX-RTEMS-Runtime/src/Mocks/interfaces_info.h"
+#include "../../../../../tool-inst/include/TASTE-SAMX-RTEMS-Runtime/src/Monitor/Monitor.h"
+#include "../../../../../tool-inst/include/TASTE-SAMX-RTEMS-Runtime/src/Mocks/interfaces_info.h"
 #include <stdint.h>
 
 #define maximum_overflowed_queue_data           5

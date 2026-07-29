@@ -8,8 +8,8 @@
     !! file. The up-to-date signatures can be found in the header file. !!
 */
 #include "deathreport00c.h"
-#include "../../../../../taste-setup/TASTE-SAMX-RTEMS-Runtime/src/FaultHandler/DeathReport.h"
-#include "../../../../../taste-setup/TASTE-SAMX-RTEMS-Runtime/src/FaultHandler/DeathReportWriter.h"
+#include "../../../../../tool-inst/include/TASTE-SAMX-RTEMS-Runtime/src/FaultHandler/DeathReport.h"
+#include "../../../../../tool-inst/include/TASTE-SAMX-RTEMS-Runtime/src/FaultHandler/DeathReportWriter.h"
 
 //#include <stdio.h>
 
