@@ -1,0 +1,479 @@
+PACKAGE deploymentview::DV::Node_Linux
+PUBLIC
+
+WITH Taste;
+WITH Deployment;
+WITH TASTE_DV_Properties;
+WITH deploymentview::DV;
+WITH Memory_Properties;
+WITH ARINC653;
+
+PROCESS demo
+END demo;
+
+PROCESS IMPLEMENTATION demo.others
+END demo.others;
+
+END deploymentview::DV::Node_Linux;
+
+PACKAGE deploymentview::DV
+PUBLIC
+
+WITH interfaceview::IV::UartOtherEnd;
+
+WITH interfaceview::IV::TestStart00;
+ 
+WITH interfaceview::IV::TestSPCC06::Function_1;
+
+WITH interfaceview::IV::TestSPCC06::Function_2;
+
+WITH interfaceview::IV::TestSPCC06::Function_4;
+
+WITH interfaceview::IV::TestSPCC06::Function_3;
+
+WITH interfaceview::IV::TestSPCC06::Function_5;
+
+WITH interfaceview::IV::TestSPCC06::Function_6;
+
+WITH interfaceview::IV::TestSPCC06::Function_8;
+
+WITH interfaceview::IV::TestSPCC06::Function_7;
+
+WITH interfaceview::IV::TestSPCC06::Function_9;
+
+WITH interfaceview::IV::TestSPCC06::Function_10;
+
+WITH interfaceview::IV::TestSPCC06::Function_11;
+
+WITH interfaceview::IV::TestSPCC06::Function_12;
+
+WITH interfaceview::IV::TestSPCC06::Function_13;
+
+WITH interfaceview::IV::TestSPCC06::Function_14;
+
+WITH interfaceview::IV::TestSPCC06::Function_15;
+
+WITH interfaceview::IV::TestSPCC06::Function_18;
+
+WITH interfaceview::IV::TestSPCC06::Function_19;
+
+WITH interfaceview::IV::TestSPCC06::Function_17;
+
+WITH interfaceview::IV::TestSPCC06::Function_20;
+
+WITH interfaceview::IV::TestSPCC06::Function_21;
+
+WITH interfaceview::IV::TestSPCC06::Function_22;
+
+WITH interfaceview::IV::TestSPCC06::Function_23;
+
+WITH interfaceview::IV::TestSPCC06::Function_16;
+
+WITH interfaceview::IV::TestSPCC06::TestSPCC;
+
+
+
+WITH ocarina_processors_x86;
+WITH deploymentview::DV::Node_Linux;
+WITH Taste;
+WITH Deployment;
+WITH interfaceview::IV;
+WITH TASTE_DV_Properties;
+
+SYSTEM Node_Linux
+END Node_Linux;
+
+SYSTEM IMPLEMENTATION Node_Linux.others
+SUBCOMPONENTS
+   IV_UartOtherEnd : SYSTEM interfaceview::IV::UartOtherEnd::UartOtherEnd.others {
+      Taste::FunctionName => "UartOtherEnd";
+   };
+
+   IV_TestStart00 : SYSTEM interfaceview::IV::TestStart00::TestStart00.others {
+      Taste::FunctionName => "TestStart00";
+   };
+ 
+   IV_Function_1 : SYSTEM interfaceview::IV::TestSPCC06::Function_1::Function_1.others {
+      Taste::FunctionName => "Function_1";
+   };
+
+   IV_Function_2 : SYSTEM interfaceview::IV::TestSPCC06::Function_2::Function_2.others {
+      Taste::FunctionName => "Function_2";
+   };
+
+   IV_Function_4 : SYSTEM interfaceview::IV::TestSPCC06::Function_4::Function_4.others {
+      Taste::FunctionName => "Function_4";
+   };
+
+   IV_Function_3 : SYSTEM interfaceview::IV::TestSPCC06::Function_3::Function_3.others {
+      Taste::FunctionName => "Function_3";
+   };
+
+   IV_Function_5 : SYSTEM interfaceview::IV::TestSPCC06::Function_5::Function_5.others {
+      Taste::FunctionName => "Function_5";
+   };
+
+   IV_Function_6 : SYSTEM interfaceview::IV::TestSPCC06::Function_6::Function_6.others {
+      Taste::FunctionName => "Function_6";
+   };
+
+   IV_Function_8 : SYSTEM interfaceview::IV::TestSPCC06::Function_8::Function_8.others {
+      Taste::FunctionName => "Function_8";
+   };
+
+   IV_Function_7 : SYSTEM interfaceview::IV::TestSPCC06::Function_7::Function_7.others {
+      Taste::FunctionName => "Function_7";
+   };
+
+   IV_Function_9 : SYSTEM interfaceview::IV::TestSPCC06::Function_9::Function_9.others {
+      Taste::FunctionName => "Function_9";
+   };
+
+   IV_Function_10 : SYSTEM interfaceview::IV::TestSPCC06::Function_10::Function_10.others {
+      Taste::FunctionName => "Function_10";
+   };
+
+   IV_Function_11 : SYSTEM interfaceview::IV::TestSPCC06::Function_11::Function_11.others {
+      Taste::FunctionName => "Function_11";
+   };
+
+   IV_Function_12 : SYSTEM interfaceview::IV::TestSPCC06::Function_12::Function_12.others {
+      Taste::FunctionName => "Function_12";
+   };
+
+   IV_Function_13 : SYSTEM interfaceview::IV::TestSPCC06::Function_13::Function_13.others {
+      Taste::FunctionName => "Function_13";
+   };
+
+   IV_Function_14 : SYSTEM interfaceview::IV::TestSPCC06::Function_14::Function_14.others {
+      Taste::FunctionName => "Function_14";
+   };
+
+   IV_Function_15 : SYSTEM interfaceview::IV::TestSPCC06::Function_15::Function_15.others {
+      Taste::FunctionName => "Function_15";
+   };
+
+   IV_Function_18 : SYSTEM interfaceview::IV::TestSPCC06::Function_18::Function_18.others {
+      Taste::FunctionName => "Function_18";
+   };
+
+   IV_Function_19 : SYSTEM interfaceview::IV::TestSPCC06::Function_19::Function_19.others {
+      Taste::FunctionName => "Function_19";
+   };
+
+   IV_Function_17 : SYSTEM interfaceview::IV::TestSPCC06::Function_17::Function_17.others {
+      Taste::FunctionName => "Function_17";
+   };
+
+   IV_Function_20 : SYSTEM interfaceview::IV::TestSPCC06::Function_20::Function_20.others {
+      Taste::FunctionName => "Function_20";
+   };
+
+   IV_Function_21 : SYSTEM interfaceview::IV::TestSPCC06::Function_21::Function_21.others {
+      Taste::FunctionName => "Function_21";
+   };
+
+   IV_Function_22 : SYSTEM interfaceview::IV::TestSPCC06::Function_22::Function_22.others {
+      Taste::FunctionName => "Function_22";
+   };
+
+   IV_Function_23 : SYSTEM interfaceview::IV::TestSPCC06::Function_23::Function_23.others {
+      Taste::FunctionName => "Function_23";
+   };
+
+   IV_Function_16 : SYSTEM interfaceview::IV::TestSPCC06::Function_16::Function_16.others {
+      Taste::FunctionName => "Function_16";
+   };
+
+   IV_TestSPCC : SYSTEM interfaceview::IV::TestSPCC06::TestSPCC::TestSPCC.others {
+      Taste::FunctionName => "TestSPCC";
+   };
+
+
+   demo : PROCESS deploymentview::DV::Node_Linux::demo.others {
+      Deployment::Port_Number => 0;
+      TASTE_DV_Properties::CoverageEnabled => false;
+      TASTE::CFlags => "-no-pie";
+      TASTE::LDFlags => "-no-pie";
+   };
+   x86_linux : PROCESSOR ocarina_processors_x86::x86.generic_linux;
+PROPERTIES
+   
+   Taste::APLC_Binding => (reference (demo)) APPLIES TO IV_UartOtherEnd;
+   
+   
+   
+   
+   
+   
+   
+
+   
+   Taste::APLC_Binding => (reference (demo)) APPLIES TO IV_TestStart00;
+   
+   
+   
+   
+   
+   
+   
+ 
+   
+   Taste::APLC_Binding => (reference (demo)) APPLIES TO IV_Function_1;
+   
+   
+   
+   
+   
+   
+   
+
+   
+   Taste::APLC_Binding => (reference (demo)) APPLIES TO IV_Function_2;
+   
+   
+   
+   
+   
+   
+   
+
+   
+   Taste::APLC_Binding => (reference (demo)) APPLIES TO IV_Function_4;
+   
+   
+   
+   
+   
+   
+   
+
+   
+   Taste::APLC_Binding => (reference (demo)) APPLIES TO IV_Function_3;
+   
+   
+   
+   
+   
+   
+   
+
+   
+   Taste::APLC_Binding => (reference (demo)) APPLIES TO IV_Function_5;
+   
+   
+   
+   
+   
+   
+   
+
+   
+   Taste::APLC_Binding => (reference (demo)) APPLIES TO IV_Function_6;
+   
+   
+   
+   
+   
+   
+   
+
+   
+   Taste::APLC_Binding => (reference (demo)) APPLIES TO IV_Function_8;
+   
+   
+   
+   
+   
+   
+   
+
+   
+   Taste::APLC_Binding => (reference (demo)) APPLIES TO IV_Function_7;
+   
+   
+   
+   
+   
+   
+   
+
+   
+   Taste::APLC_Binding => (reference (demo)) APPLIES TO IV_Function_9;
+   
+   
+   
+   
+   
+   
+   
+
+   
+   Taste::APLC_Binding => (reference (demo)) APPLIES TO IV_Function_10;
+   
+   
+   
+   
+   
+   
+   
+
+   
+   Taste::APLC_Binding => (reference (demo)) APPLIES TO IV_Function_11;
+   
+   
+   
+   
+   
+   
+   
+
+   
+   Taste::APLC_Binding => (reference (demo)) APPLIES TO IV_Function_12;
+   
+   
+   
+   
+   
+   
+   
+
+   
+   Taste::APLC_Binding => (reference (demo)) APPLIES TO IV_Function_13;
+   
+   
+   
+   
+   
+   
+   
+
+   
+   Taste::APLC_Binding => (reference (demo)) APPLIES TO IV_Function_14;
+   
+   
+   
+   
+   
+   
+   
+
+   
+   Taste::APLC_Binding => (reference (demo)) APPLIES TO IV_Function_15;
+   
+   
+   
+   
+   
+   
+   
+
+   
+   Taste::APLC_Binding => (reference (demo)) APPLIES TO IV_Function_18;
+   
+   
+   
+   
+   
+   
+   
+
+   
+   Taste::APLC_Binding => (reference (demo)) APPLIES TO IV_Function_19;
+   
+   
+   
+   
+   
+   
+   
+
+   
+   Taste::APLC_Binding => (reference (demo)) APPLIES TO IV_Function_17;
+   
+   
+   
+   
+   
+   
+   
+
+   
+   Taste::APLC_Binding => (reference (demo)) APPLIES TO IV_Function_20;
+   
+   
+   
+   
+   
+   
+   
+
+   
+   Taste::APLC_Binding => (reference (demo)) APPLIES TO IV_Function_21;
+   
+   
+   
+   
+   
+   
+   
+
+   
+   Taste::APLC_Binding => (reference (demo)) APPLIES TO IV_Function_22;
+   
+   
+   
+   
+   
+   
+   
+
+   
+   Taste::APLC_Binding => (reference (demo)) APPLIES TO IV_Function_23;
+   
+   
+   
+   
+   
+   
+   
+
+   
+   Taste::APLC_Binding => (reference (demo)) APPLIES TO IV_Function_16;
+   
+   
+   
+   
+   
+   
+   
+
+   
+   Taste::APLC_Binding => (reference (demo)) APPLIES TO IV_TestSPCC;
+   
+   
+   
+   
+   
+   
+   
+
+
+   Actual_Processor_Binding => (reference (x86_linux)) APPLIES TO demo;
+END Node_Linux.others;
+
+SYSTEM deploymentview
+END deploymentview;
+
+SYSTEM IMPLEMENTATION deploymentview.others
+SUBCOMPONENTS
+  Node_Linux : SYSTEM Node_Linux.others;
+  interfaceview : SYSTEM interfaceview::IV::interfaceview.others;
+END deploymentview.others;
+
+PROPERTIES
+  Taste::coordinates => "0 0 297000 210000";
+  Taste::version => "3.0";
+  Taste::interfaceView => "InterfaceView.aadl";
+  Taste::HWLibraries => ("ocarina_components.aadl");
+END deploymentview::DV;
