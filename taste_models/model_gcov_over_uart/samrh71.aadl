@@ -10,7 +10,6 @@ public
  with TASTE;
  with TASTE_DV_Properties;
 
-    with ocarina_drivers; 
     with ocarina_buses; 
     with ocarina_drivers; 
     with ocarina_buses; 
@@ -28,6 +27,7 @@ public
     with ocarina_buses; 
     with ocarina_drivers; 
     with ocarina_buses; 
+    with ocarina_drivers; 
 
  --  Declare partition(s) of node "Node_1" (aka "SAM RH71 RTEMS N7S_1").
  process Partition_1
@@ -159,7 +159,6 @@ public
  with TASTE;
  with TASTE_DV_Properties;
 
-    with ocarina_drivers; 
     with ocarina_buses; 
     with ocarina_drivers; 
     with ocarina_buses; 
@@ -177,6 +176,7 @@ public
     with ocarina_buses; 
     with ocarina_drivers; 
     with ocarina_buses; 
+    with ocarina_drivers; 
 
  --  Declare partition(s) of node "Node_2" (aka "SAM RH71 RTEMS N7S_2").
  process Partition_2
@@ -349,7 +349,7 @@ public
     };
     Partition_1 : process deploymentview::DV::Node_1::Partition_1.others { 
        TASTE_DV_Properties::CoverageEnabled => false;
-       TASTE::ExternalLibs => "/home/taste/work/common/";
+       TASTE::ExternalLibs => "../../../../tf_common/";
     };
     p1 : processor ocarina_processors_arm::samrh71.rtems;
     spw0 : device deploymentview::DV::Node_1::spw0.others;

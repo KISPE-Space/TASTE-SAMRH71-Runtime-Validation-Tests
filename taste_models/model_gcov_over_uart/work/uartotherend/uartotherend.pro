@@ -1,4 +1,3 @@
-SOURCES += work/uartotherend/SDL/src/uartotherend.pr
-SOURCES += work/uartotherend/SDL/code/uartotherend.adb
-SOURCES += work/uartotherend/SDL/code/uartotherend.ads
+SOURCES += work/uartotherend/C/src/uartotherend.c
+HEADERS += work/uartotherend/C/src/uartotherend.h
 
