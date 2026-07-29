@@ -5,7 +5,7 @@
 /*
  * Private attributes
  */
-static void (*pMainByteTransmitterFunction)(const unsigned long*);
+static void (*pMainByteTransmitterFunction)(const unsigned int*);
 
 
 /* Functions ------------------------------------ */
@@ -14,7 +14,7 @@ static void (*pMainByteTransmitterFunction)(const unsigned long*);
 /*
  * Refer to header for function usage docs
  */
-void register_uart_byte_transmitter_function(void (*pByteTransmitterFunction)(const unsigned long*))
+void register_uart_byte_transmitter_function(void (*pByteTransmitterFunction)(const unsigned int*))
 {
     pMainByteTransmitterFunction = pByteTransmitterFunction;
 }

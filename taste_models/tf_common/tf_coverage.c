@@ -1,7 +1,7 @@
 #include <gcov.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include "tf_uart_comms.h"
 
 
 extern const struct gcov_info *__gcov_info_start[];
@@ -16,13 +16,8 @@ extern const struct gcov_info *__gcov_info_end[];
 static void coverage_byte_to_hex(unsigned char c, char buf[3])
 {
     static const char hex[] = "0123456789abcdef";
-    if (c > 255) {
-        buf[0] = '_';
-        buf[1] = '_';
-    } else {
-        buf[0] = hex[(c >> 4) & 0x0F];  // high nibble
-        buf[1] = hex[c & 0x0F];         // low nibble
-    }
+    buf[0] = hex[(c >> 4) & 0x0F];  // high nibble
+    buf[1] = hex[c & 0x0F];         // low nibble
 }
 
 
@@ -56,7 +51,7 @@ static void coverage_transmit_filename (const char *f, void *arg)
     if (leaf_name) {
         leaf_name++;      // move past the '/'
     } else {
-        leaf_name = f; // no '/' found
+        leaf_name = (char*)f; // no '/' found
     }
 
     // Transmit this filename on its own row

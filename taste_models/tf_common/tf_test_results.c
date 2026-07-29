@@ -1,3 +1,6 @@
+#include <stdio.h>
+#include <string.h>
+#include "tf_uart_comms.h"
 #include "tf_test_results.h"
 
 #define TEST_RESULT_BUFFER_SIZE 200
@@ -15,7 +18,7 @@ void testresult_report_result(char* pTestId, int iPassOrFail, char* pFailReason)
     // If fail reason longer than 170 bytes, replace end with an ellipsis
     if (strlen(pFailReason) > MAX_LENGTH_FAIL_REASON) {
         sprintf(pFailReason + MAX_LENGTH_FAIL_REASON - 4, "%s", "...");
-        pFailReason[MAX_LENGTH_FAIL_REASON] = NULL;
+        pFailReason[MAX_LENGTH_FAIL_REASON] = 0;
     }
 
     // Compose the line
@@ -34,7 +37,7 @@ void testresult_report_result(char* pTestId, int iPassOrFail, char* pFailReason)
  */
 void testresult_report_pass(char* pTestId)
 {
-    return testresult_report_result(pTestId, TEST_PASS, NULL);
+    return testresult_report_result(pTestId, TEST_PASS, 0);
 }
 
 /*

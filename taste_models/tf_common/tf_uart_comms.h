@@ -13,7 +13,7 @@
  * Usage example:
  *  register_uart_byte_transmitter_function(teststart00_RI_samrh71tx);
  */
-void register_uart_byte_transmitter_function(void (*pByteTransmitterFunction)(const unsigned long*));
+void register_uart_byte_transmitter_function(void (*pByteTransmitterFunction)(const unsigned int*));
 
 /*
  * Transmits a sequence of bytes over the UART channel, using the previously registered function for sending a single byte.
