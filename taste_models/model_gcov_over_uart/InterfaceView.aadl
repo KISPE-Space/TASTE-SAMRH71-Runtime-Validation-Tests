@@ -31,11 +31,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
-      Taste::RCMperiod               => 0 ms;      
-      Taste::Interface_Priority      => 1;      
+      Compute_Execution_Time => 0 ms .. 0 ms;      
       Taste::Associated_Queue_Size   => 1;      
       Taste::Interface_Stack_Size    => 50;      
-      Compute_Execution_Time => 0 ms .. 0 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::RCMperiod               => 0 ms;      
    };
 PROPERTIES
    -- ignored property: name = TestEntryPoint
@@ -45,8 +45,8 @@ PROPERTIES
    -- ignored property: fixed_system_element = NO
    -- ignored property: required_system_element = NO
    Taste::Startup_Priority => 1;
-   Taste::Instances_Max => 1;
    Taste::Instances_Min => 1;
+   Taste::Instances_Max => 1;
    TASTE_IV_Properties::Default_Codegen => Ada;
 
 END TestEntryPoint;
@@ -113,11 +113,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
-      Taste::Interface_Cyclic_Offset => 0;      
-      Taste::Interface_Priority      => 1;      
-      Taste::Interface_Stack_Size    => 1024;      
-      Taste::RCMperiod               => 4000 ms;      
       Compute_Execution_Time => 0 ms .. 0 ms;      
+      Taste::RCMperiod               => 4000 ms;      
+      Taste::Interface_Cyclic_Offset => 0;      
+      Taste::Interface_Stack_Size    => 1024;      
+      Taste::Interface_Priority      => 1;      
    };
    PI_samrh71rx : PROVIDES SUBPROGRAM ACCESS interfaceview::IV:: TestStart00:: PI_samrh71rx.others {
       Taste::InterfaceName           => "samrh71rx";            
@@ -126,11 +126,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
-      Taste::RCMperiod               => 100 ms;      
-      Taste::Interface_Priority      => 1;      
+      Compute_Execution_Time => 50 ms .. 50 ms;      
       Taste::Associated_Queue_Size   => 5;      
       Taste::Interface_Stack_Size    => 1024;      
-      Compute_Execution_Time => 50 ms .. 50 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::RCMperiod               => 100 ms;      
    };
    RI_pi_sp_if : REQUIRES SUBPROGRAM ACCESS interfaceview::IV:: TestEntryPoint:: PI_pi_sp_if.others {
       Taste::labelInheritance        => "true";
@@ -140,11 +140,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
-      Taste::RCMperiod               => 0 ms;      
-      Taste::Interface_Priority      => 1;      
+      Compute_Execution_Time => 0 ms .. 0 ms;      
       Taste::Associated_Queue_Size   => 1;      
       Taste::Interface_Stack_Size    => 50;      
-      Compute_Execution_Time => 0 ms .. 0 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::RCMperiod               => 0 ms;      
    };
    RI_samrh71tx : REQUIRES SUBPROGRAM ACCESS interfaceview::IV:: UartOtherEnd:: PI_samrh71tx.others {
       Taste::labelInheritance        => "true";
@@ -154,11 +154,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
-      Taste::RCMperiod               => 100 ms;      
-      Taste::Interface_Priority      => 1;      
+      Compute_Execution_Time => 50 ms .. 50 ms;      
       Taste::Associated_Queue_Size   => 5;      
       Taste::Interface_Stack_Size    => 1024;      
-      Compute_Execution_Time => 50 ms .. 50 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::RCMperiod               => 100 ms;      
    };
 PROPERTIES
    -- ignored property: name = TestStart00
@@ -168,8 +168,8 @@ PROPERTIES
    -- ignored property: fixed_system_element = NO
    -- ignored property: required_system_element = NO
    Taste::Startup_Priority => 1;
-   Taste::Instances_Max => 1;
    Taste::Instances_Min => 1;
+   Taste::Instances_Max => 1;
    TASTE_IV_Properties::Default_Codegen => C;
 
 END TestStart00;
@@ -221,11 +221,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
-      Taste::RCMperiod               => 100 ms;      
-      Taste::Interface_Priority      => 1;      
+      Compute_Execution_Time => 50 ms .. 50 ms;      
       Taste::Associated_Queue_Size   => 5;      
       Taste::Interface_Stack_Size    => 1024;      
-      Compute_Execution_Time => 50 ms .. 50 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::RCMperiod               => 100 ms;      
    };
    RI_samrh71rx : REQUIRES SUBPROGRAM ACCESS interfaceview::IV:: TestStart00:: PI_samrh71rx.others {
       Taste::labelInheritance        => "true";
@@ -235,11 +235,11 @@ FEATURES
       Taste::Communication_Layer     => "default";      
       -- Unrecognized property: required_system_element => NO      
       -- Unrecognized property: is_simulink_interface => false      
-      Taste::RCMperiod               => 100 ms;      
-      Taste::Interface_Priority      => 1;      
+      Compute_Execution_Time => 50 ms .. 50 ms;      
       Taste::Associated_Queue_Size   => 5;      
       Taste::Interface_Stack_Size    => 1024;      
-      Compute_Execution_Time => 50 ms .. 50 ms;      
+      Taste::Interface_Priority      => 1;      
+      Taste::RCMperiod               => 100 ms;      
    };
 PROPERTIES
    -- ignored property: name = UartOtherEnd
@@ -249,8 +249,8 @@ PROPERTIES
    -- ignored property: fixed_system_element = NO
    -- ignored property: required_system_element = NO
    Taste::Startup_Priority => 1;
-   Taste::Instances_Max => 1;
    Taste::Instances_Min => 1;
+   Taste::Instances_Max => 1;
    TASTE_IV_Properties::Default_Codegen => Ada;
 
 END UartOtherEnd;
@@ -284,8 +284,8 @@ SUBCOMPONENTS
   UartOtherEnd : SYSTEM interfaceview::IV::UartOtherEnd::UartOtherEnd.others;
 CONNECTIONS
    UartOtherEnd_RI_samrh71rx_TestStart00_PI_samrh71rx : SUBPROGRAM ACCESS TestStart00.PI_samrh71rx -> UartOtherEnd.RI_samrh71rx;
-   TestStart00_RI_pi_sp_if_TestEntryPoint_PI_pi_sp_if : SUBPROGRAM ACCESS TestEntryPoint.PI_pi_sp_if -> TestStart00.RI_pi_sp_if;
    TestStart00_RI_samrh71tx_UartOtherEnd_PI_samrh71tx : SUBPROGRAM ACCESS UartOtherEnd.PI_samrh71tx -> TestStart00.RI_samrh71tx;
+   TestStart00_RI_pi_sp_if_TestEntryPoint_PI_pi_sp_if : SUBPROGRAM ACCESS TestEntryPoint.PI_pi_sp_if -> TestStart00.RI_pi_sp_if;
 END interfaceview.others;
 
 PROPERTIES

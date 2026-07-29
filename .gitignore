@@ -4,6 +4,7 @@ taste_models/*/work/build
 taste_models/*/work/binaries
 taste_models/*/work/Debug
 taste_models/*/work/Dump
+**/wrapppers/
 
 # Qt Creator clangd cache directories
 .qtc_clangd/
