@@ -6,8 +6,14 @@ taste_models/*/work/Debug
 taste_models/*/work/Dump
 **/wrapppers/
 
+# Aadl files
+**/*.aadl
+
+# Msc files
+**/*.msc
+
 # Qt Creator clangd cache directories
-.qtc_clangd/
+**/.qtc_clangd/
 
 # VSCode configuration files
 .vscode/settings.json
