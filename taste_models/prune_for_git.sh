@@ -58,6 +58,11 @@ find work -name "*.h" | xargs rm -f
 # Remove the dataview folder too
 find work -name 'dataview' -type d | xargs rm -rf
 
+# Also remove any nested .git folders. These are not required for our test framework - we use a simple git structure
+find . -name '.git' | xargs rm -rf
 
+# Change permissions on top level folder to 755
+chmod 755 .
 
-
+# Also ensure user and group is taste
+sudo chown taste:taste .
