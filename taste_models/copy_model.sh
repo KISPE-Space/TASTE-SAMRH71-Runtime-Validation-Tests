@@ -50,5 +50,24 @@ grep -rl --binary-files=without-match -- "$SRC_DIR" "$DST_DIR" | while read -r f
 	echo "Updated file $file"
 done
 
- 
+echo "Checking for legacy name in asn, acn, files etc..."
+shopt -s nullglob
+
+asn_files=( "$DST_DIR"/*.asn )
+if [[ ${#asn_files[@]} -eq 1 ]]; then
+    mv -- "${asn_files[0]}" "$DST_DIR/$DST_DIR.asn"
+elif [[ ${#asn_files[@]} -gt 1 ]]; then
+    echo "WARNING: Multiple .asn files found in '$DST_DIR', not renaming" >&2
+fi
+
+acn_files=( "$DST_DIR"/*.acn )
+if [[ ${#acn_files[@]} -eq 1 ]]; then
+    mv -- "${acn_files[0]}" "$DST_DIR/$DST_DIR.acn"
+elif [[ ${#acn_files[@]} -gt 1 ]]; then
+    echo "WARNING: Multiple .acn files found in '$DST_DIR', not renaming" >&2
+fi
+
+echo ""
+ls -l $DST_DIR
+echo ""
 echo "Done."
