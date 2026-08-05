@@ -67,6 +67,21 @@ elif [[ ${#acn_files[@]} -gt 1 ]]; then
     echo "WARNING: Multiple .acn files found in '$DST_DIR', not renaming" >&2
 fi
 
+# The QtCreater project file needs to exist, and have a good name
+pro_files=( "$DST_DIR"/*.pro )
+if [[ ${#pro_files[@]} -eq 1 ]]; then
+    mv -- "${pro_files[0]}" "$DST_DIR/$DST_DIR.pro"
+elif [[ ${#pro_files[@]} -gt 1 ]]; then
+    echo "WARNING: Multiple .pro files found in '$DST_DIR', not renaming" >&2
+fi
+
+# We can remove any pro.user* files. QtCreator creates these but they do not seem to prevent the project running correctly if not present
+rm -rf "$DST_DIR/*.pro.user*"
+
+# Change ownership of all files and folders to taste:taste
+sudo chown -R taste:taste $DST_DIR
+
+
 echo ""
 ls -l $DST_DIR
 echo ""
