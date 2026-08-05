@@ -38,7 +38,10 @@ rm -rf "$DST_DIR/work/build"
 rm -rf "$DST_DIR/work/Debug"
 rm -rf "$DST_DIR/work/Dump" 
 rm -f "$DST_DIR/work/glue_*"
+rm -rf "$DST_DIR/work/dataview"
 
+echo "Removing nested .git folders"
+find $DST_DIR -name .git | xargs rm -rf
 
 echo "Renaming top-level files containing '$SRC_DIR'..."
 
