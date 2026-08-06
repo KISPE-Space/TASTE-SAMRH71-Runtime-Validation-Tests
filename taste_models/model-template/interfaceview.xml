@@ -1,7 +1,7 @@
 <InterfaceView version="1.3" asn1file="model-template.acn" UiFile="interfaceview.ui.xml" modifierHash="383508e">
-<Function id="{8b46655a-54b4-4b84-a0c2-a90a2e43b5af}" name="Example_Test_Function" is_type="NO" language="C" default_implementation="default" fixed_system_element="NO" required_system_element="NO" instances_max="1" startup_priority="1" instances_min="1">
+<Function id="{8b46655a-54b4-4b84-a0c2-a90a2e43b5af}" name="Example_Test_Function" is_type="NO" language="C" default_implementation="default" fixed_system_element="NO" required_system_element="NO" instances_min="1" instances_max="1" startup_priority="1">
     <Property name="TASTE_IV_Properties::Default_Codegen" value="Ada"/>
-<Provided_Interface id="{cf6c7d83-2f68-4b09-b965-9f360023ca12}" name="trigger" kind="Cyclic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" priority="1" stack_size="1024" period="500" dispatch_offset="0" wcet="0">
+<Provided_Interface id="{cf6c7d83-2f68-4b09-b965-9f360023ca12}" name="trigger" kind="Cyclic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" wcet="0" period="500" dispatch_offset="0" stack_size="1024" priority="1">
 </Provided_Interface>
 
     <Implementations>
@@ -9,9 +9,9 @@
     </Implementations>
 </Function>
 
-<Function id="{06835382-d842-4d1d-9020-f269b7b26cad}" name="UartOtherEnd" is_type="NO" language="C" default_implementation="default" fixed_system_element="NO" required_system_element="NO" instances_max="1" startup_priority="1" instances_min="1">
+<Function id="{06835382-d842-4d1d-9020-f269b7b26cad}" name="UartOtherEnd" is_type="NO" language="C" default_implementation="default" fixed_system_element="NO" required_system_element="NO" instances_min="1" instances_max="1" startup_priority="1">
     <Property name="TASTE_IV_Properties::Default_Codegen" value="Ada"/>
-<Provided_Interface id="{fd6fe3d3-2614-4f82-90a3-5adfb8c6932d}" name="samrh71tx" kind="Sporadic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" priority="1" stack_size="1024" wcet="0" queue_size="1" miat="0">
+<Provided_Interface id="{fd6fe3d3-2614-4f82-90a3-5adfb8c6932d}" name="samrh71tx" kind="Sporadic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" wcet="0" stack_size="1024" priority="1" queue_size="1" miat="0">
     <Input_Parameter name="iS71OutValue" type="T-UInt8" encoding="ACN"/>
 </Provided_Interface>
 
@@ -20,12 +20,12 @@
     </Implementations>
 </Function>
 
-<Function id="{2f2da4d9-d1ae-45bb-a1be-c0c2f4e48e18}" name="TF_Reporter" is_type="NO" language="C" default_implementation="default" fixed_system_element="NO" required_system_element="NO" instances_max="1" startup_priority="1" instances_min="1">
+<Function id="{2f2da4d9-d1ae-45bb-a1be-c0c2f4e48e18}" name="TF_Reporter" is_type="NO" language="C" default_implementation="default" fixed_system_element="NO" required_system_element="NO" instances_min="1" instances_max="1" startup_priority="1">
     <Property name="TASTE_IV_Properties::Default_Codegen" value="Ada"/>
-<Provided_Interface id="{1eb8f2dc-ac89-44cb-b14d-fd1f57872805}" name="PeriodicStarter" kind="Cyclic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" priority="1" stack_size="1024" period="1000" dispatch_offset="0" wcet="0">
+<Provided_Interface id="{1eb8f2dc-ac89-44cb-b14d-fd1f57872805}" name="PeriodicStarter" kind="Cyclic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" wcet="0" period="1000" dispatch_offset="0" stack_size="1024" priority="1">
 </Provided_Interface>
 
-<Required_Interface id="{ae297154-0269-4f52-9928-42f655032978}" name="samrh71tx" kind="Sporadic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" priority="1" stack_size="1024" wcet="0" queue_size="1" miat="0">
+<Required_Interface id="{ae297154-0269-4f52-9928-42f655032978}" name="samrh71tx" kind="Sporadic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" wcet="0" stack_size="1024" priority="1" queue_size="1" miat="0">
     <Input_Parameter name="iS71OutValue" type="T-UInt8" encoding="ACN"/>
     <Property name="Taste::InheritPI" value="true"/>
     <Property name="Taste::Autonamed" value="true"/>
@@ -40,9 +40,6 @@
     <Source iface_id="{ae297154-0269-4f52-9928-42f655032978}" func_name="TF_Reporter" ri_name="samrh71tx" />
     <Target iface_id="{fd6fe3d3-2614-4f82-90a3-5adfb8c6932d}" func_name="UartOtherEnd" pi_name="samrh71tx" />
 </Connection>
-
-<Comment id="{93aa89c6-73a6-4977-91b1-88974887a451}" name="This is a model-template for copy-and-pasting the core elements required for UART comms in every model that runs in the KISPE-created runtime test environment.\n\nThis model-template model provides an example of how a model hooks into the tf_common library to send log output, register tests, and submit test results. The underlying test-reporter lib will only transmit coverage data over the UART once all registered tests have submitted a test result.\n\n1. The above two TASTE Functions should be copied and pasted into the new model. Their interface nodes should then be connected with a line.\n\n2. The new model&#39;s samrh71 Deployment View should be created as follows:\n- Two instances of SAM RH71 RTEMS N7S, ideally positioned side by side for consistency (Partition_2 on the right).\n- The &quot;uart1&quot; node on both instances connected together\n- Partition_2 should be bound to the TASTE Function &quot;UartOtherEnd&quot; only\n- Partition_1 should be bound to all other TASTE Functions in the model\n- In the Partition_1 Properties dialog in the Attributes tab set Extra libs to: &quot;../../../../tf_common/&quot;\n- In the Properties dialog for the uart-connecting line, in Message Bindings tick the &quot;TF_Reporter.samrh71tx&lt;-&gt;UartOtherEnd.samrh71.tx&quot; entry\n- In the Properties dailog for each samrh71&#39;s uart1 node set the Config to: &quot;devname  uart1, speed  b115200, parity  even, transmit-mode  raw-single-byte&quot;\n- In the Properties dailog for each samrh71&#39;s uart1 node set the Packetizer to &quot;passthrough&quot;\n\n3. Copy the following lines from this templates Makefile into that of the new model:\n- PARTITION_1_USER_CFLAGS\n- PARTITION_1_USER_LDFLAGS\n- PARTITION_1_USER_LDSCRIPT_DIR\n- PARTITION_1_USER_LDSCRIPT\n\nNOTE: If the new model needs its own custom linker script you can create one locally in the model but MUST include the &quot;.gcov_info&quot; section in the model&#39;s custom liner script.\n" required_system_element="NO">
-</Comment>
 
 <Layer name="default" is_visible="true"/>
 
