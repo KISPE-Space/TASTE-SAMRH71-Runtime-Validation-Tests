@@ -69,7 +69,7 @@ typedef enum {
 
 /*** PUBLIC FUNCTIONS -------------------------------------------------------------------------------------------------- */
 
-/**
+/*
  * Registers a test with this object.
  * The TF_Reporter TASTE Function will only transmit coverage data once all test results have been submitted to this
  * object for each registered test.
@@ -80,7 +80,7 @@ typedef enum {
 void testresult_register_test(TF_TestId eTestId);
 
 
-/**
+/*
  * Reports a test PASS over the UART channel.
  * Convenience function for testresult_report_result.
  * 
@@ -93,7 +93,7 @@ void testresult_register_test(TF_TestId eTestId);
 void testresult_report_pass(TF_TestId eTestId);
 
 
-/**
+/*
  * Reports a test FAIL over the UART channel.
  * Convenience function for testresult_report_result.
  * 
@@ -107,7 +107,7 @@ void testresult_report_pass(TF_TestId eTestId);
 void testresult_report_fail(TF_TestId eTestId, char* pFailReason);
 
 
-/**
+/*
  * Sets the timeout for test results. If a test result is not received within this time, the test result object
  * will consider the test to have failed due to timeout and report ist as such.
  * The timeout is specified in milliseconds.
@@ -118,7 +118,7 @@ void testresult_report_fail(TF_TestId eTestId, char* pFailReason);
 void testresult_set_timeout(int iTimeoutMs);
 
 
-/**
+/*
  * Reports the result of a test over the UART channel. The test result is sent as string encoded into a sequence of bytes, 
  * including the test name, the result ("PASS"/"FAIL"), and, for failed tests, the failure reason.
  * 
@@ -135,7 +135,7 @@ void testresult_set_timeout(int iTimeoutMs);
 void testresult_report_result(TF_TestId eTestId, int iPassOrFail, char* pFailReason);
 
 
-/**
+/*
  * Finalises the test results reporting process. This function should be called periodically.
  * It checks if all registered tests have reported their results and, if so, transmits the
  * coverage data over the UART channel. If not all tests have reported results, it does nothing

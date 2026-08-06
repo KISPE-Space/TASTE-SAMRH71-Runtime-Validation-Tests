@@ -88,14 +88,14 @@ static int aTestResultsTransmitted[TF_TEST_ID__COUNT] = { 0 };
 int bFinalisationDone = 0;
 
 
-/**
+/*
  * Private Function declarations
  */
 static int testresult_all_registered_tests_have_results(void);
 static int testresult_get_count_of_registered_tests(void);
 
 
-/**
+/*
  * PUBLIC FUNCTIONS -------------------------------------------------------------------------------------------------
  */
 
@@ -128,7 +128,7 @@ void testresult_register_test(TF_TestId eTestId)
  */
 void testresult_report_result(TF_TestId eTestId, int iPassOrFail, char* pFailReason)
 {
-    char aTestResultLine[TR__TEST_RESULT_BUFFER_SIZE];
+    char aMessageBuff[TR__TEST_RESULT_BUFFER_SIZE];
 
     // Already finalised? Then do not do anything
     if (bFinalisationDone) {
@@ -137,11 +137,24 @@ void testresult_report_result(TF_TestId eTestId, int iPassOrFail, char* pFailRea
 
     // Ensure that the provided test ID is valid
     if (eTestId < TF_TEST_ID__FIRST || eTestId > TF_TEST_ID__LAST) {
-        char error_message[100];
-        sprintf(error_message, "ERROR: Invalid test ID provided (%d). Result not reported\n", eTestId);
-        transmit_bytes_over_uart(error_message);
+        sprintf(aMessageBuff, "ERROR: Invalid test ID provided (%d). Result not reported\n", eTestId);
+        transmit_bytes_over_uart(aMessageBuff);
         return;
     }
+
+    // Not registered? Then ignore this request
+    if (aRegisteredTests[eTestId] == 0) {
+        sprintf(aMessageBuff, "ERROR: Test result provided for unregistered test %s (%d). Ignoring\n", aTestNames[eTestId], eTestId);
+        transmit_bytes_over_uart(aMessageBuff);
+        return;
+    }
+
+    // Test result already provided? Then ignore this request
+    if (aTestResultsTransmitted[eTestId] == 1) {
+        sprintf(aMessageBuff, "ERROR: Test result already provided for test %s (%d). Ignoring\n", aTestNames[eTestId], eTestId);
+        transmit_bytes_over_uart(aMessageBuff);
+        return;
+    }    
 
     // If fail reason longer than 170 bytes, replace end with an ellipsis
     if (strlen(pFailReason) > TR__MAX_LENGTH_FAIL_REASON) {
@@ -151,13 +164,13 @@ void testresult_report_result(TF_TestId eTestId, int iPassOrFail, char* pFailRea
 
     // Compose the line
     if (TEST_PASS == iPassOrFail) {
-        sprintf(aTestResultLine, "TEST_RESULT:%s:PASS:\n", aTestNames[eTestId]);
+        sprintf(aMessageBuff, "TEST_RESULT:%s:PASS:\n", aTestNames[eTestId]);
     } else {
-        sprintf(aTestResultLine, "TEST_RESULT:%s:FAIL:%s\n", aTestNames[eTestId], pFailReason);
+        sprintf(aMessageBuff, "TEST_RESULT:%s:FAIL:%s\n", aTestNames[eTestId], pFailReason);
     }
 
     // Transmit the line
-    transmit_bytes_over_uart(aTestResultLine);
+    transmit_bytes_over_uart(aMessageBuff);
 
     // Flag that we submitted a result for this test
     aTestResultsTransmitted[eTestId] = 1;
@@ -222,6 +235,7 @@ static int testresult_all_registered_tests_have_results(void)
         // Timeout elapsed? Then fail this test
         if (bTimeoutReached) {
             testresult_report_fail(eTestId, "No result received within timeout period");
+            continue;
         }
 
         // If we got here we found a registered test without a result, and timeout has not yet elapsed, so we cannot consider all results reported
@@ -263,7 +277,7 @@ void testresult_finalise_when_done(void)
 }
 
 
-/**
+/*
  * PRIVATE FUNCTIONS -------------------------------------------------------------------------------------------------
  */
 

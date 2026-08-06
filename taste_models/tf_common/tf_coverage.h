@@ -20,7 +20,7 @@
 #ifndef TF_COVERAGE_H
 #define TF_COVERAGE_H
 
-/**
+/*
  * Transmits all gcov code line hit counts as gcda data over the UART.
  * Should be called once, after all tests have completed.
  */
