@@ -15,6 +15,9 @@ taste_models/*/work/Dump
 # Qt Creator clangd cache directories
 **/.qtc_clangd/
 
+# Qt Creator autogen files
+**/*.pro.user*
+
 # VSCode configuration files
 .vscode/settings.json
 

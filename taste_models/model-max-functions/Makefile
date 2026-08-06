@@ -10,22 +10,20 @@ SPACECREATOR?=spacecreator.AppImage
 # export <PARTITIONNAME>_EXTERNAL_SOURCE_PATH=...
 #
 # NOTE: this can also be done in the Deployment View directly
-export PARTITION_1_USER_CFLAGS=--coverage -fprofile-info-section
-export PARTITION_1_USER_LDFLAGS=--coverage 
 
 # If you need to reset this Makefile to its original state, run:
 # $ taste reset
 
 export PARTITION_1_USER_LDFLAGS=-Wl,-Map=output.map
-CURRENT_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
-export PARTITION_1_USER_LDSCRIPT_DIR=$(CURRENT_DIR)work/linker_script
-export PARTITION_1_USER_LDSCRIPT=$(CURRENT_DIR)work/linker_script/linkcmds.intflash
+#CURRENT_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
+#export PARTITION_1_USER_LDSCRIPT_DIR=$(CURRENT_DIR)work/linker_script
+#export PARTITION_1_USER_LDSCRIPT=$(CURRENT_DIR)work/linker_script/linkcmds.intflash
 
 # Disable the progress bar from taste-update-data-view when building systems
 export NO_PROGRESS_BAR=1
 
 # Get the list of ASN.1 files from Space Creator project file:
-DISTFILES=$(shell qmake TEST-SAMV71-STRESS.pro -o /tmp/null 2>&1)
+DISTFILES=$(shell qmake model-max-functions.pro -o /tmp/null 2>&1)
 # Exclude system.asn here as the types inside do not changes - only the values in the PID
 # enumeration change, but this does not affect the content of DataView.aadl
 ASN1_FILES=$(shell find ${DISTFILES} 2>/dev/null | egrep '\.asn$$|\.asn1$$' | grep -v system.asn)
