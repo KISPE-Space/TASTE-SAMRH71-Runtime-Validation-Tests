@@ -23,16 +23,23 @@
 #include "tf_uart_comms.h"
 #include "tf_test_results.h"
 #include "tf_coverage.h"
+#include <Hal.h>
 
-#define TR__TEST_RESULT_BUFFER_SIZE       200
-#define TR__MAX_LENGTH_FAIL_REASON        170
-#define TR__MAX_WAIT_FOR_TEST_RESULTS_MS  10000
+#define TR__TEST_RESULT_BUFFER_SIZE         200
+#define TR__MAX_LENGTH_FAIL_REASON          170
+#define TR__MAX_WAIT_FOR_TEST_RESULTS_MS    10000
+#define TR__NANOSECONDS_PER_MILLISECOND     1000000
+
+/*
+ * Time within which test results must arrive
+ */
+static unsigned long ulTestResultsTimeoutMs = TR__MAX_WAIT_FOR_TEST_RESULTS_MS;
 
 
 /*
- * Time for test results to arrive
+ * Time at which the last test was registered
  */
-static unsigned long ulTestResultsTimeoutMs = TR__MAX_WAIT_FOR_TEST_RESULTS_MS;
+static unsigned long ulLastTestRegisteredTimeMs = 0;
 
 
 /*
@@ -69,14 +76,14 @@ static const char * const aTestNames[TF_TEST_ID__COUNT] =
 };
 
 /*
- * Array that indicates which tests have been registered with this object. 
+ * Array that indicates which tests have been registered with this object.
  * Each index corresponds to a test ID, and the value is 1 if the test is registered, or 0 if it is not.
  */
 static TF_TestId aRegisteredTests[TF_TEST_ID__COUNT] = { 0 };
 
 
 /*
- * Array that indicates for which tests we have test results. 
+ * Array that indicates for which tests we have test results.
  * Each index corresponds to a test ID, and the value is 1 if a result is available, or 0 if it is not.
  */
 static int aTestResultsTransmitted[TF_TEST_ID__COUNT] = { 0 };
@@ -116,10 +123,13 @@ void testresult_register_test(TF_TestId eTestId)
     // Flag this test as registered
     aRegisteredTests[eTestId] = 1;
 
+    // Make a note of the time at which this test was registered
+    ulLastTestRegisteredTimeMs = Hal_GetElapsedTimeInNs() / TR__NANOSECONDS_PER_MILLISECOND;
+
     // Report the test being register (by name and id)
-    char sMsgBuff[100];
-    sprintf(sMsgBuff, "Test registered: '%s' (%d)", aTestNames[eTestId], eTestId);
-    transmit_log_info(sMsgBuff);
+    char aMsgBuff[100];
+    sprintf(aMsgBuff, "Test registered: '%s' (%d)", aTestNames[eTestId], eTestId);
+    transmit_log_info(aMsgBuff);
 }
 
 
@@ -154,7 +164,7 @@ void testresult_report_result(TF_TestId eTestId, int iPassOrFail, char* pFailRea
         sprintf(aMessageBuff, "ERROR: Test result already provided for test %s (%d). Ignoring\n", aTestNames[eTestId], eTestId);
         transmit_bytes_over_uart(aMessageBuff);
         return;
-    }    
+    }
 
     // If fail reason longer than 170 bytes, replace end with an ellipsis
     if (strlen(pFailReason) > TR__MAX_LENGTH_FAIL_REASON) {
@@ -209,45 +219,6 @@ void testresult_set_timeout(int iTimeoutMs)
 
 
 /*
- * Returns 1 if all registered tests have had results reported, 0 otherwise.
- */
-static int testresult_all_registered_tests_have_results(void)
-{
-    // Assume all results reported until proven otherwise
-    int bAllResultsReported = 1; 
-
-    // Has the timeout been reached? If so, we consider all results reported to avoid indefinite waiting
-    int bTimeoutReached = (Hal_GetElapsedTimeInNs() / 1000000 > ulTestResultsTimeoutMs);
-
-    // Iterate over all test identifiers and check if each registered test has a result reported
-    for (TF_TestId eTestId = TF_TEST_ID__FIRST; eTestId <= TF_TEST_ID__LAST; eTestId++) {
-        
-        // Not registered? Then skip this test
-        if (aRegisteredTests[eTestId] == 0) {
-            continue;
-        }
-
-        // Test result provided? Then skip this test
-        if (aTestResultsTransmitted[eTestId] == 1) {
-            continue;
-        }
-
-        // Timeout elapsed? Then fail this test
-        if (bTimeoutReached) {
-            testresult_report_fail(eTestId, "No result received within timeout period");
-            continue;
-        }
-
-        // If we got here we found a registered test without a result, and timeout has not yet elapsed, so we cannot consider all results reported
-        bAllResultsReported = 0; 
-    }
-
-    // Return the result
-    return bAllResultsReported;
-}
-
-
-/*
  * Refer to header for function usage docs
  */
 void testresult_finalise_when_done(void)
@@ -266,7 +237,7 @@ void testresult_finalise_when_done(void)
     // As long as all registered tests have not had results reported, do not do anything
     if (testresult_all_registered_tests_have_results() == 0) {
         //transmit_log_info("Not all registered tests have results, not finalising test results");
-        return; 
+        return;
     }
 
     // All tests submitted results. We cann now transmit the GCOV data
@@ -293,4 +264,50 @@ static int testresult_get_count_of_registered_tests(void)
         }
     }
     return count;
+}
+
+
+/*
+ * Returns 1 if timeout has elapsed, else 0
+ */
+static int testresult_has_timeout_elapsed(void)
+{
+    unsigned long ulElapsedTimeMs = (Hal_GetElapsedTimeInNs() / TR__NANOSECONDS_PER_MILLISECOND) - ulLastTestRegisteredTimeMs;
+    return (ulElapsedTimeMs > ulTestResultsTimeoutMs);
+}
+
+
+/*
+ * Returns 1 if all registered tests have had results reported, 0 otherwise.
+ */
+static int testresult_all_registered_tests_have_results(void)
+{
+    // Assume all results reported until proven otherwise
+    int bAllResultsReported = 1;
+
+    // Iterate over all test identifiers and check if each registered test has a result reported
+    for (TF_TestId eTestId = TF_TEST_ID__FIRST; eTestId <= TF_TEST_ID__LAST; eTestId++) {
+
+        // Not registered? Then skip this test
+        if (aRegisteredTests[eTestId] == 0) {
+            continue;
+        }
+
+        // Test result provided? Then skip this test
+        if (aTestResultsTransmitted[eTestId] == 1) {
+            continue;
+        }
+
+        // Timeout elapsed? Then fail this test
+        if (testresult_has_timeout_elapsed()) {
+            testresult_report_fail(eTestId, "No result received within timeout period");
+            continue;
+        }
+
+        // If we got here we found a registered test without a result, and timeout has not yet elapsed, so we cannot consider all results reported
+        bAllResultsReported = 0;
+    }
+
+    // Return the result
+    return bAllResultsReported;
 }
