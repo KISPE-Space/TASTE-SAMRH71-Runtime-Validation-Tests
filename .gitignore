@@ -17,3 +17,6 @@ taste_models/*/work/Dump
 
 # VSCode configuration files
 .vscode/settings.json
+
+# Models sandbox folder
+taste_models/sandbox
