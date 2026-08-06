@@ -9,7 +9,7 @@
 */
 #include "tf_reporter.h"
 #include "../../../../../tf_common/tf_uart_comms.h"
-#include "../../../../../tf_common/tf_coverage.h"
+#include "../../../../../tf_common/tf_test_results.h"
 
 /*
  * Constructor
@@ -21,31 +21,12 @@ void tf_reporter_startup(void)
 }
 
 /*
- * Flag to indicate when results have been transmitted. We only want to do that once per run.
- */
-static asn1SccT_Boolean iResultsTransmitted = false;
-
-/*
- *
  * Gets called periodically.
- * Checks to see if all registered tests are completed and if so then flushes out the gcov data.
- * Sets a "done" fag so it never does it again
- *
+ * Calls the test results finalise function to checks if all registered tests have submitted results and if so then flushes out the gcov data.
  */
 void tf_reporter_PI_PeriodicStarter( void )
 {
-    // Nothing to do if results already transmitted
-    if (iResultsTransmitted) {
-        return;
-    }
-
-    // TODO: Add polling of the test_results objec to see whether all registered tests are now complete.
-    // If not complete, return here
-
-    // Transmit all gcov data over UARTS
-    coverage_transmit_all();
-
-    // Set the flag so we don't do this again
-    iResultsTransmitted = true;
+    // Call the test finaliser function
+    testresult_finalise_when_done();
 }
 

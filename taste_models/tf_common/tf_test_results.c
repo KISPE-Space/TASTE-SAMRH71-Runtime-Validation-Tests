@@ -265,7 +265,7 @@ void testresult_finalise_when_done(void)
 
     // As long as all registered tests have not had results reported, do not do anything
     if (testresult_all_registered_tests_have_results() == 0) {
-        transmit_log_info("Not all registered tests have results, not finalising test results");
+        //transmit_log_info("Not all registered tests have results, not finalising test results");
         return; 
     }
 
