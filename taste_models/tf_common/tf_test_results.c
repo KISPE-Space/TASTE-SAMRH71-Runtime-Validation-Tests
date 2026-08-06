@@ -128,7 +128,7 @@ void testresult_register_test(TF_TestId eTestId)
 
     // Report the test being register (by name and id)
     char aMsgBuff[100];
-    sprintf(aMsgBuff, "Test registered: '%s' (%d)", aTestNames[eTestId], eTestId);
+    sprintf(aMsgBuff, "Test registered: %s (%d)", aTestNames[eTestId], eTestId);
     transmit_log_info(aMsgBuff);
 }
 
