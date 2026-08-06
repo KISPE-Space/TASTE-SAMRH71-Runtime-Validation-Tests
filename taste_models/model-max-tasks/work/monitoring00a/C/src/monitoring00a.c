@@ -303,7 +303,7 @@ int sporadic_queue_index = 0;
     // --
     // -- MBEP-RT-FUN-660
     // --
-    // -- interfaces_info.h is generated in the model_max_tasks project folder
+    // -- interfaces_info.h is generated in the model-max-tasks project folder
     // -- where all interfaces are available.
     // -- Note : Taste Runtime does not provide interface types.
 

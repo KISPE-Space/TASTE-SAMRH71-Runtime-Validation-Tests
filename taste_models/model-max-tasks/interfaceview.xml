@@ -1,4 +1,4 @@
-<InterfaceView version="1.3" asn1file="model_max_tasks.acn" UiFile="interfaceview.ui.xml" modifierHash="383508e">
+<InterfaceView version="1.3" asn1file="model-max-tasks.acn" UiFile="interfaceview.ui.xml" modifierHash="383508e">
 <Function id="{2f2da4d9-d1ae-45bb-a1be-c0c2f4e48e18}" name="TF_Reporter" is_type="NO" language="C" default_implementation="default" fixed_system_element="NO" required_system_element="NO" startup_priority="1" instances_max="1" instances_min="1">
     <Property name="TASTE_IV_Properties::Default_Codegen" value="Ada"/>
 <Provided_Interface id="{1eb8f2dc-ac89-44cb-b14d-fd1f57872805}" name="PeriodicStarter" kind="Cyclic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" stack_size="1024" dispatch_offset="0" wcet="0" priority="1" period="1000">
