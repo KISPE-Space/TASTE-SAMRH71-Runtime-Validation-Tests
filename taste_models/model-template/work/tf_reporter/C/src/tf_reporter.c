@@ -42,9 +42,6 @@ void tf_reporter_PI_PeriodicStarter( void )
     // TODO: Add polling of the test_results objec to see whether all registered tests are now complete.
     // If not complete, return here
 
-    // Send a sample message
-    transmit_log_info("Hello New York!!!");
-
     // Transmit all gcov data over UARTS
     coverage_transmit_all();
 
