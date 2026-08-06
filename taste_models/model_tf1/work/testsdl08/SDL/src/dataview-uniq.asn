@@ -76,7 +76,7 @@ System-Dataview DEFINITIONS ::=
 BEGIN
 
    -- Range of PID - type can be used to size arrays of PID type
-   PID-Range ::= INTEGER(0..82)
+   PID-Range ::= INTEGER(0..81)
 
    -- List of functions (instances) present in the system
    PID ::= ENUMERATED {
@@ -239,8 +239,6 @@ BEGIN
        threads00e,
        
        uartotherend,
-       
-       partition-1-timer-manager,
        
        rcvacn05,
        
