@@ -12,6 +12,7 @@ void function_20_startup(void)
 }
 
 // Use the function number to determine a unique bit position for this function, wrapping around at 32
+static const asn1SccT_UInt32 iMyFunctionNumber = 20; 
 static const asn1SccT_UInt32 iMyBitPosition = 20 % 32; 
 
 // Sporadic interface implementation. Receives a bitfield, sets its own bit, and passes it on to the next function in the chain
@@ -22,7 +23,7 @@ void function_20_PI_sp(const asn1SccT_UInt32 *IN_p1)
     function_20_RI_sp(&iNextValue);
 
     char aMsgBuff[100];
-    sprintf(aMsgBuff, "Function %lu reached. Received value: %lu. Next value: %lu", iMyBitPosition, *IN_p1, iNextValue);
+    sprintf(aMsgBuff, "Function %u (bit: %u): Received: %u. Sent: %u", iMyFunctionNumber, iMyBitPosition, *IN_p1, iNextValue);
     transmit_log_info(aMsgBuff);
 }
 
