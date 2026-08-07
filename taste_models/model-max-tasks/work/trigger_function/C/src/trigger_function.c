@@ -8,9 +8,7 @@
     !! file. The up-to-date signatures can be found in the header file. !!
 */
 #include "trigger_function.h"
-#include "../../../../../tf_common/tf_uart_comms.h"
 #include <Hal.h>
-#include <stdio.h>
 
 
 // We only want to fire the start trigger on the Sporadic interface chain once
@@ -27,12 +25,16 @@ void trigger_function_PI_trigger(void)
         return;
     }
 
-    // Log our invocation
-    char aMsgBuff[100];
-    sprintf(aMsgBuff, "trigger-function is ALIVE!. Uptime: %llu seconds", Hal_GetElapsedTimeInNs() / 1000000000);
-    transmit_log_info(aMsgBuff);
+    // Invoke the Test Function's protected interface
+    trigger_function_RI_protected1();
 
-    // Start the Sporadic interface chain, passing in an empty bitfield, with just the zeroth bit set
+    // Invoke the Test Functiion's unprotected interface
+    trigger_function_RI_unprotected1();
+
+    // Invoke the Test Function's zero-parameter Sporadic interface
+    trigger_function_RI_spzero();
+
+    // Start the Sporadic interface chain, passing in an empty bitfield, with just the zeroth bit set, to the first Function's SP-IF
     asn1SccT_UInt32 iNextValue = 1;
     trigger_function_RI_sp(&iNextValue);
 

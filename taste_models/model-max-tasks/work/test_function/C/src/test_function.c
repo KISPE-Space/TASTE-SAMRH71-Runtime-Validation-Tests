@@ -18,8 +18,11 @@ static const asn1SccT_UInt32 EXPECTED_VALUE__FUNCTION_31 = 4294967295;
 static const asn1SccT_UInt32 EXPECTED_VALUE__FUNCTION_40 = 511;
 
 // Buffers to hold values we actually received
-static asn1SccT_UInt32 iReceivedFromFunction31 = 0;
-static asn1SccT_UInt32 iReceivedFromFunction40 = 0;
+static asn1SccT_UInt32 iReceivedFromFunction31      = 0;
+static asn1SccT_UInt32 iReceivedFromFunction40      = 0;
+static asn1SccT_Boolean bReceivedOnProtectedIF      = false;
+static asn1SccT_Boolean bReceivedOnUnprotectedIF    = false;
+static asn1SccT_Boolean bReceivedZeroParamSPIF      = false;
 
 
 // Constructor
@@ -30,12 +33,45 @@ void test_function_startup(void)
 }
 
 
+// Handler for the protected interface
+void test_function_PI_protected1( void )
+{
+    // Log what we received
+    transmit_log_info("Test Function received request on Protected interface");
+
+    // Register this hit
+    bReceivedOnProtectedIF = true;
+}
+
+
+// Handler for the unprotected interface
+void test_function_PI_unprotected1( void )
+{
+    // Log what we received
+    transmit_log_info("Test Function received request on Unprotected interface");
+
+    // Register this hit
+    bReceivedOnUnprotectedIF = true;
+}
+
+
+// Handler for the zero-parameter Sporadic interface
+void test_function_PI_spzero( void )
+{
+    // Log what we received
+    transmit_log_info("Test Function received request on zero-parameter Sporadic interface");
+
+    // Register this hit
+    bReceivedZeroParamSPIF = true;
+}
+
+
 // Handler for the SP-interface from Function 31
 void test_function_PI_node31result(const asn1SccT_UInt32 *IN_p1)
 {
     // Log what we received
     char aMsgBuff[100];
-    sprintf(aMsgBuff, "Test Function got from Function 31: %u. Uptime seconds: %llu", *IN_p1, Hal_GetElapsedTimeInNs() / 1000000000);
+    sprintf(aMsgBuff, "Test Function got from Function 31: %u", *IN_p1);
     transmit_log_info(aMsgBuff);
 
     // Store this value
@@ -82,11 +118,22 @@ void test_function_PI_trigger( void )
         testresult_report_fail(TF_TEST_ID__TestSPCC, aMsgBuff);
     }
 
-    // Failed to get ..
-    else if (1 == 1)
+    // Failed to get a request on the protected interface?
+    else if (!bReceivedOnProtectedIF)
     {
-        sprintf(aMsgBuff, "Other validations yet to be added to this test (WIP!)");
-        testresult_report_fail(TF_TEST_ID__TestSPCC, aMsgBuff);
+        testresult_report_fail(TF_TEST_ID__TestSPCC, "Expected a request on the Protected interface but got none");
+    }
+
+    // Failed to get a request on the protected interface?
+    else if (!bReceivedOnUnprotectedIF)
+    {
+        testresult_report_fail(TF_TEST_ID__TestSPCC, "Expected a request on the Unprotected interface but got none");
+    }
+
+    // Failed to get a request on the protected interface?
+    else if (!bReceivedZeroParamSPIF)
+    {
+        testresult_report_fail(TF_TEST_ID__TestSPCC, "Expected a request on the zero-paramater Sporadic interface but got none");
     }
 
     // Else it must be a pass
