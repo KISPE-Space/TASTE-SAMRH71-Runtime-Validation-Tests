@@ -22,8 +22,8 @@ void trigger_function_PI_trigger(void)
     sprintf(aMsgBuff, "trigger-function is ALIVE!. Uptime: %llu seconds", Hal_GetElapsedTimeInNs() / 1000000000);
     transmit_log_info(aMsgBuff);
 
-    // Start the chain, passing in our ID (zero)
-    asn1SccT_UInt32 iNextValue = 0;
+    // Start the chain, passing in an empty bitfield, with just the zeroth bit set
+    asn1SccT_UInt32 iNextValue = 1;
     trigger_function_RI_sp(&iNextValue);
 }
 

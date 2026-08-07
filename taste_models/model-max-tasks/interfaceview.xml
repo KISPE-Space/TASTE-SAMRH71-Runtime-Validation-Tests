@@ -73,10 +73,10 @@
     <Input_Parameter name="p1" type="T-UInt32" encoding="ACN"/>
 </Provided_Interface>
 
-<Required_Interface id="{b9730625-5634-4ba8-9e4b-33a95d0208b2}" name="sp" kind="Sporadic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" queue_size="1" priority="1" stack_size="1024" miat="0" wcet="0">
+<Required_Interface id="{53b776c7-cc56-47c1-bbc4-88f36237e698}" name="sp" kind="Sporadic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" queue_size="1" priority="1" stack_size="1024" miat="0" wcet="0">
     <Input_Parameter name="p1" type="T-UInt32" encoding="ACN"/>
     <Property name="Taste::InheritPI" value="true"/>
-    <Property name="Taste::Autonamed" value="true"/>
+    <Property name="Taste::Autonamed" value="false"/>
 </Required_Interface>
 
     <Implementations>
@@ -222,9 +222,19 @@
 
 <Function id="{2cd8b3c4-405f-4a42-8567-568f283c519c}" name="Test_Function" is_type="NO" language="C" default_implementation="default" fixed_system_element="NO" required_system_element="NO" instances_min="1" startup_priority="1" instances_max="1">
     <Property name="TASTE_IV_Properties::Default_Codegen" value="Ada"/>
-<Provided_Interface id="{a9624def-0a08-4247-bbf4-2475696869da}" name="sp" kind="Sporadic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" queue_size="1" priority="1" stack_size="1024" miat="0" wcet="0">
+<Provided_Interface id="{a9624def-0a08-4247-bbf4-2475696869da}" name="node40result" kind="Sporadic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" queue_size="1" priority="1" stack_size="1024" miat="0" wcet="0">
     <Input_Parameter name="p1" type="T-UInt32" encoding="ACN"/>
 </Provided_Interface>
+
+<Provided_Interface id="{b32c04b9-79c8-4b6d-8562-a5dc01f3c208}" name="node31result" kind="Sporadic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" queue_size="1" priority="1" stack_size="1024" miat="0" wcet="0">
+    <Input_Parameter name="p1" type="T-UInt32" encoding="ACN"/>
+</Provided_Interface>
+
+<Required_Interface id="{520df85d-46f2-4484-8e94-0e996a74d5e7}" name="sp" kind="Sporadic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" queue_size="1" priority="1" stack_size="1024" miat="0" wcet="0">
+    <Input_Parameter name="p1" type="T-UInt32" encoding="ACN"/>
+    <Property name="Taste::InheritPI" value="true"/>
+    <Property name="Taste::Autonamed" value="true"/>
+</Required_Interface>
 
     <Implementations>
         <Implementation name="default" language="C"/>
@@ -590,7 +600,7 @@
 <Required_Interface id="{e21483ab-cc7c-4e0a-ad9d-a57d1a0bec5a}" name="sp" kind="Sporadic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" queue_size="1" priority="1" stack_size="1024" miat="0" wcet="0">
     <Input_Parameter name="p1" type="T-UInt32" encoding="ACN"/>
     <Property name="Taste::InheritPI" value="true"/>
-    <Property name="Taste::Autonamed" value="true"/>
+    <Property name="Taste::Autonamed" value="false"/>
 </Required_Interface>
 
     <Implementations>
@@ -671,10 +681,10 @@
     <Input_Parameter name="p1" type="T-UInt32" encoding="ACN"/>
 </Provided_Interface>
 
-<Required_Interface id="{4e0c6ffc-61cc-4e90-8b07-2827817944e1}" name="sp" kind="Sporadic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" queue_size="1" priority="1" stack_size="1024" miat="0" wcet="0">
+<Required_Interface id="{e59f2c37-b08a-47ae-8b43-12628e7450c6}" name="sp" kind="Sporadic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" queue_size="1" priority="1" stack_size="1024" miat="0" wcet="0">
     <Input_Parameter name="p1" type="T-UInt32" encoding="ACN"/>
     <Property name="Taste::InheritPI" value="true"/>
-    <Property name="Taste::Autonamed" value="true"/>
+    <Property name="Taste::Autonamed" value="false"/>
 </Required_Interface>
 
     <Implementations>
@@ -733,6 +743,11 @@
     </Implementations>
 </Function>
 
+<Connection id="{11c63d54-4f01-4ec8-9239-87078debad6e}" required_system_element="NO">
+    <Source iface_id="{520df85d-46f2-4484-8e94-0e996a74d5e7}" func_name="Test_Function" ri_name="sp" />
+    <Target iface_id="{c3a99465-07fd-46ea-8664-7e2b20b835f4}" func_name="Function_32" pi_name="sp" />
+</Connection>
+
 <Connection id="{960c3318-8981-4b26-b659-4dd1580f3160}" required_system_element="NO">
     <Source iface_id="{e8d42d27-2c4d-40ca-b8a0-863f84fe9617}" func_name="Function_7" ri_name="sp" />
     <Target iface_id="{47724210-a597-479b-8905-e416b83b2d91}" func_name="Function_8" pi_name="sp" />
@@ -768,6 +783,11 @@
     <Target iface_id="{6a113685-1905-4189-9894-f1eb5cf2b704}" func_name="Function_23" pi_name="sp" />
 </Connection>
 
+<Connection id="{03212188-31e8-494b-9977-aff4f71975e6}" name="Function_31_sp____Test_Function_node31result" required_system_element="NO">
+    <Source iface_id="{e59f2c37-b08a-47ae-8b43-12628e7450c6}" func_name="Function_31" ri_name="sp" />
+    <Target iface_id="{b32c04b9-79c8-4b6d-8562-a5dc01f3c208}" func_name="Test_Function" pi_name="node31result" />
+</Connection>
+
 <Connection id="{4701e58c-281d-43d5-9694-536ea8446ead}" required_system_element="NO">
     <Source iface_id="{bb9626e2-c92b-4ed7-b850-8d571de0ca22}" func_name="Function_15" ri_name="sp" />
     <Target iface_id="{c18b5747-90d1-4021-a225-593454bac82a}" func_name="Function_16" pi_name="sp" />
@@ -788,19 +808,9 @@
     <Target iface_id="{87737caa-da2f-402a-962a-a08c108d576d}" func_name="Function_20" pi_name="sp" />
 </Connection>
 
-<Connection id="{2dff31b3-c6a5-4319-82dc-f52ef8e22894}" required_system_element="NO">
-    <Source iface_id="{e21483ab-cc7c-4e0a-ad9d-a57d1a0bec5a}" func_name="Function_2" ri_name="sp" />
-    <Target iface_id="{45fc75c6-8e22-4e2e-89b4-1676f1e58510}" func_name="Function_3" pi_name="sp" />
-</Connection>
-
 <Connection id="{5b998e1c-7890-4b92-8f2f-2e10a473ac03}" required_system_element="NO">
     <Source iface_id="{c030ff60-fe7c-43b7-a1ab-1594627629f4}" func_name="Function_35" ri_name="sp" />
     <Target iface_id="{99b389b3-9a06-453e-83f2-3c72794baa53}" func_name="Function_36" pi_name="sp" />
-</Connection>
-
-<Connection id="{385eb7fb-60c1-4fa9-b29e-d15ed49feafb}" required_system_element="NO">
-    <Source iface_id="{b9730625-5634-4ba8-9e4b-33a95d0208b2}" func_name="Function_40" ri_name="sp" />
-    <Target iface_id="{a9624def-0a08-4247-bbf4-2475696869da}" func_name="Test_Function" pi_name="sp" />
 </Connection>
 
 <Connection id="{2a2d3491-4daf-4ad6-b553-72fc8f3d5559}" required_system_element="NO">
@@ -848,9 +858,9 @@
     <Target iface_id="{f5338332-2475-426e-ae63-3e5d4ce3d584}" func_name="Function_18" pi_name="sp" />
 </Connection>
 
-<Connection id="{7d19cd78-80da-4f97-876c-27c49220bb71}" required_system_element="NO">
-    <Source iface_id="{4e0c6ffc-61cc-4e90-8b07-2827817944e1}" func_name="Function_31" ri_name="sp" />
-    <Target iface_id="{c3a99465-07fd-46ea-8664-7e2b20b835f4}" func_name="Function_32" pi_name="sp" />
+<Connection id="{13c0776d-ad61-4d51-80ad-a1f82e6398d7}" required_system_element="NO">
+    <Source iface_id="{e21483ab-cc7c-4e0a-ad9d-a57d1a0bec5a}" func_name="Function_2" ri_name="sp" />
+    <Target iface_id="{45fc75c6-8e22-4e2e-89b4-1676f1e58510}" func_name="Function_3" pi_name="sp" />
 </Connection>
 
 <Connection id="{fb54f947-c89d-4b04-b307-bfebaa4d1333}" required_system_element="NO">
@@ -931,6 +941,11 @@
 <Connection id="{f19e6eed-16fe-4406-93cd-a1a22aaf0653}" required_system_element="NO">
     <Source iface_id="{17bfc90e-6981-4f74-9c00-48493e6be23a}" func_name="Function_16" ri_name="sp" />
     <Target iface_id="{5b07464e-e0fe-4f22-a138-0d8121392414}" func_name="Function_17" pi_name="sp" />
+</Connection>
+
+<Connection id="{3a3ac351-6e42-46de-a7c7-a28f1dc52a4e}" name="Function_40_sp____Test_Function_node40result" required_system_element="NO">
+    <Source iface_id="{53b776c7-cc56-47c1-bbc4-88f36237e698}" func_name="Function_40" ri_name="sp" />
+    <Target iface_id="{a9624def-0a08-4247-bbf4-2475696869da}" func_name="Test_Function" pi_name="node40result" />
 </Connection>
 
 <Connection id="{dcd633f1-54d3-4b84-b352-c7fe94342513}" required_system_element="NO">

@@ -20,11 +20,22 @@ void test_function_startup(void)
    // puts ("[Test_Function] Startup");
 }
 
-void test_function_PI_sp(const asn1SccT_UInt32 *IN_p1)
+void test_function_PI_node31result(const asn1SccT_UInt32 *IN_p1)
 {
     char aMsgBuff[100];
-    sprintf(aMsgBuff, "Test Function reached. Received value: %lu. Uptime seconds: %llu", *IN_p1, Hal_GetElapsedTimeInNs() / 1000000000);
+    sprintf(aMsgBuff, "Test Function got from Function 31: %lu. Uptime seconds: %llu", *IN_p1, Hal_GetElapsedTimeInNs() / 1000000000);
     transmit_log_info(aMsgBuff);
+
+    // Start next section of chain again from 1
+    asn1SccT_UInt32 iNextValue = 1;
+    test_function_RI_sp(&iNextValue);
 }
 
+
+void test_function_PI_node40result(const asn1SccT_UInt32 *IN_p1)
+{
+    char aMsgBuff[100];
+    sprintf(aMsgBuff, "Test Function reached. Function 32: %lu. Uptime seconds: %llu", *IN_p1, Hal_GetElapsedTimeInNs() / 1000000000);
+    transmit_log_info(aMsgBuff);
+}
 
