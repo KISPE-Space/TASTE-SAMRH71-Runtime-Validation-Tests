@@ -4,7 +4,7 @@ TARGET_MODEL = 'model-max-tasks'
 FUNCTION_TEMPLATE_FILE = 'max-tasks-function-template.c'
 
 TARGET_MODEL_WORK_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../taste_models/", TARGET_MODEL, "work"))
-FUNCTION_NUMBER_START = 11
+FUNCTION_NUMBER_START = 1
 FUNCTION_NUMBER_END = 40
 
 # Load the template file content
