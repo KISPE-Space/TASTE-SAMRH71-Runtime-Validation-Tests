@@ -16,7 +16,7 @@ void function_36_startup(void)
 {
 }
 
-static const asn1SccT_UInt32 iMyBitPosition = 1;
+static const asn1SccT_UInt32 iMyBitPosition = 36;
 
 void function_36_PI_sp(const asn1SccT_UInt32 *IN_p1)
 {

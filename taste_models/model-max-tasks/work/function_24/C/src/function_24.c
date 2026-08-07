@@ -16,7 +16,7 @@ void function_24_startup(void)
 {
 }
 
-static const asn1SccT_UInt32 iMyBitPosition = 1;
+static const asn1SccT_UInt32 iMyBitPosition = 24;
 
 void function_24_PI_sp(const asn1SccT_UInt32 *IN_p1)
 {

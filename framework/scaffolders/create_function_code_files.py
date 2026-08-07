@@ -30,18 +30,18 @@ for function_number in range(FUNCTION_NUMBER_START, FUNCTION_NUMBER_END + 1):
 
     # Report what we did
     print(f"Generated code file {output_file_path}")
-    
+
+# NOt required anymore. Relates to bug in early script
 #    # If there is a .c file with the same name in the function folder, remove it
 #    phantom_file_path = os.path.join(TARGET_MODEL_WORK_FOLDER, function_name, output_file_name)
 #    if os.path.exists(phantom_file_path):
 #        os.remove(phantom_file_path)
 
-    # Also create a .pro file in the function folder
-    pro_file_name = f'{function_name}.pro'
-    pro_file_path = os.path.join(TARGET_MODEL_WORK_FOLDER, function_name, pro_file_name)
-    with open(pro_file_path, 'w') as pro_file:
-        pro_file.write(f"SOURCES += work/{function_name}/C/src/{function_name}.c\n")
-        pro_file.write(f"HEADERS += work/{function_name}/C/src/{function_name}.h\n")
-
-    # Report what we did
-    print(f"Generated .pro file {pro_file_path}")
+# Not required: make skeletons will add this, once the Interface defines it
+#    # Also create a .pro file in the function folder
+#    pro_file_name = f'{function_name}.pro'
+#    pro_file_path = os.path.join(TARGET_MODEL_WORK_FOLDER, function_name, pro_file_name)
+#    with open(pro_file_path, 'w') as pro_file:
+#        pro_file.write(f"SOURCES += work/{function_name}/C/src/{function_name}.c\n")
+#        pro_file.write(f"HEADERS += work/{function_name}/C/src/{function_name}.h\n")
+#    print(f"Generated .pro file {pro_file_path}")
