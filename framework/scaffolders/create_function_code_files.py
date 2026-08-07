@@ -20,7 +20,7 @@ for function_number in range(FUNCTION_NUMBER_START, FUNCTION_NUMBER_END + 1):
     # Define the output file name
     function_name = f'function_{function_number}'
     output_file_name = f'{function_name}.c'
-    output_file_dir = os.path.join(TARGET_MODEL_WORK_FOLDER, function_name)
+    output_file_dir = os.path.join(TARGET_MODEL_WORK_FOLDER, function_name, "C", "src")
     os.makedirs(output_file_dir, exist_ok=True)
     output_file_path = os.path.join(output_file_dir, output_file_name)
 
@@ -28,4 +28,10 @@ for function_number in range(FUNCTION_NUMBER_START, FUNCTION_NUMBER_END + 1):
     with open(output_file_path, 'w') as output_file:
         output_file.write(function_content)
 
+    # If there is a .c file with the same name in the function folder, remove it
+    phantom_file_path = os.path.join(TARGET_MODEL_WORK_FOLDER, function_name, output_file_name)
+    if os.path.exists(phantom_file_path):
+        os.remove(phantom_file_path)
+
+    # Report what we did
     print(f"Generated file {output_file_path}")
