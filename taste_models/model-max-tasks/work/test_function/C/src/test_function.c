@@ -9,22 +9,37 @@
 */
 #include "test_function.h"
 #include "../../../../../tf_common/tf_uart_comms.h"
+#include "../../../../../tf_common/tf_test_results.h"
 #include <Hal.h>
 #include <stdio.h>
 
+// Values we expect to receive on each of the two sporadic interfaces from the 40 SP-interface chain functions
+static const asn1SccT_UInt32 EXPECTED_VALUE__FUNCTION_31 = 4294967295;
+static const asn1SccT_UInt32 EXPECTED_VALUE__FUNCTION_40 = 511;
 
+// Buffers to hold values we actually received
+static asn1SccT_UInt32 iReceivedFromFunction31 = 0;
+static asn1SccT_UInt32 iReceivedFromFunction40 = 0;
+
+
+// Constructor
 void test_function_startup(void)
 {
-   // Write your initialisation code
-   // You may call sporadic required interfaces and start timers
-   // puts ("[Test_Function] Startup");
+    // Register the test
+    testresult_register_test(TF_TEST_ID__TestSPCC);
 }
 
+
+// Handler for the SP-interface from Function 31
 void test_function_PI_node31result(const asn1SccT_UInt32 *IN_p1)
 {
+    // Log what we received
     char aMsgBuff[100];
-    sprintf(aMsgBuff, "Test Function got from Function 31: %lu. Uptime seconds: %llu", *IN_p1, Hal_GetElapsedTimeInNs() / 1000000000);
+    sprintf(aMsgBuff, "Test Function got from Function 31: %u. Uptime seconds: %llu", *IN_p1, Hal_GetElapsedTimeInNs() / 1000000000);
     transmit_log_info(aMsgBuff);
+
+    // Store this value
+    iReceivedFromFunction31 = *IN_p1;
 
     // Start next section of chain again from 1
     asn1SccT_UInt32 iNextValue = 1;
@@ -32,10 +47,55 @@ void test_function_PI_node31result(const asn1SccT_UInt32 *IN_p1)
 }
 
 
+// Handler for the SP-interface from Function 40
 void test_function_PI_node40result(const asn1SccT_UInt32 *IN_p1)
 {
+    // Log what we received
     char aMsgBuff[100];
-    sprintf(aMsgBuff, "Test Function reached. Function 32: %lu. Uptime seconds: %llu", *IN_p1, Hal_GetElapsedTimeInNs() / 1000000000);
+    sprintf(aMsgBuff, "Test Function got from Function 40: %u. Uptime seconds: %llu", *IN_p1, Hal_GetElapsedTimeInNs() / 1000000000);
     transmit_log_info(aMsgBuff);
+
+    // Store this value
+    iReceivedFromFunction40 = *IN_p1;
 }
+
+
+// Called periodically by cyclic interface. We collate test inputs and decide pass/fail
+void test_function_PI_trigger( void )
+{
+    // Log our staring point
+    char aMsgBuff[100];
+    sprintf(aMsgBuff, "Entering test result deriver. Uptime seconds: %llu", Hal_GetElapsedTimeInNs() / 1000000000);
+    transmit_log_info(aMsgBuff);
+
+    // Failed to get expected value on the Function 31 Sporadic interface?
+    if (iReceivedFromFunction31 != EXPECTED_VALUE__FUNCTION_31)
+    {
+        sprintf(aMsgBuff, "Expected %u from Function 31 but got %u", EXPECTED_VALUE__FUNCTION_31, TF_TEST_ID__TestSPCC);
+        testresult_report_fail(TF_TEST_ID__TestSPCC, aMsgBuff);
+    }
+
+    // Failed to get expected value on the Function 40 Sporadic interface?
+    else if (iReceivedFromFunction40 != EXPECTED_VALUE__FUNCTION_40)
+    {
+        sprintf(aMsgBuff, "Expected %u from Function 40 but got %u", EXPECTED_VALUE__FUNCTION_40, TF_TEST_ID__TestSPCC);
+        testresult_report_fail(TF_TEST_ID__TestSPCC, aMsgBuff);
+    }
+
+    // Failed to get ..
+    else if (1 == 1)
+    {
+        sprintf(aMsgBuff, "Other validations yet to be added to this test (WIP!)");
+        testresult_report_fail(TF_TEST_ID__TestSPCC, aMsgBuff);
+    }
+
+    // Else it must be a pass
+    else
+    {
+        testresult_report_pass(TF_TEST_ID__TestSPCC);
+    }
+}
+
+
+
 

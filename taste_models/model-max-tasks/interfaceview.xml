@@ -230,6 +230,9 @@
     <Input_Parameter name="p1" type="T-UInt32" encoding="ACN"/>
 </Provided_Interface>
 
+<Provided_Interface id="{8c75b81a-620d-4499-aac9-1b10c157d759}" name="trigger" kind="Cyclic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" priority="1" period="3000" stack_size="1024" wcet="0">
+</Provided_Interface>
+
 <Required_Interface id="{520df85d-46f2-4484-8e94-0e996a74d5e7}" name="sp" kind="Sporadic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" queue_size="1" priority="1" stack_size="1024" miat="0" wcet="0">
     <Input_Parameter name="p1" type="T-UInt32" encoding="ACN"/>
     <Property name="Taste::InheritPI" value="true"/>
