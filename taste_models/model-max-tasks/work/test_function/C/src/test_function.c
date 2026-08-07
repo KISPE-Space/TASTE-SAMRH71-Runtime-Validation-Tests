@@ -16,6 +16,7 @@
 // Values we expect to receive on each of the two sporadic interfaces from the 40 SP-interface chain functions
 static const asn1SccT_UInt32 EXPECTED_VALUE__FUNCTION_31 = 4294967295;
 static const asn1SccT_UInt32 EXPECTED_VALUE__FUNCTION_40 = 511;
+static const asn1SccT_UInt32 EXPECTED_MINIM_COUNT_OF_TRIGGER2_CALLS = 4;
 
 // Buffers to hold values we actually received
 static asn1SccT_UInt32 iReceivedFromFunction31      = 0;
@@ -23,6 +24,7 @@ static asn1SccT_UInt32 iReceivedFromFunction40      = 0;
 static asn1SccT_Boolean bReceivedOnProtectedIF      = false;
 static asn1SccT_Boolean bReceivedOnUnprotectedIF    = false;
 static asn1SccT_Boolean bReceivedZeroParamSPIF      = false;
+static asn1SccT_UInt32 iNumTrigger2Calls            = 0;
 
 
 // Constructor
@@ -66,6 +68,19 @@ void test_function_PI_spzero( void )
 }
 
 
+// Handler for trigger2 - a random cyclic interface to bring the IF count up to 48
+void test_function_PI_trigger2(void)
+{
+    // Log this invocation
+    char aMsgBuff[100];
+    sprintf(aMsgBuff, "Test Function got from Cycling interface trigger2. Uptime seconds: %llu", Hal_GetElapsedTimeInNs() / 1000000000);
+    transmit_log_info(aMsgBuff);
+
+    // Update the call count
+    iNumTrigger2Calls++;
+}
+
+
 // Handler for the SP-interface from Function 31
 void test_function_PI_node31result(const asn1SccT_UInt32 *IN_p1)
 {
@@ -88,7 +103,7 @@ void test_function_PI_node40result(const asn1SccT_UInt32 *IN_p1)
 {
     // Log what we received
     char aMsgBuff[100];
-    sprintf(aMsgBuff, "Test Function got from Function 40: %u. Uptime seconds: %llu", *IN_p1, Hal_GetElapsedTimeInNs() / 1000000000);
+    sprintf(aMsgBuff, "Test Function got from Function 40: %u", *IN_p1);
     transmit_log_info(aMsgBuff);
 
     // Store this value
@@ -99,10 +114,7 @@ void test_function_PI_node40result(const asn1SccT_UInt32 *IN_p1)
 // Called periodically by cyclic interface. We collate test inputs and decide pass/fail
 void test_function_PI_trigger( void )
 {
-    // Log our staring point
     char aMsgBuff[100];
-    sprintf(aMsgBuff, "Entering test result deriver. Uptime seconds: %llu", Hal_GetElapsedTimeInNs() / 1000000000);
-    transmit_log_info(aMsgBuff);
 
     // Failed to get expected value on the Function 31 Sporadic interface?
     if (iReceivedFromFunction31 != EXPECTED_VALUE__FUNCTION_31)
@@ -134,6 +146,13 @@ void test_function_PI_trigger( void )
     else if (!bReceivedZeroParamSPIF)
     {
         testresult_report_fail(TF_TEST_ID__TestSPCC, "Expected a request on the zero-paramater Sporadic interface but got none");
+    }
+
+    // Failed to get the expected count of calls on trigger2 IF?
+    else if (iNumTrigger2Calls < EXPECTED_MINIM_COUNT_OF_TRIGGER2_CALLS)
+    {
+        sprintf(aMsgBuff, "Expected at least %u calls on the trigger2 Cyclic interface but only got %u", EXPECTED_MINIM_COUNT_OF_TRIGGER2_CALLS, iNumTrigger2Calls);
+        testresult_report_fail(TF_TEST_ID__TestSPCC, aMsgBuff);
     }
 
     // Else it must be a pass

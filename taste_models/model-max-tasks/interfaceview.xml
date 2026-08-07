@@ -572,6 +572,9 @@
 <Provided_Interface id="{f48067f7-314b-400c-b2eb-0986e1e3feea}" name="spzero" kind="Sporadic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" wcet="0" miat="0" queue_size="1" stack_size="1024" priority="1">
 </Provided_Interface>
 
+<Provided_Interface id="{28aa3c53-6ca5-447c-ab8d-c2af382d9c9c}" name="trigger2" kind="Cyclic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" wcet="0" period="500" stack_size="1024" priority="1">
+</Provided_Interface>
+
 <Required_Interface id="{520df85d-46f2-4484-8e94-0e996a74d5e7}" name="sp" kind="Sporadic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" wcet="0" miat="0" queue_size="1" stack_size="1024" priority="1">
     <Input_Parameter name="p1" type="T-UInt32" encoding="ACN"/>
     <Property name="Taste::InheritPI" value="true"/>
