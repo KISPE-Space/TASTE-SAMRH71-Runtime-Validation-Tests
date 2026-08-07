@@ -8,38 +8,26 @@
     !! file. The up-to-date signatures can be found in the header file. !!
 */
 #include "function_4.h"
-//#include <stdio.h>
+#include "../../../../../tf_common/tf_uart_comms.h"
+#include <stdio.h>
+
 
 
 void function_4_startup(void)
 {
-   // Write your initialisation code
-   // You may call sporadic required interfaces and start timers
-   // puts ("[Function_4] Startup");
 }
 
-void function_4_PI_PI_cyclic_4( void )
+static const asn1SccT_UInt32 iMyBitPosition = 4;
+
+void function_4_PI_sp(const asn1SccT_UInt32 *IN_p1)
 {
-    int counter = 0;
+    // Set the bit at our bit position and pass on to next SP interface
+    asn1SccT_UInt32 iNextValue = *IN_p1 | (1 << iMyBitPosition);
+    function_4_RI_sp(&iNextValue);
 
-    // This is a mandatory cycle interface, which will
-    // be received, a counter will be implemented
-    if ( counter > 2147483000 )
-    {
-        counter = 0;
-    }
-
-    counter++;
-}
-
-
-void function_4_PI_PI_4( const asn1SccT_Int32 * data_in )
-{
-asn1SccT_Int32 data = 0;
-
-    data = *data_in + 1;
-    // Send the data to the next function (5)
-    function_4_RI_PI_5( &data );
+    char aMsgBuff[100];
+    sprintf(aMsgBuff, "Function %lu reached. Received value: %lu. Next value: %lu", iMyBitPosition, *IN_p1, iNextValue);
+    transmit_log_info(aMsgBuff);
 }
 
 
