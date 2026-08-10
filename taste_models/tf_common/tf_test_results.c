@@ -47,7 +47,7 @@ static unsigned long ulLastTestRegisteredTimeMs = 0;
  */
 static const char * const aTestNames[TF_TEST_ID__COUNT] =
 {
-    [TF_TEST_ID__TestSPCC]           = "TestSPCC",
+    [TF_TEST_ID__TestMaxTasks]       = "TestMaxTasks",
     [TF_TEST_ID__TestTime]           = "TestTime",
     [TF_TEST_ID__TestComms01]        = "TestComms01",
     [TF_TEST_ID__TestPriority]       = "TestPriority",

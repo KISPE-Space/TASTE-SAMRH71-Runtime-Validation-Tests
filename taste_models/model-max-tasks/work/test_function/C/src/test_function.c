@@ -31,7 +31,7 @@ static asn1SccT_UInt32 iNumTrigger2Calls            = 0;
 void test_function_startup(void)
 {
     // Register the test
-    testresult_register_test(TF_TEST_ID__TestSPCC);
+    testresult_register_test(TF_TEST_ID__TestMaxTasks);
 }
 
 
@@ -119,46 +119,46 @@ void test_function_PI_trigger( void )
     // Failed to get expected value on the Function 31 Sporadic interface?
     if (iReceivedFromFunction31 != EXPECTED_VALUE__FUNCTION_31)
     {
-        sprintf(aMsgBuff, "Expected %u from Function 31 but got %u", EXPECTED_VALUE__FUNCTION_31, TF_TEST_ID__TestSPCC);
-        testresult_report_fail(TF_TEST_ID__TestSPCC, aMsgBuff);
+        sprintf(aMsgBuff, "Expected %u from Function 31 but got %u", EXPECTED_VALUE__FUNCTION_31, iReceivedFromFunction31);
+        testresult_report_fail(TF_TEST_ID__TestMaxTasks, aMsgBuff);
     }
 
     // Failed to get expected value on the Function 40 Sporadic interface?
     else if (iReceivedFromFunction40 != EXPECTED_VALUE__FUNCTION_40)
     {
-        sprintf(aMsgBuff, "Expected %u from Function 40 but got %u", EXPECTED_VALUE__FUNCTION_40, TF_TEST_ID__TestSPCC);
-        testresult_report_fail(TF_TEST_ID__TestSPCC, aMsgBuff);
+        sprintf(aMsgBuff, "Expected %u from Function 40 but got %u", EXPECTED_VALUE__FUNCTION_40, iReceivedFromFunction40);
+        testresult_report_fail(TF_TEST_ID__TestMaxTasks, aMsgBuff);
     }
 
     // Failed to get a request on the protected interface?
     else if (!bReceivedOnProtectedIF)
     {
-        testresult_report_fail(TF_TEST_ID__TestSPCC, "Expected a request on the Protected interface but got none");
+        testresult_report_fail(TF_TEST_ID__TestMaxTasks, "Expected a request on the Protected interface but got none");
     }
 
     // Failed to get a request on the protected interface?
     else if (!bReceivedOnUnprotectedIF)
     {
-        testresult_report_fail(TF_TEST_ID__TestSPCC, "Expected a request on the Unprotected interface but got none");
+        testresult_report_fail(TF_TEST_ID__TestMaxTasks, "Expected a request on the Unprotected interface but got none");
     }
 
     // Failed to get a request on the protected interface?
     else if (!bReceivedZeroParamSPIF)
     {
-        testresult_report_fail(TF_TEST_ID__TestSPCC, "Expected a request on the zero-paramater Sporadic interface but got none");
+        testresult_report_fail(TF_TEST_ID__TestMaxTasks, "Expected a request on the zero-paramater Sporadic interface but got none");
     }
 
     // Failed to get the expected count of calls on trigger2 IF?
     else if (iNumTrigger2Calls < EXPECTED_MINIM_COUNT_OF_TRIGGER2_CALLS)
     {
         sprintf(aMsgBuff, "Expected at least %u calls on the trigger2 Cyclic interface but only got %u", EXPECTED_MINIM_COUNT_OF_TRIGGER2_CALLS, iNumTrigger2Calls);
-        testresult_report_fail(TF_TEST_ID__TestSPCC, aMsgBuff);
+        testresult_report_fail(TF_TEST_ID__TestMaxTasks, aMsgBuff);
     }
 
     // Else it must be a pass
     else
     {
-        testresult_report_pass(TF_TEST_ID__TestSPCC);
+        testresult_report_pass(TF_TEST_ID__TestMaxTasks);
     }
 }
 

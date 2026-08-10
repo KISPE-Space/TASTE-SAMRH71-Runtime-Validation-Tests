@@ -34,7 +34,7 @@
  * Enumeration of test identifiers
  */
 typedef enum {
-    TF_TEST_ID__TestSPCC            = 0,
+    TF_TEST_ID__TestMaxTasks        = 0,
     TF_TEST_ID__TestTime            = 1,
     TF_TEST_ID__TestComms01         = 2,
     TF_TEST_ID__TestPriority        = 3,
@@ -61,7 +61,7 @@ typedef enum {
     TF_TEST_ID__TestMaxFunctions    = 24,
     TF_TEST_ID__TestCpuFreqNone     = 25,
 
-    TF_TEST_ID__FIRST               = TF_TEST_ID__TestSPCC,
+    TF_TEST_ID__FIRST               = TF_TEST_ID__TestMaxTasks,
     TF_TEST_ID__LAST                = TF_TEST_ID__TestCpuFreqNone,
     TF_TEST_ID__COUNT               = TF_TEST_ID__LAST + 1
 } TF_TestId;
@@ -75,7 +75,7 @@ typedef enum {
  * object for each registered test.
  *
  * Usage examples:
- *   testresult_register_test(TF_TEST_ID__TestSPCC);
+ *   testresult_register_test(TF_TEST_ID__TestMaxTasks);
  */
 void testresult_register_test(TF_TestId eTestId);
 
@@ -88,7 +88,7 @@ void testresult_register_test(TF_TestId eTestId);
  *   eTestId: The test identifier for the test that passed.
  * 
  * Usage example:
- *   testresult_report_pass(TF_TEST_ID__TestSPCC);
+ *   testresult_report_pass(TF_TEST_ID__TestMaxTasks);
  */
 void testresult_report_pass(TF_TestId eTestId);
 
@@ -129,7 +129,7 @@ void testresult_set_timeout(int iTimeoutMs);
  *     it can be NULL or an empty string.
  *
  * Usage examples:
- *   testresult_report_result(TF_TEST_ID__TestSPCC, TEST_PASS, "");
+ *   testresult_report_result(TF_TEST_ID__TestMaxTasks, TEST_PASS, "");
  *   testresult_report_result(TF_TEST_ID__TestComms01, TEST_FAIL, "Received integer not as expected");
  */
 void testresult_report_result(TF_TestId eTestId, int iPassOrFail, char* pFailReason);
