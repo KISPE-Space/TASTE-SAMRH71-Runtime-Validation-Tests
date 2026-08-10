@@ -28,7 +28,7 @@ void encoding_test_startup(void)
     // Register the test that this TASTE Function will submit a result for
     testresult_register_test(TF_TEST_ID__TestEncoding);
 
-    // Intiialise the assertion flags
+    // Initialise the assertion flags
     for (int i = 0; i < ASSERTION_COUNT; i++) {
         aTestAssertionsValidated[i] = false;
     }
