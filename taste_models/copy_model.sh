@@ -90,9 +90,9 @@ fi
 # We can remove any pro.user* files. QtCreator creates these but they do not seem to prevent the project running correctly if not present
 rm -f $DST_DIR/*.pro.user*
 
-# Force the first line in the asn and acn files to ALL-UPPER-CASE
-sed -i '1s/.*/\U&/' $DST_DIR/$DST_DIR.asn
-sed -i '1s/.*/\U&/' $DST_DIR/$DST_DIR.acn
+# Force the first line in the asn and acn files to ALL-UPPER-CASE model-name
+sed -i "1s|.*|${DST_DIR^^}-DATAVIEW DEFINITIONS ::=|" $DST_DIR/$DST_DIR.asn
+sed -i "1s|.*|${DST_DIR^^}-DATAVIEW DEFINITIONS ::= BEGIN|" $DST_DIR/$DST_DIR.acn
 
 # Change ownership of all files and folders to taste:taste
 sudo chown -R taste:taste $DST_DIR
