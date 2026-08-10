@@ -57,7 +57,7 @@ void encoding_test_PI_protected_acn_if( const asn1SccMyInteger *IN_P1, const asn
 
     // We were invoked and got all expected values: This assertion was validated
     } else {
-        aTestAssertionsValidated[ASSERTION__PROTECTED_ACN_IF_INDEX] = false;
+        aTestAssertionsValidated[ASSERTION__PROTECTED_ACN_IF_INDEX] = true;
     }
 }
 
@@ -84,7 +84,7 @@ void encoding_test_PI_protected_if( const asn1SccMyInteger *IN_P1, const asn1Scc
 
     // We were invoked and got all expected values: This assertion was validated
     } else {
-        aTestAssertionsValidated[ASSERTION__PROTECTED_NATIVE_IF_INDEX] = false;
+        aTestAssertionsValidated[ASSERTION__PROTECTED_NATIVE_IF_INDEX] = true;
     }
 }
 
