@@ -43,7 +43,7 @@ Throughout these steps the term "target model" shall be used to refer to the mod
     - Connect the `uart1` node on each instance with a line
     - Bind `Partition_2` to the TASTE Function `UartOtherEnd` *only*
     - Bind `Partition_1` to all other TASTE Functions in the model
-    - In the `Partition_1` **Properties** dialog in the **Attributes** tab set **Extra libs** to `"../../../../tf_common/"`
+    - In the `Partition_1` **Properties** dialog in the **Attributes** tab set **Extra libs** to `../../../../tf_common/`
     - In the **Properties** dialog for the line connecting the two `uart1` nodes, in the **Message Bindings** tab tick the `TF_Reporter.samrh71tx -> UartOtherEnd.samrh71.tx` entry
     - In the **Properties** dailog for each samrh71's `uart1` node set **Config** to: `{ devname  uart1, speed  b115200, parity  even, transmit-mode  raw-single-byte }`
     - In the **Properties** dailog for each samrh71's `uart1` node set **Packetizer** to `passthrough`
