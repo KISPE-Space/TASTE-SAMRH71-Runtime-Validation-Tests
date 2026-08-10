@@ -1,0 +1,152 @@
+Function TestEntryPoint in context _Root
+├─ Full Prefix : (none)
+├─ Language    : c
+├─ Zip file    : (none)
+├─ Is type     : FALSE
+├─ Instance of : 
+├─ Minimum number of instances :  1
+├─ Maximum number of instances :  1
+├─ Instance number :  1
+├─ Instance original name : TestEntryPoint
+├─ Context Parameters :
+├─ Directives:
+├─ Simulink Tuneable Parameters:
+├─ Implementations:
+├─ User properties:
+│  ├─ Taste::Instances_Max = 1
+│  ├─ Taste::Instances_Min = 1
+│  ├─ Taste::Startup_Priority = 1
+│  └─ TASTE_IV_Properties::Default_Codegen = Ada
+├─ Timers:
+├─ Provided interfaces:
+│  └─ Name : pi_sp_if - in FV: TestEntryPoint
+│     ├─ RCM Kind    : SPORADIC_OPERATION
+│     ├─ Period/MIAT :  0
+│     ├─ WCET (ms)   :  0
+│     ├─ Queue Size  :  1
+│     ├─ Parameters  :
+│     └─ Connections :
+│        └─ Function TestStart00, interface pi_sp_if
+└─ Required interfaces:
+
+Function TestStart00 in context _Root
+├─ Full Prefix : (none)
+├─ Language    : c
+├─ Zip file    : (none)
+├─ Is type     : FALSE
+├─ Instance of : 
+├─ Minimum number of instances :  1
+├─ Maximum number of instances :  1
+├─ Instance number :  1
+├─ Instance original name : TestStart00
+├─ Context Parameters :
+├─ Directives:
+├─ Simulink Tuneable Parameters:
+├─ Implementations:
+├─ User properties:
+│  ├─ Taste::Instances_Max = 1
+│  ├─ Taste::Instances_Min = 1
+│  ├─ Taste::Startup_Priority = 1
+│  └─ TASTE_IV_Properties::Default_Codegen = C
+├─ Timers:
+├─ Provided interfaces:
+│  ├─ Name : PI_1_CYCLIC - in FV: TestStart00
+│  │  ├─ RCM Kind    : CYCLIC_OPERATION
+│  │  ├─ Period/MIAT :  4000
+│  │  ├─ WCET (ms)   :  0
+│  │  ├─ Queue Size  :  1
+│  │  ├─ Parameters  :
+│  │  └─ Connections :
+│  └─ Name : samrh71rx - in FV: TestStart00
+│     ├─ RCM Kind    : SPORADIC_OPERATION
+│     ├─ Period/MIAT :  100
+│     ├─ WCET (ms)   :  0
+│     ├─ Queue Size  :  5
+│     ├─ Parameters  :
+│     │  ├─ Name            : iS71InValue
+│     │  │  ├─ Type         : T-UInt8
+│     │  │  ├─ ASN.1 Module : TASTE_BasicTypes
+│     │  │  ├─ ASN.1 File   : /home/taste/tool-inst/share/taste-types/taste-types.asn
+│     │  │  ├─ Basic type   : ASN1_INTEGER
+│     │  │  ├─ Encoding     : ACN
+│     │  │  └─ Direction    : PARAM_IN
+│     └─ Connections :
+│        └─ Function UartOtherEnd, interface samrh71rx
+└─ Required interfaces:
+   ├─ Name : pi_sp_if - in FV: TestStart00
+   │  ├─ RCM Kind    : SPORADIC_OPERATION
+   │  ├─ Period/MIAT :  0
+   │  ├─ WCET (ms)   :  0
+   │  ├─ Queue Size  :  1
+   │  ├─ Parameters  :
+   │  └─ Connections :
+   │     └─ Function TestEntryPoint, interface pi_sp_if
+   └─ Name : samrh71tx - in FV: TestStart00
+      ├─ RCM Kind    : SPORADIC_OPERATION
+      ├─ Period/MIAT :  100
+      ├─ WCET (ms)   :  0
+      ├─ Queue Size  :  5
+      ├─ Parameters  :
+      │  ├─ Name            : iS71OutValue
+      │  │  ├─ Type         : T-UInt8
+      │  │  ├─ ASN.1 Module : TASTE_BasicTypes
+      │  │  ├─ ASN.1 File   : /home/taste/tool-inst/share/taste-types/taste-types.asn
+      │  │  ├─ Basic type   : ASN1_INTEGER
+      │  │  ├─ Encoding     : ACN
+      │  │  └─ Direction    : PARAM_IN
+      └─ Connections :
+         └─ Function UartOtherEnd, interface samrh71tx
+
+Function UartOtherEnd in context _Root
+├─ Full Prefix : (none)
+├─ Language    : c
+├─ Zip file    : (none)
+├─ Is type     : FALSE
+├─ Instance of : 
+├─ Minimum number of instances :  1
+├─ Maximum number of instances :  1
+├─ Instance number :  1
+├─ Instance original name : UartOtherEnd
+├─ Context Parameters :
+├─ Directives:
+├─ Simulink Tuneable Parameters:
+├─ Implementations:
+├─ User properties:
+│  ├─ Taste::Instances_Max = 1
+│  ├─ Taste::Instances_Min = 1
+│  ├─ Taste::Startup_Priority = 1
+│  └─ TASTE_IV_Properties::Default_Codegen = Ada
+├─ Timers:
+├─ Provided interfaces:
+│  └─ Name : samrh71tx - in FV: UartOtherEnd
+│     ├─ RCM Kind    : SPORADIC_OPERATION
+│     ├─ Period/MIAT :  100
+│     ├─ WCET (ms)   :  0
+│     ├─ Queue Size  :  5
+│     ├─ Parameters  :
+│     │  ├─ Name            : iS71OutValue
+│     │  │  ├─ Type         : T-UInt8
+│     │  │  ├─ ASN.1 Module : TASTE_BasicTypes
+│     │  │  ├─ ASN.1 File   : /home/taste/tool-inst/share/taste-types/taste-types.asn
+│     │  │  ├─ Basic type   : ASN1_INTEGER
+│     │  │  ├─ Encoding     : ACN
+│     │  │  └─ Direction    : PARAM_IN
+│     └─ Connections :
+│        └─ Function TestStart00, interface samrh71tx
+└─ Required interfaces:
+   └─ Name : samrh71rx - in FV: UartOtherEnd
+      ├─ RCM Kind    : SPORADIC_OPERATION
+      ├─ Period/MIAT :  100
+      ├─ WCET (ms)   :  0
+      ├─ Queue Size  :  5
+      ├─ Parameters  :
+      │  ├─ Name            : iS71InValue
+      │  │  ├─ Type         : T-UInt8
+      │  │  ├─ ASN.1 Module : TASTE_BasicTypes
+      │  │  ├─ ASN.1 File   : /home/taste/tool-inst/share/taste-types/taste-types.asn
+      │  │  ├─ Basic type   : ASN1_INTEGER
+      │  │  ├─ Encoding     : ACN
+      │  │  └─ Direction    : PARAM_IN
+      └─ Connections :
+         └─ Function TestStart00, interface samrh71rx
+

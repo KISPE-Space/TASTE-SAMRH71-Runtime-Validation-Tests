@@ -1,0 +1,66 @@
+-- ===============
+-- PROPERTIES.SLIM
+-- ===============
+-- ------
+-- SYNTAX
+-- ------
+-- system <SUBSYSTEM NAME>
+-- properties
+--   Patterns => (
+--     [
+--       Name => "<NAME>";
+--       Pattern => "<PATTERN>";
+--     ],
+--     ...
+--   );
+--   GenericProperties => (
+--     [
+--       Name => "<NAME>";
+--       Formula => "<FORMULA>";
+--     ],
+--     ...
+--   );
+-- end <SUBSYSTEM NAME>;
+-- -------
+-- EXAMPLE
+-- -------
+-- system HW_Block
+-- properties
+--   Patterns => (
+--     [
+--       Name => "All sensors working";
+--       Pattern => "Globally, it is always the case that {PI_is_valid_s1 and PI_is_valid_s2} holds";
+--     ]
+--   );
+-- end HW_Block;
+-- ----------------------
+-- DUMP OF INTERFACE VIEW
+-- ----------------------
+-- Function (C): TestEntryPoint
+---- PI (Sporadic): pi_sp_if
+
+
+
+-- Function (C): TestStart00
+
+---- PI (Sporadic): samrh71rx
+------ PARAM_IN (T-UInt8): samrh71rx.iS71InValue
+
+
+---- RI (Sporadic): pi_sp_if
+
+---- RI (Sporadic): samrh71tx
+------ PARAM_IN (T-UInt8): samrh71tx.iS71OutValue
+
+
+-- Function (C): UartOtherEnd
+---- PI (Sporadic): samrh71tx
+------ PARAM_IN (T-UInt8): samrh71tx.iS71OutValue
+
+
+---- RI (Sporadic): samrh71rx
+------ PARAM_IN (T-UInt8): samrh71rx.iS71InValue
+
+
+
+--

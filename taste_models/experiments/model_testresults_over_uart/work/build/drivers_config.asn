@@ -1,0 +1,9 @@
+--  Configuration data for device drivers in distributed systems
+--  This file was generated automatically by taste/kazoo
+Taste-Drivers-Configuration DEFINITIONS ::=
+BEGIN
+IMPORTS Serial-SamRH71-Rtems-Conf-T FROM SAMRH71-RTEMS-SERIAL-DRIVER;
+   pohidrv-node-1-uart1 Serial-SamRH71-Rtems-Conf-T ::= { devname  uart1, speed  b115200, parity  even, transmit-mode  raw-single-byte }
+   pohidrv-node-2-uart1 Serial-SamRH71-Rtems-Conf-T ::= { devname  uart1, speed  b115200, parity  even, transmit-mode  raw-single-byte }
+END
+

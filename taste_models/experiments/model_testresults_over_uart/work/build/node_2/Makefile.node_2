@@ -1,0 +1,62 @@
+# This file is generated for SamRH71 RTEMS partition
+#  node_2 p1  PLATFORM_SAMRH71_RTEMS ocarina_processors_arm::samrh71.rtems
+
+.PHONY: all clean partitions partition_partition_2 partition_debug_partition_2 runtime_partition_2
+
+
+all:    debug
+
+release: partition_partition_2
+
+debug: partition_debug_partition_2
+
+partition_partition_2: runtime_partition_2
+	# Install additional libraries
+	mkdir -p "partition_2/libs"
+	for dir in $(subst :, ,$(PARTITION_2_EXTERNAL_LIBS)); do \
+		cp -r $$dir/* partition_2/libs/; \
+	done; \
+	PARTITION_2_LIB_DIRS="partition_2/libs"; \
+	for d in partition_2/libs/*/; do \
+    	[ -d "$$d" ] && PARTITION_2_LIB_DIRS="$$PARTITION_2_LIB_DIRS:$$d"; \
+	done; \
+	export PARTITION_2_EXTERNAL_SOURCE_PATH="$$PARTITION_2_LIB_DIRS:$$PARTITION_2_EXTERNAL_SOURCE_PATH"; \
+	PARTITION_2_EXTERNAL_LIBS_INCLUDES=""; \
+	for d in partition_2/libs partition_2/libs/*; do \
+		if [ -d "$$d" ]; then \
+			PARTITION_2_EXTERNAL_LIBS_INCLUDES="$$PARTITION_2_EXTERNAL_LIBS_INCLUDES -I$$d"; \
+		fi; \
+	done; \
+	PARTITION_2_EXTERNAL_LIBS_INCLUDES="$${PARTITION_2_EXTERNAL_LIBS_INCLUDES# }"; \
+	export PARTITION_2_EXTERNAL_LIBS_INCLUDES; \
+	gprconfig --batch --config=Ada,,default,,GNAT --config=C,,default,,GCC --config=C++,,default,,G++; \
+	gprbuild -R -p -P partition_2.gpr -XCFG="Release" -cargs:C -DSTATIC=""
+
+partition_debug_partition_2: runtime_partition_2
+	# Install additional libraries
+	mkdir -p "partition_2/libs"
+	for dir in $(subst :, ,$(PARTITION_2_EXTERNAL_LIBS)); do \
+		cp -r $$dir/* partition_2/libs/; \
+	done; \
+	PARTITION_2_LIB_DIRS="partition_2/libs"; \
+	for d in partition_2/libs/*/; do \
+    	[ -d "$$d" ] && PARTITION_2_LIB_DIRS="$$PARTITION_2_LIB_DIRS:$$d"; \
+	done; \
+	export PARTITION_2_EXTERNAL_SOURCE_PATH="$$PARTITION_2_LIB_DIRS:$$PARTITION_2_EXTERNAL_SOURCE_PATH"; \
+	PARTITION_2_EXTERNAL_LIBS_INCLUDES=""; \
+	for d in partition_2/libs partition_2/libs/*; do \
+		if [ -d "$$d" ]; then \
+			PARTITION_2_EXTERNAL_LIBS_INCLUDES="$$PARTITION_2_EXTERNAL_LIBS_INCLUDES -I$$d"; \
+		fi; \
+	done; \
+	PARTITION_2_EXTERNAL_LIBS_INCLUDES="$${PARTITION_2_EXTERNAL_LIBS_INCLUDES# }"; \
+	export PARTITION_2_EXTERNAL_LIBS_INCLUDES; \
+	gprconfig --batch --config=Ada,,default,,GNAT --config=C,,default,,GCC --config=C++,,default,,G++; \
+	gprbuild -R -p -P partition_2.gpr -XCFG="Debug" -cargs:C -DSTATIC=""
+
+clean:
+	gprclean -P partition_2.gpr
+
+runtime_partition_2:
+	sh ./runtime_partition_2.sh
+

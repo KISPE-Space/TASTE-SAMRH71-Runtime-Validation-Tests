@@ -1,0 +1,61 @@
+-- ==============
+-- CONTRACTS.SLIM
+-- ==============
+-- ------
+-- SYNTAX
+-- ------
+-- system <SLIM FUNCTION NAME>
+-- properties
+--   Contracts => (
+--     [
+--       Name => "<NAME>";
+--       Assumption => "<ASSUMPTION>";
+--       Guarantee => "<GUARANTEE>";
+--     ],
+--     ...
+--   );
+-- end <SLIM FUNCTION NAME>;
+-- -------
+-- EXAMPLE
+-- -------
+-- system Battery
+-- properties
+--   Contracts => (
+--     [
+--       Name => "power";
+--       Assumption => "always(get_voltage >= 10)";
+--       Guarantee => "always(voltage_out >= 10)";
+--     ]
+--   );
+-- end Battery;
+-- ----------------------
+-- DUMP OF INTERFACE VIEW
+-- ----------------------
+-- Function (C): TestEntryPoint
+---- PI (Sporadic): pi_sp_if
+
+
+
+-- Function (C): TestStart00
+
+---- PI (Sporadic): samrh71rx
+------ PARAM_IN (T-UInt8): samrh71rx.iS71InValue
+
+
+---- RI (Sporadic): pi_sp_if
+
+---- RI (Sporadic): samrh71tx
+------ PARAM_IN (T-UInt8): samrh71tx.iS71OutValue
+
+
+-- Function (C): UartOtherEnd
+---- PI (Sporadic): samrh71tx
+------ PARAM_IN (T-UInt8): samrh71tx.iS71OutValue
+
+
+---- RI (Sporadic): samrh71rx
+------ PARAM_IN (T-UInt8): samrh71rx.iS71InValue
+
+
+
+--

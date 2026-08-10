@@ -1,0 +1,231 @@
+--  Node name          : partition_1
+--  Execution platform : PLATFORM_SAMRH71_RTEMS
+--  This file is generated for SAMRH71 with RTEMS6
+
+
+
+
+project Partition_1 is
+
+   type Build_Type is ("Debug", "Release");
+   Build : Build_Type := external ("CFG", "Debug");
+
+
+   --  following to be updated with all relevant source dirs
+   for Source_Dirs use
+      (
+       "../../testentrypoint/C/src",
+       "../../testentrypoint/C/wrappers",
+       "../../teststart00/C/src",
+       "../../teststart00/C/wrappers",
+       "../DriversConfig",
+       "../../dataview/C",
+       "partition_1/drivers/samrh71_rtems_serial",
+       "../system_spec",
+       "partition_1/runtime",
+       "partition_1/runtime/Broker",
+       "partition_1/runtime/Escaper",
+       "partition_1/runtime/Packetizer",
+       "partition_1/runtime/RuntimeCommon",
+       "partition_1/runtime/SAMX-RTEMS-Runtime/src",
+       "partition_1/runtime/SAMX-RTEMS-Runtime/src/Hal",
+       "partition_1/runtime/SAMX-RTEMS-Runtime/src/Monitor",
+       "partition_1/runtime/SAMX-RTEMS-Runtime/src/ThreadsCommon",
+       "partition_1/runtime/SAMX-RTEMS-Runtime/src/BrokerLock",
+       "partition_1/runtime/SAMX-RTEMS-Runtime/src/SamRH71Core",
+       "partition_1/runtime/SAMX-RTEMS-Runtime/src/FaultHandler",
+       "partition_1/runtime/SAMX-RTEMS-Runtime/src/BootHelper",
+       "partition_1/runtime/SAMX-RTEMS-Runtime/arm-bsp/src",
+       "partition_1/runtime/SAMX-RTEMS-Runtime/arm-bsp/src/Wdt",
+       "partition_1/runtime/SAMX-RTEMS-Runtime/arm-bsp/src/Utils",
+       "partition_1/runtime/SAMX-RTEMS-Runtime/arm-bsp/src/Tic",
+       "partition_1/runtime/SAMX-RTEMS-Runtime/arm-bsp/src/Systick",
+       "partition_1/runtime/SAMX-RTEMS-Runtime/arm-bsp/src/SystemConfig",
+       "partition_1/runtime/SAMX-RTEMS-Runtime/arm-bsp/src/Sdramc",
+       "partition_1/runtime/SAMX-RTEMS-Runtime/arm-bsp/src/Rstc",
+       "partition_1/runtime/SAMX-RTEMS-Runtime/arm-bsp/src/Pmc",
+       "partition_1/runtime/SAMX-RTEMS-Runtime/arm-bsp/src/Pio/samrh",
+       "partition_1/runtime/SAMX-RTEMS-Runtime/arm-bsp/src/Nvic",
+       "partition_1/runtime/SAMX-RTEMS-Runtime/arm-bsp/src/Mpu",
+       "partition_1/runtime/SAMX-RTEMS-Runtime/arm-bsp/src/Mcan",
+       "partition_1/runtime/SAMX-RTEMS-Runtime/arm-bsp/src/Matrix",
+       "partition_1/runtime/SAMX-RTEMS-Runtime/arm-bsp/src/Fpu",
+       "partition_1/runtime/SAMX-RTEMS-Runtime/arm-bsp/src/Scb",
+       "partition_1/runtime/SAMX-RTEMS-Runtime/arm-bsp/src/Uart",
+       "partition_1")
+       & external_as_list("EXTERNAL_SOURCE_PATH", ":")
+       & external_as_list("PARTITION_1_EXTERNAL_SOURCE_PATH", ":");
+
+   for Object_Dir use "partition_1_obj";
+   for Exec_Dir   use "../../binaries";
+
+   for Languages use (
+       "C");
+
+   package Naming is
+       for Body_Suffix ("C++") use ".cc";
+       for Body_Suffix ("Ada") use ".adb";
+   end Naming;
+
+   for Main use ("main.c");
+
+   Warning_Switches :=
+       ("-Wall",
+        "-Wextra",
+        "-Wno-unused-parameter");
+
+   SAMRH71_Switches :=
+        ("-mcpu=cortex-m7",
+         "-mfloat-abi=hard",
+         "-mfpu=fpv5-d16",
+         "-mlittle-endian",
+         "-fstack-usage",
+         "-fcallgraph-info=su",
+         "-mthumb",
+         "-ffunction-sections",
+         "-lm",
+         "-DN7S_TARGET_SAMRH71F20",
+         "-DWORD_SIZE=4");
+
+   SAMRH71_Includes := ("-I/opt/taste-rtems-qdp-arm/arm-rtems6/n7sbsp-samrh71f20/lib/include");
+
+   SAMRH71_CC_Switches :=
+         ("-ffunction-sections",
+         "-fdata-sections",
+         "-fstack-usage",
+         "-fcallgraph-info=su",
+         "-DRTEMS6_TARGET");
+
+   SAMRH71_CXX_SWITCHES := ("-std=c++17");
+
+   Home_Path := external ("HOME", "home/taste");
+   SAMRH71_Default_Linker_Script := Home_Path &"/tool-inst/include/TASTE-SAMX-RTEMS-Runtime/linker_script/samrh71f20/linkcmds.intsram";
+   SAMRH71_Default_Linker_Script_Dir := Home_Path &"/tool-inst/include/TASTE-SAMX-RTEMS-Runtime/linker_script/samrh71f20";
+
+   SAMRH71_Linker_Script := external ("PARTITION_1_USER_LDSCRIPT", SAMRH71_Default_Linker_Script);
+   SAMRH71_Linker_Script_Dir := external ("PARTITION_1_USER_LDSCRIPT_DIR", SAMRH71_Default_Linker_Script_Dir);
+
+   SAMRH71_LD_Switches :=
+         ("-qnolinkcmds",
+         "-Wl,-L" & SAMRH71_Linker_Script_Dir,
+         "-Wl,-T" & SAMRH71_Linker_Script,
+         "-Wl,-L/opt/taste-rtems-qdp-arm/arm-rtems6/n7sbsp-samrh71f20/lib",
+         "-qrtems",
+         "-Wl,--start-group",
+         "-lrtemscpu",
+         "-lrtemsbsp",
+         "-lgcc",
+         "-Wl,--end-group",
+         "-Wl,-Map=output.map",
+         "-Wl,--gc-sections"
+         );
+
+   package Compiler is
+      for Driver ("C") use "arm-rtems6-gcc";
+      for Driver ("Ada") use "arm-rtems6-gcc";
+      for Driver ("C++") use "arm-rtems6-g++";
+
+      for Required_Switches ("C") use ("-c");
+      for Required_Switches ("C++") use ("-c");
+      for Required_Switches ("Ada") use ("-c");
+
+      case Build is
+         when "Release" =>
+            for Default_Switches ("C") use
+               ("-g",
+                "-O2")
+                & Warning_Switches
+                & SAMRH71_Switches
+                & SAMRH71_CC_Switches
+                & SAMRH71_Includes
+                & external_as_list("PARTITION_1_USER_CFLAGS", " ")
+                & external_as_list("USER_CFLAGS", " ")
+                & external_as_list("PARTITION_1_EXTERNAL_LIBS_INCLUDES", " ");
+            for Default_Switches ("C++") use
+               ("-g",
+                "-O2")
+                & Warning_Switches
+                & SAMRH71_Switches
+                & SAMRH71_CC_Switches
+                & SAMRH71_CXX_Switches
+                & SAMRH71_Includes
+                & external_as_list("PARTITION_1_USER_CFLAGS", " ")
+                & external_as_list("USER_CFLAGS", " ")
+                & external_as_list("PARTITION_1_EXTERNAL_LIBS_INCLUDES", " ");
+            for Default_Switches ("Ada") use
+               ("-Wall",
+                "-Wextra",
+                "-gnat2012",
+                "-gnatwa",
+                "-gnatQ")
+                & SAMRH71_Switches
+                & SAMRH71_Includes;
+         when "Debug" =>
+            for Default_Switches ("C") use
+               ("-O0",
+                "-g")
+                & Warning_Switches
+                & SAMRH71_Switches
+                & SAMRH71_CC_Switches
+                & SAMRH71_Includes
+                & external_as_list("PARTITION_1_USER_CFLAGS", " ")
+                & external_as_list("USER_CFLAGS", " ")
+                & external_as_list("PARTITION_1_EXTERNAL_LIBS_INCLUDES", " ");
+            for Default_Switches ("C++") use
+               ("-O0",
+                "-g")
+                & Warning_Switches
+                & SAMRH71_Switches
+                & SAMRH71_CC_Switches
+                & SAMRH71_CXX_Switches
+                & SAMRH71_Includes
+                & external_as_list("PARTITION_1_USER_CFLAGS", " ")
+                & external_as_list("USER_CFLAGS", " ")
+                & external_as_list("PARTITION_1_EXTERNAL_LIBS_INCLUDES", " ");
+            for Default_Switches ("Ada") use
+               ("-Wall",
+                "-Wextra",
+                "-O0",
+                "-g",
+                "-gnat2012",
+                "-gnatwa",
+                "-gnatQ")
+                & SAMRH71_Switches
+                & SAMRH71_Includes;
+      end case;
+   end Compiler;
+
+   package Linker is
+      for Driver use "arm-rtems6-gcc";
+
+      Common_LD_Switches :=
+          external_as_list("PARTITION_1_USER_LDFLAGS", " ")
+          & external_as_list("USER_LDFLAGS", " ");
+
+      case Build is
+          when "Release" =>
+            for Default_Switches ("C") use
+                Common_LD_Switches
+                & SAMRH71_LD_Switches
+                & SAMRH71_Switches;
+         when "Debug" =>
+            for Default_Switches ("C") use
+                Common_LD_Switches
+                & SAMRH71_LD_Switches
+                & SAMRH71_Switches;
+      end case;
+
+   end Linker;
+
+   package Builder is
+      for Executable ("main.c") use "partition_1";
+   end Builder;
+
+   package Binder is
+      for Default_Switches ("Ada") use ("-n", "-static");
+      for Switches ("Ada") use ("-n",
+                                "-static",
+                                "--gnatbind_path=arm-rtems6-gnatbind");
+   end Binder;
+
+end Partition_1;
