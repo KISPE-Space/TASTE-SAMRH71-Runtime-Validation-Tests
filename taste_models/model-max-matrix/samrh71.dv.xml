@@ -1,0 +1,73 @@
+<DeploymentView version="1.2" UiFile="samrh71.ui.xml" creatorHash="383508e" modifierHash="383508e">
+    <Node id="{92a5dee0-8484-4366-922c-06f5f1783d09}" name="SAM RH71 RTEMS N7S_1" type="ocarina_processors_arm::samrh71.rtems" node_label="Node_1" namespace="ocarina_processors_arm">
+        <Partition id="{80afc67c-d5f5-40ed-bf50-fd01bcf7dcb7}" name="Partition_1" externallibs="../../../../tf_common/">
+            <Function id="{cf2e08dc-6dad-4f1a-b49e-f9bbcda5f24a}" name="Function_14" path="Function_14"/>
+            <Function id="{36e4a396-c09a-4f29-905c-5f3b854799bc}" name="Function_17" path="Function_17"/>
+            <Function id="{b657bee4-909b-48fa-a63e-30d54e6f5508}" name="testfunction" path="testfunction"/>
+            <Function id="{d65639f7-ff5e-45df-a2e3-69d9ef2c9d50}" name="Function_18" path="Function_18"/>
+            <Function id="{a7f7c7fe-2f35-4e15-9b67-1363f7334b71}" name="Function_6" path="Function_6"/>
+            <Function id="{22072413-b0ac-40b5-a517-831688a96b49}" name="Function_10" path="Function_10"/>
+            <Function id="{344e3f79-a560-47f5-87cf-87c23b575f86}" name="Function_12" path="Function_12"/>
+            <Function id="{4cb800fc-3694-488c-a373-d2414f5adac7}" name="Function_8" path="Function_8"/>
+            <Function id="{bef48a14-922e-4511-8d5d-3f230af2aea5}" name="Function_5" path="Function_5"/>
+            <Function id="{b6f70a65-846c-42c7-8bfc-0bcf54a34b6d}" name="Function_7" path="Function_7"/>
+            <Function id="{5f896984-d1b6-4168-a0a7-e6c3377d36d4}" name="Function_3" path="Function_3"/>
+            <Function id="{b9b76df3-529c-475c-a70c-6cfbbd2fa442}" name="Function_13" path="Function_13"/>
+            <Function id="{52801be6-22ee-4708-9587-6e50f3c4105c}" name="TF_Reporter" path="TF_Reporter"/>
+            <Function id="{9b554797-0704-40b7-93a2-8389a99c592d}" name="Function_4" path="Function_4"/>
+            <Function id="{a8ebcf54-de70-4165-a8b2-68e6302bd8c3}" name="Function_20" path="Function_20"/>
+            <Function id="{d75a56e0-5486-416d-bd56-5f78cb749f30}" name="Function_15" path="Function_15"/>
+            <Function id="{3a7760be-66eb-485e-80bc-91958b39466e}" name="Function_9" path="Function_9"/>
+            <Function id="{c15b8b6c-8e29-424c-ab9f-c571dfb60ef4}" name="testtrigger" path="testtrigger"/>
+            <Function id="{b9280b57-d2d5-432d-81c6-a07226b3cb63}" name="Function_1" path="Function_1"/>
+            <Function id="{25a2b136-3beb-43ab-9142-9b552b93d7fe}" name="Function_2" path="Function_2"/>
+            <Function id="{f33409e4-17ff-457e-91ef-3144183b0c43}" name="Function_19" path="Function_19"/>
+            <Function id="{4517a644-c459-41d3-9f1d-f93b87babe26}" name="Function_11" path="Function_11"/>
+            <Function id="{d38b43c9-00be-463c-9876-31ee7b7c4398}" name="Function_16" path="Function_16"/>
+        </Partition>
+        <Device id="{d020cd2e-bc9b-4dc8-9718-5788d276d98e}" name="spw0" requires_bus_access="ocarina_buses::spacewire.generic" port="spw0" asn1file="/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-spw-driver.asn" asn1type="Spw-SamRH71-Rtems-Conf-T" asn1module="SAMRH71-RTEMS-SPW-DRIVER" namespace="ocarina_drivers" impl_extends="ocarina_drivers::spacewire_generic.samrh71" bus_namespace="ocarina_buses" extends="ocarina_drivers::spacewire_generic">
+        </Device>
+        <Device id="{9dad5bc7-ac9c-4365-9f9b-0bd4ca64e747}" name="spw1" requires_bus_access="ocarina_buses::spacewire.generic" port="spw1" asn1file="/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-spw-driver.asn" asn1type="Spw-SamRH71-Rtems-Conf-T" asn1module="SAMRH71-RTEMS-SPW-DRIVER" namespace="ocarina_drivers" impl_extends="ocarina_drivers::spacewire_generic.samrh71" bus_namespace="ocarina_buses" extends="ocarina_drivers::spacewire_generic">
+        </Device>
+        <Device id="{cf53ed66-a696-4d4f-b0d5-155aa8180034}" name="uart0" requires_bus_access="ocarina_buses::serial.ccsds" port="uart0" asn1file="/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-serial-driver.asn" asn1type="Serial-SamRH71-Rtems-Conf-T" asn1module="SAMRH71-RTEMS-SERIAL-DRIVER" namespace="ocarina_drivers" impl_extends="ocarina_drivers::serial_ccsds.samrh71" bus_namespace="ocarina_buses" extends="ocarina_drivers::serial_ccsds">
+        </Device>
+        <Device id="{505da1b8-582e-4a92-9a68-8c302fe6863c}" name="uart1" requires_bus_access="ocarina_buses::serial.ccsds" packetizer="passthrough" config="{ devname  uart1, speed  b115200, parity  even, transmit-mode  raw-single-byte }" port="uart1" asn1file="/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-serial-driver.asn" asn1type="Serial-SamRH71-Rtems-Conf-T" asn1module="SAMRH71-RTEMS-SERIAL-DRIVER" namespace="ocarina_drivers" impl_extends="ocarina_drivers::serial_ccsds.samrh71" bus_namespace="ocarina_buses" extends="ocarina_drivers::serial_ccsds">
+        </Device>
+        <Device id="{2e61ec1e-cdbb-47ab-afb4-757ebbd5bb01}" name="uart2" requires_bus_access="ocarina_buses::serial.ccsds" port="uart2" asn1file="/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-serial-driver.asn" asn1type="Serial-SamRH71-Rtems-Conf-T" asn1module="SAMRH71-RTEMS-SERIAL-DRIVER" namespace="ocarina_drivers" impl_extends="ocarina_drivers::serial_ccsds.samrh71" bus_namespace="ocarina_buses" extends="ocarina_drivers::serial_ccsds">
+        </Device>
+        <Device id="{dd5905d7-9132-4f94-a488-7f2dea11b337}" name="uart3" requires_bus_access="ocarina_buses::serial.ccsds" port="uart3" asn1file="/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-serial-driver.asn" asn1type="Serial-SamRH71-Rtems-Conf-T" asn1module="SAMRH71-RTEMS-SERIAL-DRIVER" namespace="ocarina_drivers" impl_extends="ocarina_drivers::serial_ccsds.samrh71" bus_namespace="ocarina_buses" extends="ocarina_drivers::serial_ccsds">
+        </Device>
+        <Device id="{ebeba9bd-98ad-49ff-a3b6-545f4b0efd5b}" name="uart4" requires_bus_access="ocarina_buses::serial.ccsds" port="uart4" asn1file="/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-serial-driver.asn" asn1type="Serial-SamRH71-Rtems-Conf-T" asn1module="SAMRH71-RTEMS-SERIAL-DRIVER" namespace="ocarina_drivers" impl_extends="ocarina_drivers::serial_ccsds.samrh71" bus_namespace="ocarina_buses" extends="ocarina_drivers::serial_ccsds">
+        </Device>
+        <Device id="{f808e79f-9ca9-49de-81fd-916333440c04}" name="can0" requires_bus_access="ocarina_buses::can.generic" port="can0" asn1file="/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-can-driver.asn" asn1type="CAN-SamRH71-Rtems-Conf-T" asn1module="SAMRH71-RTEMS-CAN-DRIVER" namespace="ocarina_drivers" impl_extends="ocarina_drivers::can_generic.samrh71" bus_namespace="ocarina_buses" extends="ocarina_drivers::can_generic">
+        </Device>
+        <Device id="{8dd86709-716c-486b-8e5c-f6b06a7b2156}" name="can1" requires_bus_access="ocarina_buses::can.generic" port="can1" asn1file="/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-can-driver.asn" asn1type="CAN-SamRH71-Rtems-Conf-T" asn1module="SAMRH71-RTEMS-CAN-DRIVER" namespace="ocarina_drivers" impl_extends="ocarina_drivers::can_generic.samrh71" bus_namespace="ocarina_buses" extends="ocarina_drivers::can_generic">
+        </Device>
+    </Node>
+    <Node id="{b7156d1b-ca0a-49e2-a51b-d1a471b370c2}" name="SAM RH71 RTEMS N7S_2" type="ocarina_processors_arm::samrh71.rtems" node_label="Node_2" namespace="ocarina_processors_arm">
+        <Partition id="{9624326e-def1-4a2f-997c-2b338b825491}" name="Partition_2">
+            <Function id="{7f434e8a-768d-4413-beaa-a6a6085d79a9}" name="UartOtherEnd" path="UartOtherEnd"/>
+        </Partition>
+        <Device id="{880f7509-3864-48ce-ba10-2c0ffb2906d2}" name="spw0" requires_bus_access="ocarina_buses::spacewire.generic" port="spw0" asn1file="/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-spw-driver.asn" asn1type="Spw-SamRH71-Rtems-Conf-T" asn1module="SAMRH71-RTEMS-SPW-DRIVER" namespace="ocarina_drivers" impl_extends="ocarina_drivers::spacewire_generic.samrh71" bus_namespace="ocarina_buses" extends="ocarina_drivers::spacewire_generic">
+        </Device>
+        <Device id="{27c0f2f1-67be-411b-bf62-dc67106c7cfa}" name="spw1" requires_bus_access="ocarina_buses::spacewire.generic" port="spw1" asn1file="/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-spw-driver.asn" asn1type="Spw-SamRH71-Rtems-Conf-T" asn1module="SAMRH71-RTEMS-SPW-DRIVER" namespace="ocarina_drivers" impl_extends="ocarina_drivers::spacewire_generic.samrh71" bus_namespace="ocarina_buses" extends="ocarina_drivers::spacewire_generic">
+        </Device>
+        <Device id="{1d053c92-ee98-41c9-8c84-bb36ff632543}" name="uart0" requires_bus_access="ocarina_buses::serial.ccsds" port="uart0" asn1file="/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-serial-driver.asn" asn1type="Serial-SamRH71-Rtems-Conf-T" asn1module="SAMRH71-RTEMS-SERIAL-DRIVER" namespace="ocarina_drivers" impl_extends="ocarina_drivers::serial_ccsds.samrh71" bus_namespace="ocarina_buses" extends="ocarina_drivers::serial_ccsds">
+        </Device>
+        <Device id="{3faff1ea-2f82-4ea5-b5e2-c40601d2076d}" name="uart1" requires_bus_access="ocarina_buses::serial.ccsds" packetizer="passthrough" config="{ devname  uart1, speed  b115200, parity  even, transmit-mode  raw-single-byte }" port="uart1" asn1file="/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-serial-driver.asn" asn1type="Serial-SamRH71-Rtems-Conf-T" asn1module="SAMRH71-RTEMS-SERIAL-DRIVER" namespace="ocarina_drivers" impl_extends="ocarina_drivers::serial_ccsds.samrh71" bus_namespace="ocarina_buses" extends="ocarina_drivers::serial_ccsds">
+        </Device>
+        <Device id="{cf1be247-201d-493a-96ba-9c52a9890a94}" name="uart2" requires_bus_access="ocarina_buses::serial.ccsds" port="uart2" asn1file="/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-serial-driver.asn" asn1type="Serial-SamRH71-Rtems-Conf-T" asn1module="SAMRH71-RTEMS-SERIAL-DRIVER" namespace="ocarina_drivers" impl_extends="ocarina_drivers::serial_ccsds.samrh71" bus_namespace="ocarina_buses" extends="ocarina_drivers::serial_ccsds">
+        </Device>
+        <Device id="{7d962eca-61bd-4eee-b886-ee1f4f01bc7f}" name="uart3" requires_bus_access="ocarina_buses::serial.ccsds" port="uart3" asn1file="/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-serial-driver.asn" asn1type="Serial-SamRH71-Rtems-Conf-T" asn1module="SAMRH71-RTEMS-SERIAL-DRIVER" namespace="ocarina_drivers" impl_extends="ocarina_drivers::serial_ccsds.samrh71" bus_namespace="ocarina_buses" extends="ocarina_drivers::serial_ccsds">
+        </Device>
+        <Device id="{603a5004-a214-4aef-ac29-e0adaac16787}" name="uart4" requires_bus_access="ocarina_buses::serial.ccsds" port="uart4" asn1file="/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-serial-driver.asn" asn1type="Serial-SamRH71-Rtems-Conf-T" asn1module="SAMRH71-RTEMS-SERIAL-DRIVER" namespace="ocarina_drivers" impl_extends="ocarina_drivers::serial_ccsds.samrh71" bus_namespace="ocarina_buses" extends="ocarina_drivers::serial_ccsds">
+        </Device>
+        <Device id="{e768cebb-4a9a-4ba3-9716-a741ad8481ef}" name="can0" requires_bus_access="ocarina_buses::can.generic" port="can0" asn1file="/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-can-driver.asn" asn1type="CAN-SamRH71-Rtems-Conf-T" asn1module="SAMRH71-RTEMS-CAN-DRIVER" namespace="ocarina_drivers" impl_extends="ocarina_drivers::can_generic.samrh71" bus_namespace="ocarina_buses" extends="ocarina_drivers::can_generic">
+        </Device>
+        <Device id="{eb15a554-3fd1-462e-8485-41d042ba0a6c}" name="can1" requires_bus_access="ocarina_buses::can.generic" port="can1" asn1file="/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-can-driver.asn" asn1type="CAN-SamRH71-Rtems-Conf-T" asn1module="SAMRH71-RTEMS-CAN-DRIVER" namespace="ocarina_drivers" impl_extends="ocarina_drivers::can_generic.samrh71" bus_namespace="ocarina_buses" extends="ocarina_drivers::can_generic">
+        </Device>
+    </Node>
+    <Connection id="{9d59d048-40c5-4240-9751-027806aaca10}" name="Connection_1" from_node="SAM RH71 RTEMS N7S_1" from_port="uart1" to_bus="ocarina_buses::serial.ccsds" to_node="SAM RH71 RTEMS N7S_2" to_port="uart1">
+            <Message id="{c468c8f6-dac4-4541-9c92-ce5eb6579285}" name="Message_1" from_function="TF_Reporter" from_interface="samrh71tx" to_function="UartOtherEnd" to_interface="samrh71tx"/>
+    </Connection>
+</DeploymentView>
