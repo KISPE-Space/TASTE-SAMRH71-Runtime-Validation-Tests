@@ -23,12 +23,12 @@ void testfunction_startup(void)
     testresult_register_test(TF_TEST_ID__TestMaxMatrix);    /* Enabling this line leads to stack corruption in this model!! */
 }
 
-void testfunction_PI_notify(void)
+void testfunction_PI_notify(const asn1SccMyInteger *IN_p1)
 {
     notification_count++;
 
     char aMsgBuff[100];
-    sprintf(aMsgBuff, "notification_count is now: %i", notification_count);
+    sprintf(aMsgBuff, "notification_count is now: %i. Received p1: %i", notification_count, *IN_p1);
     transmit_log_info(aMsgBuff);
 }
 

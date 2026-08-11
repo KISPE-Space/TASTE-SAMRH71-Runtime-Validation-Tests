@@ -10,7 +10,7 @@
 #include "function_13.h"
 
 #define TEST_FUNCTIONS_COUNT 	10
-#define MY_FUNCTION_ID 			13
+static const asn1SccMyInteger iMyFunctionId = 13;
 
 static bool aSendersThatInvokedOurIf[TEST_FUNCTIONS_COUNT];
 static int iUniqueSenderCount = 0;
@@ -47,7 +47,7 @@ void function_13_PI_PI_1(const asn1SccMyInteger *IN_p1)
 
 	// Is our IF count now 10? If so, notify the test function, passing in our ID (13) so that the test function can verify that it was the correct function that notified it
 	if (iUniqueSenderCount == 10) {
-		function_13_RI_notify();
+		function_13_RI_notify(&asn1SccMyInteger);
 	}
 }
 
