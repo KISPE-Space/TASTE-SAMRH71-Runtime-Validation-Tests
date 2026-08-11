@@ -8,38 +8,65 @@
     !! file. The up-to-date signatures can be found in the header file. !!
 */
 #include "testfunction.h"
-#include "../../../../../tf_common/tf_uart_comms.h"
 #include "../../../../../tf_common/tf_test_results.h"
-#include <stdio.h>
 
-#define EXPECTED_NOTIFICATION_COUNT 10
 
-static int notification_count = 0;
-static bool test_result = false;
+#define FUNCTION_ID_FIRST 	    11
+#define TEST_FUNCTIONS_COUNT 	10
 
+static bool aSendersThatInvokedOurIf[TEST_FUNCTIONS_COUNT];
+static int iUniqueSenderCount = 0;
+static bool bAllFunctionsInvokedUs = false;
+
+
+// Constructor
 void testfunction_startup(void)
 {
     // Register the test that this TASTE Function will submit a result for
-    testresult_register_test(TF_TEST_ID__TestMaxMatrix);    /* Enabling this line leads to stack corruption in this model!! */
+    testresult_register_test(TF_TEST_ID__TestMaxMatrix);
+
+    // Set all IF invocation flags to false, so that we can track which IFs have been invoked
+    for (int i = 0; i < TEST_FUNCTIONS_COUNT; i++){
+        aSendersThatInvokedOurIf[i] = false;
+    }
 }
 
+
+// Handle invocations
 void testfunction_PI_notify(const asn1SccMyInteger *IN_p1)
 {
-    notification_count++;
+    // If IN_p1 is not in range, ignore it
+    if (*IN_p1 < FUNCTION_ID_FIRST || *IN_p1 > FUNCTION_ID_FIRST + TEST_FUNCTIONS_COUNT - 1) {
+        return;
+    }
 
-    char aMsgBuff[100];
-    sprintf(aMsgBuff, "notification_count is now: %i. Received p1: %i", notification_count, *IN_p1);
-    transmit_log_info(aMsgBuff);
+    // Was the relevant flag already set? If so ignore this invocation
+    if (aSendersThatInvokedOurIf[*IN_p1-FUNCTION_ID_FIRST] == true) {
+        return;
+    }
+
+    // Set the flag to indicate that we received the invocation for the corresponding IF
+    aSendersThatInvokedOurIf[*IN_p1-FUNCTION_ID_FIRST] = true;
+
+    // Increment our count of senders (Required interfaces) that invoked our Provided interface
+    iUniqueSenderCount++;
+
+    // Is our IF count now 10? If so, notify the test function, passing in our ID (20) so that the test function can verify that it was the correct function that notified it
+    if (iUniqueSenderCount == TEST_FUNCTIONS_COUNT) {
+        bAllFunctionsInvokedUs = true;
+    }
 }
 
+
+// Called periodically by cyclic interface. We collate test inputs and decide pass/fail
 void testfunction_PI_trigger_check()
 {
-    test_result = notification_count == EXPECTED_NOTIFICATION_COUNT;
-    if (test_result)
+    // Report pass or fail to the test framework, based on whether we received the expected number of invocations from the other functions
+    if (bAllFunctionsInvokedUs)
     {
         testresult_report_pass(TF_TEST_ID__TestMaxMatrix);
     } else {
-        testresult_report_fail(TF_TEST_ID__TestMaxMatrix, "Did not receive the expected count of IF invocations");
+        testresult_report_fail(TF_TEST_ID__TestMaxMatrix, "Did not receive IF invocations from all 10 functions");
     }
 }
 
