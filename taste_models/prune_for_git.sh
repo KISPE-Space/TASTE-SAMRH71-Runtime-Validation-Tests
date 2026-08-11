@@ -5,7 +5,8 @@ rm -rf work/build
 rm -rf work/binaries
 rm -rf work/Debug
 rm -rf work/Dump
-rm -rf work/glue_*
+rm -f work/glue_*
+rm -f work/skeletons_built
 
 # QT Creator user files
 #find . -name "*.pro.user*" | xargs rm -f
@@ -60,6 +61,7 @@ find work -name 'dataview' -type d | xargs rm -rf
 
 # Also remove any nested .git folders. These are not required for our test framework - we use a simple git structure
 find . -name '.git' | xargs rm -rf
+find . -name '.gitignore' | xargs rm -f
 
 # Change permissions on top level folder to 755
 chmod 755 .
