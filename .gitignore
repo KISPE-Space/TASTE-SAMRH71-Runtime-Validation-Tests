@@ -25,9 +25,9 @@ taste_models/*/work/Dump
 taste_models/sandbox
 
 # SDL autogen files
-**/work/partition_1_timer_manager
-**/work/*/SDL/code
+**/work/partition_1_timer_manager/
+**/work/*/SDL/code/
 **/work/*/SDL/src/dataview-uniq.asn
 **/work/*/SDL/src/dataview.md5
-**/work/*/SDL/src/system_structure.pr
+**/work/*/SDL/src/system_structure.pr*
 
