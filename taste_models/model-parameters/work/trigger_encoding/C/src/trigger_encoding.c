@@ -22,7 +22,7 @@ void trigger_encoding_startup(void)
 void trigger_encoding_PI_trigger(void)
 {
     // Only do this once
-    if(bFiredOnceAlready){
+    if (bFiredOnceAlready) {
         return;
     }
 

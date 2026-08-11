@@ -11,6 +11,9 @@
 
 #define COUNT_OF_PARAMETERS_PER_IF 10
 
+// We only want to fire the start trigger once
+static asn1SccT_Boolean bFiredOnceAlready = false;
+
 
 void trigger_parameter_count_startup(void)
 {
@@ -19,20 +22,28 @@ void trigger_parameter_count_startup(void)
 
 void trigger_parameter_count_PI_trigger( void )
 {
+    // Only do this once
+    if (bFiredOnceAlready) {
+        return;
+    }
+
     // Arrays to store the values we receive back from the interfaces with the "OUT" parameters
     asn1SccT_Int32 aValues[COUNT_OF_PARAMETERS_PER_IF] = {0};
 
     // Invoke the Protected interface with the 10 OUT parameters, and capture their values
-    trigger_parameter_count_RI_protout( aValues+0, aValues+1, aValues+2, aValues+3, aValues+4, aValues+5, aValues+6, aValues+7, aValues+8, aValues+9);
+    trigger_parameter_count_RI_protout(  aValues+0, aValues+1, aValues+2, aValues+3, aValues+4, aValues+5, aValues+6, aValues+7, aValues+8, aValues+9);
 
     // Pass the received values into the Protected interface with the 10 IN parameters
-    trigger_parameter_count_RI_protin(  aValues+0, aValues+1, aValues+2, aValues+3, aValues+4, aValues+5, aValues+6, aValues+7, aValues+8, aValues+9);
+    trigger_parameter_count_RI_protin(   aValues+0, aValues+1, aValues+2, aValues+3, aValues+4, aValues+5, aValues+6, aValues+7, aValues+8, aValues+9);
 
     // Invoke the Protected interface with the 10 OUT parameters, and capture their values
     trigger_parameter_count_RI_unprotout(aValues+0, aValues+1, aValues+2, aValues+3, aValues+4, aValues+5, aValues+6, aValues+7, aValues+8, aValues+9);
 
     // Pass the received values into the Protected interface with the 10 IN parameters
     trigger_parameter_count_RI_unprotin( aValues+0, aValues+1, aValues+2, aValues+3, aValues+4, aValues+5, aValues+6, aValues+7, aValues+8, aValues+9);
+
+    // Set the flag to avoid doing this a second time
+    bFiredOnceAlready = true;
 }
 
 
