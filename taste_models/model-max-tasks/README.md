@@ -1,7 +1,7 @@
 # Max-tasks Model
 
 ## Tests Implemented
-- **TestSPCC**: Implements 44 Sporadic IFs and 4 Cyclic IFs in a single model, validating they all get invoked. Note one Sporadic is on the UART transmitter function.
+- **TestMaxTasks**: Implements 44 Sporadic IFs and 4 Cyclic IFs in a single model, validating they all get invoked. Note one Sporadic is on the UART transmitter function.
 
 ## Requirements covered
 - `MBEP-RT-FUN-20` : TASTE Runtime shall support TASTE Functions with sporadic provided interfaces.
