@@ -32,9 +32,6 @@
 <Function id="{acc3a2c2-0463-4fcf-bd54-ead1adc833e2}" name="triggerfunction" is_type="NO" language="SDL" default_implementation="default" fixed_system_element="NO" required_system_element="NO" instances_max="1" instances_min="1" startup_priority="1">
     <Property name="TASTE_IV_Properties::Default_Codegen" value="C"/>
     <ContextParameter name="test_timer" type="Timer" value=""/>
-<Provided_Interface id="{be1eb92c-34e5-42e3-82d3-63dbc65215b3}" name="dummy_trigger" kind="Cyclic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" period="1000" stack_size="1024" priority="1" wcet="0" dispatch_offset="0">
-</Provided_Interface>
-
 <Required_Interface id="{bab5f7f1-6b0a-4164-b9e2-061e8c0c7917}" name="protected_if" kind="Protected" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" wcet="0">
     <Input_Parameter name="counter" type="MyInteger" encoding="NATIVE"/>
     <Property name="Taste::InheritPI" value="true"/>
