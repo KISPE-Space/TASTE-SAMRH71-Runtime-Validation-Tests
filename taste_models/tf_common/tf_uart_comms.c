@@ -24,7 +24,7 @@
 /*
  * Private attributes
  */
-static void (*pMainByteTransmitterFunction)(const unsigned int*);
+static void (*pMainByteTransmitterFunction)(const unsigned int*) = 0;
 
 
 /* Functions ------------------------------------ */
@@ -35,6 +35,13 @@ static void (*pMainByteTransmitterFunction)(const unsigned int*);
  */
 void register_uart_byte_transmitter_function(void (*pByteTransmitterFunction)(const unsigned int*))
 {
+    // Do not do this if already set
+    if (pMainByteTransmitterFunction != 0) {
+        transmit_log_info("ERROR: Attempt to register UART byte transmitter function when one is already registered. Ignoring");
+        return;
+    }
+
+    // Register the function pointer
     pMainByteTransmitterFunction = pByteTransmitterFunction;
 }
 
@@ -43,8 +50,14 @@ void register_uart_byte_transmitter_function(void (*pByteTransmitterFunction)(co
  */
 void transmit_bytes_over_uart(char* pBytes)
 {
-    unsigned long charBuff;
-    for (unsigned long i=0; i<strlen(pBytes); i++)
+    // Do not do this if not yet set
+    if (pMainByteTransmitterFunction == 0) {
+        return;
+    }
+
+    // Iterate over characters in the buffer
+    unsigned long charBuff;             // Under the hood TASTE is defaulting to using four bytes for a T-Uint8. Using an unsigned long here to match that default.
+    for (int i=0; i<strlen(pBytes); i++)
     {
         charBuff = pBytes[i];
         pMainByteTransmitterFunction(&charBuff);

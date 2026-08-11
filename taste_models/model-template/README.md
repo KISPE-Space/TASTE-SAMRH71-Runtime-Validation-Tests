@@ -54,7 +54,7 @@ Throughout these steps the term "target model" shall be used to refer to the mod
 
 *Notes*: 
 * `Partition_2` is not intended to ever be deployed. It is included only to enable the definition of the `TF Reporter` side of the UART link.
-* The TASTE Function `Example Test Function` is not intended to be includedd in the target model. It is is included here as a working example of:
+* The TASTE Function `Example Test Function` is not intended to be included in the target model. It is is included here as a working example of:
     - *Registering a test with the test-results lib*
     - *Sending a test result*
     - *Setting an explicit test timeout*

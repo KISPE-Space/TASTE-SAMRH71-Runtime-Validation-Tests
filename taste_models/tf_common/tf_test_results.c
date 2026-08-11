@@ -126,7 +126,7 @@ void testresult_register_test(TF_TestId eTestId)
     // Make a note of the time at which this test was registered
     ulLastTestRegisteredTimeMs = Hal_GetElapsedTimeInNs() / TR__NANOSECONDS_PER_MILLISECOND;
 
-    // Report the test being register (by name and id)
+    // Report the test being registered (by name and id)
     char aMsgBuff[100];
     sprintf(aMsgBuff, "Test registered: %s (%d)", aTestNames[eTestId], eTestId);
     transmit_log_info(aMsgBuff);
