@@ -1,10 +1,9 @@
 <DeploymentView version="1.2" UiFile="samrh71.ui.xml" creatorHash="383508e" modifierHash="383508e">
     <Node id="{45157536-0620-4797-b314-05543aea5f21}" name="SAM RH71 RTEMS N7S_1" type="ocarina_processors_arm::samrh71.rtems" node_label="Node_1" namespace="ocarina_processors_arm">
         <Partition id="{635bf146-cf09-4372-979a-015d280e603b}" name="Partition_1" externallibs="../../../../tf_common/">
-            <Function id="{206221ad-eb3f-4238-8457-5c832e0752b5}" name="test_sporadic" path="test_sporadic"/>
-            <Function id="{dff367da-6223-47fa-8275-b40db5a51cb3}" name="trigger_sporadic" path="trigger_sporadic"/>
+            <Function id="{206221ad-eb3f-4238-8457-5c832e0752b5}" name="testfunction" path="testfunction"/>
+            <Function id="{dff367da-6223-47fa-8275-b40db5a51cb3}" name="triggerfunction" path="triggerfunction"/>
             <Function id="{10321e62-9ae7-4a37-bf14-5f4fb00d2c8d}" name="TF_Reporter" path="TF_Reporter"/>
-            <Function id="{93dad80a-d859-4eb9-9b65-054cd6e093b4}" name="test_cyclic" path="test_cyclic"/>
         </Partition>
         <Device id="{0e931c66-4367-435a-b454-eb303902e589}" name="spw0" requires_bus_access="ocarina_buses::spacewire.generic" port="spw0" asn1file="/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-spw-driver.asn" asn1type="Spw-SamRH71-Rtems-Conf-T" asn1module="SAMRH71-RTEMS-SPW-DRIVER" extends="ocarina_drivers::spacewire_generic" namespace="ocarina_drivers" impl_extends="ocarina_drivers::spacewire_generic.samrh71" bus_namespace="ocarina_buses">
         </Device>
