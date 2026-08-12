@@ -22,7 +22,7 @@ taste_models/*/work/Dump
 .vscode/settings.json
 
 # Models sandbox folder
-taste_models/sandbox
+#taste_models/sandbox
 
 # SDL autogen files
 **/work/partition_1_timer_manager/

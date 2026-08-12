@@ -4,7 +4,7 @@ System-Dataview DEFINITIONS ::=
 BEGIN
 
    -- Range of PID - type can be used to size arrays of PID type
-   PID-Range ::= INTEGER(0..6)
+   PID-Range ::= INTEGER(0..9)
 
    -- List of functions (instances) present in the system
    PID ::= ENUMERATED {
@@ -12,9 +12,15 @@ BEGIN
        
        uartotherend,
        
+       stack-user-1,
+       
+       stack-user-2,
+       
        test-priority,
        
        test-sizes,
+       
+       test-stack-usage,
        
        trigger-priority,
        
