@@ -9,8 +9,8 @@ DISTFILES += work/binaries/coverage/index.html
 DISTFILES += work/binaries/filters
 DISTFILES += work/system.asn
 
-DISTFILES += samrh71-rtems-sporadic-execution-stats.asn
-DISTFILES += samrh71-rtems-sporadic-execution-stats.acn
+DISTFILES += model-monitoring.asn
+DISTFILES += model-monitoring.acn
 include(work/taste.pro)
 message($$DISTFILES)
 
