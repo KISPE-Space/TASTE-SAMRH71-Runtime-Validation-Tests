@@ -61,7 +61,7 @@ static bool thread_stack_size_visitor(Thread_Control *the_thread, void *arg)
 void testfunction_startup(void)
 {
     // Register the test that this TASTE Function will submit a result for
-    testresult_register_test(TF_TEST_ID__TestStacks);
+    testresult_register_test(TF_TEST_ID__TestStackSize);
 }
 
 
@@ -79,34 +79,34 @@ void testfunction_PI_trigger_check(void)
     if (iStackSize_SpIf1 != SPORADIC_IF_1_STACK_SIZE)
     {
         sprintf(aMsgBuff, "Stack size of sporadic_if_1 not %i as expected but rather %i", SPORADIC_IF_1_STACK_SIZE, iStackSize_SpIf1);
-        testresult_report_fail(TF_TEST_ID__TestStacks, aMsgBuff);
+        testresult_report_fail(TF_TEST_ID__TestStackSize, aMsgBuff);
     }
 
     // SP IF 2 stack size not as expected?
     else if (iStackSize_SpIf2 != SPORADIC_IF_2_STACK_SIZE)
     {
         sprintf(aMsgBuff, "Stack size of sporadic_if_2 not %i as expected but rather %i", SPORADIC_IF_2_STACK_SIZE, iStackSize_SpIf2);
-        testresult_report_fail(TF_TEST_ID__TestStacks, aMsgBuff);
+        testresult_report_fail(TF_TEST_ID__TestStackSize, aMsgBuff);
     }
 
     // Cyclic IF 1 stack size not as expected?
     else if (iStackSize_CyIf1 != CYCLIC_IF_1_STACK_SIZE)
     {
         sprintf(aMsgBuff, "Stack size of cyclic_if_1 not %i as expected but rather %i", CYCLIC_IF_1_STACK_SIZE, iStackSize_CyIf1);
-        testresult_report_fail(TF_TEST_ID__TestStacks, aMsgBuff);
+        testresult_report_fail(TF_TEST_ID__TestStackSize, aMsgBuff);
     }
 
     // Cyclic IF 2 stack size not as expected?
     else if (iStackSize_CyIf2 != CYCLIC_IF_2_STACK_SIZE)
     {
         sprintf(aMsgBuff, "Stack size of cyclic_if_2 not %i as expected but rather %i", CYCLIC_IF_2_STACK_SIZE, iStackSize_CyIf2);
-        testresult_report_fail(TF_TEST_ID__TestStacks, aMsgBuff);
+        testresult_report_fail(TF_TEST_ID__TestStackSize, aMsgBuff);
     }
 
     // Else its a pass
     else
     {
-        testresult_report_pass(TF_TEST_ID__TestStacks);
+        testresult_report_pass(TF_TEST_ID__TestStackSize);
     }
 }
 
