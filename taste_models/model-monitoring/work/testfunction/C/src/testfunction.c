@@ -11,40 +11,68 @@
 #include <Monitor.h>
 #include <stdio.h>
 #include "../../../../../tf_common/tf_uart_comms.h"
+#include "../../../../../tf_common/tf_test_results.h"
 
 extern const uint32_t IF_USAGE_DATA;
 
 static bool test_result = false;
 
+// Define some expected min/max cpu times per the first two tasks
+#define EXPECTED_EXEC_TIME_MIN__TASK_0 46000000
+#define EXPECTED_EXEC_TIME_MAX__TASK_0 49000000
+#define EXPECTED_EXEC_TIME_MIN__TASK_1 330000000
+#define EXPECTED_EXEC_TIME_MAX__TASK_1 350000000
 
+
+// Constructor
 void testfunction_startup(void)
 {
+    // Register the test that this TASTE Function will submit a result for
+    testresult_register_test(TF_TEST_ID__TestMonitoring);
 }
 
+
+// Determine pass/fail and submit result over UART
 void testfunction_PI_trigger_check(void)
 {
-    struct Monitor_InterfaceUsageData *const usage_data =
-        (struct Monitor_InterfaceUsageData *const)&IF_USAGE_DATA;
+    char aMsgBuff[200];
 
-    if(usage_data[0].maximum_execution_time > usage_data[0].average_execution_time &&
-       usage_data[0].average_execution_time > usage_data[0].minimum_execution_time &&
-       usage_data[0].maximum_execution_time < 34300000 && usage_data[0].maximum_execution_time > 34100000 &&
-       usage_data[0].average_execution_time < 34300000 && usage_data[0].average_execution_time > 34100000 &&
-       usage_data[0].minimum_execution_time < 34300000 && usage_data[0].minimum_execution_time > 34100000 &&
-       usage_data[1].maximum_execution_time > usage_data[1].average_execution_time &&
-       usage_data[1].average_execution_time > usage_data[1].minimum_execution_time &&
-       usage_data[1].maximum_execution_time < 341700000 && usage_data[1].maximum_execution_time > 341500000 &&
-       usage_data[1].average_execution_time < 341700000 && usage_data[1].average_execution_time > 341500000 &&
-       usage_data[1].minimum_execution_time < 341700000 && usage_data[1].minimum_execution_time > 341500000)
+    // Fetch the interface usage data from the Monitor component
+    struct Monitor_InterfaceUsageData *const usage_data = (struct Monitor_InterfaceUsageData *const)&IF_USAGE_DATA;
+
+    /* Determine pass/fail ---- */
+
+    // TASK 1: Ensure that average is between min and max
+    if (!(usage_data[0].maximum_execution_time > usage_data[0].average_execution_time && usage_data[0].average_execution_time > usage_data[0].minimum_execution_time))
     {
-        test_result = true;
+        sprintf(aMsgBuff, "Min/avg/max for task 0 out of sequence: min/avg/max: %llu/%llu/%llu", usage_data[0].minimum_execution_time, usage_data[0].average_execution_time, usage_data[0].maximum_execution_time);
+        testresult_report_fail(TF_TEST_ID__TestMonitoring, aMsgBuff);
     }
-    asm volatile("nop");
 
+    // TASK 1: Ensure that the full range min..max sits inside our EXPECTED_EXEC_TIME_MIN/MAX range
+    else if (!(EXPECTED_EXEC_TIME_MAX__TASK_0 > usage_data[0].maximum_execution_time && usage_data[0].minimum_execution_time > EXPECTED_EXEC_TIME_MIN__TASK_0))
+    {
+        sprintf(aMsgBuff, "Execution time for task 0 out of expected range (%llu->%llu). Got: %llu->%llu", EXPECTED_EXEC_TIME_MIN__TASK_0, EXPECTED_EXEC_TIME_MAX__TASK_0, usage_data[0].minimum_execution_time, usage_data[0].maximum_execution_time);
+        testresult_report_fail(TF_TEST_ID__TestMonitoring, aMsgBuff);
+    }
 
-    char aResultBuff[200];
-    sprintf(aResultBuff, "Stats test pass: %i; ud[0]: min/avg/max: %i/%i/%i", test_result, usage_data[0].minimum_execution_time, usage_data[0].average_execution_time, usage_data[0].maximum_execution_time);
-    transmit_log_info(aResultBuff);
-    sprintf(aResultBuff, "Stats test pass: %i; ud[1]: min/avg/max: %i/%i/%i", test_result, usage_data[1].minimum_execution_time, usage_data[1].average_execution_time, usage_data[1].maximum_execution_time);
-    transmit_log_info(aResultBuff);
+    // TASK 2: Ensure that average is between min and max
+    else if (!(usage_data[1].maximum_execution_time > usage_data[1].average_execution_time && usage_data[1].average_execution_time > usage_data[1].minimum_execution_time))
+    {
+        sprintf(aMsgBuff, "Min/avg/max for task 1 out of sequence: min/avg/max: %llu/%llu/%llu", usage_data[1].minimum_execution_time, usage_data[1].average_execution_time, usage_data[1].maximum_execution_time);
+        testresult_report_fail(TF_TEST_ID__TestMonitoring, aMsgBuff);
+    }
+
+    // TASK 2: Ensure that the full range min..max sits inside our EXPECTED_EXEC_TIME_MIN/MAX range
+    if (!(EXPECTED_EXEC_TIME_MAX__TASK_1 > usage_data[1].maximum_execution_time && usage_data[1].minimum_execution_time > EXPECTED_EXEC_TIME_MIN__TASK_1))
+    {
+        sprintf(aMsgBuff, "Execution time for task 1 out of expected range (%llu->%llu). Got: %llu->%llu", EXPECTED_EXEC_TIME_MIN__TASK_1, EXPECTED_EXEC_TIME_MAX__TASK_1, usage_data[1].minimum_execution_time, usage_data[1].maximum_execution_time);
+        testresult_report_fail(TF_TEST_ID__TestMonitoring, aMsgBuff);
+    }
+
+    // Else its a pass
+    else
+    {
+        testresult_report_pass(TF_TEST_ID__TestMonitoring);
+    }
 }

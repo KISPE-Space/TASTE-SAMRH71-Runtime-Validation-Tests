@@ -340,7 +340,13 @@ SECTIONS {
 	} > REGION_WORK AT > REGION_WORK
 	bsp_section_noinit_size = bsp_section_noinit_end - bsp_section_noinit_begin;
 
-	.work : ALIGN_WITH_INPUT {
+        .gcov_info : ALIGN_WITH_INPUT {
+	        PROVIDE (__gcov_info_start = .);
+		KEEP (*(.gcov_info))
+		PROVIDE (__gcov_info_end = .);
+	} > REGION_WORK AT > REGION_WORK
+
+        .work : ALIGN_WITH_INPUT {
 		/*
 		 * The work section will occupy the remaining REGION_WORK region and
 		 * contains the RTEMS work space and heap.

@@ -10,11 +10,18 @@ SPACECREATOR?=spacecreator.AppImage
 # export <PARTITIONNAME>_EXTERNAL_SOURCE_PATH=...
 #
 # NOTE: this can also be done in the Deployment View directly
-export PARTITION_1_USER_CFLAGS=-DRT_MEASURE_STACK
 
-# If you need to reset this Makefile to its original state, run:
-# $ taste reset
+# Enable coverage in this model
+export PARTITION_1_USER_CFLAGS=--coverage -fprofile-info-section
+export PARTITION_1_USER_LDFLAGS=--coverage 
+$(info [TFINFO] Coverage enabled for compilation and linking)
 
+# Use a custom local linker script. Merely adds the following:
+#
+#   1: Our standard .gcov_info section to linkcmds.base
+#   2: The following line in linkcmds.intsram:
+#         IF_USAGE_DATA = 0x210BF800; /* 0x210C0000 - 2048 */
+#
 CURRENT_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 export PARTITION_1_USER_LDSCRIPT_DIR=$(CURRENT_DIR)work/linker_script
 export PARTITION_1_USER_LDSCRIPT=$(CURRENT_DIR)work/linker_script/linkcmds.intsram
