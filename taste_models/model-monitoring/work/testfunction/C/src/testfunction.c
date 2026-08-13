@@ -13,15 +13,12 @@
 #include "../../../../../tf_common/tf_uart_comms.h"
 #include "../../../../../tf_common/tf_test_results.h"
 
-extern const uint32_t IF_USAGE_DATA;
-
-static bool test_result = false;
 
 // Define some expected min/max cpu times per the first two tasks
-#define EXPECTED_EXEC_TIME_MIN__TASK_0 46000000
-#define EXPECTED_EXEC_TIME_MAX__TASK_0 49000000
-#define EXPECTED_EXEC_TIME_MIN__TASK_1 330000000
-#define EXPECTED_EXEC_TIME_MAX__TASK_1 350000000
+static const uint64_t EXPECTED_EXEC_TIME_MIN__TASK_0 = 10000000;
+static const uint64_t EXPECTED_EXEC_TIME_MAX__TASK_0 = 20000000;
+static const uint64_t EXPECTED_EXEC_TIME_MIN__TASK_1 = 50000000;
+static const uint64_t EXPECTED_EXEC_TIME_MAX__TASK_1 = 60000000;
 
 
 // Constructor
@@ -37,8 +34,10 @@ void testfunction_PI_trigger_check(void)
 {
     char aMsgBuff[200];
 
-    // Fetch the interface usage data from the Monitor component
-    struct Monitor_InterfaceUsageData *const usage_data = (struct Monitor_InterfaceUsageData *const)&IF_USAGE_DATA;
+    // Fetch the interface usage data directly from the runtime
+    struct Monitor_InterfaceUsageData usage_data[2];
+    Monitor_GetUsageData(function_1_sporadic_if_1, &usage_data[0]);
+    Monitor_GetUsageData(function_2_sporadic_if_2, &usage_data[1]);
 
     /* Determine pass/fail ---- */
 

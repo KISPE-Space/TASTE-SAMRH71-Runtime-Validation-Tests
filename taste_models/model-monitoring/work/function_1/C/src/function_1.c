@@ -9,15 +9,15 @@
 */
 #include "function_1.h"
 
-
 void function_1_startup(void)
 {
 }
 
 void function_1_PI_sporadic_if_1(void)
 {
+    // Do something expensive
     volatile int counter = 0;
-    for(int i = 0; i < 100000; i++){
+    for(int i = 0; i < 10000; i++){
         counter = counter + 1;
     }
 }

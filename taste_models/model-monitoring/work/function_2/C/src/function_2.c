@@ -16,8 +16,9 @@ void function_2_startup(void)
 
 void function_2_PI_sporadic_if_2(void)
 {
+    // Do something very expensive
     volatile int counter = 0;
-    for(int i = 0; i < 1000000; i++){
+    for(int i = 0; i < 50000; i++){
         counter = counter + 1;
     }
 }

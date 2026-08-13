@@ -8,6 +8,9 @@
     !! file. The up-to-date signatures can be found in the header file. !!
 */
 #include "triggerfunction.h"
+#include "../../../../../tf_common/tf_uart_comms.h"
+#include <Monitor.h>
+#include <stdio.h>
 
 
 void triggerfunction_startup(void)
@@ -16,8 +19,16 @@ void triggerfunction_startup(void)
 
 void triggerfunction_PI_trigger(void)
 {
+    // Invoke both sporadic IFs
     triggerfunction_RI_sporadic_if_1();
     triggerfunction_RI_sporadic_if_2();
+
+    // TMP: Report new stats for sporadic_if_1
+    char aMsgBuff[200];
+    struct Monitor_InterfaceUsageData usage_data[2];
+    Monitor_GetUsageData(function_1_sporadic_if_1, &usage_data[0]);
+    sprintf(aMsgBuff, " --> triggerfunction invoked. sporadic_if_1 min/avg/max now: %llu/%llu/%llu", usage_data[0].minimum_execution_time, usage_data[0].average_execution_time, usage_data[0].maximum_execution_time);
+    transmit_log_info(aMsgBuff);
 }
 
 

@@ -16,15 +16,12 @@ export PARTITION_1_USER_CFLAGS=--coverage -fprofile-info-section
 export PARTITION_1_USER_LDFLAGS=--coverage 
 $(info [TFINFO] Coverage enabled for compilation and linking)
 
-# Use a custom local linker script. Merely adds the following:
-#
-#   1: Our standard .gcov_info section to linkcmds.base
-#   2: The following line in linkcmds.intsram:
-#         IF_USAGE_DATA = 0x210BF800; /* 0x210C0000 - 2048 */
-#
-CURRENT_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
-export PARTITION_1_USER_LDSCRIPT_DIR=$(CURRENT_DIR)work/linker_script
-export PARTITION_1_USER_LDSCRIPT=$(CURRENT_DIR)work/linker_script/linkcmds.intsram
+# Use the Test Framework's custom linker script. It simply adds a definition for the (tiny) .gcov_info section
+SHARED_LINKER_SCRIPT_DIR := $(abspath ../tf_linker_gcov_samrh71)
+$(info [TFINFO] Shared gcov linker script folder: $(SHARED_LINKER_SCRIPT_DIR))
+export PARTITION_1_USER_LDSCRIPT_DIR=$(SHARED_LINKER_SCRIPT_DIR)
+export PARTITION_1_USER_LDSCRIPT=$(SHARED_LINKER_SCRIPT_DIR)/linkcmds.intsram
+
 
 # Disable the progress bar from taste-update-data-view when building systems
 export NO_PROGRESS_BAR=1
