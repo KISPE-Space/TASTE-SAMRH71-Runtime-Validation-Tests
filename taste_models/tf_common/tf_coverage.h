@@ -26,4 +26,12 @@
  */
 void coverage_transmit_all(void);
 
+
+/*
+ * Enable coverage by default (for now, for model backwayrds compat)
+ */
+#ifndef COVERAGE_ENABLED
+#define COVERAGE_ENABLED 1
+#endif
+
 #endif // TF_COVERAGE_H

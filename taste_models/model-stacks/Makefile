@@ -12,15 +12,10 @@ SPACECREATOR?=spacecreator.AppImage
 # NOTE: this can also be done in the Deployment View directly
 
 # Enable coverage in this model
-export PARTITION_1_USER_CFLAGS=--coverage -fprofile-info-section -DRT_MEASURE_STACK
-export PARTITION_1_USER_LDFLAGS=--coverage 
-$(info [TFINFO] Coverage enabled for compilation and linking)
-
-# Use the Test Framework's custom linker script. It simply adds a definition for the (tiny) .gcov_info section
-SHARED_LINKER_SCRIPT_DIR := $(abspath ../tf_linker_gcov_samrh71)
-$(info [TFINFO] Shared gcov linker script folder: $(SHARED_LINKER_SCRIPT_DIR))
-export PARTITION_1_USER_LDSCRIPT_DIR=$(SHARED_LINKER_SCRIPT_DIR)
-export PARTITION_1_USER_LDSCRIPT=$(SHARED_LINKER_SCRIPT_DIR)/linkcmds.intsram
+export PARTITION_1_USER_CFLAGS=-DRT_MEASURE_STACK
+export PARTITION_1_USER_LDFLAGS
+export PARTITION_1_USER_LDSCRIPT_DIR
+export PARTITION_1_USER_LDSCRIPT
 
 
 # Disable the progress bar from taste-update-data-view when building systems
@@ -42,13 +37,20 @@ release:	work/glue_release
 	$(MAKE) -C work check_targets
 	$(MAKE) -C work
 
+debug: PARTITION_1_USER_CFLAGS += -DCOVERAGE_ENABLED=0 
 debug:	work/glue_debug
 	rm -rf work/glue_release
 	rm -rf work/glue_coverage
 	$(MAKE) -C work check_targets
 	$(MAKE) -C work
 
+# Use the Test Framework's custom linker script. It simply adds a definition for the (tiny) .gcov_info section
+coverage: PARTITION_1_USER_CFLAGS += --coverage -fprofile-info-section -DCOVERAGE_ENABLED=1 
+coverage: PARTITION_1_USER_LDFLAGS += --coverage
+coverage: PARTITION_1_USER_LDSCRIPT_DIR := $(abspath ../tf_linker_gcov_samrh71)
+coverage: PARTITION_1_USER_LDSCRIPT := $(abspath ../tf_linker_gcov_samrh71)/linkcmds.intsram
 coverage: work/glue_coverage
+	echo -e "[TFINFO] Coverage enabled. Using shared gcov linker script folder: ${PARTITION_1_USER_LDSCRIPT_DIR}"
 	rm -rf work/glue_release
 	rm -rf work/glue_debug
 	$(MAKE) -C work check_targets

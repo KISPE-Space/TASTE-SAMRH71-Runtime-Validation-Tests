@@ -240,8 +240,10 @@ void testresult_finalise_when_done(void)
         return;
     }
 
-    // All tests submitted results. We cann now transmit the GCOV data
+    // All tests submitted results. We can now transmit the GCOV data
+#if COVERAGE_ENABLED == 1
     coverage_transmit_all();
+#endif
 
     // Flag that finalisation has been done
     bFinalisationDone = 1;
