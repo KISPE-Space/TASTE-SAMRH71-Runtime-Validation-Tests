@@ -1,0 +1,36 @@
+<InterfaceView version="1.3" asn1file="experimental-lower-priority-cyclic.acn" UiFile="interfaceview.ui.xml" modifierHash="383508e">
+<Function id="{e1f45a56-d0de-47c7-9b8f-4d2b00652a21}" name="worker1" is_type="NO" language="C" default_implementation="default" fixed_system_element="NO" required_system_element="NO" startup_priority="1" instances_min="1" instances_max="1">
+    <Property name="TASTE_IV_Properties::Default_Codegen" value="Ada"/>
+<Provided_Interface id="{c4dd7369-76f8-428f-8e9f-7050c2467c0b}" name="trigger_p1" kind="Cyclic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" period="300" priority="1" stack_size="1024" wcet="0">
+</Provided_Interface>
+
+<Provided_Interface id="{d12a622b-2121-42eb-a55b-e2c2d805e2a8}" name="trigger_p2" kind="Cyclic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" period="200" priority="2" stack_size="1024" wcet="0">
+</Provided_Interface>
+
+<Provided_Interface id="{340c205a-34bc-4ec6-a8f6-04f517348c07}" name="trigger_p3" kind="Cyclic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" period="100" priority="3" stack_size="1024" wcet="0">
+</Provided_Interface>
+
+    <Implementations>
+        <Implementation name="default" language="C"/>
+    </Implementations>
+</Function>
+
+<Function id="{04f67945-b109-4fe2-9ad5-c005e8c3a133}" name="worker2" is_type="NO" language="C" default_implementation="default" fixed_system_element="NO" required_system_element="NO" startup_priority="1" instances_min="1" instances_max="1">
+    <Property name="TASTE_IV_Properties::Default_Codegen" value="Ada"/>
+<Provided_Interface id="{0dbae643-1347-48c7-bf50-73239f5d809a}" name="trigger_p1" kind="Cyclic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" period="300" priority="1" stack_size="1024" wcet="0">
+</Provided_Interface>
+
+<Provided_Interface id="{2e6a97b7-cc54-4528-bcb2-4cd38c116119}" name="trigger_p2" kind="Cyclic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" period="200" priority="2" stack_size="1024" wcet="0">
+</Provided_Interface>
+
+<Provided_Interface id="{5add41c9-8e10-43be-96cb-fe7a9a78a04b}" name="trigger_p3" kind="Cyclic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" period="140" priority="3" stack_size="1024" wcet="0">
+</Provided_Interface>
+
+    <Implementations>
+        <Implementation name="default" language="C"/>
+    </Implementations>
+</Function>
+
+<Layer name="default" is_visible="true"/>
+
+</InterfaceView>
