@@ -11,7 +11,8 @@ SPACECREATOR?=spacecreator.AppImage
 #
 # NOTE: this can also be done in the Deployment View directly
 
-# Enable coverage in this model
+
+# Export some key variables to the Makefile for PARTITION_1. These get extended by the coverage recipe below.
 export PARTITION_1_USER_CFLAGS=-DRT_MEASURE_STACK
 export PARTITION_1_USER_LDFLAGS
 export PARTITION_1_USER_LDSCRIPT_DIR
