@@ -68,3 +68,9 @@ chmod 755 .
 
 # Also ensure user and group is taste
 sudo chown taste:taste .
+
+# Finally, also performa make clean
+make clean
+
+# Report what we did
+echo -e "\nModel folder pruned for portability\n"
