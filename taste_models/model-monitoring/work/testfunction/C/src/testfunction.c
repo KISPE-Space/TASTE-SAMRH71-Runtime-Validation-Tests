@@ -19,6 +19,8 @@ static const uint64_t EXPECTED_EXEC_TIME_MIN__TASK_0 = 10000000;
 static const uint64_t EXPECTED_EXEC_TIME_MAX__TASK_0 = 20000000;
 static const uint64_t EXPECTED_EXEC_TIME_MIN__TASK_1 = 50000000;
 static const uint64_t EXPECTED_EXEC_TIME_MAX__TASK_1 = 60000000;
+static const uint64_t EXPECTED_EXEC_TIME_MIN__TASK_2 = 30000000;
+static const uint64_t EXPECTED_EXEC_TIME_MAX__TASK_2 = 40000000;
 
 
 // Constructor
@@ -35,43 +37,67 @@ void testfunction_PI_trigger_check(void)
     char aMsgBuff[200];
 
     // Fetch the interface usage data directly from the runtime
-    struct Monitor_InterfaceUsageData usage_data[2];
+    struct Monitor_InterfaceUsageData usage_data[3];
     Monitor_GetUsageData(function_1_sporadic_if_1, &usage_data[0]);
     Monitor_GetUsageData(function_2_sporadic_if_2, &usage_data[1]);
+    Monitor_GetUsageData(function_3_cyclic_if_3,   &usage_data[2]);
 
     /* Determine pass/fail ---- */
 
     // TASK 1: Ensure that average is between min and max
     if (!(usage_data[0].maximum_execution_time > usage_data[0].average_execution_time && usage_data[0].average_execution_time > usage_data[0].minimum_execution_time))
     {
-        sprintf(aMsgBuff, "Min/avg/max for task 0 out of sequence: min/avg/max: %llu/%llu/%llu", usage_data[0].minimum_execution_time, usage_data[0].average_execution_time, usage_data[0].maximum_execution_time);
+        sprintf(aMsgBuff, "Min/avg/max for sporadic_if_1 out of sequence: min/avg/max: %llu/%llu/%llu", usage_data[0].minimum_execution_time, usage_data[0].average_execution_time, usage_data[0].maximum_execution_time);
         testresult_report_fail(TF_TEST_ID__TestMonitoring, aMsgBuff);
     }
 
     // TASK 1: Ensure that the full range min..max sits inside our EXPECTED_EXEC_TIME_MIN/MAX range
     else if (!(EXPECTED_EXEC_TIME_MAX__TASK_0 > usage_data[0].maximum_execution_time && usage_data[0].minimum_execution_time > EXPECTED_EXEC_TIME_MIN__TASK_0))
     {
-        sprintf(aMsgBuff, "Execution time for task 0 out of expected range (%llu->%llu). Got: %llu->%llu", EXPECTED_EXEC_TIME_MIN__TASK_0, EXPECTED_EXEC_TIME_MAX__TASK_0, usage_data[0].minimum_execution_time, usage_data[0].maximum_execution_time);
+        sprintf(aMsgBuff, "Execution time for sporadic_if_1 out of expected range (%llu->%llu). Got: %llu->%llu", EXPECTED_EXEC_TIME_MIN__TASK_0, EXPECTED_EXEC_TIME_MAX__TASK_0, usage_data[0].minimum_execution_time, usage_data[0].maximum_execution_time);
         testresult_report_fail(TF_TEST_ID__TestMonitoring, aMsgBuff);
     }
 
     // TASK 2: Ensure that average is between min and max
     else if (!(usage_data[1].maximum_execution_time > usage_data[1].average_execution_time && usage_data[1].average_execution_time > usage_data[1].minimum_execution_time))
     {
-        sprintf(aMsgBuff, "Min/avg/max for task 1 out of sequence: min/avg/max: %llu/%llu/%llu", usage_data[1].minimum_execution_time, usage_data[1].average_execution_time, usage_data[1].maximum_execution_time);
+        sprintf(aMsgBuff, "Min/avg/max for sporadic_if_2 out of sequence: min/avg/max: %llu/%llu/%llu", usage_data[1].minimum_execution_time, usage_data[1].average_execution_time, usage_data[1].maximum_execution_time);
         testresult_report_fail(TF_TEST_ID__TestMonitoring, aMsgBuff);
     }
 
     // TASK 2: Ensure that the full range min..max sits inside our EXPECTED_EXEC_TIME_MIN/MAX range
     if (!(EXPECTED_EXEC_TIME_MAX__TASK_1 > usage_data[1].maximum_execution_time && usage_data[1].minimum_execution_time > EXPECTED_EXEC_TIME_MIN__TASK_1))
     {
-        sprintf(aMsgBuff, "Execution time for task 1 out of expected range (%llu->%llu). Got: %llu->%llu", EXPECTED_EXEC_TIME_MIN__TASK_1, EXPECTED_EXEC_TIME_MAX__TASK_1, usage_data[1].minimum_execution_time, usage_data[1].maximum_execution_time);
+        sprintf(aMsgBuff, "Execution time for sporadic_if_2 out of expected range (%llu->%llu). Got: %llu->%llu", EXPECTED_EXEC_TIME_MIN__TASK_1, EXPECTED_EXEC_TIME_MAX__TASK_1, usage_data[1].minimum_execution_time, usage_data[1].maximum_execution_time);
+        testresult_report_fail(TF_TEST_ID__TestMonitoring, aMsgBuff);
+    }
+
+    // TASK 3: Ensure that average is between min and max
+    else if (!(usage_data[2].maximum_execution_time > usage_data[2].average_execution_time && usage_data[2].average_execution_time > usage_data[2].minimum_execution_time))
+    {
+        sprintf(aMsgBuff, "Min/avg/max for cyclic_if_3 out of sequence: min/avg/max: %llu/%llu/%llu", usage_data[2].minimum_execution_time, usage_data[2].average_execution_time, usage_data[2].maximum_execution_time);
+        testresult_report_fail(TF_TEST_ID__TestMonitoring, aMsgBuff);
+    }
+
+    // TASK 3: Ensure that the full range min..max sits inside our EXPECTED_EXEC_TIME_MIN/MAX range
+    if (!(EXPECTED_EXEC_TIME_MAX__TASK_2 > usage_data[2].maximum_execution_time && usage_data[2].minimum_execution_time > EXPECTED_EXEC_TIME_MIN__TASK_2))
+    {
+        sprintf(aMsgBuff, "Execution time for cyclic_if_3 out of expected range (%llu->%llu). Got: %llu->%llu", EXPECTED_EXEC_TIME_MIN__TASK_2, EXPECTED_EXEC_TIME_MAX__TASK_2, usage_data[2].minimum_execution_time, usage_data[2].maximum_execution_time);
         testresult_report_fail(TF_TEST_ID__TestMonitoring, aMsgBuff);
     }
 
     // Else its a pass
     else
     {
+        // Log the actual ranges
+        sprintf(aMsgBuff, "Execution time range for sporadic_if_1: %llu->%llu", usage_data[0].minimum_execution_time, usage_data[0].maximum_execution_time);
+        transmit_log_info(aMsgBuff);
+        sprintf(aMsgBuff, "Execution time range for sporadic_if_2: %llu->%llu", usage_data[1].minimum_execution_time, usage_data[1].maximum_execution_time);
+        transmit_log_info(aMsgBuff);
+        sprintf(aMsgBuff, "Execution time range for cyclic_if_3:   %llu->%llu", usage_data[2].minimum_execution_time, usage_data[2].maximum_execution_time);
+        transmit_log_info(aMsgBuff);
+
+        // Submit the test result as a PASS
         testresult_report_pass(TF_TEST_ID__TestMonitoring);
     }
 }

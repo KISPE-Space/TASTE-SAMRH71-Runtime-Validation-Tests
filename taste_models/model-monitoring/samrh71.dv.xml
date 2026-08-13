@@ -6,6 +6,7 @@
             <Function id="{dfb2a211-4e6f-48ea-add0-a0ee432675a2}" name="testfunction" path="testfunction"/>
             <Function id="{7e9f6290-3366-4723-855d-91023a035a04}" name="Function_2" path="Function_2"/>
             <Function id="{4aef1ba2-705c-4518-bceb-36b1ae1f1d0d}" name="Function_1" path="Function_1"/>
+            <Function id="{5a6dbe56-4eb3-4d3e-b53d-40ceee793f53}" name="Function_3" path="Function_3"/>
         </Partition>
         <Device id="{24c2aa2f-2718-453a-821e-fe9483cd691c}" name="spw0" requires_bus_access="ocarina_buses::spacewire.generic" port="spw0" asn1file="/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-spw-driver.asn" asn1type="Spw-SamRH71-Rtems-Conf-T" asn1module="SAMRH71-RTEMS-SPW-DRIVER" namespace="ocarina_drivers" extends="ocarina_drivers::spacewire_generic" bus_namespace="ocarina_buses" impl_extends="ocarina_drivers::spacewire_generic.samrh71">
         </Device>
