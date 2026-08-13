@@ -8,27 +8,77 @@
     !! file. The up-to-date signatures can be found in the header file. !!
 */
 #include "test_stack_usage.h"
-//#include <stdio.h>
+#include "../../../../../tf_common/tf_uart_comms.h"
+#include "../../../../../tf_common/tf_test_results.h"
+#include <Monitor.h>
+#include <stdio.h>
 
 
+// Object variable to buffer the received usage reported by stack_user_1, and obtained directly for stack_user_2
+static asn1SccT_Int32 iReportedUsage_User1 = 0;
+static asn1SccT_Int32 iReportedUsage_User2 = 0;
+
+// Expected stack max usage ranges per IF
+static const asn1SccT_Int32 EXPECTED_STACK_USAGE_MIN__USER_1 = 3000;
+static const asn1SccT_Int32 EXPECTED_STACK_USAGE_MAX__USER_1 = 4000;
+static const asn1SccT_Int32 EXPECTED_STACK_USAGE_MIN__USER_2 = 1200;
+static const asn1SccT_Int32 EXPECTED_STACK_USAGE_MAX__USER_2 = 1600;
+
+
+// Constructor
 void test_stack_usage_startup(void)
 {
-   // Write your initialisation code
-   // You may call sporadic required interfaces and start timers
-   // puts ("[test_stack_usage] Startup");
+    // Register the test that this TASTE Function will submit a result for
+    testresult_register_test(TF_TEST_ID__TestStackUsage);
 }
 
+
+// Handler for calls from stack_user_1 interface, reporting the stack usage it obtained from the runtime for itself
+void test_stack_usage_PI_user_1_usage(const asn1SccT_Int32 *IN_usage)
+{
+    // Capture the reported usage
+    iReportedUsage_User1 = *IN_usage;
+}
+
+
+// Determine pass/fail
 void test_stack_usage_PI_trigger_check(void)
 {
-   // Write your code here
+    char aMsgBuff[100];
+    static asn1SccT_Boolean bIsDone = false;
+
+    // Aready reported results?
+    if (bIsDone)
+    {
+        return;
+    }
+
+    // Obtain the stackusage for stack_user_2
+    iReportedUsage_User2 = Monitor_GetMaximumStackUsage(stack_user_2_tested_thread_2);
+
+    /* Determine the test result ------- */
+
+    // Stack usage of stack_user_1 not within the expected range?
+    if (iReportedUsage_User1 < EXPECTED_STACK_USAGE_MIN__USER_1 || iReportedUsage_User1 > EXPECTED_STACK_USAGE_MAX__USER_1)
+    {
+        sprintf(aMsgBuff, "Reported max stack usage of stack_user_1 not within expected range of %i->%i but rather %i", EXPECTED_STACK_USAGE_MIN__USER_1, EXPECTED_STACK_USAGE_MAX__USER_1, iReportedUsage_User1);
+        testresult_report_fail(TF_TEST_ID__TestStackUsage, aMsgBuff);
+    }
+
+    // Stack usage of stack_user_2 not within the expected range?
+    if (iReportedUsage_User2 < EXPECTED_STACK_USAGE_MIN__USER_2 || iReportedUsage_User2 > EXPECTED_STACK_USAGE_MAX__USER_2)
+    {
+        sprintf(aMsgBuff, "Reported max stack usage of stack_user_2 not within expected range of %i->%i but rather %i", EXPECTED_STACK_USAGE_MIN__USER_2, EXPECTED_STACK_USAGE_MAX__USER_2, iReportedUsage_User2);
+        testresult_report_fail(TF_TEST_ID__TestStackUsage, aMsgBuff);
+    }
+
+    // Else its a pass
+    else
+    {
+        testresult_report_pass(TF_TEST_ID__TestStackUsage);
+    }
+
+    // Do not do this again
+    bIsDone = true;
 }
-
-
-void test_stack_usage_PI_user_1_usage
-      (const asn1SccT_Int32 *IN_usage)
-
-{
-   // Write your code here
-}
-
 

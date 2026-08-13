@@ -8,9 +8,14 @@
     !! file. The up-to-date signatures can be found in the header file. !!
 */
 #include "stack_user_2.h"
-//#include <stdio.h>
+#include <string.h>
 
 
+#define DUMMY_DATA_SIZE 1200
+static asn1SccT_Boolean bIsDone = false;
+
+
+// Constructor
 void stack_user_2_startup(void)
 {
    // Write your initialisation code
@@ -18,9 +23,21 @@ void stack_user_2_startup(void)
    // puts ("[stack_user_2] Startup");
 }
 
+
+// Handler for the cyclic IF
 void stack_user_2_PI_tested_thread_2(void)
 {
-   // Write your code here
+    // Only do this once
+    if(bIsDone){
+        return;
+    }
+
+    // Create a large array on the stack and fill with something
+    uint8_t test_arr[DUMMY_DATA_SIZE];
+    memset(test_arr, 0xBC, DUMMY_DATA_SIZE);
+
+    // Set a flag so we do not repeat this
+    bIsDone = true;
 }
 
 

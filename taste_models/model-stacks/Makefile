@@ -12,7 +12,7 @@ SPACECREATOR?=spacecreator.AppImage
 # NOTE: this can also be done in the Deployment View directly
 
 # Enable coverage in this model
-export PARTITION_1_USER_CFLAGS=--coverage -fprofile-info-section
+export PARTITION_1_USER_CFLAGS=--coverage -fprofile-info-section -DRT_MEASURE_STACK
 export PARTITION_1_USER_LDFLAGS=--coverage 
 $(info [TFINFO] Coverage enabled for compilation and linking)
 

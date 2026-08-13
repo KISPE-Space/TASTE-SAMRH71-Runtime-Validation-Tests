@@ -8,19 +8,41 @@
     !! file. The up-to-date signatures can be found in the header file. !!
 */
 #include "stack_user_1.h"
-//#include <stdio.h>
+#include "Monitor.h"
+#include <string.h>
+
+#define DUMMY_DATA_SIZE 3000
+
+static asn1SccT_Boolean bIsDone = false;
 
 
+// Constructor
 void stack_user_1_startup(void)
 {
-   // Write your initialisation code
-   // You may call sporadic required interfaces and start timers
-   // puts ("[stack_user_1] Startup");
 }
 
+
+// Handler for the cyclic IF
 void stack_user_1_PI_tested_thread_1(void)
 {
-   // Write your code here
+    // Only do this once
+    if(bIsDone){
+        return;
+    }
+
+    // Create a large array on the stack and fill with something
+    uint8_t test_arr[DUMMY_DATA_SIZE];
+    memset(test_arr, 0xBC, DUMMY_DATA_SIZE);
+
+    // Fetch the stack usage from within the function, while is high usage is also its *current* usage
+    static asn1SccT_Int32 iStackUsage;
+    iStackUsage = Monitor_GetMaximumStackUsage(stack_user_1_tested_thread_1);
+
+    // Report this usage to the test function
+    stack_user_1_RI_user_1_usage(&iStackUsage);
+
+    // Set a flag so we do not repeat this
+    bIsDone = true;
 }
 
 
