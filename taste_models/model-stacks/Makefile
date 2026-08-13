@@ -32,6 +32,7 @@ all:	release
 
 include Makefile.modelcheck
 
+release: PARTITION_1_USER_CFLAGS += -DCOVERAGE_ENABLED=0
 release:	work/glue_release
 	rm -rf work/glue_debug
 	rm -rf work/glue_coverage
