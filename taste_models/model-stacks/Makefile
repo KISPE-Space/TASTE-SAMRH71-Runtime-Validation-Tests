@@ -12,7 +12,7 @@ SPACECREATOR?=spacecreator.AppImage
 # NOTE: this can also be done in the Deployment View directly
 
 
-# Export some key variables to the Makefile for PARTITION_1. These get extended by the coverage recipe below.
+# Export some key variables to the Makefile for PARTITION_1. These get extended by the individual recipes below.
 export PARTITION_1_USER_CFLAGS=-DRT_MEASURE_STACK
 export PARTITION_1_USER_LDFLAGS
 export PARTITION_1_USER_LDSCRIPT_DIR
@@ -32,6 +32,7 @@ all:	release
 
 include Makefile.modelcheck
 
+# Explicitly disable coverage for the release recipe
 release: PARTITION_1_USER_CFLAGS += -DCOVERAGE_ENABLED=0
 release:	work/glue_release
 	rm -rf work/glue_debug
@@ -39,6 +40,7 @@ release:	work/glue_release
 	$(MAKE) -C work check_targets
 	$(MAKE) -C work
 
+# Explicitly disable coverage for the debug recipe
 debug: PARTITION_1_USER_CFLAGS += -DCOVERAGE_ENABLED=0 
 debug:	work/glue_debug
 	rm -rf work/glue_release
@@ -46,7 +48,8 @@ debug:	work/glue_debug
 	$(MAKE) -C work check_targets
 	$(MAKE) -C work
 
-# Use the Test Framework's custom linker script. It simply adds a definition for the (tiny) .gcov_info section
+# Enable coverage in compilations and linker for the coverage recipe
+# Also use the Test Framework's custom linker script. It simply adds a definition for the (tiny) .gcov_info section
 coverage: PARTITION_1_USER_CFLAGS += --coverage -fprofile-info-section -DCOVERAGE_ENABLED=1 
 coverage: PARTITION_1_USER_LDFLAGS += --coverage
 coverage: PARTITION_1_USER_LDSCRIPT_DIR := $(abspath ../tf_linker_gcov_samrh71)
