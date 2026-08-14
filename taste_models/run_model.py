@@ -4,6 +4,7 @@
 import argparse
 import common
 import subprocess
+import json
 import time
 import os
 import sys
@@ -16,6 +17,8 @@ BINARY_SUB_PATH = "work/binaries/partition_1"
 UART_XONXOFF    = False
 UART_TIMEOUT    = 1
 UART_TTY_CONFIG = ["115200", "cs8", "parenb", "raw", "-echo"]
+GCDA_OUTPUT_PATH = "test_output/coverage_tmp"
+TEST_RESULTS_OUTPUT_PATH = "test_output/test_results.log"
 
 # Defaults
 DEFAULT_GDB_BINARY_PATH = "/opt/taste-rtems-qdp-arm/bin/arm-rtems6-gdb"
@@ -25,9 +28,48 @@ DEFAULT_GDB_VERBOSE = False
 DEFAULT_UART_LISTEN_DEVICE = "/dev/ttyUSB0"
 DEFAULT_SSH_FOR_UART = None
 DEFAULT_SKIP_BUILD = False
+DEFAULT_GDB_COMMAND_TIMEOUT = 3
 
 # Global variable for SSH login for the host that has the SAMRH71 UART device, if needed
 uart_ssh_login = DEFAULT_SSH_FOR_UART
+
+
+# Processes line output received over UART
+def process_uart_lines(uart_listener):
+
+    for line in uart_listener.stdout:
+        cprint(line, color="blue", attrs=['bold'], end="")
+    return
+
+    # Ensure that the output paths exist
+    os.makedirs(GCDA_OUTPUT_PATH, exist_ok=True)
+    os.makedirs(os.path.dirname(TEST_RESULTS_OUTPUT_PATH), exist_ok=True)
+
+    # Parse the lines to extract test results and GCDA files
+    test_results = []
+    gcda_files = []
+    for line in uart_listener.stdout:
+        if line.startswith("TEST_RESULT:"):
+            test_results.append(line)
+        elif line.startswith("GCDA_FILENAME:"):
+            filename = line.split(":")[1]
+            gcda_files.append(filename)
+        elif line.startswith("GCDA_HEX:"):
+            hex_data = line.split(":")[1]
+            # Write out the hex data as a file on disk in the output folder
+            if gcda_files:
+                gcda_filename = gcda_files[-1]
+                output_path = f"{GCDA_OUTPUT_PATH}/{gcda_filename}"
+                with open(output_path, 'wb') as gcda_file:
+                    gcda_file.write(bytes.fromhex(hex_data))
+                    print(f"Wrote GCDA file: {gcda_filename} ({len(bytes.fromhex(hex_data))} bytes)")
+
+    # Also write any test results to the output folder as test_results.log
+    if test_results:
+        with open(TEST_RESULTS_OUTPUT_PATH, 'w') as test_results_file:
+            for test_result in test_results:
+                test_results_file.write(f"{test_result}\n")
+            print(f"Wrote {len(test_results)} test results to: {TEST_RESULTS_OUTPUT_PATH}")
 
 
 # Runs a command on the host that holds the UART device.
@@ -60,25 +102,51 @@ def run_target_host_command(command):
     return process.stdout.strip()
 
 
+def print_gdb_responses(responses, gdb_verbose=DEFAULT_GDB_VERBOSE):
+    for msg in responses:
+        if type(msg) is not dict:
+            message = msg["payload"].strip()
+        else:
+            message = json.dumps(msg["payload"]).strip().strip('"')
+        if msg["type"] == "output":
+            if message:
+                cprint(f"[GDB]: {message}", "cyan", attrs=[])
+        elif gdb_verbose:
+            if msg["type"] == "log":
+                color = "yellow"
+            elif msg["type"] == "console":
+                color = "light_grey"
+            elif msg["type"] == "result":
+                color = "green"
+            else:
+                color = "white"
+            cprint(f"[GDB]: {message}", color, attrs=['dark'])
+
+
 # Runs a command on the open gdb session, and prints the output to the console
-def gdb_command(gdbmi, command, description=None, timeout=3, gdb_verbose=DEFAULT_GDB_VERBOSE):
+def gdb_command(gdbmi, command, description=None, timeout=DEFAULT_GDB_COMMAND_TIMEOUT, gdb_verbose=DEFAULT_GDB_VERBOSE):
 
     if not description:
         description = command
     print(colored(description, "magenta"), end="\n", flush=True)
-    gdbmi.write(command)
-    try:
-        responses = gdbmi.get_gdb_response(timeout_sec=timeout)
-        for msg in responses:
-            if msg["type"] == "output":
-                message = msg["payload"].strip()
-                if message:
-                    cprint(f"[GDB]: {message}", "cyan", attrs=[])
-            elif gdb_verbose:
-                cprint(f"[GDB]: {msg}", "cyan", attrs=['dark'])
-    except:
-        pass
-    #print(colored("done", "magenta"), flush=True)
+    #gdbmi.write(command)
+
+    # Execute the command and capture responses
+    responses = gdbmi.write(command)
+
+    # Specifically look for the completion record
+    while True:
+        print_gdb_responses(responses, gdb_verbose=gdb_verbose)
+        found_result = False
+        for r in responses:
+            if r["type"] == "result":
+                found_result = True
+                break
+        if found_result:
+            break
+
+        # Try again to fetch responses, with a timeout to avoid hanging indefinitely
+        responses = gdbmi.get_gdb_response(timeout_sec=1)
 
 
 # Build the model using the specified recipe
@@ -133,10 +201,17 @@ def deploy(
         gdb_command(gdbmi, f"target extended-remote {gdb_server_tcp_port}", gdb_verbose=gdb_verbose)
 
         # Tell gdb to pull in the binary file
-        gdb_command(gdbmi, f"file {model_binary_path}", gdb_verbose=gdb_verbose)
+        gdb_command(gdbmi, f"-file-exec-and-symbols {model_binary_path}", gdb_verbose=gdb_verbose)
 
         # Reset the target
         gdb_command(gdbmi, "monitor reset", gdb_verbose=gdb_verbose)
+        #gdb_command(gdbmi, "-thread-info", gdb_verbose=gdb_verbose)
+
+        # Ensure that full reset occurs, to avoid spurious errors in the model execution
+        #common.target_extended_reset(gdbmi)
+
+        # Tell gdb not to ask for any confirmations
+        gdb_command(gdbmi, "set confirm off", gdb_verbose=gdb_verbose)
 
         # Load the model onto the target
         gdb_command(gdbmi, "load", gdb_verbose=gdb_verbose)
@@ -149,9 +224,8 @@ def deploy(
         # Run the model
         gdb_command(gdbmi, "c", "Running the model", gdb_verbose=gdb_verbose)
 
-        # Fetch all the output from the UART listen device process, from stdout
-        for line in uart_listener.stdout:
-            cprint(line, color="blue", attrs=['bold'], end="")
+        # Process the stdout we receive from the listener
+        process_uart_lines(uart_listener)
 
         # Likely not necessary, but added here so its clear that we intend for the object to be cleaned up
         uart_listener.wait()
@@ -207,7 +281,6 @@ if __name__ == "__main__":
             print(f"Error: UART listen device {args.uart_listen_device} is already in use")
             print("\n".join(lines))
             sys.exit(1)
-    print(colored(f"done", "yellow"), end="", flush=True)
 
     # Perform the build
     if not args.skip_build:
