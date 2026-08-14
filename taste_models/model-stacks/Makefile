@@ -24,9 +24,11 @@ export NO_PROGRESS_BAR=1
 
 # Get the list of ASN.1 files from Space Creator project file:
 DISTFILES=$(shell qmake model-stacks.pro -o /tmp/null 2>&1)
+$(info [TFINFO] Dist files: $(DISTFILES))
 # Exclude system.asn here as the types inside do not changes - only the values in the PID
 # enumeration change, but this does not affect the content of DataView.aadl
 ASN1_FILES=$(shell find ${DISTFILES} 2>/dev/null | egrep '\.asn$$|\.asn1$$' | grep -v system.asn)
+$(info [TFINFO] ASN1 files: $(ASN1_FILES))
 
 all:	release
 

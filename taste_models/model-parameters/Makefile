@@ -11,16 +11,12 @@ SPACECREATOR?=spacecreator.AppImage
 #
 # NOTE: this can also be done in the Deployment View directly
 
-# Enable coverage in this model
-export PARTITION_1_USER_CFLAGS=--coverage -fprofile-info-section
-export PARTITION_1_USER_LDFLAGS=--coverage 
-$(info [TFINFO] Coverage enabled for compilation and linking)
 
-# Use the Test Framework's custom linker script. It simply adds a definition for the (tiny) .gcov_info section
-SHARED_LINKER_SCRIPT_DIR := $(abspath ../tf_linker_gcov_samrh71)
-$(info [TFINFO] Shared gcov linker script folder: $(SHARED_LINKER_SCRIPT_DIR))
-export PARTITION_1_USER_LDSCRIPT_DIR=$(SHARED_LINKER_SCRIPT_DIR)
-export PARTITION_1_USER_LDSCRIPT=$(SHARED_LINKER_SCRIPT_DIR)/linkcmds.intsram
+# Export some key variables to the Makefile for PARTITION_1. These get extended by the individual recipes below.
+export PARTITION_1_USER_CFLAGS
+export PARTITION_1_USER_LDFLAGS
+export PARTITION_1_USER_LDSCRIPT_DIR
+export PARTITION_1_USER_LDSCRIPT
 
 
 # Disable the progress bar from taste-update-data-view when building systems
@@ -32,25 +28,35 @@ $(info [TFINFO] Dist files: $(DISTFILES))
 # Exclude system.asn here as the types inside do not changes - only the values in the PID
 # enumeration change, but this does not affect the content of DataView.aadl
 ASN1_FILES=$(shell find ${DISTFILES} 2>/dev/null | egrep '\.asn$$|\.asn1$$' | grep -v system.asn)
-$(info [TFINFO] ASN1 files: $(ASN1_FILES))
 
 all:	release
 
 include Makefile.modelcheck
 
+# Explicitly disable coverage for the release recipe
+release: PARTITION_1_USER_CFLAGS += -DCOVERAGE_ENABLED=0
 release:	work/glue_release
 	rm -rf work/glue_debug
 	rm -rf work/glue_coverage
 	$(MAKE) -C work check_targets
 	$(MAKE) -C work
 
+# Explicitly disable coverage for the debug recipe
+debug: PARTITION_1_USER_CFLAGS += -DCOVERAGE_ENABLED=0 
 debug:	work/glue_debug
 	rm -rf work/glue_release
 	rm -rf work/glue_coverage
 	$(MAKE) -C work check_targets
 	$(MAKE) -C work
 
+# Enable coverage in compilations and linker for the coverage recipe
+# Also use the Test Framework's custom linker script. It simply adds a definition for the (tiny) .gcov_info section
+coverage: PARTITION_1_USER_CFLAGS += --coverage -fprofile-info-section -DCOVERAGE_ENABLED=1 
+coverage: PARTITION_1_USER_LDFLAGS += --coverage
+coverage: PARTITION_1_USER_LDSCRIPT_DIR := $(abspath ../tf_linker_gcov_samrh71)
+coverage: PARTITION_1_USER_LDSCRIPT := $(abspath ../tf_linker_gcov_samrh71)/linkcmds.intsram
 coverage: work/glue_coverage
+	echo -e "[TFINFO] Coverage enabled. Using shared gcov linker script folder: ${PARTITION_1_USER_LDSCRIPT_DIR}"
 	rm -rf work/glue_release
 	rm -rf work/glue_debug
 	$(MAKE) -C work check_targets
