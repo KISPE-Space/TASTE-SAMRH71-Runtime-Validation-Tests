@@ -34,5 +34,7 @@ taste_models/*/work/Dump
 # Python script cache
 __pycache__
 
-# GDB logs folder
+# run_model.sh output folders
 logs
+test_output
+
