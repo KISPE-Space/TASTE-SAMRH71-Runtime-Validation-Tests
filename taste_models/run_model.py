@@ -143,12 +143,15 @@ def gdb_command(gdbmi, command, description=None, timeout=DEFAULT_GDB_COMMAND_TI
         for r in responses:
             if r["type"] == "result":
                 found_result = True
+                if gdb_verbose:
+                    cprint(f'Command "{command}" completed', "yellow", attrs=['dark'])
                 break
         if found_result:
             break
 
         # Try again to fetch responses, with a timeout to avoid hanging indefinitely
-        cprint(f'Waiting to get GDB completion response for command "{command}" ...', "light_red", attrs=['dark'])
+        if gdb_verbose:
+            cprint(f'Waiting to get GDB completion response for command "{command}" ...', "yellow", attrs=['dark'])
         responses = gdbmi.get_gdb_response(timeout_sec=1)
 
 
@@ -290,8 +293,9 @@ if __name__ == "__main__":
     # One model or all?
     if args.model == "all":
         # Get a list of all folders in the current directory with a name matching "model-*"
-        models = [d for d in os.listdir(".") if os.path.isdir(d) and d.startswith("model-")]
-        cprint(f"\nIterating over {len(models)} models:\n\n{', '.join(models)}\n", "green", attrs=['bold'])
+        models = [d for d in os.listdir(".") if os.path.isdir(d) and d.startswith("model-") and d != "model-template"]
+        cprint(f"\nIterating over {len(models)} models:\n", "green", attrs=['bold'])
+        cprint(f" - {'\n - '.join(models)}\n", "yellow", attrs=['bold'])
     else:
         models = [args.model]
 
@@ -300,7 +304,7 @@ if __name__ == "__main__":
 
     # Iterate over each model and build/deploy it
     for model in models:
-        cprint(f"\n\n-----------------------------------------", "green", attrs=['bold'])
+        cprint(f"---------------------------------------------------", "green", attrs=['bold'])
         cprint(f"Building and deploying model: {model}\n", "green", attrs=['bold'])
 
         # Perform the build
@@ -324,6 +328,18 @@ if __name__ == "__main__":
         # After deployment we may need to generate a partial coverage report, if any gcda files were generated
         # TODO
 
-    # Report what we did
-    cprint(f"\n\n-----------------------------------------", "green", attrs=['bold'])
-    cprint(f"Finished building and deploying {len(models)} models: {', '.join(models)}\n", "green", attrs=['bold'])
+    # If we ran multiple models, report what we did
+    if len(models) > 1:
+        cprint(f"\n\n---------------------------------------------------", "green", attrs=['bold'])
+        cprint(f"Finished building and deploying {len(models)} models:\n", "green", attrs=['bold'])
+        cprint(f" - {'\n - '.join(models)}\n", "yellow", attrs=['bold'])
+
+        # Also print the test results that were captured in the test_results.log file
+        if os.path.exists(TEST_RESULTS_OUTPUT_PATH):
+            cprint(f"Test results captured in {TEST_RESULTS_OUTPUT_PATH}:\n", "green", attrs=['bold'])
+            with open(TEST_RESULTS_OUTPUT_PATH, 'r') as test_results_file:
+                for line in test_results_file:
+                    cprint(" - " + line.strip(), "blue", attrs=['bold'])
+            print("\n")
+            
+
