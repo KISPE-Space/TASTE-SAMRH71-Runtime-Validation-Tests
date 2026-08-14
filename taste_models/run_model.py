@@ -20,6 +20,7 @@ UART_TIMEOUT    = 1
 UART_TTY_CONFIG = ["115200", "cs8", "parenb", "raw", "-echo"]
 GCDA_OUTPUT_PATH = "test_output/coverage_tmp"
 TEST_RESULTS_OUTPUT_PATH = "test_output/test_results.log"
+SUPPORTED_RECIPES = ["debug", "coverage"]
 
 # Defaults
 DEFAULT_GDB_BINARY_PATH = "/opt/taste-rtems-qdp-arm/bin/arm-rtems6-gdb"
@@ -65,12 +66,12 @@ def process_uart_lines(uart_listener):
                     gcda_file.write(bytes.fromhex(hex_data))
                     print(f"Wrote GCDA file: {gcda_filename} ({len(bytes.fromhex(hex_data))} bytes)")
 
-    # Also write any test results to the output folder as test_results.log
+    # Also append any test results to the output folder as test_results.log
     if test_results:
-        with open(TEST_RESULTS_OUTPUT_PATH, 'w') as test_results_file:
+        with open(TEST_RESULTS_OUTPUT_PATH, 'a') as test_results_file:
             for test_result in test_results:
                 test_results_file.write(f"{test_result}\n")
-            print(f"Wrote {len(test_results)} test results to: {TEST_RESULTS_OUTPUT_PATH}")
+            print(f"Appended {len(test_results)} test results to: {TEST_RESULTS_OUTPUT_PATH}")
 
 
 # Runs a command on the host that holds the UART device.
@@ -241,7 +242,7 @@ def deploy(
         gdbmi.exit()
 
 
-
+# MAIN entry point for the script, which parses command line arguments and runs the build/deploy process
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="Build and deploy a TASTE model to the target hardware.",
@@ -262,13 +263,18 @@ if __name__ == "__main__":
 
     # Assert that a model name is provided, otherwise exit with an error
     if args.model is None:
-        print("Error: model_name is not set")
+        cprint("Error: model_name is not set", "red", attrs=['bold'])
+        sys.exit(1)
+
+    # Assert that the recipe is either "debug" or "coverage"
+    if args.build_recipe not in SUPPORTED_RECIPES:
+        cprint(f"Error: Unsupported build recipe {args.build_recipe}", "red", attrs=['bold'])
         sys.exit(1)
 
     # Assert that we have a valid UART listen device
     device_match_lines = run_target_host_command(["ls", args.uart_listen_device])
     if args.uart_listen_device not in device_match_lines:
-        print(f"Error: UART listen device {args.uart_listen_device} not found")
+        cprint(f"Error: UART listen device {args.uart_listen_device} not found", "red", attrs=['bold'])
         sys.exit(1)
 
     # Ensure that nothing is running on the UART listen device before we start the model, by running the linux lsof command
@@ -277,24 +283,47 @@ if __name__ == "__main__":
         lines = lsof_output.splitlines()
         lines = [line for line in lines if not line.startswith("COMMAND")]
         if lines:
-            print(f"Error: UART listen device {args.uart_listen_device} is already in use")
-            print("\n".join(lines))
+            cprint(f"Error: UART listen device {args.uart_listen_device} is already in use", "red", attrs=['bold'])
+            cprint("\n".join(lines), "red", attrs=['bold'])
             sys.exit(1)
 
-    # Perform the build
-    if not args.skip_build:
-        build(args.model, build_recipe=args.build_recipe)
+    # One model or all?
+    if args.model == "all":
+        # Get a list of all folders in the current directory with a name matching "model-*"
+        models = [d for d in os.listdir(".") if os.path.isdir(d) and d.startswith("model-")]
+        cprint(f"\nIterating over {len(models)} models:\n\n{', '.join(models)}\n", "green", attrs=['bold'])
+    else:
+        models = [args.model]
 
-    # Before deploying, ensure that the target model binary exists on disk
-    model_binary_path = args.model + "/" + BINARY_SUB_PATH
-    if not os.path.exists(model_binary_path):
-        cprint(f"Error: model binary {model_binary_path} does not exist, cannot deploy", "red", attrs=['bold'])
-        sys.exit(1)
+    # Remove everything from the test_output folder, to ensure that we only have files from the current run of this script
+    shutil.rmtree("test_output", ignore_errors=True)
 
-    # Perform the deployment
-    deploy(args.model,
-        gdb_binary_path=args.gdb_binary_path,
-        gdb_server_tcp_port=args.gdb_server_tcp_port,
-        uart_listen_device=args.uart_listen_device,
-        gdb_verbose=args.gdb_verbose
-    )
+    # Iterate over each model and build/deploy it
+    for model in models:
+        cprint(f"\n\n-----------------------------------------", "green", attrs=['bold'])
+        cprint(f"Building and deploying model: {model}\n", "green", attrs=['bold'])
+
+        # Perform the build
+        if not args.skip_build:
+            build(model, build_recipe=args.build_recipe)
+
+        # Before deploying, ensure that the target model binary exists on disk
+        model_binary_path = model + "/" + BINARY_SUB_PATH
+        if not os.path.exists(model_binary_path):
+            cprint(f"Error: model binary {model_binary_path} does not exist, cannot deploy", "red", attrs=['bold'])
+            sys.exit(1)
+
+        # Perform the deployment
+        deploy(model,
+            gdb_binary_path=args.gdb_binary_path,
+            gdb_server_tcp_port=args.gdb_server_tcp_port,
+            uart_listen_device=args.uart_listen_device,
+            gdb_verbose=args.gdb_verbose
+        )
+
+        # After deployment we may need to generate a partial coverage report, if any gcda files were generated
+        # TODO
+
+    # Report what we did
+    cprint(f"\n\n-----------------------------------------", "green", attrs=['bold'])
+    cprint(f"Finished building and deploying {len(models)} models: {', '.join(models)}\n", "green", attrs=['bold'])
