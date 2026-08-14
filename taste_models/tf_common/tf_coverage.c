@@ -124,7 +124,7 @@ void coverage_transmit_all(void)
     }
 
     // Report the end of the GDA section
-    transmit_bytes_over_uart("COVERAGE_DATA_END\n\n\n");
+    transmit_bytes_over_uart("COVERAGE_DATA_END\n");
 }
 
 
