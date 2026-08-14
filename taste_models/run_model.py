@@ -5,6 +5,7 @@ import argparse
 import common
 import subprocess
 import json
+import shutil
 import time
 import os
 import sys
@@ -37,9 +38,8 @@ uart_ssh_login = DEFAULT_SSH_FOR_UART
 # Processes line output received over UART
 def process_uart_lines(uart_listener):
 
-    for line in uart_listener.stdout:
-        cprint(line, color="blue", attrs=['bold'], end="")
-    return
+    # Remove the coverage_tmp folder, it should only contain files from the current run of this script
+    shutil.rmtree(GCDA_OUTPUT_PATH, ignore_errors=True)
 
     # Ensure that the output paths exist
     os.makedirs(GCDA_OUTPUT_PATH, exist_ok=True)
@@ -50,10 +50,11 @@ def process_uart_lines(uart_listener):
     gcda_files = []
     for line in uart_listener.stdout:
         if line.startswith("TEST_RESULT:"):
-            test_results.append(line)
+            cprint(line, color="blue", attrs=['bold'], end="")
+            test_results.append(line.strip())
         elif line.startswith("GCDA_FILENAME:"):
             filename = line.split(":")[1]
-            gcda_files.append(filename)
+            gcda_files.append(filename.strip())
         elif line.startswith("GCDA_HEX:"):
             hex_data = line.split(":")[1]
             # Write out the hex data as a file on disk in the output folder
@@ -201,6 +202,9 @@ def deploy(
         # Tell gdb to pull in the binary file
         gdb_command(gdbmi, f"-file-exec-and-symbols {model_binary_path}", gdb_verbose=gdb_verbose)
 
+        # Tell gdb not to ask for any confirmations
+        gdb_command(gdbmi, "set confirm off", gdb_verbose=gdb_verbose)
+
         # Reset the target
         gdb_command(gdbmi, "monitor reset", gdb_verbose=gdb_verbose)
         #gdb_command(gdbmi, "-thread-info", gdb_verbose=gdb_verbose)
@@ -208,29 +212,19 @@ def deploy(
         # Ensure that full reset occurs, to avoid spurious errors in the model execution
         #common.target_extended_reset(gdbmi)
 
-        # Tell gdb not to ask for any confirmations
-        gdb_command(gdbmi, "set confirm off", gdb_verbose=gdb_verbose)
-
-        # Load the model onto the target
-        gdb_command(gdbmi, "load", gdb_verbose=gdb_verbose)
-
         # Connect to the UART listen device, before the model starts running
-        # WAS: ["&&", "awk '{print} /END_OF_OUTPUT/{exit}'", uart_listen_device])
         uart_listener = start_target_host_process(["stty", "-F", uart_listen_device] + UART_TTY_CONFIG + ["&&", "sed", "'/END_OF_OUTPUT/q'", uart_listen_device])
         if not uart_listener:
             raise RuntimeError(f"Failed to start UART listener on {uart_listen_device}")
+
+        # Load the model onto the target
+        gdb_command(gdbmi, "load", gdb_verbose=gdb_verbose)
 
         # Run the model
         gdb_command(gdbmi, "c", "Running the model", gdb_verbose=gdb_verbose)
 
         # Process the stdout we receive from the listener
-        #process_uart_lines(uart_listener)
-        if uart_listener.stdout is None:
-            raise RuntimeError(f"UART listener stdout is None, failed to start listening on {uart_listen_device}")
-        print("Iterating over received lines.. .", flush=True)
-        for line in uart_listener.stdout:
-            cprint(line, color="blue", attrs=['bold'], end="")
-        print("DONE", flush=True)
+        process_uart_lines(uart_listener)
 
         # Likely not necessary, but added here so its clear that we intend for the object to be cleaned up
         uart_listener.wait()
@@ -290,6 +284,12 @@ if __name__ == "__main__":
     # Perform the build
     if not args.skip_build:
         build(args.model, build_recipe=args.build_recipe)
+
+    # Before deploying, ensure that the target model binary exists on disk
+    model_binary_path = args.model + "/" + BINARY_SUB_PATH
+    if not os.path.exists(model_binary_path):
+        cprint(f"Error: model binary {model_binary_path} does not exist, cannot deploy", "red", attrs=['bold'])
+        sys.exit(1)
 
     # Perform the deployment
     deploy(args.model,
