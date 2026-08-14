@@ -126,10 +126,10 @@ def print_gdb_responses(responses, gdb_verbose=DEFAULT_GDB_VERBOSE):
 # Runs a command on the open gdb session, and prints the output to the console
 def gdb_command(gdbmi, command, description=None, timeout=DEFAULT_GDB_COMMAND_TIMEOUT, gdb_verbose=DEFAULT_GDB_VERBOSE):
 
+    # Report the command we're about to execute
     if not description:
         description = command
     print(colored(description, "magenta"), end="\n", flush=True)
-    #gdbmi.write(command)
 
     # Execute the command and capture responses
     responses = gdbmi.write(command)
@@ -146,14 +146,12 @@ def gdb_command(gdbmi, command, description=None, timeout=DEFAULT_GDB_COMMAND_TI
             break
 
         # Try again to fetch responses, with a timeout to avoid hanging indefinitely
+        cprint(f'Waiting to get GDB completion response for command "{command}" ...', "light_red", attrs=['dark'])
         responses = gdbmi.get_gdb_response(timeout_sec=1)
 
 
 # Build the model using the specified recipe
-def build(
-        model_name,
-        build_recipe=DEFAULT_MAKE_RECIPE,
-):
+def build(model_name, build_recipe=DEFAULT_MAKE_RECIPE):
 
     # Perform a make-clean on the model build folders
     print("make clean ... ", end="", flush=True)
@@ -217,7 +215,8 @@ def deploy(
         gdb_command(gdbmi, "load", gdb_verbose=gdb_verbose)
 
         # Connect to the UART listen device, before the model starts running
-        uart_listener = start_target_host_process(["stty", "-F", uart_listen_device] + UART_TTY_CONFIG + ["&&", "awk '{print} /END_OF_OUTPUT/{exit}'", uart_listen_device])
+        # WAS: ["&&", "awk '{print} /END_OF_OUTPUT/{exit}'", uart_listen_device])
+        uart_listener = start_target_host_process(["stty", "-F", uart_listen_device] + UART_TTY_CONFIG + ["&&", "sed", "'/END_OF_OUTPUT/q'", uart_listen_device])
         if not uart_listener:
             raise RuntimeError(f"Failed to start UART listener on {uart_listen_device}")
 
@@ -225,7 +224,13 @@ def deploy(
         gdb_command(gdbmi, "c", "Running the model", gdb_verbose=gdb_verbose)
 
         # Process the stdout we receive from the listener
-        process_uart_lines(uart_listener)
+        #process_uart_lines(uart_listener)
+        if uart_listener.stdout is None:
+            raise RuntimeError(f"UART listener stdout is None, failed to start listening on {uart_listen_device}")
+        print("Iterating over received lines.. .", flush=True)
+        for line in uart_listener.stdout:
+            cprint(line, color="blue", attrs=['bold'], end="")
+        print("DONE", flush=True)
 
         # Likely not necessary, but added here so its clear that we intend for the object to be cleaned up
         uart_listener.wait()
