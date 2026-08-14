@@ -31,3 +31,8 @@ taste_models/*/work/Dump
 **/work/*/SDL/src/dataview.md5
 **/work/*/SDL/src/system_structure.pr*
 
+# Python script cache
+__pycache__
+
+# GDB logs folder
+logs
