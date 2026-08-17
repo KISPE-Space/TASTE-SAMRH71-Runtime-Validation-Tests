@@ -32,6 +32,9 @@
 static asn1SccT_Boolean bProtectedIFParamValuesMatch = false;
 static asn1SccT_Boolean bUnprotectedIFParamValuesMatch = false;
 
+// Flag to ensure we only report the test result at most once
+static asn1SccT_Boolean bResultReported = false;
+
 
 // Constructor
 void parameter_count_test_startup(void)
@@ -162,6 +165,12 @@ void parameter_count_test_PI_unprotin
 // Evalute test pass/fail
 void parameter_count_test_PI_trigger_check( void )
 {
+    // Only do this once
+    if (bResultReported)
+    {
+        return;
+    }
+
     // Did we not get all the expected values on the Protected interface?
     if (!bProtectedIFParamValuesMatch)
     {
@@ -179,6 +188,9 @@ void parameter_count_test_PI_trigger_check( void )
     {
         testresult_report_pass(TF_TEST_ID__TestParameterCount);
     }
+
+    // Report that we already did this
+    bResultReported = true;
 }
 
 

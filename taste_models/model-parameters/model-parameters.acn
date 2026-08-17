@@ -1,6 +1,7 @@
 MODEL-PARAMETERS-DATAVIEW DEFINITIONS ::= BEGIN
 
     MyInteger [encoding pos-int, endianness big, size 16]
+    MyIntegerWithLimitedRange [encoding pos-int, endianness big, size 16]
     MyEnum    [encoding pos-int, endianness little, size 32]
 
     MySeq []  {

@@ -21,6 +21,9 @@
 // An array of success flags, one per interface that we are checking
 static asn1SccT_Boolean aTestAssertionsValidated[ASSERTION_COUNT] = { 0 };
 
+// Flag to ensure we only report the test result at most once
+static asn1SccT_Boolean bResultReported = false;
+
 
 // Constructor
 void encoding_test_startup(void)
@@ -114,6 +117,12 @@ void encoding_test_PI_trigger_check()
 {
     char aFailureMsg[100];
 
+    // Only do this once
+    if (bResultReported)
+    {
+        return;
+    }
+
     // Assume passed until an individual assertion is found to be failed
     static asn1SccT_Boolean bTestPased = true;
 
@@ -136,4 +145,7 @@ void encoding_test_PI_trigger_check()
     } else {
         testresult_report_fail(TF_TEST_ID__TestEncoding, aFailureMsg);
     }
+
+    // Report that we already did this
+    bResultReported = true;
 }

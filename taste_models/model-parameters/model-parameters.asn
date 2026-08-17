@@ -2,6 +2,7 @@ MODEL-PARAMETERS-DATAVIEW DEFINITIONS ::=
 BEGIN
 
    MyInteger ::= INTEGER (0 .. 10000)
+   MyIntegerWithLimitedRange ::= INTEGER (0 .. 300)
    MyEnum    ::= ENUMERATED { hello, world, how-are-you }
 
    MySeq     ::= SEQUENCE {
