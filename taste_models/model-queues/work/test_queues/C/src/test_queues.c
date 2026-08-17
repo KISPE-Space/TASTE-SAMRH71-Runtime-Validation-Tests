@@ -11,13 +11,52 @@
 #include "../../../../../tf_common/tf_uart_comms.h"
 #include "../../../../../tf_common/tf_test_results.h"
 #include <stdio.h>
+#include <Monitor.h>
 
 #define QUEUE_SIZE__FOUR_DEEP 4
 #define QUEUE_SIZE__TWENTY_DEEP 20
 
 static asn1SccT_Boolean bDepthResultReported = false;    // Any function may report a failure, after which all other work is skipped
+static asn1SccT_Boolean bOverflowResultReported = false;
+static asn1SccT_Boolean bOverflowReportingPassed_FourDeep = false;
+static asn1SccT_Boolean bOverflowReportingPassed_TwentyDeep = false;
 static int iLastRqIndex_FourDeep = -1;
 static int iLastRqIndex_TwentyDeep = -1;
+static asn1SccMyInteger iDroppedRequests_FourDeep = 0;
+static asn1SccMyInteger iDroppedRequests_TwentyDeep = 0;
+
+// Pull in the fill-depth variable from the fill_queues function, so that we can validate that we get the expected number of requests on each IF
+extern asn1SccMyInteger iQueueFillDepth;
+
+// Queue overflow handler function
+void queue_overflow_handler(const enum interfaces_enum interface, uint32_t number_of_overflowed_messages)
+{
+    char aMsgBuff[100];
+
+    // four_deep_if has a queue depth of 4, so wait until we get informed about the 25th dropped request
+    if (interface == test_queues_four_deep_if)
+    {
+        iDroppedRequests_FourDeep += number_of_overflowed_messages;
+        if (iDroppedRequests_FourDeep == (iQueueFillDepth - QUEUE_SIZE__FOUR_DEEP - 1))
+        {
+            bOverflowReportingPassed_FourDeep = true;
+        }
+    }
+
+    // twenty_deep_if has a queue depth of 20, so wait until we get informed about the 9th dropped request
+    if (interface == test_queues_twenty_deep_if)
+    {
+        iDroppedRequests_TwentyDeep += number_of_overflowed_messages;
+        if (iDroppedRequests_TwentyDeep == (iQueueFillDepth - QUEUE_SIZE__TWENTY_DEEP - 1))
+        {
+            bOverflowReportingPassed_TwentyDeep = true;
+        }
+    }
+
+    // Report what happened
+    sprintf(aMsgBuff, "%s received overflow report: %i request(s) now dropped.", interface == test_queues_four_deep_if ? "four_deep_if" : "twenty_deep_if", interface == test_queues_four_deep_if ? iDroppedRequests_FourDeep : iDroppedRequests_TwentyDeep);
+    transmit_log_info(aMsgBuff);
+}
 
 
 // Constructor
@@ -26,11 +65,15 @@ void test_queues_startup(void)
     // Register the tests that this TASTE Function will submit a result for
     testresult_register_test(TF_TEST_ID__TestQueues);
     testresult_register_test(TF_TEST_ID__TestQueueOverflow);
+
+    // Register a queue-overflow callback function for the two IFs that have queues
+    Monitor_SetMessageQueueOverflowCallback(queue_overflow_handler);
 }
 
 
 // Sporadic IF handler: This IF has a queue with a depth of four
-// Validate that we get four requests, but no more
+// Validate that we get four requests, but no more.
+// This interface has a low priority of 10, so none of its requests should get serviced until the queue-filler task has completed its work and the queue is full.
 void test_queues_PI_four_deep_if(const asn1SccMyInteger * IN_param)
 {
     char aMsgBuff[100];
@@ -64,7 +107,8 @@ void test_queues_PI_four_deep_if(const asn1SccMyInteger * IN_param)
 
 
 // Sporadic IF handler: This IF has a queue with a depth of twenty
-// Validate that we get four requests, but no more
+// Validate that we get twenty requests, but no more.
+// This interface has a low priority of 10, so none of its requests should get serviced until the queue-filler task has completed its work and the queue is full.
 void test_queues_PI_twenty_deep_if(const asn1SccMyInteger * IN_param)
 {
     char aMsgBuff[100];
@@ -132,22 +176,36 @@ void test_queues_PI_check_queue_depths( void )
 }
 
 
+// Cyclic IF handler: Checks for correct overflow reporting and reports it
+void test_queues_PI_check_overflow_reporting( void )
+{
+    char aMsgBuff[100];
 
+    // Did we already report test failure?
+    if (bOverflowResultReported)
+    {
+        return;
+    }
 
+    // Did we not get the expected overflow reports for the IF four_deep_if?
+    if (!bOverflowReportingPassed_FourDeep)
+    {
+        sprintf(aMsgBuff, "Overflow reporting failed for four_deep_if");
+        testresult_report_fail(TF_TEST_ID__TestQueueOverflow, aMsgBuff);
+    }
 
+    // Did we not get the expected overflow reports for the IF twenty_deep_if?
+    else if (!bOverflowReportingPassed_TwentyDeep)
+    {
+        sprintf(aMsgBuff, "Overflow reporting failed for twenty_deep_if");
+        testresult_report_fail(TF_TEST_ID__TestQueueOverflow, aMsgBuff);
+    }
 
+    // Else its a pass
+    else {
+        testresult_report_pass(TF_TEST_ID__TestQueueOverflow);
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    // Flag that we reported this result
+    bOverflowResultReported = true;
+}

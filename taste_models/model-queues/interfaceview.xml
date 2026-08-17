@@ -39,6 +39,9 @@
     <Input_Parameter name="p1" type="MyInteger" encoding="ACN"/>
 </Provided_Interface>
 
+<Provided_Interface id="{dd5fe680-68bf-4db0-9466-b8faf95ddc70}" name="check_overflow_reporting" kind="Cyclic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" stack_size="1024" period="1300" priority="1" wcet="0">
+</Provided_Interface>
+
     <Implementations>
         <Implementation name="default" language="C"/>
     </Implementations>

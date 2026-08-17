@@ -11,7 +11,7 @@
 
 // The count of invocations of each interface
 // We only expect the first <queue-depth> of each set of requests to ever reach the corresponding IF
-#define QUEUE_FILL_DEPTH 30
+asn1SccMyInteger iQueueFillDepth = 30;
 
 
 // Flag so that we only fill the queue once
@@ -36,7 +36,7 @@ void fill_queues_PI_trigger(void)
     // Create a queue of tasks for each IF, passing in the index of each request so we can validate that they are received in the correct sequence
     // Note that out IF handler runs with higher priority that either of these sporadic IFs, so filling the queues will complete prior to either IF
     // Ever being called. This ensures that the indeed starvation / request loss event occurs for each
-    for (asn1SccMyInteger i = 0; i < QUEUE_FILL_DEPTH; i++)
+    for (asn1SccMyInteger i = 0; i < iQueueFillDepth; i++)
     {
         fill_queues_RI_four_deep_if(&i);
         fill_queues_RI_twenty_deep_if(&i);
