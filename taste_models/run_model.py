@@ -384,5 +384,6 @@ if __name__ == "__main__":
             cprint(f"Test results:\n", "cyan", attrs=['bold'])
             for test_id in sorted(test_results.keys()):
                 render_test_result(test_id)
+            print()
 
 
