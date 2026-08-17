@@ -28,18 +28,18 @@
 
 <Function id="{e82896e2-0c24-4bfc-a0cc-7669c6f00221}" name="test_queues" is_type="NO" language="C" default_implementation="default" fixed_system_element="NO" required_system_element="NO" instances_min="1" instances_max="1" startup_priority="1">
     <Property name="TASTE_IV_Properties::Default_Codegen" value="Ada"/>
-<Provided_Interface id="{18ac130b-ce6e-4a0f-9700-591de2faa9d0}" name="four_deep_if" kind="Sporadic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" stack_size="1024" priority="10" queue_size="4" miat="0" wcet="0">
+<Provided_Interface id="{18ac130b-ce6e-4a0f-9700-591de2faa9d0}" name="four_deep_if" kind="Sporadic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" stack_size="1024" priority="10" queue_size="3" miat="0" wcet="0">
     <Input_Parameter name="p1" type="MyInteger" encoding="ACN"/>
 </Provided_Interface>
 
 <Provided_Interface id="{29ea69fa-5d0b-441b-96e7-dc5399215a62}" name="check_queue_depths" kind="Cyclic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" stack_size="1024" period="1000" priority="1" wcet="0">
 </Provided_Interface>
 
-<Provided_Interface id="{5b8154d3-9b96-4b41-be00-8f8cab670dd2}" name="twenty_deep_if" kind="Sporadic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" stack_size="1024" priority="10" queue_size="20" miat="0" wcet="0">
+<Provided_Interface id="{5b8154d3-9b96-4b41-be00-8f8cab670dd2}" name="twenty_deep_if" kind="Sporadic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" stack_size="1024" priority="10" queue_size="19" miat="0" wcet="0">
     <Input_Parameter name="p1" type="MyInteger" encoding="ACN"/>
 </Provided_Interface>
 
-<Provided_Interface id="{dd5fe680-68bf-4db0-9466-b8faf95ddc70}" name="check_overflow_reporting" kind="Cyclic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" stack_size="1024" period="1300" priority="1" wcet="0">
+<Provided_Interface id="{dd5fe680-68bf-4db0-9466-b8faf95ddc70}" name="check_overflow_reporting" kind="Cyclic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" stack_size="1024" period="1500" priority="1" wcet="0">
 </Provided_Interface>
 
     <Implementations>
@@ -52,13 +52,13 @@
 <Provided_Interface id="{bcc0ef04-7bc1-4a78-8401-3e811b4a7c02}" name="trigger" kind="Cyclic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" stack_size="1024" period="100" priority="1" dispatch_offset="0" wcet="0">
 </Provided_Interface>
 
-<Required_Interface id="{f24b5036-c78a-4655-89b6-6a2707106491}" name="four_deep_if" kind="Sporadic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" stack_size="1024" priority="10" queue_size="4" miat="0" wcet="0">
+<Required_Interface id="{f24b5036-c78a-4655-89b6-6a2707106491}" name="four_deep_if" kind="Sporadic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" stack_size="1024" priority="10" queue_size="3" miat="0" wcet="0">
     <Input_Parameter name="p1" type="MyInteger" encoding="ACN"/>
     <Property name="Taste::InheritPI" value="true"/>
     <Property name="Taste::Autonamed" value="true"/>
 </Required_Interface>
 
-<Required_Interface id="{a6ba466a-e57f-42f0-9c33-49212163fcbd}" name="twenty_deep_if" kind="Sporadic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" stack_size="1024" priority="10" queue_size="20" miat="0" wcet="0">
+<Required_Interface id="{a6ba466a-e57f-42f0-9c33-49212163fcbd}" name="twenty_deep_if" kind="Sporadic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" stack_size="1024" priority="10" queue_size="19" miat="0" wcet="0">
     <Input_Parameter name="p1" type="MyInteger" encoding="ACN"/>
     <Property name="Taste::InheritPI" value="true"/>
     <Property name="Taste::Autonamed" value="true"/>

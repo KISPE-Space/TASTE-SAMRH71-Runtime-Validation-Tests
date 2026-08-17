@@ -13,7 +13,9 @@
 #include <stdio.h>
 #include <Monitor.h>
 
-#define QUEUE_SIZE__FOUR_DEEP 4
+// Note that in TASTE we must configure the queue size as 1-less than the actual queue size we want.
+// See: https://docs.rtems.org/docs/main/c-user/message/directives.html#rtems-message-queue-send)
+#define QUEUE_SIZE__FOUR_DEEP   4
 #define QUEUE_SIZE__TWENTY_DEEP 20
 
 static asn1SccT_Boolean bDepthResultReported = false;    // Any function may report a failure, after which all other work is skipped
@@ -37,7 +39,7 @@ void queue_overflow_handler(const enum interfaces_enum interface, uint32_t numbe
     if (interface == test_queues_four_deep_if)
     {
         iDroppedRequests_FourDeep += number_of_overflowed_messages;
-        if (iDroppedRequests_FourDeep == (iQueueFillDepth - QUEUE_SIZE__FOUR_DEEP - 1))
+        if (iDroppedRequests_FourDeep == (iQueueFillDepth - QUEUE_SIZE__FOUR_DEEP))
         {
             bOverflowReportingPassed_FourDeep = true;
         }
@@ -47,7 +49,7 @@ void queue_overflow_handler(const enum interfaces_enum interface, uint32_t numbe
     if (interface == test_queues_twenty_deep_if)
     {
         iDroppedRequests_TwentyDeep += number_of_overflowed_messages;
-        if (iDroppedRequests_TwentyDeep == (iQueueFillDepth - QUEUE_SIZE__TWENTY_DEEP - 1))
+        if (iDroppedRequests_TwentyDeep == (iQueueFillDepth - QUEUE_SIZE__TWENTY_DEEP))
         {
             bOverflowReportingPassed_TwentyDeep = true;
         }
@@ -92,7 +94,7 @@ void test_queues_PI_four_deep_if(const asn1SccMyInteger * IN_param)
         bDepthResultReported = true;
     }
 
-    // Validate that we do not receive any request greater than our queue depth (+1, see: https://docs.rtems.org/docs/main/c-user/message/directives.html#rtems-message-queue-send)
+    // Validate that we do not receive any request greater than our queue depth
     if (*IN_param > QUEUE_SIZE__FOUR_DEEP + 1)
     {
         sprintf(aMsgBuff, "Received four_deep_if request %i, which is beyond the configured queue depth of %i", *IN_param, QUEUE_SIZE__FOUR_DEEP);
@@ -127,8 +129,8 @@ void test_queues_PI_twenty_deep_if(const asn1SccMyInteger * IN_param)
         bDepthResultReported = true;
     }
 
-    // Validate that we do not receive any request greater than our queue depth (+1, see: https://docs.rtems.org/docs/main/c-user/message/directives.html#rtems-message-queue-send)
-    if (*IN_param > QUEUE_SIZE__TWENTY_DEEP + 1)
+    // Validate that we do not receive any request greater than our queue depth
+    if (*IN_param > QUEUE_SIZE__TWENTY_DEEP)
     {
         sprintf(aMsgBuff, "Received twenty_deep_if request %i, which is beyond the configured queue depth of %i", *IN_param, QUEUE_SIZE__TWENTY_DEEP);
         testresult_report_fail(TF_TEST_ID__TestQueues, aMsgBuff);
@@ -153,14 +155,14 @@ void test_queues_PI_check_queue_depths( void )
     }
 
     // Did we not get the expected last request on the IF four_deep_if?
-    if (iLastRqIndex_FourDeep != QUEUE_SIZE__FOUR_DEEP)
+    if (iLastRqIndex_FourDeep != QUEUE_SIZE__FOUR_DEEP - 1)
     {
         sprintf(aMsgBuff, "Last four_dep_if request received was %i, but expected request %i", iLastRqIndex_FourDeep, QUEUE_SIZE__FOUR_DEEP);
         testresult_report_fail(TF_TEST_ID__TestQueues, aMsgBuff);
     }
 
     // Did we not get the expected last request on the IF twenty_deep_if?
-    else if (iLastRqIndex_TwentyDeep != QUEUE_SIZE__TWENTY_DEEP)
+    else if (iLastRqIndex_TwentyDeep != QUEUE_SIZE__TWENTY_DEEP - 1)
     {
         sprintf(aMsgBuff, "Last twenty_deep_if request received was %i, but expected request %i", iLastRqIndex_TwentyDeep, QUEUE_SIZE__TWENTY_DEEP);
         testresult_report_fail(TF_TEST_ID__TestQueues, aMsgBuff);
