@@ -15,12 +15,21 @@
 
 
 // Define some expected min/max cpu times per the first two tasks
-static const uint64_t EXPECTED_EXEC_TIME_MIN__TASK_0 = 10000000;
-static const uint64_t EXPECTED_EXEC_TIME_MAX__TASK_0 = 20000000;
-static const uint64_t EXPECTED_EXEC_TIME_MIN__TASK_1 = 50000000;
-static const uint64_t EXPECTED_EXEC_TIME_MAX__TASK_1 = 60000000;
-static const uint64_t EXPECTED_EXEC_TIME_MIN__TASK_2 = 30000000;
-static const uint64_t EXPECTED_EXEC_TIME_MAX__TASK_2 = 40000000;
+#if COVERAGE_ENABLED == 0
+static const uint64_t EXPECTED_EXEC_TIME_MIN__TASK_0 =  5000000;    // sporadic_if_1
+static const uint64_t EXPECTED_EXEC_TIME_MAX__TASK_0 =  6000000;    // sporadic_if_1
+static const uint64_t EXPECTED_EXEC_TIME_MIN__TASK_1 = 20000000;    // sporadic_if_2
+static const uint64_t EXPECTED_EXEC_TIME_MAX__TASK_1 = 30000000;    // sporadic_if_2
+static const uint64_t EXPECTED_EXEC_TIME_MIN__TASK_2 = 10000000;    // cyclic_if_3
+static const uint64_t EXPECTED_EXEC_TIME_MAX__TASK_2 = 20000000;    // cyclic_if_3
+#else
+static const uint64_t EXPECTED_EXEC_TIME_MIN__TASK_0 = 10000000;    // sporadic_if_1
+static const uint64_t EXPECTED_EXEC_TIME_MAX__TASK_0 = 20000000;    // sporadic_if_1
+static const uint64_t EXPECTED_EXEC_TIME_MIN__TASK_1 = 50000000;    // sporadic_if_2
+static const uint64_t EXPECTED_EXEC_TIME_MAX__TASK_1 = 60000000;    // sporadic_if_2
+static const uint64_t EXPECTED_EXEC_TIME_MIN__TASK_2 = 30000000;    // cyclic_if_3
+static const uint64_t EXPECTED_EXEC_TIME_MAX__TASK_2 = 40000000;    // cyclic_if_3
+#endif
 
 
 // Constructor
