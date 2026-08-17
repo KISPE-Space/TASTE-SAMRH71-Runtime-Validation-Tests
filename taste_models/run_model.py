@@ -39,6 +39,52 @@ uart_ssh_login = DEFAULT_SSH_FOR_UART
 test_results = {}
 
 
+# Extracts test names from the README.md file for the model, and initialises the test_results dictionary with FAIL for each test
+def initialise_test_results_for_model(model_name):
+
+    readme_path = os.path.join(model_name, "README.md")
+    if not os.path.exists(readme_path):
+        cprint(f"Error: README.md not found for model {model_name}", "red", attrs=['bold'])
+        sys.exit(1)
+
+    # Use awk + subprocess to search the README for the relevant hits
+    command = f"awk '/^## Tests Implemented/ {{ in_section=1; next }} /^## / && in_section {{ exit }} in_section' {readme_path} | grep -oP '\\*\\*\\K[^*]+(?=\\*\\*)'"
+    process = subprocess.run(command, capture_output=True, text=True, bufsize=1, shell=True)
+    for test_id in process.stdout.splitlines():
+        test_results[test_id.strip()] = ["FAIL", "(Test was not run yet)"]
+
+
+# Parses and adds a test result line to the test results
+def add_test_result_line(test_result_line):
+
+    # Try to parse the line
+    parts = test_result_line.split(":")
+    if len(parts) < 4:
+        cprint(f"Error: Invalid test result line: {test_result_line}", "red", attrs=['bold'])
+        return
+
+    # Add to the test results dict
+    test_id = parts[1].strip()
+    passfail = "PASS" if parts[2].strip() == "PASS" else "FAIL"
+    failreason = ":".join(parts[3:]).strip()
+    test_results[test_id] = [ passfail, failreason ]
+
+    # Render the test result we obtained
+    render_test_result(test_id)
+
+
+# Renders a test result line
+def render_test_result(test_id):
+    test_passfail, test_failreason = test_results[test_id]
+    cprint(f"--> ", color="light_grey", attrs=['dark'], end="")
+    cprint(test_id.ljust(20), color="blue", attrs=['bold'], end="")
+    if test_passfail == "PASS":
+        cprint("PASS", color="green", attrs=['bold'], end="\n")
+    else:
+        cprint("FAIL", color="red", attrs=['bold'], end="")
+        cprint("  " + test_failreason, color="yellow", attrs=[], end="\n")
+
+
 # Processes line output received over UART
 def process_uart_lines(uart_listener):
 
@@ -50,18 +96,10 @@ def process_uart_lines(uart_listener):
     os.makedirs(os.path.dirname(TEST_RESULTS_OUTPUT_PATH), exist_ok=True)
 
     # Parse the lines to extract test results and GCDA files
-    test_results_lines = []
     gcda_files = []
     for line in uart_listener.stdout:
         if line.startswith("TEST_RESULT:"):
-            ignore, test_id, test_passfail, test_failreason = line.split(":")
-            test_results[test_id.strip()] = [ test_passfail.strip(), test_failreason.strip() ]
-            cprint(f" > TEST RESULT:    {test_id.strip().ljust(20)}", color="blue", attrs=['bold'], end="")
-            if test_passfail.strip() == "PASS":
-                cprint(f" {test_passfail.strip()}", color="green", attrs=['bold'], end="\n")
-            else:
-                cprint(f" {test_passfail.strip()} ({test_failreason.strip()})", color="red", attrs=['bold'], end="\n")
-            test_results_lines.append(line.strip())
+            add_test_result_line(line)
         elif line.startswith("GCDA_FILENAME:"):
             filename = line.split(":")[1]
             gcda_files.append(filename.strip())
@@ -76,13 +114,6 @@ def process_uart_lines(uart_listener):
                     print(f"Wrote GCDA file: {gcda_filename} ({len(bytes.fromhex(hex_data))} bytes)")
         else:
             cprint(line, color="light_grey", attrs=[], end="")
-
-    # Also append any test results to the output folder as test_results.log
-    if test_results_lines:
-        with open(TEST_RESULTS_OUTPUT_PATH, 'a') as test_results_file:
-            for test_result in test_results_lines:
-                test_results_file.write(f"{test_result}\n")
-            print(f"Appended {len(test_results_lines)} test results to: {TEST_RESULTS_OUTPUT_PATH}")
 
 
 # Runs a command on the host that holds the UART device.
@@ -318,6 +349,9 @@ if __name__ == "__main__":
         cprint(f"---------------------------------------------------", "green", attrs=['bold'])
         cprint(f"Building and deploying model: {model}\n", "green", attrs=['bold'])
 
+        # Initialise the test results for this model, based on the README.md file
+        initialise_test_results_for_model(model)
+
         # Perform the build
         if not args.skip_build:
             build(model, build_recipe=args.build_recipe)
@@ -341,16 +375,14 @@ if __name__ == "__main__":
 
     # If we ran multiple models, report what we did
     if len(models) > 1:
-        cprint(f"\n\n---------------------------------------------------", "green", attrs=['bold'])
-        cprint(f"Finished building and deploying {len(models)} models:\n", "green", attrs=['bold'])
-        cprint(f" - {'\n - '.join(models)}\n", "yellow", attrs=['bold'])
+        cprint(f"\n\n---------------------------------------------------", "cyan", attrs=['bold'])
+        cprint(f"Finished building and deploying {len(models)} models:\n", "cyan", attrs=['bold'])
+        cprint(f" - {'\n - '.join(models)}\n", "cyan", attrs=[])
 
-        # Also print the test results that were captured in the test_results.log file
-        if os.path.exists(TEST_RESULTS_OUTPUT_PATH):
-            cprint(f"Test results captured in {TEST_RESULTS_OUTPUT_PATH}:\n", "green", attrs=['bold'])
-            with open(TEST_RESULTS_OUTPUT_PATH, 'r') as test_results_file:
-                for line in test_results_file:
-                    cprint(" - " + line.strip(), "blue", attrs=['bold'])
-            print("\n")
+        # Also print the test results that were captured during this run
+        if test_results:
+            cprint(f"Test results:\n", "cyan", attrs=['bold'])
+            for test_id in sorted(test_results.keys()):
+                render_test_result(test_id)
 
 
