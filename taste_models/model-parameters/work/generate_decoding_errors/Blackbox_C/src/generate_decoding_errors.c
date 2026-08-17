@@ -22,6 +22,7 @@ void generate_decoding_errors_protected_if(
     char *OUT_p1, size_t *OUT_p1_len,
     char *OUT_p2, size_t *OUT_p2_len)
 {
+    // Define a sane value for OUT_p1
     asn1SccMySeq var;
     var.input_data = 42;
     var.output_data = 30;
@@ -31,11 +32,11 @@ void generate_decoding_errors_protected_if(
     BitStream_Init(&bit_stream, OUT_p1, asn1SccMySeq_REQUIRED_BYTES_FOR_ACN_ENCODING);
 
     int error_code = 0;
-
     *OUT_p1_len = asn1SccMySeq_REQUIRED_BYTES_FOR_ACN_ENCODING;
     flag result = asn1SccMySeq_ACN_Encode(&var, &bit_stream, &error_code, true);
 
-    // Set OUT_p2 to some crazy value
+
+    // Set OUT_p2 to some out-of-range value
     *(uint32_t*)(OUT_p1 + 2) = 3000;
 }
 
