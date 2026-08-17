@@ -1,6 +1,6 @@
 /* CIF PROCESS (250, 150), (150, 75) */
 /* CIF Keep Specific Geode _REQSERVER_ 'https://gitlab.esa.int/taste/demo' */
-process Triggerfunction;
+process Sdl_timer;
     /* CIF Keep Specific Geode Partition 'default' */
     /* CIF TEXT (0, 126), (211, 140) */
     dcl tick_time MyInteger := 1000;
@@ -31,4 +31,4 @@ process Triggerfunction;
             /* CIF NEXTSTATE (643, 390), (70, 35) */
             NEXTSTATE Wait;
     endstate;
-endprocess Triggerfunction;
+endprocess Sdl_timer;

@@ -14,9 +14,9 @@ BEGIN
        
        partition-1-timer-manager,
        
-       testfunction,
+       sdl-timer,
        
-       triggerfunction,
+       test-sdl-timer,
        
        
        env
