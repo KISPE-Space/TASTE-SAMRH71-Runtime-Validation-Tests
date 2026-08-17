@@ -27,6 +27,7 @@
             <Function id="{4b991b72-be19-49e3-82bb-32b4a10966b2}" name="sdl_timer" path="sdl_timer"/>
             <Function id="{fbbe57c9-edd1-4790-8aaa-7b5bccaba032}" name="test_sdl_timer" path="test_sdl_timer"/>
             <Function id="{83335e6b-0d87-4730-af22-4b7933e696f5}" name="TF_Reporter" path="TF_Reporter"/>
+            <Function id="{e6c47640-6022-4c46-81e6-7004c8fa7348}" name="test_time" path="test_time"/>
         </Partition>
         <Device id="{17e6d6cf-396c-44d2-b6d7-adcd16b80519}" name="spw0" requires_bus_access="ocarina_buses::spacewire.generic" port="spw0" asn1file="/home/taste/tool-inst/include/TASTE-SAMRH71-RTEMS-Drivers/configurations/samrh71-rtems-spw-driver.asn" asn1type="Spw-SamRH71-Rtems-Conf-T" asn1module="SAMRH71-RTEMS-SPW-DRIVER" namespace="ocarina_drivers" bus_namespace="ocarina_buses" extends="ocarina_drivers::spacewire_generic" impl_extends="ocarina_drivers::spacewire_generic.samrh71">
         </Device>

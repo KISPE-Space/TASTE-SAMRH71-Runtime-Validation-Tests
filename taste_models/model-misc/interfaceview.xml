@@ -54,6 +54,19 @@
     </Implementations>
 </Function>
 
+<Function id="{d8779191-0b91-4a26-8aad-130a2d43eb85}" name="test_time" is_type="NO" language="C" default_implementation="default" fixed_system_element="NO" required_system_element="NO" instances_min="1" startup_priority="1" instances_max="1">
+    <Property name="TASTE_IV_Properties::Default_Codegen" value="Ada"/>
+<Provided_Interface id="{97ed6660-78fc-490b-84f0-6d0e9b810c93}" name="trigger_check" kind="Cyclic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" priority="1" period="900" wcet="0" stack_size="1024">
+</Provided_Interface>
+
+<Provided_Interface id="{c1f398a9-9fac-4ff9-89ac-944cd9e7228a}" name="trigger_start" kind="Cyclic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" priority="1" period="200" wcet="0" stack_size="1024">
+</Provided_Interface>
+
+    <Implementations>
+        <Implementation name="default" language="C"/>
+    </Implementations>
+</Function>
+
 <Connection id="{dac76ea9-cb33-495e-a692-d1d2614410e3}" required_system_element="NO">
     <Source iface_id="{5e27c8b3-4172-4a68-847c-084aadc12319}" func_name="TF_Reporter" ri_name="samrh71tx" />
     <Target iface_id="{6fbebbb3-cd29-4ce5-a72a-ebc9893fbbda}" func_name="UartOtherEnd" pi_name="samrh71tx" />

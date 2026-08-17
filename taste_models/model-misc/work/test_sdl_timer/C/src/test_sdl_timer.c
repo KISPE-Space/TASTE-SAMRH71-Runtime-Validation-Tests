@@ -14,6 +14,7 @@
 #include "../../../../../tf_common/tf_test_results.h"
 
 static bool bTestPass = false;
+static bool bResultReported = false;
 static int iNumberOfInvocations = 0;
 static unsigned long ulLastInvocationTimeNs = 0;
 static unsigned long ulElapsedTimeMs = 0;
@@ -51,7 +52,7 @@ void test_sdl_timer_PI_protected_if(const asn1SccMyInteger *IN_counter)
         transmit_log_info(aMsgBuff);
 
         // If time is within range the SDL function must be working
-        bTestPass = ulElapsedTimeMs > TIMER_INTERVAL_MIN && ulElapsedTimeMs < TIMER_INTERVAL_MAX;
+        bTestPass = ulElapsedTimeMs >= TIMER_INTERVAL_MIN && ulElapsedTimeMs <= TIMER_INTERVAL_MAX;
     }
 
     // Increment count of invocations
@@ -66,6 +67,12 @@ void test_sdl_timer_PI_protected_if(const asn1SccMyInteger *IN_counter)
 void test_sdl_timer_PI_trigger_check(void)
 {
     char aMsgBuff[100];
+
+    // Skip this if we already reported a result
+    if (bResultReported)
+    {
+        return;
+    }
 
     // Ignore any early invocations of the trigger check, we only want to submit a result after the SDL function has had a chance to call us twice
     if (iNumberOfInvocations < 2)
@@ -85,4 +92,7 @@ void test_sdl_timer_PI_trigger_check(void)
         sprintf(aMsgBuff, "Elapsed time between invocations of Provided interface was not 1000 ms but rather %lu ms", ulElapsedTimeMs);
         testresult_report_fail(TF_TEST_ID__TestSdlTimer, aMsgBuff);
     }
+
+    // Only report the result once
+    bResultReported = true;
 }
