@@ -35,6 +35,9 @@ DEFAULT_GDB_COMMAND_TIMEOUT = 3
 # Global variable for SSH login for the host that has the SAMRH71 UART device, if needed
 uart_ssh_login = DEFAULT_SSH_FOR_UART
 
+# Test results buffer
+test_results = {}
+
 
 # Processes line output received over UART
 def process_uart_lines(uart_listener):
@@ -47,12 +50,18 @@ def process_uart_lines(uart_listener):
     os.makedirs(os.path.dirname(TEST_RESULTS_OUTPUT_PATH), exist_ok=True)
 
     # Parse the lines to extract test results and GCDA files
-    test_results = []
+    test_results_lines = []
     gcda_files = []
     for line in uart_listener.stdout:
         if line.startswith("TEST_RESULT:"):
-            cprint(line, color="blue", attrs=['bold'], end="")
-            test_results.append(line.strip())
+            ignore, test_id, test_passfail, test_failreason = line.split(":")
+            test_results[test_id.strip()] = [ test_passfail.strip(), test_failreason.strip() ]
+            cprint(f" > TEST RESULT:    {test_id.strip().ljust(20)}", color="blue", attrs=['bold'], end="")
+            if test_passfail.strip() == "PASS":
+                cprint(f" {test_passfail.strip()}", color="green", attrs=['bold'], end="\n")
+            else:
+                cprint(f" {test_passfail.strip()} ({test_failreason.strip()})", color="red", attrs=['bold'], end="\n")
+            test_results_lines.append(line.strip())
         elif line.startswith("GCDA_FILENAME:"):
             filename = line.split(":")[1]
             gcda_files.append(filename.strip())
@@ -65,13 +74,15 @@ def process_uart_lines(uart_listener):
                 with open(output_path, 'wb') as gcda_file:
                     gcda_file.write(bytes.fromhex(hex_data))
                     print(f"Wrote GCDA file: {gcda_filename} ({len(bytes.fromhex(hex_data))} bytes)")
+        else:
+            cprint(line, color="light_grey", attrs=[], end="")
 
     # Also append any test results to the output folder as test_results.log
-    if test_results:
+    if test_results_lines:
         with open(TEST_RESULTS_OUTPUT_PATH, 'a') as test_results_file:
-            for test_result in test_results:
+            for test_result in test_results_lines:
                 test_results_file.write(f"{test_result}\n")
-            print(f"Appended {len(test_results)} test results to: {TEST_RESULTS_OUTPUT_PATH}")
+            print(f"Appended {len(test_results_lines)} test results to: {TEST_RESULTS_OUTPUT_PATH}")
 
 
 # Runs a command on the host that holds the UART device.
@@ -341,5 +352,5 @@ if __name__ == "__main__":
                 for line in test_results_file:
                     cprint(" - " + line.strip(), "blue", attrs=['bold'])
             print("\n")
-            
+
 
