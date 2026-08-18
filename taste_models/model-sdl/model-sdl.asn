@@ -1,0 +1,7 @@
+MODEL-SDL-DATAVIEW DEFINITIONS ::=
+BEGIN
+
+   MyInteger ::= INTEGER (0 .. 10000)
+
+END
+
