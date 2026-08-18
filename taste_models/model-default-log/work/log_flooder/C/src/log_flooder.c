@@ -8,8 +8,9 @@
     !! file. The up-to-date signatures can be found in the header file. !!
 */
 #include "log_flooder.h"
+#include <Monitor.h>
 #include "../../../../../tf_common/tf_test_results.h"
-#include "../../../../../tf_common/tf_cpu.h"
+#include "../../../../../tf_common/tf_uart_comms.h"
 #include <stdio.h>
 
 
@@ -17,11 +18,9 @@
 #define NUM_SPORADIC_IF_CALLS   100
 
 
-// Constructor
+// Constructor (unused)
 void log_flooder_startup(void)
 {
-    // Register the test that this TASTE Function will submit a result for
-    testresult_register_test(TF_TEST_ID__TestLogLength);
 }
 
 
@@ -37,13 +36,12 @@ void log_flooder_PI_trigger_flood(void)
     Monitor_UnfreezeInterfaceActivationLogging();
 
     // Now call the Sporadic interface 100 times, which will result in 200 log entries (activation and deactivation for each call)
-    // TODO: Change the priority of that interface to be lower than this flooder Cyclic
     for (int i = 0; i < NUM_SPORADIC_IF_CALLS; i++) {
         log_flooder_RI_sporadic_if();
     }
 
     // Report what we did
-    sprintf(aMsgBuff, "Flooded the activity log with %d entries", NUM_SPORADIC_IF_CALLS * 2);
+    sprintf(aMsgBuff, "Flooded the activity log with %d entries", (NUM_SPORADIC_IF_CALLS * 2) + 1); // Add one for the inevitable "deactivation" of this IF call (this)
     transmit_log_info(aMsgBuff);
 }
 

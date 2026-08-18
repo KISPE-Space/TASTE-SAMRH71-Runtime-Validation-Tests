@@ -12,13 +12,13 @@ BEGIN
        
        uartotherend,
        
-       if-sink,
-       
        log-flooder,
        
        receiver,
        
        test-function,
+       
+       test-log-length,
        
        trigger-function,
        
