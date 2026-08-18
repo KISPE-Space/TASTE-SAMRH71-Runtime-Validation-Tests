@@ -14,7 +14,7 @@ void trigger_function_startup(void)
 {
 }
 
-void trigger_function_PI_trigger(void)
+void trigger_function_PI_trigger1(void)
 {
     trigger_function_RI_sporadic_if();
 }

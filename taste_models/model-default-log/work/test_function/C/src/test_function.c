@@ -26,12 +26,12 @@ static struct Monitor_InterfaceActivationEntry aExpectedEntries[] = {
 
 // Expect the initial invocation of the trigger_function's "trigger" interface
 {
-    .interface   = trigger_function_trigger,
+    .interface   = trigger_function_trigger1,
     .entry_type  = Monitor_EntryType_activation,
     .timestamp   = CYCLIC_PERIOD_NS__INITIAL_TRIGGER
 },
     {
-        .interface   = trigger_function_trigger,
+        .interface   = trigger_function_trigger1,
         .entry_type  = Monitor_EntryType_deactivation,
         .timestamp   = CYCLIC_PERIOD_NS__INITIAL_TRIGGER
     },
@@ -50,19 +50,19 @@ static struct Monitor_InterfaceActivationEntry aExpectedEntries[] = {
 
     // Next we expect the cyclic on receiver to fire
     {
-        .interface   = receiver_cyclic_if,
+        .interface   = receiver_trigger2,
         .entry_type  = Monitor_EntryType_activation,
         .timestamp   = CYCLIC_PERIOD_NS__CYCLIC_IF2
     },
     {
-        .interface   = receiver_cyclic_if,
+        .interface   = receiver_trigger2,
         .entry_type  = Monitor_EntryType_deactivation,
         .timestamp   = CYCLIC_PERIOD_NS__CYCLIC_IF2
     },
 
     // Expect the trigger_function's "trigger" interface to be activated again, since it is a cyclic interface
     {
-        .interface   = trigger_function_trigger,
+        .interface   = trigger_function_trigger1,
         .entry_type  = Monitor_EntryType_activation,
         .timestamp   = CYCLIC_PERIOD_NS__INITIAL_TRIGGER * 2
     }

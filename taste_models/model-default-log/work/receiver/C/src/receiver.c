@@ -13,7 +13,7 @@ void receiver_startup(void)
 {
 }
 
-void receiver_PI_cyclic_if(void)
+void receiver_PI_trigger2(void)
 {
    asm volatile("nop");
 }

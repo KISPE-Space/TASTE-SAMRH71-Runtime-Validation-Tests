@@ -17,7 +17,7 @@
 
 <Function id="{ed870ede-6816-46f2-9802-9a755e04be1b}" name="trigger_function" is_type="NO" language="C" default_implementation="default" fixed_system_element="NO" required_system_element="NO" instances_min="1" instances_max="1" startup_priority="1">
     <Property name="TASTE_IV_Properties::Default_Codegen" value="Ada"/>
-<Provided_Interface id="{fc3a1369-86d1-42d5-829c-4e3cd4134d11}" name="trigger" kind="Cyclic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" stack_size="1024" period="200" dispatch_offset="0" priority="1" wcet="0">
+<Provided_Interface id="{fc3a1369-86d1-42d5-829c-4e3cd4134d11}" name="trigger1" kind="Cyclic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" stack_size="1024" period="200" dispatch_offset="0" priority="1" wcet="0">
 </Provided_Interface>
 
 <Required_Interface id="{2c7861b6-3fce-4bf4-9c3c-8813bfc80e0e}" name="sporadic_if" kind="Sporadic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" queue_size="1" stack_size="1024" miat="0" priority="1" wcet="0">
@@ -46,7 +46,7 @@
 <Provided_Interface id="{a3d28fa2-3e8d-4b92-9b1f-600ef9975f41}" name="sporadic_if" kind="Sporadic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" queue_size="1" stack_size="1024" miat="0" priority="1" wcet="0">
 </Provided_Interface>
 
-<Provided_Interface id="{965c6032-3423-4dcc-9eaf-d23d2419aac5}" name="cyclic_if" kind="Cyclic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" stack_size="1024" period="300" dispatch_offset="0" priority="1" wcet="0">
+<Provided_Interface id="{965c6032-3423-4dcc-9eaf-d23d2419aac5}" name="trigger2" kind="Cyclic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" stack_size="1024" period="300" dispatch_offset="0" priority="1" wcet="0">
 </Provided_Interface>
 
     <Implementations>
