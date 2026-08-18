@@ -35,7 +35,7 @@ void test_fpu_PI_trigger_check(void)
     }
 
     // Determine whether the FPU is currently enabled
-    if (fpu_is_enabled())
+    if (is_fpu_enabled())
     {
         testresult_report_pass(TF_TEST_ID__TestFpu);
     }

@@ -31,7 +31,7 @@ bool is_processor_clock_100mhz(void);
 /*
  * Returns true if the floating point unit (FPU) is currently enabled, else false
  */
-bool fpu_is_enabled(void);
+bool is_fpu_enabled(void);
 
 
 #endif // TF_CPU_H

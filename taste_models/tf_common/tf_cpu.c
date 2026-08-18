@@ -72,9 +72,9 @@ bool is_processor_clock_100mhz(void)
 
 /*
  * Refer to header for function usage docs
- * Body of function copied from samrh71 manufacturer's distribution <fpu.h>
+ * Body of function copied from samrh71 manufacturer's distribution <fpu.h> : "is_fpu_enabled" function
  */
-bool fpu_is_enabled(void)
+bool is_fpu_enabled(void)
 {
     return (REG_CPACR & (0xFu << 20));
 }
