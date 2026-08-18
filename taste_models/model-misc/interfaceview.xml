@@ -14,7 +14,7 @@
 
 <Function id="{c18d4357-45a3-425e-b10b-6f687579a21d}" name="test_cpu_freq" is_type="NO" language="C" default_implementation="default" fixed_system_element="NO" required_system_element="NO" instances_max="1" instances_min="1" startup_priority="1">
     <Property name="TASTE_IV_Properties::Default_Codegen" value="Ada"/>
-<Provided_Interface id="{bad946b9-004e-4be1-bf74-623a946bc9ad}" name="trigger_check" kind="Cyclic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" wcet="0" dispatch_offset="0" priority="3" period="1500" stack_size="1024">
+<Provided_Interface id="{bad946b9-004e-4be1-bf74-623a946bc9ad}" name="trigger_check" kind="Cyclic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" wcet="0" dispatch_offset="0" priority="3" period="500" stack_size="1024">
 </Provided_Interface>
 
     <Implementations>
