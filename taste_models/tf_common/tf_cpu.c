@@ -62,3 +62,19 @@ bool is_processor_clock_100mhz(void)
     // Else we do indeed have a 100 MHz processor clock config
     return true;
 }
+
+
+// Address for ARM CPACR (see samrh71 <fpu.h>)
+#define ADDR_CPACR 0xE000ED88
+
+// CPACR Register: (see samrh71 <fpu.h>)
+#define REG_CPACR  (*((volatile uint32_t *)ADDR_CPACR))
+
+/*
+ * Refer to header for function usage docs
+ * Body of function copied from samrh71 manufacturer's distribution <fpu.h>
+ */
+bool fpu_is_enabled(void)
+{
+    return (REG_CPACR & (0xFu << 20));
+}
