@@ -60,9 +60,10 @@ typedef enum {
     TF_TEST_ID__TestLongerLog       = 23,
     TF_TEST_ID__TestMaxFunctions    = 24,
     TF_TEST_ID__TestCpuFreqNone     = 25,
+    TF_TEST_ID__TestLogLength       = 26,
 
     TF_TEST_ID__FIRST               = TF_TEST_ID__TestMaxTasks,
-    TF_TEST_ID__LAST                = TF_TEST_ID__TestCpuFreqNone,
+    TF_TEST_ID__LAST                = TF_TEST_ID__TestLogLength,
     TF_TEST_ID__COUNT               = TF_TEST_ID__LAST + 1
 } TF_TestId;
 

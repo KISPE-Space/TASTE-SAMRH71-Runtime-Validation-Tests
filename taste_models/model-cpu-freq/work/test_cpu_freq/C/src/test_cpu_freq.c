@@ -8,11 +8,8 @@
     !! file. The up-to-date signatures can be found in the header file. !!
 */
 #include "test_cpu_freq.h"
-//#include "../../../../../tf_common/tf_uart_comms.h"
 #include "../../../../../tf_common/tf_test_results.h"
 #include "../../../../../tf_common/tf_cpu.h"
-//#include <stdio.h>
-//#include <SamRH71Core.h>
 
 
 // Flag to ensure we only report the test result at most once

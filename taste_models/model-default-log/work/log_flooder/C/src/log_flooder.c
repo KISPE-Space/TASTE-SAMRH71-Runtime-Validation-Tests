@@ -13,18 +13,39 @@
 #include <stdio.h>
 
 
+// Each Sporadic interface calll results in two log entries: one for activation and one for deactivation. So to get 200 log entries we need to call the sporadic interface 100 times.
+#define NUM_SPORADIC_IF_CALLS   100
+
+
 // Constructor
 void log_flooder_startup(void)
 {
     // Register the test that this TASTE Function will submit a result for
-//    testresult_register_test(TF_TEST_ID__TestDefaultLogLength);
+    testresult_register_test(TF_TEST_ID__TestLogLength);
 }
 
 
-
+// Cyclic IF handler. Enables and clears the activity log, then floods it with entries
 void log_flooder_PI_trigger_flood(void)
 {
-    transmit_log_info("--> log_flooder_PI_trigger_flood");
+    char aMsgBuff[100];
+
+    // Clear the log, which will also enable logging
+    Monitor_ClearInterfaceActivationLog();
+
+    // Enable the logging
+    Monitor_UnfreezeInterfaceActivationLogging();
+
+    // Now call the Sporadic interface 100 times, which will result in 200 log entries (activation and deactivation for each call)
+    // TODO: Change the priority of that interface to be lower than this flooder Cyclic
+    for (int i = 0; i < NUM_SPORADIC_IF_CALLS; i++) {
+        log_flooder_RI_sporadic_if();
+    }
+
+    // Report what we did
+    sprintf(aMsgBuff, "Flooded the activity log with %d entries", NUM_SPORADIC_IF_CALLS * 2);
+    transmit_log_info(aMsgBuff);
 }
+
 
 

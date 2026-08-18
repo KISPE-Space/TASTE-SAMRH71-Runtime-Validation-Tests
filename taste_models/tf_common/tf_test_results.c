@@ -72,8 +72,10 @@ static const char * const aTestNames[TF_TEST_ID__COUNT] =
     [TF_TEST_ID__TestActivityLog]    = "TestActivityLog",
     [TF_TEST_ID__TestLongerLog]      = "TestLongerLog",
     [TF_TEST_ID__TestMaxFunctions]   = "TestMaxFunctions",
-    [TF_TEST_ID__TestCpuFreqNone]    = "TestCpuFreqNone"
+    [TF_TEST_ID__TestCpuFreqNone]    = "TestCpuFreqNone",
+    [TF_TEST_ID__TestLogLength]      = "TestLogLength"
 };
+
 
 /*
  * Array that indicates which tests have been registered with this object.
