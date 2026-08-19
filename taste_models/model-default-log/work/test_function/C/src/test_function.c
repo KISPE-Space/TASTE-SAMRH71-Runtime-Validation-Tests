@@ -79,7 +79,7 @@ static asn1SccT_Boolean bResultReported = false;
 void test_function_startup(void)
 {
     // Register the test that this TASTE Function will submit a result for
-    testresult_register_test(TF_TEST_ID__TestActivityLog);
+    testresult_register_test(TF_TEST_ID__TestActivationLog);
 
     // Enable the logging
     Monitor_UnfreezeInterfaceActivationLogging();
@@ -109,23 +109,23 @@ void test_function_PI_trigger_check(void)
 
     // Try to obtain the log entries
     if (!Monitor_GetInterfaceActivationEntryLog(&aIfaLog, &iLastIndex, &nEntries)) {
-        testresult_report_fail(TF_TEST_ID__TestActivityLog, "Failed to get log entries (first pass)");
+        testresult_report_fail(TF_TEST_ID__TestActivationLog, "Failed to get log entries (first pass)");
         bResultReported = true;
         return;
     }
 
     // We expect that by the point that we are called the log contains exactly 17 entries, with the last entry being index 16
     if (iLastIndex != EXPECTED_LAST_LOG_INDEX) {
-        testresult_report_fail(TF_TEST_ID__TestActivityLog, "Unexpected last log index");
+        testresult_report_fail(TF_TEST_ID__TestActivationLog, "Unexpected last log index");
         bResultReported = true;
         return;
     }
     if (nEntries != EXPECTED_NUM_LOG_ENTRIES) {
-        testresult_report_fail(TF_TEST_ID__TestActivityLog, "Unexpected number of log entries");
+        testresult_report_fail(TF_TEST_ID__TestActivationLog, "Unexpected number of log entries");
         bResultReported = true;
         return;
     }
-    transmit_log_info("Activity log contains expected number of entries and last index");
+    transmit_log_info("Activation log contains expected number of entries and last index");
 
     // Iterate over the expected entries we have and compare them to the actual entries we got from the log
     for (int i = 0; i < iNumExpectedEntries; i++) {
@@ -136,7 +136,7 @@ void test_function_PI_trigger_check(void)
             aIfaLog[i].timestamp < aExpectedEntries[i].timestamp - LOG_ENTRY_TIME_TOLERANCE ||
             aIfaLog[i].timestamp > aExpectedEntries[i].timestamp + LOG_ENTRY_TIME_TOLERANCE) {
             sprintf(aMsgBuff, "Log entry %d does not match expected values", i);
-            testresult_report_fail(TF_TEST_ID__TestActivityLog, aMsgBuff);
+            testresult_report_fail(TF_TEST_ID__TestActivationLog, aMsgBuff);
             bResultReported = true;
             return;
         }
@@ -149,7 +149,7 @@ void test_function_PI_trigger_check(void)
         aIfaLog[16].entry_type != Monitor_EntryType_activation ||
         aIfaLog[16].timestamp < CYCLIC_PERIOD_NS__FREEZE_IF - LOG_ENTRY_TIME_TOLERANCE || aIfaLog[16].timestamp > CYCLIC_PERIOD_NS__FREEZE_IF + LOG_ENTRY_TIME_TOLERANCE) {
         sprintf(aMsgBuff, "Log entry %d does not match expected values", 16);
-        testresult_report_fail(TF_TEST_ID__TestActivityLog, aMsgBuff);
+        testresult_report_fail(TF_TEST_ID__TestActivationLog, aMsgBuff);
         bResultReported = true;
         return;
     }
@@ -157,14 +157,14 @@ void test_function_PI_trigger_check(void)
 
     // Now ensure that we can clear the log
     if (!Monitor_ClearInterfaceActivationLog()) {
-        testresult_report_fail(TF_TEST_ID__TestActivityLog, "Failed to clear interface activation log");
+        testresult_report_fail(TF_TEST_ID__TestActivationLog, "Failed to clear interface activation log");
         bResultReported = true;
         return;
     }
 
-    // Fetch the updated activity log, which should now be empty
+    // Fetch the updated activation log, which should now be empty
     if (!Monitor_GetInterfaceActivationEntryLog(&aIfaLog, &iLastIndex, &nEntries)) {
-        testresult_report_fail(TF_TEST_ID__TestActivityLog, "Failed to get log entries (second pass)");
+        testresult_report_fail(TF_TEST_ID__TestActivationLog, "Failed to get log entries (second pass)");
         bResultReported = true;
         return;
     }
@@ -172,20 +172,20 @@ void test_function_PI_trigger_check(void)
     // Validate that the log is now empty
     if (iLastIndex != 0) {
         sprintf(aMsgBuff, "Last index of log not zero after clearing log: %d", iLastIndex);
-        testresult_report_fail(TF_TEST_ID__TestActivityLog, aMsgBuff);
+        testresult_report_fail(TF_TEST_ID__TestActivationLog, aMsgBuff);
         bResultReported = true;
         return;
     }
     if (nEntries != 0) {
         sprintf(aMsgBuff, "Unexpected number of log entries after clearing log: %d", nEntries);
-        testresult_report_fail(TF_TEST_ID__TestActivityLog, aMsgBuff);
+        testresult_report_fail(TF_TEST_ID__TestActivationLog, aMsgBuff);
         bResultReported = true;
         return;
     }
-    transmit_log_info("Activity log has been successfully cleared and is now empty");
+    transmit_log_info("Activation log has been successfully cleared and is now empty");
 
     // Report the test as a pass
-    testresult_report_pass(TF_TEST_ID__TestActivityLog);
+    testresult_report_pass(TF_TEST_ID__TestActivationLog);
 
     // Report that we already did this
     bResultReported = true;

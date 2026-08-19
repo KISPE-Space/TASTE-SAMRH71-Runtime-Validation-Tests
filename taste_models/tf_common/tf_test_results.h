@@ -56,7 +56,7 @@ typedef enum {
     TF_TEST_ID__TestCpuFreqCustom   = 19,
     TF_TEST_ID__TestQueues          = 20,
     TF_TEST_ID__TestDecodingErrors  = 21,
-    TF_TEST_ID__TestActivityLog     = 22,
+    TF_TEST_ID__TestActivationLog   = 22,
     TF_TEST_ID__TestLongerLog       = 23,
     TF_TEST_ID__TestMaxFunctions    = 24,
     TF_TEST_ID__TestCpuFreqNone     = 25,

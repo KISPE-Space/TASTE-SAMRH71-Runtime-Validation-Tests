@@ -18,9 +18,9 @@
 static asn1SccT_Boolean bResultReported = false;
 
 
-// In the sister test TestCustomLog we set a custom log length, which is shorter than the default log length.
-// In this test we will check that the log length is at least the default length, which is 200 entries.
-#define MINUMUM_LOG_LENGTH       200
+// In the sister test TestLongerLog we set a custom log length, which is longer than the default log length.
+// In this test we will check that when the activation log is filled its length is less than 300
+#define MAXUMUM_LOG_LENGTH       300
 
 
 // Constructor
@@ -61,16 +61,24 @@ void test_log_length_PI_trigger_check( void )
         return;
     }
 
-    // Validate that this is not the same as in the TestCustomLog
-    if (nEntries < MINUMUM_LOG_LENGTH) {
-        sprintf(aMsgBuff, "Log length is %d, which is below the minimum expected length", nEntries);
+    // Validate that this is not greater than we expect for the default
+    if (nEntries > MAXUMUM_LOG_LENGTH) {
+        sprintf(aMsgBuff, "Log length is %d, which is above what is expected for the default activation log length", nEntries);
+        testresult_report_fail(TF_TEST_ID__TestLogLength, aMsgBuff);
+        bResultReported = true;
+        return;
+    }
+
+    // The activation log is a cyclic buffer: If we did not yet over-fill it then iLastIndex = nEntries - 1.  Validate we over-filled it
+    if (iLastIndex == nEntries - 1) {
+        sprintf(aMsgBuff, "Activation log seems to be not yet full: Last index (%d) still correlates to Size (%d)", iLastIndex, nEntries);
         testresult_report_fail(TF_TEST_ID__TestLogLength, aMsgBuff);
         bResultReported = true;
         return;
     }
 
     // Report the log length
-    sprintf(aMsgBuff, "Log length is now: %d entries", nEntries);
+    sprintf(aMsgBuff, "Log length is now: %d entries, and last index is %d", nEntries, iLastIndex);
     transmit_log_info(aMsgBuff);
 
     // Report the test as a pass

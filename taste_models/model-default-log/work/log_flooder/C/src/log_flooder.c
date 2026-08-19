@@ -9,13 +9,13 @@
 */
 #include "log_flooder.h"
 #include <Monitor.h>
-#include "../../../../../tf_common/tf_test_results.h"
 #include "../../../../../tf_common/tf_uart_comms.h"
 #include <stdio.h>
 
 
-// Each Sporadic interface calll results in two log entries: one for activation and one for deactivation. So to get 200 log entries we need to call the sporadic interface 100 times.
-#define NUM_SPORADIC_IF_CALLS   100
+// Each Sporadic interface call results in two log entries: one for activation and one for deactivation.
+// The intent is to flood the activation log such that it overflows (cyclic buffer)
+#define NUM_SPORADIC_IF_CALLS   1000
 
 
 // Constructor (unused)
@@ -24,7 +24,7 @@ void log_flooder_startup(void)
 }
 
 
-// Cyclic IF handler. Enables and clears the activity log, then floods it with entries
+// Cyclic IF handler. Enables and clears the activation log, then floods it with entries
 void log_flooder_PI_trigger_flood(void)
 {
     char aMsgBuff[100];
@@ -41,7 +41,7 @@ void log_flooder_PI_trigger_flood(void)
     }
 
     // Report what we did
-    sprintf(aMsgBuff, "Flooded the activity log with %d entries", (NUM_SPORADIC_IF_CALLS * 2) + 1); // Add one for the inevitable "deactivation" of this IF call (this)
+    sprintf(aMsgBuff, "Flooded the activation log with %d entries", (NUM_SPORADIC_IF_CALLS * 2) + 1); // Add one for the inevitable "deactivation" of this IF call (this)
     transmit_log_info(aMsgBuff);
 }
 
