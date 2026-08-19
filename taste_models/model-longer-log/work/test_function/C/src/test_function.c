@@ -125,7 +125,7 @@ void test_function_PI_trigger_check(void)
         bResultReported = true;
         return;
     }
-    transmit_log_info("Activity log contains expected number of entries and last index");
+    transmit_log_info("Activation log contains expected number of entries and last index");
 
     // Iterate over the expected entries we have and compare them to the actual entries we got from the log
     for (int i = 0; i < iNumExpectedEntries; i++) {
@@ -162,7 +162,7 @@ void test_function_PI_trigger_check(void)
         return;
     }
 
-    // Fetch the updated activity log, which should now be empty
+    // Fetch the updated activation log, which should now be empty
     if (!Monitor_GetInterfaceActivationEntryLog(&aIfaLog, &iLastIndex, &nEntries)) {
         testresult_report_fail(TF_TEST_ID__TestLongerLog, "Failed to get log entries (second pass)");
         bResultReported = true;
@@ -182,7 +182,7 @@ void test_function_PI_trigger_check(void)
         bResultReported = true;
         return;
     }
-    transmit_log_info("Activity log has been successfully cleared and is now empty");
+    transmit_log_info("Activation log has been successfully cleared and is now empty");
 
     // Report the test as a pass
     testresult_report_pass(TF_TEST_ID__TestLongerLog);
