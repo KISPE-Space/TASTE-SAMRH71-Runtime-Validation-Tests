@@ -54,7 +54,7 @@ void test_log_length_PI_trigger_check( void )
     // Halt the logging
     Monitor_FreezeInterfaceActivationLogging();
 
-    // Load the log, and inspect its size (current count of entries)
+    // Load the activation log
     if (!Monitor_GetInterfaceActivationEntryLog(&aIfaLog, &iLastIndex, &nEntries)) {
         testresult_report_fail(TF_TEST_ID__TestLongerLog, "Failed to get log entries");
         bResultReported = true;
