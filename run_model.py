@@ -36,7 +36,7 @@ MODELS_FOLDER = "taste_models"
 LOGS_FOLDER = 'logs'
 
 # Defaults
-DEFAULT_GDB_BINARY_PATH = "/opt/taste-rtems-qdp-arm/bin/arm-rtems6-gdb"
+DEFAULT_GDB_BINARY = "gdb-multiarch"
 DEFAULT_MAKE_RECIPE = "debug"
 DEFAULT_GDB_SERVER_TCP_PORT = "127.0.0.1:2331"
 DEFAULT_GDB_VERBOSE = False
@@ -276,7 +276,7 @@ def build(model_name, build_recipe=DEFAULT_MAKE_RECIPE):
 # Deploy the model to the target hardware using gdb
 def deploy(
         model_name,
-        gdb_binary_path=DEFAULT_GDB_BINARY_PATH,
+        gdb_binary_path=DEFAULT_GDB_BINARY,
         gdb_server_tcp_port=DEFAULT_GDB_SERVER_TCP_PORT,
         uart_listen_device=DEFAULT_UART_LISTEN_DEVICE,
         gdb_verbose=DEFAULT_GDB_VERBOSE,
@@ -349,7 +349,7 @@ if __name__ == "__main__":
     )
     parser.add_argument("--model", default=None, help="Name of the model to build and deploy")
     parser.add_argument("--build_recipe", default=DEFAULT_MAKE_RECIPE, help="Make recipe to use for the build")
-    parser.add_argument("--gdb_binary_path", default=os.getenv("GDB_BINARY_PATH", default=DEFAULT_GDB_BINARY_PATH), help="Path to the GDB binary")
+    parser.add_argument("--gdb_binary_path", default=os.getenv("GDB_BINARY_PATH", default=DEFAULT_GDB_BINARY), help="Path to the GDB binary")
     parser.add_argument("--gdb_server_tcp_port", default=os.getenv("SAMRH71_REMOTE_GDBSERVER", default=DEFAULT_GDB_SERVER_TCP_PORT), help="TCP endpoint for the GDB remote target")
     parser.add_argument("--gdb_verbose", action="store_true", default=DEFAULT_GDB_VERBOSE, help="Enable verbose GDB output")
     parser.add_argument("--uart_listen_device", default=os.getenv("SAMRH71_UART_DEVICE", default=DEFAULT_UART_LISTEN_DEVICE), help="UART device to use for monitoring model output")
