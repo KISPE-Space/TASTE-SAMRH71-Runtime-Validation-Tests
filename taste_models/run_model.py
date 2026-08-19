@@ -1,6 +1,17 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+# The tests rely on a UART connection from FLEXCOM1 ("uart1") on the SAMRH71 target, to a host machine. The UART device
+# is configured via the argument --uart_listen_device, which defaults to /dev/ttyUSB0. The host machine must have a GDB server 
+# running on it, which is connected to the target hardware. The GDB server is configured via the argument --gdb_server_tcp_port, 
+# which defaults to 127.0.0.1:2331.
+#
+# This script can be run on that host machine, or else can connect to it over ssh (via the argument --uart_ssh_login).
+
+# This script builds models locally in its own environment and should therefore be run within the environment where the 
+# TASTE toolchain is available (e.g. taste-rtems-qdp-arm). In some cases this may be within a docker container, in which 
+# case the container must have network access to the host machine for the UART device (e.g. /dev/ttyUSB0)
+
 import argparse
 import common
 import subprocess
