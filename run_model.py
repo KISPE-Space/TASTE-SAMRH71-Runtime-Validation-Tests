@@ -13,7 +13,6 @@
 # case the container must have network access to the host machine for the UART device (e.g. /dev/ttyUSB0)
 
 import argparse
-import common
 import subprocess
 import json
 import shutil
