@@ -18,6 +18,10 @@
 #define NUM_SPORADIC_IF_CALLS   1000
 
 
+// Flag to ensure we only do the work once
+static asn1SccT_Boolean bIsDone = false;
+
+
 // Constructor (unused)
 void log_flooder_startup(void)
 {
@@ -28,6 +32,11 @@ void log_flooder_startup(void)
 void log_flooder_PI_trigger_flood(void)
 {
     char aMsgBuff[100];
+
+    // Only do this once
+    if (bIsDone) {
+        return;
+    }
 
     // Clear the log, which will also enable logging
     Monitor_ClearInterfaceActivationLog();
@@ -43,6 +52,9 @@ void log_flooder_PI_trigger_flood(void)
     // Report what we did
     sprintf(aMsgBuff, "Flooded the activation log with %d entries", (NUM_SPORADIC_IF_CALLS * 2) + 1); // Add one for the inevitable "deactivation" of this IF call (this)
     transmit_log_info(aMsgBuff);
+
+    // Flag that we already did this
+    bIsDone = true;
 }
 
 
