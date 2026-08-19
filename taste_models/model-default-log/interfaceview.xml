@@ -12,7 +12,7 @@
     </Implementations>
 </Function>
 
-<Function id="{a59a2b8e-87bb-4725-926c-a3e7b8436518}" name="test_function" is_type="NO" language="C" default_implementation="default" fixed_system_element="NO" required_system_element="NO" instances_min="1" instances_max="1" startup_priority="1">
+<Function id="{a59a2b8e-87bb-4725-926c-a3e7b8436518}" name="test_logging" is_type="NO" language="C" default_implementation="default" fixed_system_element="NO" required_system_element="NO" instances_min="1" instances_max="1" startup_priority="1">
     <Property name="TASTE_IV_Properties::Default_Codegen" value="Ada"/>
 <Provided_Interface id="{72690695-2de4-49da-9622-5634e4ce364f}" name="trigger_check" kind="Cyclic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" dispatch_offset="0" priority="1" period="1400" stack_size="1024" wcet="0">
 </Provided_Interface>
@@ -49,7 +49,7 @@
     </Implementations>
 </Function>
 
-<Function id="{ed870ede-6816-46f2-9802-9a755e04be1b}" name="trigger_function" is_type="NO" language="C" default_implementation="default" fixed_system_element="NO" required_system_element="NO" instances_min="1" instances_max="1" startup_priority="1">
+<Function id="{ed870ede-6816-46f2-9802-9a755e04be1b}" name="trigger_logging" is_type="NO" language="C" default_implementation="default" fixed_system_element="NO" required_system_element="NO" instances_min="1" instances_max="1" startup_priority="1">
     <Property name="TASTE_IV_Properties::Default_Codegen" value="Ada"/>
 <Provided_Interface id="{fc3a1369-86d1-42d5-829c-4e3cd4134d11}" name="trigger1" kind="Cyclic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" dispatch_offset="0" priority="1" period="200" stack_size="1024" wcet="0">
 </Provided_Interface>
@@ -95,8 +95,8 @@
     </Implementations>
 </Function>
 
-<Connection id="{d3108fbc-21ea-4c2a-bf7d-111f41b6a21d}" name="trigger_function_sporadic_if____receiver_sporadic_if" required_system_element="NO">
-    <Source iface_id="{2c7861b6-3fce-4bf4-9c3c-8813bfc80e0e}" func_name="trigger_function" ri_name="sporadic_if" />
+<Connection id="{d3108fbc-21ea-4c2a-bf7d-111f41b6a21d}" name="trigger_logging_sporadic_if____receiver_sporadic_if" required_system_element="NO">
+    <Source iface_id="{2c7861b6-3fce-4bf4-9c3c-8813bfc80e0e}" func_name="trigger_logging" ri_name="sporadic_if" />
     <Target iface_id="{a3d28fa2-3e8d-4b92-9b1f-600ef9975f41}" func_name="receiver" pi_name="sporadic_if" />
 </Connection>
 

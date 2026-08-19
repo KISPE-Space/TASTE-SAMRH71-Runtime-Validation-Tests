@@ -16,11 +16,11 @@ BEGIN
        
        receiver,
        
-       test-function,
-       
        test-log-length,
        
-       trigger-function,
+       test-logging,
+       
+       trigger-logging,
        
        
        env

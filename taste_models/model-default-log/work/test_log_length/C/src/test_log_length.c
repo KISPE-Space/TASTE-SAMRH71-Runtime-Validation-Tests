@@ -78,7 +78,7 @@ void test_log_length_PI_trigger_check( void )
     }
 
     // Report the log length
-    sprintf(aMsgBuff, "Log length is now: %d entries, and last index is %d", nEntries, iLastIndex);
+    sprintf(aMsgBuff, "Log length is now %d entries, and last index is %d", nEntries, iLastIndex);
     transmit_log_info(aMsgBuff);
 
     // Report the test as a pass
