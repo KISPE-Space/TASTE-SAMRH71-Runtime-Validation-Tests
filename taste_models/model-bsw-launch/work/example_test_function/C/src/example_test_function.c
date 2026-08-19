@@ -12,8 +12,94 @@
 #include "../../../../../tf_common/tf_test_results.h"
 #include <stdio.h>
 #include <Hal.h>
+#include <DeathReport.h>
 
 #define ONE_SECOND_IN_NS 1000000000
+#define MAX_DEATH_REPORT_STACK_TRACE_ENTRIES_TO_RENDER 50
+
+extern const uint32_t DEATH_REPORT_BEGIN;   // In the N7 death-report test this is NOT defined in the linker script! (Yet it *is* for other N7 tests)
+
+// Flag to ensure we only do the work once
+static asn1SccT_Boolean bIsDone = false;
+
+
+// Resets the death report to zeroes
+static void clean_death_report()
+{
+    DeathReportWriter_DeathReport *const death_report =
+        (DeathReportWriter_DeathReport *const)&DEATH_REPORT_BEGIN;
+
+    death_report->checksum = 0;
+    death_report->exception_id = 0;
+    death_report->registers.r1 = 0;
+    death_report->registers.r2 = 0;
+
+    for(int i = 0; i < DEATH_REPORT_STACK_TRACE_SIZE; i++){
+        death_report->stack_trace[i] = 0;
+    }
+}
+
+
+// Reports the given reset reason over UART, as an INFO message
+void transmit_the_reset_reason(enum Reset_Reason reset_reason)
+{
+    char aMsgBuff[100];
+
+    switch (reset_reason) {
+    case Reset_Reason_Powerup:
+        transmit_log_info("Reset reason is 'Power-On Reset'");
+        break;
+    case Reset_Reason_Backup:
+        transmit_log_info("Reset reason is 'Backup Reset'");
+        break;
+    case Reset_Reason_Watchdog:
+        transmit_log_info("Reset reason is 'Watchdog Reset'");
+        break;
+    case Reset_Reason_Software:
+        transmit_log_info("Reset reason is 'Software Reset'");
+        break;
+    case Reset_Reason_User:
+        transmit_log_info("Reset reason is 'External Reset'");
+        break;
+    default:
+        sprintf(aMsgBuff, "Reset reason is UNKNOWN (%d)", reset_reason);
+        transmit_log_info(aMsgBuff);
+    }
+}
+
+// Renders whatever is in the death report
+void transmit_the_death_report(void)
+{
+    char aMsgBuff[1000];
+
+    // Fetch the death report
+    DeathReportWriter_DeathReport *const death_report = (DeathReportWriter_DeathReport *const)&DEATH_REPORT_BEGIN;
+
+    transmit_bytes_over_uart("----------------\n");
+    sprintf(aMsgBuff, "Death report:\n----------------\nchecksum: %08x\nwas_seen: %d\npadding: %d\nexception_id: %d\n", death_report->checksum, death_report->was_seen, death_report->padding, death_report->exception_id);
+    transmit_bytes_over_uart(aMsgBuff);
+    sprintf(aMsgBuff, "r0: %08x\nr1: %08x\nr2: %08x\nr3: %08x\nr4: %08x\nr5: %08x\nr6: %08x\nr7: %08x\nr8: %08x\nr9: %08x\nr10: %08x\nr11: %08x\nr12: %08x\nmsp: %08x\npsp: %08x\nlr: %08x\npc: %08x\npsr: %x\n", death_report->registers.r0, death_report->registers.r1, death_report->registers.r2, death_report->registers.r3, death_report->registers.r4, death_report->registers.r5, death_report->registers.r6, death_report->registers.r7, death_report->registers.r8, death_report->registers.r9, death_report->registers.r10, death_report->registers.r11, death_report->registers.r12, death_report->registers.msp, death_report->registers.psp, death_report->registers.lr, death_report->registers.pc, death_report->registers.psr);
+    transmit_bytes_over_uart(aMsgBuff);
+    sprintf(aMsgBuff, "pri_mask: %08x\nfault_mask: %08x\nbase_pri: %08x\ncontrol: %08x\ncfsr: %08x\nhfsr: %08x\nmmar: %08x\nbfar: %x\n", death_report->registers.pri_mask, death_report->registers.fault_mask, death_report->registers.base_pri, death_report->registers.control, death_report->system_control_block.cfsr, death_report->system_control_block.hfsr, death_report->system_control_block.mmar, death_report->system_control_block.bfar);
+    transmit_bytes_over_uart(aMsgBuff);
+    transmit_bytes_over_uart("----------------\n");
+
+    uint32_t iLastIndexToRender = death_report->stack_trace_length <= MAX_DEATH_REPORT_STACK_TRACE_ENTRIES_TO_RENDER ? death_report->stack_trace_length - 1 : MAX_DEATH_REPORT_STACK_TRACE_ENTRIES_TO_RENDER - 1;
+    sprintf(aMsgBuff, "Stack trace (%d entries; Showing first %d):\n----------------\n", death_report->stack_trace_length, iLastIndexToRender + 1);
+    transmit_bytes_over_uart(aMsgBuff);
+    for (uint32_t i = 0; i <= iLastIndexToRender; i++) {
+        sprintf(aMsgBuff, "%03d: 0x%08x\n", i, death_report->stack_trace[i]);
+        transmit_bytes_over_uart(aMsgBuff);
+    }
+    if (death_report->stack_trace_length > MAX_DEATH_REPORT_STACK_TRACE_ENTRIES_TO_RENDER) {
+        transmit_bytes_over_uart("...\n");
+    }
+
+    // Close out the report
+    transmit_bytes_over_uart("----------------\n");
+}
+
+
 
 void example_test_function_startup(void)
 {
@@ -28,37 +114,31 @@ void example_test_function_PI_trigger(void)
 {
     char aMsgBuff[100];
 
+    // Already done this?
+    if (bIsDone) {
+        return;
+    }
+
+    // Fetch and report the death report (if any)
+    transmit_the_death_report();
+
+    // Reset the death report
+    clean_death_report();
+
     // Fetch and report the reset reason
     enum Reset_Reason reset_reason = Hal_GetResetReason();
+    transmit_the_reset_reason(reset_reason);
 
-    sprintf(aMsgBuff, "Reset reason ID: %d", reset_reason);
-    transmit_log_info(aMsgBuff);
-
+    /*    // If the reset reason is software reset, then we will force a UsageFault by dividing by zero, which will cause a different reset reason to be reported on the next run
     if (reset_reason == Reset_Reason_Software) {
 
         transmit_log_info("Yawn... Reset reason is again software reset");
 
-        /*
-        volatile int a = 1969;
-        volatile int b = 0;
-        volatile int c = a / b;  // triggers UsageFault
-        (void)c;
-*/
-
-        // Try to force the watchdog to kill us
-        uint64_t iLastTime = Hal_GetElapsedTimeInNs();
-        uint64_t iSecond = 0;
-        while (1) {
-            asm volatile("nop");
-
-            uint64_t iNow = Hal_GetElapsedTimeInNs();
-            if (iNow - iLastTime > ONE_SECOND_IN_NS) {
-                sprintf(aMsgBuff, "[ping:%llu]", ++iSecond);
-                transmit_log_info(aMsgBuff);
-//                transmit_log_info("[ping]");
-                iLastTime = iNow;
-            }
-        }
+//        // Force sudden death
+//        volatile int a = 1969;
+//        volatile int b = 0;
+//        volatile int c = a / b;  // triggers UsageFault
+//        (void)c;
 
     } else {
 
@@ -66,6 +146,10 @@ void example_test_function_PI_trigger(void)
         testresult_report_pass(TF_TEST_ID__TestComms01);
         return;
     }
+    */
+
+    // Ensure we don't do this again
+    bIsDone = true;
 }
 
 
