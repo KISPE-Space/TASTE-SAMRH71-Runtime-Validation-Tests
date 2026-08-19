@@ -32,6 +32,8 @@ UART_TTY_CONFIG = ["115200", "cs8", "parenb", "raw", "-echo"]
 GCDA_OUTPUT_PATH = "test_output/coverage_tmp"
 TEST_RESULTS_OUTPUT_PATH = "test_output/test_results.log"
 SUPPORTED_RECIPES = ["debug", "coverage"]
+MODELS_FOLDER = "taste_models"
+LOGS_FOLDER = 'logs'
 
 # Defaults
 DEFAULT_GDB_BINARY_PATH = "/opt/taste-rtems-qdp-arm/bin/arm-rtems6-gdb"
@@ -50,10 +52,54 @@ uart_ssh_login = DEFAULT_SSH_FOR_UART
 test_results = {}
 
 
+def do_build(test_name, arguments):
+    """
+    Build TASTE project from test_name directory
+    This function executes `make` inside test_name directory,
+    test_name -- Name of the test and also directory with test project.
+    arguments -- A list of arguments for make - usually the targets
+    """
+
+    # Prepare directory for logs
+    logs_dir = os.path.join(".", LOGS_FOLDER)
+    os.makedirs(logs_dir, exist_ok=True)
+
+    # Initialize logs
+    test_path = os.path.join(".", MODELS_FOLDER, test_name)
+    stdout_file = "{}_stdout.log".format(os.path.basename(os.path.normpath(test_name)))
+    stderr_file = "{}_stderr.log".format(os.path.basename(os.path.normpath(test_name)))
+
+    stdout_filepath = os.path.join(logs_dir, stdout_file)
+    stderr_filepath = os.path.join(logs_dir, stderr_file)
+
+    # Run compilation
+    process = subprocess.run(
+        ["make"] + arguments, cwd=test_path, shell=False, capture_output=True
+    )
+
+    # Dump compilation logs
+    with open(stdout_filepath, "wb") as out:
+        out.write(process.stdout)
+    with open(stderr_filepath, "wb") as out:
+        out.write(process.stderr)
+
+    return process
+
+
+def do_clean_build(test_name):
+    """
+    Clean TASTE project from test_name directory
+    This function executes `make clean` inside test_name directory,
+    test_name -- Name of the test and also directory with test project.
+    """
+    test_path = os.path.join(".", MODELS_FOLDER, test_name)
+    subprocess.run("make clean", cwd=test_path, shell=True, capture_output=True)
+
+
 # Extracts test names from the README.md file for the model, and initialises the test_results dictionary with FAIL for each test
 def initialise_test_results_for_model(model_name):
 
-    readme_path = os.path.join(model_name, "README.md")
+    readme_path = os.path.join(".", MODELS_FOLDER, model_name, "README.md")
     if not os.path.exists(readme_path):
         cprint(f"Error: README.md not found for model {model_name}", "red", attrs=['bold'])
         sys.exit(1)
@@ -213,12 +259,12 @@ def build(model_name, build_recipe=DEFAULT_MAKE_RECIPE):
 
     # Perform a make-clean on the model build folders
     print("make clean ... ", end="", flush=True)
-    common.do_clean_build(model_name)
+    do_clean_build(model_name)
     print("done", flush=True)
 
     # Perform a make on the intended target recipe, and ensure success
     print(f"make {TARGET_HARDWARE} {build_recipe} ... ", end="", flush=True)
-    build = common.do_build(model_name, [TARGET_HARDWARE, build_recipe])
+    build = do_build(model_name, [TARGET_HARDWARE, build_recipe])
     stderr = build.stderr.decode("utf-8")
     assert build.returncode == 0, f"Compilation errors: \n{stderr}"
     print("done", flush=True)
@@ -242,7 +288,7 @@ def deploy(
         sys.exit(1)
 
     # Determine the path to the model binary
-    model_binary_path = model_name + "/" + BINARY_SUB_PATH
+    model_binary_path = os.path.join(".", MODELS_FOLDER, model_name, BINARY_SUB_PATH)
 
     # Catch all gdb errors
     try:
@@ -265,9 +311,6 @@ def deploy(
         # Reset the target
         gdb_command(gdbmi, "monitor reset", gdb_verbose=gdb_verbose)
         #gdb_command(gdbmi, "-thread-info", gdb_verbose=gdb_verbose)
-
-        # Ensure that full reset occurs, to avoid spurious errors in the model execution
-        #common.target_extended_reset(gdbmi)
 
         # Connect to the UART listen device, before the model starts running
         uart_listener = start_target_host_process(["stty", "-F", uart_listen_device] + UART_TTY_CONFIG + ["&&", "sed", "'/END_OF_OUTPUT/q'", uart_listen_device])
@@ -322,6 +365,13 @@ if __name__ == "__main__":
         cprint("Error: model_name is not set", "red", attrs=['bold'])
         sys.exit(1)
 
+    # Assert that the model folder exists
+    model_folder = os.path.join(".", MODELS_FOLDER, args.model)
+    if not os.path.exists(model_folder):
+        cprint(f"Error: model {model_folder} not found\n", "red", attrs=['bold'])
+        cprint(f"Available models: {', '.join([d for d in os.listdir(MODELS_FOLDER) if os.path.isdir(os.path.join(MODELS_FOLDER, d)) and d.startswith('model-') and d != 'model-template'])}", "yellow", attrs=['bold'])
+        sys.exit(1)
+
     # Assert that the recipe is either "debug" or "coverage"
     if args.build_recipe not in SUPPORTED_RECIPES:
         cprint(f"Error: Unsupported build recipe {args.build_recipe}", "red", attrs=['bold'])
@@ -346,7 +396,7 @@ if __name__ == "__main__":
     # One model or all?
     if args.model == "all":
         # Get a list of all folders in the current directory with a name matching "model-*"
-        models = [d for d in os.listdir(".") if os.path.isdir(d) and d.startswith("model-") and d != "model-template"]
+        models = [d for d in os.listdir(MODELS_FOLDER) if os.path.isdir(os.path.join(MODELS_FOLDER, d)) and d.startswith("model-") and d != "model-template"]
         cprint(f"\nIterating over {len(models)} models:\n", "green", attrs=['bold'])
         cprint(f" - {'\n - '.join(models)}\n", "yellow", attrs=['bold'])
     else:
@@ -368,7 +418,7 @@ if __name__ == "__main__":
             build(model, build_recipe=args.build_recipe)
 
         # Before deploying, ensure that the target model binary exists on disk
-        model_binary_path = model + "/" + BINARY_SUB_PATH
+        model_binary_path = os.path.join(".", MODELS_FOLDER, model, BINARY_SUB_PATH)
         if not os.path.exists(model_binary_path):
             cprint(f"Error: model binary {model_binary_path} does not exist, cannot deploy", "red", attrs=['bold'])
             sys.exit(1)
