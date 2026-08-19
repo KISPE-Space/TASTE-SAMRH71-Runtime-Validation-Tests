@@ -16,8 +16,8 @@ SPACECREATOR?=spacecreator.AppImage
 export PARTITION_1_USER_CFLAGS=-DRT_EXEC_LOG_ACTIVE
 export PARTITION_1_USER_LDFLAGS
 export CURRENT_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
-export PARTITION_1_USER_LDSCRIPT_DIR=$(CURRENT_DIR)work/linker_script__no_gcov
-export PARTITION_1_USER_LDSCRIPT=$(CURRENT_DIR)work/linker_script__no_gcov/linkcmds.intsram
+export PARTITION_1_USER_LDSCRIPT_DIR=$(CURRENT_DIR)work/linker_script
+export PARTITION_1_USER_LDSCRIPT=$(CURRENT_DIR)work/linker_script/linkcmds.intsram
 
 # Disable the progress bar from taste-update-data-view when building systems
 export NO_PROGRESS_BAR=1
@@ -54,8 +54,6 @@ debug:	work/glue_debug
 # Also use the Test Framework's custom linker script. It simply adds a definition for the (tiny) .gcov_info section
 coverage: PARTITION_1_USER_CFLAGS += --coverage -fprofile-info-section -DCOVERAGE_ENABLED=1 
 coverage: PARTITION_1_USER_LDFLAGS += --coverage
-coverage: PARTITION_1_USER_LDSCRIPT_DIR := $(CURRENT_DIR)work/linker_script__with_gcov
-coverage: PARTITION_1_USER_LDSCRIPT := $(CURRENT_DIR)work/linker_script__with_gcov/linkcmds.intsram
 coverage: work/glue_coverage
 	echo -e "[TFINFO] Coverage enabled. Using shared gcov linker script folder: ${PARTITION_1_USER_LDSCRIPT_DIR}"
 	rm -rf work/glue_release
