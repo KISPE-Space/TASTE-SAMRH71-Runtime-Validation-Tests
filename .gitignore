@@ -38,3 +38,5 @@ __pycache__
 logs
 test_output
 
+# gdb binary sym-link
+gdb-multiarch
