@@ -15,6 +15,9 @@ SPACECREATOR?=spacecreator.AppImage
 # Explicitly disable coverage in this model: There's no room for gcov instrumentation of the runtime in the internal flash on the samrh71
 export PARTITION_1_USER_CFLAGS=-DCOVERAGE_ENABLED=0
 
+# Use our default linker script for the test  framework. (It includes 200 bytes for gcov pointers, which we do not need and will not use. But good to use a common custom script)
+export PARTITION_1_USER_LDSCRIPT_DIR := $(abspath ../tf_linker_gcov_samrh71)
+export PARTITION_1_USER_LDSCRIPT := $(abspath ../tf_linker_gcov_samrh71)/linkcmds.intsram
 
 # Disable the progress bar from taste-update-data-view when building systems
 export NO_PROGRESS_BAR=1
