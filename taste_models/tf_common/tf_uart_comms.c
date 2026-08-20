@@ -91,4 +91,5 @@ void transmit_end_signal(void)
 void transmit_reset_signal(void)
 {
     transmit_bytes_over_uart("RESET_AND_RERUN\n");
+    transmit_end_signal();
 }
