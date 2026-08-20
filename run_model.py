@@ -250,7 +250,19 @@ def gdb_command(gdbmi, command, description=None, timeout=DEFAULT_GDB_COMMAND_TI
         # Try again to fetch responses, with a timeout to avoid hanging indefinitely
         if gdb_verbose:
             cprint(f'Waiting to get GDB completion response for command "{command}" ...', "yellow", attrs=['dark'])
-        responses = gdbmi.get_gdb_response(timeout_sec=1)
+        responses = gdbmi.get_gdb_response(timeout_sec=timeout)
+
+
+# Performs an "extended reset" on the target hardware, which is a more complete reset than a simple "monitor reset"
+# Following a crash (e.g. UsageFault) of the SAMRH71 target, the target may not be able to recover from a simple "monitor reset" command, 
+# and may require an extended reset to recover. This is at least the case for model-death-report.
+def gdb_extended_reset(gdbmi, timeout=DEFAULT_GDB_COMMAND_TIMEOUT, gdb_verbose=DEFAULT_GDB_VERBOSE):
+
+    gdb_command(gdbmi, "monitor reset", description="Performing ordinary reset", gdb_verbose=gdb_verbose, timeout=timeout)
+    gdb_command(gdbmi, "monitor reset 0", description="Performing core & peripherals reset via SYSRESETREQ & VECTRESET bit", gdb_verbose=gdb_verbose, timeout=timeout)
+    gdb_command(gdbmi, "monitor reset 1", description="Performing core only reset, not peripherals", gdb_verbose=gdb_verbose, timeout=timeout)
+    gdb_command(gdbmi, "monitor reset 8", description="Performing core & peripherals reset via SYSRESETREQ bit only", gdb_verbose=gdb_verbose, timeout=timeout)
+    gdb_command(gdbmi, "monitor reset", description="Performing ordinary reset", gdb_verbose=gdb_verbose, timeout=timeout)
 
 
 # Build the model using the specified recipe
@@ -308,8 +320,9 @@ def deploy(
         gdb_command(gdbmi, "set confirm off", gdb_verbose=gdb_verbose)
 
         # Reset the target
-        gdb_command(gdbmi, "monitor reset", gdb_verbose=gdb_verbose)
+        #gdb_command(gdbmi, "monitor reset", gdb_verbose=gdb_verbose)
         #gdb_command(gdbmi, "-thread-info", gdb_verbose=gdb_verbose)
+        gdb_extended_reset(gdbmi, gdb_verbose=gdb_verbose)
 
         # Connect to the UART listen device, before the model starts running
         uart_listener = start_target_host_process(["stty", "-F", uart_listen_device] + UART_TTY_CONFIG + ["&&", "sed", "'/END_OF_OUTPUT/q'", uart_listen_device])
