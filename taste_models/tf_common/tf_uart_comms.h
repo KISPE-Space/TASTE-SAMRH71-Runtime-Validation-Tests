@@ -51,4 +51,20 @@ void transmit_bytes_over_uart(char* pBytes);
 void transmit_log_info(char* pString);
 
 
+/*
+ * Transmits a signal to the UART channel indicating that all output has been sent, and that the receiver can stop listening for further output.
+ * This function should be called after all test results and any other output have been transmitted over the UART channel, to indicate that the output is complete.
+ * The receiver can use this signal to stop listening for further output, and to perform any necessary cleanup or finalization.
+ * The signal is sent as a human-readable string.
+ */
+void transmit_end_signal(void);
+
+
+/*
+ * Transmits a signal to the UART channel indicating that the model should be reset and re-run. 
+ * This can be useful in models like the death report, when some part of RAM has been updated with a new value, that can be read on the next run (assuming no power-cycle).
+ */
+void transmit_reset_signal(void);
+
+
 #endif // TF_UART_COMMS_H

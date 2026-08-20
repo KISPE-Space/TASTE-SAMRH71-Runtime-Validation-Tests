@@ -247,8 +247,8 @@ void testresult_finalise_when_done(void)
     coverage_transmit_all();
 #endif
 
-    // Report enf of output all output
-    transmit_bytes_over_uart("END_OF_OUTPUT\n\n");
+    // Report end of all output
+    transmit_end_signal();
 
     // Flag that finalisation has been done
     bFinalisationDone = 1;

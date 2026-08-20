@@ -74,3 +74,21 @@ void transmit_log_info(char* pString)
     transmit_bytes_over_uart(pString);
     transmit_bytes_over_uart("\n");
 }
+
+
+/*
+ * Refer to header for function usage docs
+ */
+void transmit_end_signal(void)
+{
+    transmit_bytes_over_uart("END_OF_OUTPUT\n\n");
+}
+
+
+/*
+ * Refer to header for function usage docs
+ */
+void transmit_reset_signal(void)
+{
+    transmit_bytes_over_uart("RESET_AND_RERUN\n");
+}
