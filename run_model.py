@@ -378,11 +378,12 @@ if __name__ == "__main__":
         sys.exit(1)
 
     # Assert that the model folder exists
-    model_folder = os.path.join(".", MODELS_FOLDER, args.model)
-    if not os.path.exists(model_folder):
-        cprint(f"Error: model {model_folder} not found\n", "red", attrs=['bold'])
-        cprint(f"Available models: {', '.join([d for d in os.listdir(MODELS_FOLDER) if os.path.isdir(os.path.join(MODELS_FOLDER, d)) and d.startswith('model-') and d != 'model-template'])}", "yellow", attrs=['bold'])
-        sys.exit(1)
+    if args.model != "all":
+        model_folder = os.path.join(".", MODELS_FOLDER, args.model)
+        if not os.path.exists(model_folder):
+            cprint(f"Error: model {model_folder} not found\n", "red", attrs=['bold'])
+            cprint(f"Available models: {', '.join([d for d in os.listdir(MODELS_FOLDER) if os.path.isdir(os.path.join(MODELS_FOLDER, d)) and d.startswith('model-') and d != 'model-template'])}", "yellow", attrs=['bold'])
+            sys.exit(1)
 
     # Assert that the recipe is either "debug" or "coverage"
     if args.build_recipe not in SUPPORTED_RECIPES:
