@@ -44,6 +44,10 @@ DEFAULT_SSH_FOR_UART = None
 DEFAULT_SKIP_BUILD = False
 DEFAULT_GDB_COMMAND_TIMEOUT = 3
 
+# UART lines that signal something to the script
+UART_CMD__RESET_AND_RERUN = "RESET_AND_RERUN"
+UART_CMD__END_OF_OUTPUT = "END_OF_OUTPUT"
+
 # Global variable for SSH login for the host that has the SAMRH71 UART device, if needed
 uart_ssh_login = DEFAULT_SSH_FOR_UART
 
@@ -150,9 +154,10 @@ def process_uart_lines(uart_listener):
     # Ensure that the output paths exist
     os.makedirs(GCDA_OUTPUT_PATH, exist_ok=True)
     os.makedirs(os.path.dirname(TEST_RESULTS_OUTPUT_PATH), exist_ok=True)
+    gcda_files = []
 
     # Parse the lines to extract test results and GCDA files
-    gcda_files = []
+    cprint(f"Processing UART output from ...", "light_grey", attrs=['dark'])
     for line in uart_listener.stdout:
         if line.startswith("TEST_RESULT:"):
             add_test_result_line(line)
@@ -168,8 +173,17 @@ def process_uart_lines(uart_listener):
                 with open(output_path, 'wb') as gcda_file:
                     gcda_file.write(bytes.fromhex(hex_data))
                     print(f"Wrote GCDA file: {gcda_filename} ({len(bytes.fromhex(hex_data))} bytes)")
+        elif line.strip() == UART_CMD__RESET_AND_RERUN:
+            cprint(f"Received command to reset and rerun the model", "yellow", attrs=['bold'])
+            return True
+        elif line.strip() == UART_CMD__END_OF_OUTPUT:
+            cprint(f"Received end-of-output signal. Ignoring any further output.", "light_grey", attrs=[])
+            return False
         else:
             cprint(line, color="light_grey", attrs=[], end="")
+
+    # Return False to indicate that we did not receive a reset command
+    return False
 
 
 # Runs a command on the host that holds the UART device.
@@ -181,7 +195,7 @@ def start_target_host_process(command):
 
     # Start the process, using Popen() to allow for non-blocking execution
     print(colored(f"Running command (non-blocking): {' '.join(command)}", "yellow"), flush=True)
-    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
 
     # Return the process handle
     return process
@@ -253,6 +267,32 @@ def gdb_command(gdbmi, command, description=None, timeout=DEFAULT_GDB_COMMAND_TI
         responses = gdbmi.get_gdb_response(timeout_sec=timeout)
 
 
+# Returns True if gdb has stopped, False if it is still running
+def gdb_sigtrap_occurred(gdbmi, grace_time_before_check=3, gdb_verbose=DEFAULT_GDB_VERBOSE):
+
+    # Wait for the grace period before checking
+    if grace_time_before_check > 0:
+        cprint(f"Waiting {grace_time_before_check} seconds before checking if gdb has stopped ...", "yellow", attrs=['dark'])
+        time.sleep(grace_time_before_check)
+
+    # Check if gdb has stopped
+    try:
+        gdbmi.write("info program")
+        responses = gdbmi.get_gdb_response(timeout_sec=DEFAULT_GDB_COMMAND_TIMEOUT)
+        print_gdb_responses(responses, gdb_verbose=gdb_verbose)
+        for r in responses:
+            if "received signal SIGTRAP" in r["payload"]:
+                cprint(f"gdb has halted on SIGTRAP", "red", attrs=['dark'])
+                return True
+    except Exception as e:
+        cprint(f"Error while checking if gdb has stopped: {e}", "yellow", attrs=[])
+        return False
+
+    # If we get here, we didn't find a result record, so assume gdb is still running
+    cprint(f"gdb is still running (no result record found)", "yellow", attrs=['dark'])
+    return False
+
+
 # Performs an "extended reset" on the target hardware, which is a more complete reset than a simple "monitor reset"
 # Following a crash (e.g. UsageFault) of the SAMRH71 target, the target may not be able to recover from a simple "monitor reset" command, 
 # and may require an extended reset to recover. This is at least the case for model-death-report.
@@ -291,7 +331,8 @@ def deploy(
         gdb_server_tcp_port=DEFAULT_GDB_SERVER_TCP_PORT,
         uart_listen_device=DEFAULT_UART_LISTEN_DEVICE,
         gdb_verbose=DEFAULT_GDB_VERBOSE,
-):
+        extended_reset=False
+) -> bool:
 
     # Fail if model_name is not set
     if model_name is None:
@@ -300,6 +341,9 @@ def deploy(
 
     # Determine the path to the model binary
     model_binary_path = os.path.join(".", MODELS_FOLDER, model_name, BINARY_SUB_PATH)
+
+    # Assume we do not have to re-run the model, unless we receive a command from the UART listener to do so
+    rerun_the_model = False
 
     # Catch all gdb errors
     try:
@@ -320,25 +364,29 @@ def deploy(
         gdb_command(gdbmi, "set confirm off", gdb_verbose=gdb_verbose)
 
         # Reset the target
-        #gdb_command(gdbmi, "monitor reset", gdb_verbose=gdb_verbose)
-        #gdb_command(gdbmi, "-thread-info", gdb_verbose=gdb_verbose)
+        if extended_reset:
+            gdb_command(gdbmi, "monitor reset", gdb_verbose=gdb_verbose)
+            time.sleep(10)  # Wait a few seconds for the target to reset, then send further reset commands
         gdb_extended_reset(gdbmi, gdb_verbose=gdb_verbose)
 
         # Connect to the UART listen device, before the model starts running
-        uart_listener = start_target_host_process(["stty", "-F", uart_listen_device] + UART_TTY_CONFIG + ["&&", "sed", "'/END_OF_OUTPUT/q'", uart_listen_device])
+        enable_remote_parsing = True
+        remote_line_parser_cmds = ["sed", "'/END_OF_OUTPUT/q'"] if enable_remote_parsing else ["cat"]
+        uart_listener = start_target_host_process(["stty", "-F", uart_listen_device] + UART_TTY_CONFIG + ["&&"] + remote_line_parser_cmds + [uart_listen_device])
         if not uart_listener:
             raise RuntimeError(f"Failed to start UART listener on {uart_listen_device}")
 
         # Load the model onto the target
-        gdb_command(gdbmi, "load", gdb_verbose=gdb_verbose)
+        gdb_command(gdbmi, "load", "Loading the model", gdb_verbose=gdb_verbose)
 
         # Run the model
         gdb_command(gdbmi, "c", "Running the model", gdb_verbose=gdb_verbose)
 
         # Process the stdout we receive from the listener
-        process_uart_lines(uart_listener)
+        rerun_the_model = process_uart_lines(uart_listener)
 
-        # Likely not necessary, but added here so its clear that we intend for the object to be cleaned up
+        # Ensure that the UART listener process is terminated and cleaned up
+        uart_listener.terminate()
         uart_listener.wait()
 
         # Report end of deployment process
@@ -351,6 +399,14 @@ def deploy(
     # Ensure we always exit gdb cleanly, even if an error occurs
     finally:
         gdbmi.exit()
+
+        # Kill the process that's potentially currently still listening to the UART device, so that we can cleanly exit
+        run_target_host_command(["kill", "-9", "$(fuser " + uart_listen_device + " 2>/dev/null)"])
+
+
+    # Return whether we need to rerun the model, based on whether we received a command from the UART listener to do so
+    return rerun_the_model
+
 
 
 # MAIN entry point for the script, which parses command line arguments and runs the build/deploy process
@@ -437,12 +493,23 @@ if __name__ == "__main__":
             sys.exit(1)
 
         # Perform the deployment
-        deploy(model,
+        rerun_the_model = deploy(model,
             gdb_binary_path=args.gdb_binary_path,
             gdb_server_tcp_port=args.gdb_server_tcp_port,
             uart_listen_device=args.uart_listen_device,
             gdb_verbose=args.gdb_verbose
         )
+
+        # If we received a command to rerun the model, do so
+        if rerun_the_model:
+            cprint(f"Rerunning model: {model} (due to reset signal from last run) ... \n", "cyan", attrs=['bold'])
+            rerun_the_model = deploy(model,
+                gdb_binary_path=args.gdb_binary_path,
+                gdb_server_tcp_port=args.gdb_server_tcp_port,
+                uart_listen_device=args.uart_listen_device,
+                gdb_verbose=args.gdb_verbose,
+                extended_reset=True,
+            )
 
         # After deployment we may need to generate a partial coverage report, if any gcda files were generated
         # TODO
