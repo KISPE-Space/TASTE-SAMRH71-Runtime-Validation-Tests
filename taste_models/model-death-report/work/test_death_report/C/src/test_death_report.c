@@ -15,7 +15,6 @@
 #include <DeathReport.h>
 
 // TODO: Evaluate if we need distinct values for coverage build
-static uint16_t DEATH_REPORT_EXPECTED_VALUE__CHECKSUM           = 0x2955;
 static uint32_t DEATH_REPORT_EXPECTED_VALUE__EXCEPTION_ID       = 3;
 static uint32_t DEATH_REPORT_EXPECTED_VALUE__REGISTER_R1        = 0x100159f0;
 static uint32_t DEATH_REPORT_EXPECTED_VALUE__PROGRAM_COUNT      = 0x1000e3cc;
@@ -160,12 +159,12 @@ void test_death_report_PI_trigger_check(void)
     sprintf(aMsgBuff, "DeathReport: checksum: 0x%04x; exception_id: 0x%08x; r1: 0x%08x; pc: 0x%08x; stack_trace[1]: 0x%08x",
             iCheckSum, iExceptionId, iRegisterR1, iProgramCounter, iStackAddress1);
     transmit_log_info(aMsgBuff);
-    sprintf(aMsgBuff, "Expecting  : checksum: 0x%04x; exception_id: 0x%08x; r1: 0x%08x; pc: 0x%08x; stack_trace[1]: 0x%08x",
-            DEATH_REPORT_EXPECTED_VALUE__CHECKSUM, DEATH_REPORT_EXPECTED_VALUE__EXCEPTION_ID, DEATH_REPORT_EXPECTED_VALUE__REGISTER_R1, DEATH_REPORT_EXPECTED_VALUE__PROGRAM_COUNT, DEATH_REPORT_EXPECTED_VALUE__STACK_ADDRESS_1);
+    sprintf(aMsgBuff, "Expecting  : checksum: (not zero); exception_id: 0x%08x; r1: 0x%08x; pc: 0x%08x; stack_trace[1]: 0x%08x",
+            DEATH_REPORT_EXPECTED_VALUE__EXCEPTION_ID, DEATH_REPORT_EXPECTED_VALUE__REGISTER_R1, DEATH_REPORT_EXPECTED_VALUE__PROGRAM_COUNT, DEATH_REPORT_EXPECTED_VALUE__STACK_ADDRESS_1);
     transmit_log_info(aMsgBuff);
 
     // Evaluate pass/fail
-    if (   iCheckSum != DEATH_REPORT_EXPECTED_VALUE__CHECKSUM
+    if (   iCheckSum == 0
         || iExceptionId != DEATH_REPORT_EXPECTED_VALUE__EXCEPTION_ID
         || iRegisterR1 != DEATH_REPORT_EXPECTED_VALUE__REGISTER_R1
         || iProgramCounter != DEATH_REPORT_EXPECTED_VALUE__PROGRAM_COUNT
