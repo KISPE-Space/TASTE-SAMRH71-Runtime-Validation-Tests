@@ -20,7 +20,7 @@
 
 // Flag to ensure we only report the test result at most once
 static asn1SccT_Boolean bResetCheckDone = false;
-static asn1SccT_Boolean bResultReported = false;
+
 
 
 // Link to the death report
@@ -96,42 +96,36 @@ void test_death_report_startup(void)
 // Determines if a death report is found in RAM. If not, transmits the reset signal, then forces the app to crash
 void test_death_report_PI_trigger_reset(void)
 {
-    return; /* Do NOTHING for now */
-
     // Only do this once
     if (bResetCheckDone) {
         return;
     }
 
-/*    // Check for a non-zero checksum
+    // Check for a non-zero checksum
     if (pDeathReport->checksum != 0) {
+
         // A death report was found in RAM, so we don't need to do anything
         transmit_log_info("Death report found in RAM, skipping reset");
         bResetCheckDone = true;
         return;
     }
 
-    // Warn about what we will do
-    transmit_log_info("No death report found in RAM, transmitting reset signal and forcing crash");
-    transmit_log_info("TODO... RESET_AND_CONTINUE");
-*/
-#if ENABLE_RESET==1
-    // Force a crash
-    volatile int a = 1969;
-    volatile int b = 0;
-    volatile int c = a / b;  // triggers UsageFault
-    (void)c;
-#else
-    // Write some special codes into the death report memory area
-    pDeathReport->checksum = 0xAABB;
-    pDeathReport->exception_id = 0xC0FFEE01;
-    pDeathReport->registers.r1 = 0xC0FFEE02;
-    pDeathReport->registers.r2 = 0xC0FFEE03;
-#endif
+    // On first call simply warn about what we will do ans send the "end" signal. The subsequent call will then actually do the UsageFault
+    // This allows time for the UART comms to complete
+    // (Could instead use Hal_SleepNs(), but that seems eratic, sleeping many orders or magnitude longer than requested)
+    static int iCallCount = 0;
+    if (iCallCount++ == 0) {
+        transmit_log_info("No death report found in RAM (checksum was 0): Transmitting reset signal and forcing crash");
+        transmit_reset_signal();
 
+    } else {
 
-    // We should never see this line
-    transmit_log_info("(If you see me I did not force a crash)\n");
+        // Force a crash
+        volatile int a = 1969;
+        volatile int b = 0;
+        volatile int c = a / b;  // triggers UsageFault
+        (void)c;
+    }
 }
 
 
@@ -141,13 +135,10 @@ void test_death_report_PI_trigger_reset(void)
 void test_death_report_PI_trigger_check(void)
 {
     char aMsgBuff[100];
-    static int iCallCount = 0;
+    static asn1SccT_Boolean bResultReported = false;
 
     // Only do this once
-//    if (bResultReported) {
-    if (iCallCount++ > 5) {
-        // Force end
-        transmit_end_signal();
+    if (bResultReported) {
         return;
     }
 
@@ -161,16 +152,14 @@ void test_death_report_PI_trigger_check(void)
     // Update the checksum
     sprintf(aMsgBuff, "pDeathReport->checksum is: %u", pDeathReport->checksum);
     transmit_log_info(aMsgBuff);
-    if (pDeathReport->checksum > 1000) {
-        pDeathReport->checksum = 50;
-    } else {
-        pDeathReport->checksum = pDeathReport->checksum + 50;
-    }
+    pDeathReport->checksum = 0;
     sprintf(aMsgBuff, "   --> pDeathReport->checksum updated to: %u", pDeathReport->checksum);
     transmit_log_info(aMsgBuff);
 
+    transmit_end_signal();
+
     // Set the flag to avoid doing this again
-//    bResultReported = true;
+    bResultReported = true;
 }
 
 
