@@ -14,9 +14,15 @@
 #include <Hal.h>
 #include <DeathReport.h>
 
+// TODO: Evaluate if we need distinct values for coverage build
+static uint16_t DEATH_REPORT_EXPECTED_VALUE__CHECKSUM           = 0x2955;
+static uint32_t DEATH_REPORT_EXPECTED_VALUE__EXCEPTION_ID       = 3;
+static uint32_t DEATH_REPORT_EXPECTED_VALUE__REGISTER_R1        = 0x100159f0;
+static uint32_t DEATH_REPORT_EXPECTED_VALUE__PROGRAM_COUNT      = 0x1000e3cc;
+static uint32_t DEATH_REPORT_EXPECTED_VALUE__STACK_ADDRESS_1    = 0x100159f0;
 
-#define MAX_DEATH_REPORT_STACK_TRACE_ENTRIES_TO_RENDER 5
-#define ENABLE_RESET 0
+#define MAX_DEATH_REPORT_STACK_TRACE_ENTRIES_TO_RENDER  5
+
 
 // Flag to ensure we only report the test result at most once
 static asn1SccT_Boolean bResetCheckDone = false;
@@ -29,7 +35,7 @@ static DeathReportWriter_DeathReport *const pDeathReport = (DeathReportWriter_De
 
 
 // Resets the death report to zeroes
-static void clean_death_report()
+static void clear_death_report()
 {
     // Reset the main header fields to zero
     pDeathReport->checksum = 0;
@@ -101,20 +107,22 @@ void test_death_report_PI_trigger_reset(void)
         return;
     }
 
-    // Check for a non-zero checksum
-    if (pDeathReport->checksum != 0) {
+    // Check for the r1 register value that is associated with the death report that this model forces
+    if (pDeathReport->registers.r1 == DEATH_REPORT_EXPECTED_VALUE__REGISTER_R1) {
 
-        // A death report was found in RAM, so we don't need to do anything
+        // Our death report was found in RAM, so we don't need to do anything
         transmit_log_info("Death report found in RAM, skipping reset");
         bResetCheckDone = true;
         return;
     }
 
-    // On first call simply warn about what we will do ans send the "end" signal. The subsequent call will then actually do the UsageFault
+    // On first call simply warn about what we will do and send the "end" signal. The subsequent call will then actually create the UsageFault
     // This allows time for the UART comms to complete
-    // (Could instead use Hal_SleepNs(), but that seems eratic, sleeping many orders or magnitude longer than requested)
+    // (Could instead use Hal_SleepNs(), but that seems eratic, sleeping many orders of magnitude longer than requested)
     static int iCallCount = 0;
     if (iCallCount++ == 0) {
+
+        // Send the reset signal to the UART other-end
         transmit_log_info("No death report found in RAM (checksum was 0): Transmitting reset signal and forcing crash");
         transmit_reset_signal();
 
@@ -134,7 +142,7 @@ void test_death_report_PI_trigger_reset(void)
 // Check the contents of the death report and passes the test if it matches expectations
 void test_death_report_PI_trigger_check(void)
 {
-    char aMsgBuff[100];
+    char aMsgBuff[160];
     static asn1SccT_Boolean bResultReported = false;
 
     // Only do this once
@@ -142,21 +150,36 @@ void test_death_report_PI_trigger_check(void)
         return;
     }
 
-    // Fetch and report the death report
-//    transmit_the_death_report();
+    // Buffer the values locally (useful for gdb debugging)
+    uint16_t iCheckSum          = pDeathReport->checksum;
+    uint32_t iExceptionId       = pDeathReport->exception_id;
+    uint32_t iRegisterR1        = pDeathReport->registers.r1;
+    uint32_t iProgramCounter    = pDeathReport->registers.pc;
+    uint32_t iStackAddress1     = pDeathReport->stack_trace[1];
 
-    // TODO: Check its contents against expectations and report the result
+    sprintf(aMsgBuff, "DeathReport: checksum: 0x%04x; exception_id: 0x%08x; r1: 0x%08x; pc: 0x%08x; stack_trace[1]: 0x%08x",
+            iCheckSum, iExceptionId, iRegisterR1, iProgramCounter, iStackAddress1);
+    transmit_log_info(aMsgBuff);
+    sprintf(aMsgBuff, "Expecting  : checksum: 0x%04x; exception_id: 0x%08x; r1: 0x%08x; pc: 0x%08x; stack_trace[1]: 0x%08x",
+            DEATH_REPORT_EXPECTED_VALUE__CHECKSUM, DEATH_REPORT_EXPECTED_VALUE__EXCEPTION_ID, DEATH_REPORT_EXPECTED_VALUE__REGISTER_R1, DEATH_REPORT_EXPECTED_VALUE__PROGRAM_COUNT, DEATH_REPORT_EXPECTED_VALUE__STACK_ADDRESS_1);
+    transmit_log_info(aMsgBuff);
+
+    // Evaluate pass/fail
+    if (   iCheckSum != DEATH_REPORT_EXPECTED_VALUE__CHECKSUM
+        || iExceptionId != DEATH_REPORT_EXPECTED_VALUE__EXCEPTION_ID
+        || iRegisterR1 != DEATH_REPORT_EXPECTED_VALUE__REGISTER_R1
+        || iProgramCounter != DEATH_REPORT_EXPECTED_VALUE__PROGRAM_COUNT
+        || iStackAddress1 != DEATH_REPORT_EXPECTED_VALUE__STACK_ADDRESS_1
+        )
+    {
+        testresult_report_fail(TF_TEST_ID__TestDeathReport, "Death report found but not as expected");
+        transmit_the_death_report();
+    } else {
+        testresult_report_pass(TF_TEST_ID__TestDeathReport);
+    }
 
     // Reset the death report
-//    clean_death_report();
-    // Update the checksum
-    sprintf(aMsgBuff, "pDeathReport->checksum is: %u", pDeathReport->checksum);
-    transmit_log_info(aMsgBuff);
-    pDeathReport->checksum = 0;
-    sprintf(aMsgBuff, "   --> pDeathReport->checksum updated to: %u", pDeathReport->checksum);
-    transmit_log_info(aMsgBuff);
-
-    transmit_end_signal();
+    clear_death_report();
 
     // Set the flag to avoid doing this again
     bResultReported = true;
