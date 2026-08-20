@@ -36,14 +36,14 @@
 typedef enum {
     TF_TEST_ID__TestMaxTasks        = 0,
     TF_TEST_ID__TestTime            = 1,
-    TF_TEST_ID__TestComms01         = 2,
+    TF_TEST_ID__UNUSED1             = 2,
     TF_TEST_ID__TestPriority        = 3,
     TF_TEST_ID__TestStackUsage      = 4,
     TF_TEST_ID__TestParameterCount  = 5,
     TF_TEST_ID__TestEncodingErrors  = 6,
     TF_TEST_ID__TestFpu             = 7,
     TF_TEST_ID__TestSdlToAda        = 8,
-    TF_TEST_ID__TestComms09         = 9,
+    TF_TEST_ID__TestDeathReport     = 9,
     TF_TEST_ID__TestEncoding        = 10,
     TF_TEST_ID__TestQueueOverflow   = 11,    
     TF_TEST_ID__TestMaxMatrix       = 12,
@@ -103,7 +103,7 @@ void testresult_report_pass(TF_TestId eTestId);
  *   pFailReason: A string describing the reason for the test failure. This string will be truncated to a maximum length of 170 characters if it exceeds that length.
  * 
  * Usage example:
- *   testresult_report_fail(TF_TEST_ID__TestComms01, "Received integer not as expected");
+ *   testresult_report_fail(TF_TEST_ID__UNUSED1, "Received integer not as expected");
  */
 void testresult_report_fail(TF_TestId eTestId, char* pFailReason);
 
@@ -131,7 +131,7 @@ void testresult_set_timeout(int iTimeoutMs);
  *
  * Usage examples:
  *   testresult_report_result(TF_TEST_ID__TestMaxTasks, TEST_PASS, "");
- *   testresult_report_result(TF_TEST_ID__TestComms01, TEST_FAIL, "Received integer not as expected");
+ *   testresult_report_result(TF_TEST_ID__UNUSED1, TEST_FAIL, "Received integer not as expected");
  */
 void testresult_report_result(TF_TestId eTestId, int iPassOrFail, char* pFailReason);
 

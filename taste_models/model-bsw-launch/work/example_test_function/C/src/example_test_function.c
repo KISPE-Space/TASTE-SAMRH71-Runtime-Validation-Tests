@@ -102,7 +102,7 @@ void transmit_the_death_report(void)
 void example_test_function_startup(void)
 {
     // Register the test that this TASTE Function will submit a result for
-    testresult_register_test(TF_TEST_ID__TestComms01);
+    testresult_register_test(TF_TEST_ID__UNUSED1);
 
     // Sample log info (ignored by the test runner, but included in logs)
     transmit_log_info("Example test startup completed its work");
@@ -141,11 +141,6 @@ void example_test_function_PI_trigger(void)
     //        volatile int c = a / b;  // triggers UsageFault
     //        (void)c;
 
-        } else {
-
-            transmit_log_info("----> RESULT! Reset reason is now DIFFERENT from software reset :)");
-            testresult_report_pass(TF_TEST_ID__TestComms01);
-            return;
         }
         */
     }
