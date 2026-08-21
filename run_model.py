@@ -33,6 +33,7 @@ TEST_RESULTS_OUTPUT_PATH = "test_output/test_results.log"
 SUPPORTED_RECIPES = ["debug", "coverage"]
 MODELS_FOLDER = "taste_models"
 LOGS_FOLDER = 'logs'
+AUTO_RERUN_MODEL_ON_SIGNAL = False
 
 # Defaults
 DEFAULT_GDB_BINARY = "gdb-multiarch"
@@ -157,7 +158,7 @@ def process_uart_lines(uart_listener):
     gcda_files = []
 
     # Parse the lines to extract test results and GCDA files
-    cprint(f"Processing UART output from ...", "light_grey", attrs=['dark'])
+    cprint(f"Processing UART output ...", "light_grey", attrs=['dark'])
     for line in uart_listener.stdout:
         if line.startswith("TEST_RESULT:"):
             add_test_result_line(line)
@@ -175,7 +176,7 @@ def process_uart_lines(uart_listener):
                     print(f"Wrote GCDA file: {gcda_filename} ({len(bytes.fromhex(hex_data))} bytes)")
         elif line.strip() == UART_CMD__RESET_AND_RERUN:
             cprint(f"Received command to reset and rerun the model", "yellow", attrs=['bold'])
-            return True
+            return AUTO_RERUN_MODEL_ON_SIGNAL
         elif line.strip() == UART_CMD__END_OF_OUTPUT:
             cprint(f"Received end-of-output signal. Ignoring any further output.", "light_grey", attrs=[])
             return False
@@ -408,6 +409,20 @@ def deploy(
     return rerun_the_model
 
 
+# Returns a list of model names that are applicable for this ,model-runner to run
+# This list comprises the name of all folders in the models folder, which start with ",model-" and which do not have "@exclude_from_model_runner" in their README.md file
+def get_all_automatable_models():
+    models = []
+    for d in os.listdir(MODELS_FOLDER):
+        if os.path.isdir(os.path.join(MODELS_FOLDER, d)) and d.startswith("model-"):
+            readme_path = os.path.join(MODELS_FOLDER, d, "README.md")
+            if os.path.exists(readme_path):
+                with open(readme_path, "r") as f:
+                    readme_contents = f.read()
+                    if "@exclude_from_model_runner" not in readme_contents:
+                        models.append(d)
+    return sorted(models)
+
 
 # MAIN entry point for the script, which parses command line arguments and runs the build/deploy process
 if __name__ == "__main__":
@@ -465,7 +480,7 @@ if __name__ == "__main__":
     # One model or all?
     if args.model == "all":
         # Get a list of all folders in the current directory with a name matching "model-*"
-        models = [d for d in os.listdir(MODELS_FOLDER) if os.path.isdir(os.path.join(MODELS_FOLDER, d)) and d.startswith("model-") and d != "model-template"]
+        models = get_all_automatable_models()
         cprint(f"\nIterating over {len(models)} models:\n", "green", attrs=['bold'])
         cprint(f" - {'\n - '.join(models)}\n", "yellow", attrs=['bold'])
     else:
