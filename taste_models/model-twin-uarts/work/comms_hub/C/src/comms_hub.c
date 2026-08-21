@@ -80,7 +80,7 @@ void comms_hub_PI_PeriodicStarter(void)
     static int iUpSeconds = 0;
 
     // Periodic report: Version string
-    sprintf(aMsgBuff, "TestBswLaunch %s\n", VERSION_STRING);
+    sprintf(aMsgBuff, "TestTwinUarts %s\n", VERSION_STRING);
 
     // Periodic report: Uptime
     sprintf(aMsgBuff + strlen(aMsgBuff), "Uptime: %i seconds\n", ++iUpSeconds);

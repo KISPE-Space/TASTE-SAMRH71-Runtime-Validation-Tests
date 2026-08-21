@@ -9,8 +9,8 @@ DISTFILES += work/binaries/coverage/index.html
 DISTFILES += work/binaries/filters
 DISTFILES += work/system.asn
 
-DISTFILES += model-bsw-launch.asn
-DISTFILES += model-bsw-launch.acn
+DISTFILES += model-twin-uarts.asn
+DISTFILES += model-twin-uarts.acn
 include(work/taste.pro)
 message($$DISTFILES)
 

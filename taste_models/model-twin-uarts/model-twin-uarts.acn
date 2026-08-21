@@ -1,4 +1,4 @@
-MODEL-BSW-LAUNCH-DATAVIEW DEFINITIONS ::= BEGIN
+MODEL-TWIN-UARTS-DATAVIEW DEFINITIONS ::= BEGIN
 
    MyInteger [encoding pos-int, endianness big, size 16]
 
