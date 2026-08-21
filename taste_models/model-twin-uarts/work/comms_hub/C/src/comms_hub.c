@@ -15,30 +15,30 @@
 #define VERSION_STRING "v1.0.0 2026-08-21"
 
 
-// Populates pString with the given reset reason
+// Populates pString with the reset reason
 void get_reset_reason_as_string(char * pString)
 {
-    enum Reset_Reason reset_reason = Hal_GetResetReason();
+    enum Reset_Reason iResetReason = Hal_GetResetReason();
 
-    switch (reset_reason) {
-    case Reset_Reason_Powerup:
-        sprintf(pString, "'Power-On Reset'");
-        break;
-    case Reset_Reason_Backup:
-        sprintf(pString, "'Backup Reset'");
-        break;
-    case Reset_Reason_Watchdog:
-        sprintf(pString, "'Watchdog Reset'");
-        break;
-    case Reset_Reason_Software:
-        sprintf(pString, "'Software Reset'");
-        break;
-    case Reset_Reason_User:
-        sprintf(pString, "'External Reset'");
-        break;
-    default:
-        sprintf(pString, "UNKNOWN (%d)", reset_reason);
-    }
+    switch (iResetReason) {
+        case Reset_Reason_Powerup:
+            sprintf(pString, "'Power-On Reset'");
+            break;
+        case Reset_Reason_Backup:
+            sprintf(pString, "'Backup Reset'");
+            break;
+        case Reset_Reason_Watchdog:
+            sprintf(pString, "'Watchdog Reset'");
+            break;
+        case Reset_Reason_Software:
+            sprintf(pString, "'Software Reset'");
+            break;
+        case Reset_Reason_User:
+            sprintf(pString, "'User Reset'");
+            break;
+        default:
+            sprintf(pString, "UNKNOWN (%d)", iResetReason);
+        }
 }
 
 
