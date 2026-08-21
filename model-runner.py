@@ -530,16 +530,15 @@ if __name__ == "__main__":
         # TODO
 
     # If we ran multiple models, report what we did
-    if len(models) > 1:
-        cprint(f"\n\n---------------------------------------------------", "cyan", attrs=['bold'])
-        cprint(f"Finished building and deploying {len(models)} models:\n", "cyan", attrs=['bold'])
-        cprint(f" - {'\n - '.join(models)}\n", "cyan", attrs=[])
+    cprint(f"\n\n---------------------------------------------------", "cyan", attrs=['bold'])
+    cprint(f"Finished building and deploying {len(models)} model{'s' if len(models) > 1 else ''}:\n", "cyan", attrs=['bold'])
+    cprint(f" - {'\n - '.join(models)}\n", "yellow", attrs=[])
 
-        # Also print the test results that were captured during this run
-        if test_results:
-            cprint(f"Test results:\n", "cyan", attrs=['bold'])
-            for test_id in sorted(test_results.keys()):
-                render_test_result(test_id)
-            print()
+    # Also print the test results that were captured during this run
+    if test_results:
+        cprint(f"Test results:\n", "cyan", attrs=['bold'])
+        for test_id in sorted(test_results.keys()):
+            render_test_result(test_id)
+        print()
 
 
