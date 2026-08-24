@@ -9,12 +9,12 @@
 */
 #include "test_cpu_freq.h"
 #include "../../../../../tf_common/tf_test_results.h"
+#include "../../../../../tf_common/tf_cpu.h"
 #include <SamRH71Core.h>
+#include <stdio.h>
 
 
-// Flag to ensure we only report the test result at most once
-static asn1SccT_Boolean bResultReported = false;
-
+// Access the runtime's processor clock frequency function
 extern uint64_t SamRH71Core_GetProcessorClockFrequency(void);
 
 
@@ -23,26 +23,40 @@ void test_cpu_freq_startup(void)
 {
     // Register the test that this TASTE Function will submit a result for
     testresult_register_test(TF_TEST_ID__TestCpuFreqNone);
-
-    // What processor clock speed do we think we have?
-    uint64_t iProcFreqHertz = SamRH71Core_GetProcessorClockFrequency();
-    return;
 }
 
 
 // Handler for cyclic IF: Validates that the application did not get halted on an early gdb breakpoint
 void test_cpu_freq_PI_trigger_check(void)
 {
+    char aMsgBuff[100];
+    static asn1SccT_Boolean bResultReported = false;
+
     // Only do this once
     if (bResultReported) {
         return;
     }
 
-    // If the test reaches this point then it did not get stopped at a breakpoint, thus its a pass
-    testresult_report_pass(TF_TEST_ID__TestCpuFreqNone);
+    // If we have 100 MHz then the test has not passed. (we expect 4MHz)
+    if (is_processor_clock_100mhz()) {
+
+        // What processor clock speed does TASTE itself think it has?
+        uint64_t iProcFreqHertz = SamRH71Core_GetProcessorClockFrequency();
+        sprintf(aMsgBuff, "Processor clock frequency is not 100 MHz as expected but rather %llu MHz", iProcFreqHertz / 1000000);
+        testresult_report_fail(TF_TEST_ID__TestCpuFreqNone, aMsgBuff);
+
+    } else {
+        testresult_report_pass(TF_TEST_ID__TestCpuFreqNone);
+    }
 
     // Report that we already did this
     bResultReported = true;
+}
+
+
+void test_cpu_freq_PI_cyclic2( void ) {
+    static int iThing = 0;
+    iThing++;
 }
 
 
