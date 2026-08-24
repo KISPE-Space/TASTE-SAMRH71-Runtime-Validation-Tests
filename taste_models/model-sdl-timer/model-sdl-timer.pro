@@ -9,8 +9,8 @@ DISTFILES += work/binaries/coverage/index.html
 DISTFILES += work/binaries/filters
 DISTFILES += work/system.asn
 
-DISTFILES += model-sdl.asn
-DISTFILES += model-sdl.acn
+DISTFILES += model-sdl-timer.asn
+DISTFILES += model-sdl-timer.acn
 include(work/taste.pro)
 message($$DISTFILES)
 

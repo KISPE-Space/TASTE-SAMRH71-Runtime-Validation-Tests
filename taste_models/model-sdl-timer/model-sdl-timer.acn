@@ -1,4 +1,4 @@
-MODEL-SDL-DATAVIEW DEFINITIONS ::= BEGIN
+MODEL-SDL-TIMER-DATAVIEW DEFINITIONS ::= BEGIN
 
    MyInteger [encoding pos-int, endianness big, size 16]
 
