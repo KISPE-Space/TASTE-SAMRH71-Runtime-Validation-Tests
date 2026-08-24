@@ -33,7 +33,7 @@ TEST_RESULTS_OUTPUT_PATH = "test_output/test_results.log"
 SUPPORTED_RECIPES = ["debug", "coverage"]
 MODELS_FOLDER = "taste_models"
 LOGS_FOLDER = 'logs'
-AUTO_RERUN_MODEL_ON_SIGNAL = False
+AUTO_RERUN_MODEL_ON_SIGNAL = True
 
 # Defaults
 DEFAULT_GDB_BINARY = "gdb-multiarch"
@@ -333,7 +333,6 @@ def deploy(
         gdb_server_tcp_port=DEFAULT_GDB_SERVER_TCP_PORT,
         uart_listen_device=DEFAULT_UART_LISTEN_DEVICE,
         gdb_verbose=DEFAULT_GDB_VERBOSE,
-        extended_reset=False
 ) -> bool:
 
     # Fail if model_name is not set
@@ -366,9 +365,6 @@ def deploy(
         gdb_command(gdbmi, "set confirm off", gdb_verbose=gdb_verbose)
 
         # Reset the target
-        if extended_reset:
-            gdb_command(gdbmi, "monitor reset", gdb_verbose=gdb_verbose)
-            time.sleep(10)  # Wait a few seconds for the target to reset, then send further reset commands
         gdb_extended_reset(gdbmi, gdb_verbose=gdb_verbose)
 
         # Connect to the UART listen device, before the model starts running
@@ -524,7 +520,6 @@ if __name__ == "__main__":
                 gdb_server_tcp_port=args.gdb_server_tcp_port,
                 uart_listen_device=args.uart_listen_device,
                 gdb_verbose=args.gdb_verbose,
-                extended_reset=True,
             )
 
         # After deployment we may need to generate a partial coverage report, if any gcda files were generated
