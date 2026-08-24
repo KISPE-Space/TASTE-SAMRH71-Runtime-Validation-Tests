@@ -294,6 +294,46 @@ def gdb_sigtrap_occurred(gdbmi, grace_time_before_check=3, gdb_verbose=DEFAULT_G
     return False
 
 
+# Tries to run the current gdb session to the given breakpoint within the given timeout. Returns True if we stopped at the breakpoint, False if we did not.
+def gdb_run_to_breakpoint(
+    gdbmi,
+    src_file_name,
+    src_file_line,
+    timeout=5,
+    gdb_verbose=DEFAULT_GDB_VERBOSE,
+):
+    gdb_command(gdbmi, f"b {src_file_name}:{src_file_line}", gdb_verbose=gdb_verbose)
+    gdb_command(gdbmi, "continue", timeout=timeout, gdb_verbose=gdb_verbose)
+
+    # Wait for remote gdb
+    stopped = False
+    max_iterations = 1000
+    iterations = 0
+    while not stopped and iterations < max_iterations:
+        responses = gdbmi.get_gdb_response(timeout_sec=timeout)
+        print_gdb_responses(responses, gdb_verbose=gdb_verbose)
+        for msg in responses:
+            if msg["type"] == "notify" and msg["message"] == "stopped":
+                stopped = True
+        iterations += 1
+
+    # Are we still running after the max iterations? If so, raise a timeout error
+    if not stopped:
+        raise TimeoutError(f"Debugger did not stop within expected count of iterations ({max_iterations})")
+
+    # Are we stopped at the breakpoint we requested?
+    stopped_at_breakpoint = False
+    for msg in responses:
+        if msg["type"] == "notify" and msg["message"] == "stopped":
+            cprint(f"Got stopped message from gdb", "cyan", attrs=[])
+            if "reason" in msg["payload"] and msg["payload"]["reason"] == "breakpoint-hit":
+                cprint(f"Breakpoint hit!", "green", attrs=[])
+                stopped_at_breakpoint = True    
+
+    # Return whether we stopped at the breakpoint we requested
+    return stopped_at_breakpoint
+
+
 # Performs an "extended reset" on the target hardware, which is a more complete reset than a simple "monitor reset"
 # Following a crash (e.g. UsageFault) of the SAMRH71 target, the target may not be able to recover from a simple "monitor reset" command, 
 # and may require an extended reset to recover. This is at least the case for model-death-report.
@@ -305,6 +345,35 @@ def gdb_extended_reset(gdbmi, timeout=DEFAULT_GDB_COMMAND_TIMEOUT, gdb_verbose=D
     gdb_command(gdbmi, "monitor reset 8", description="Performing core & peripherals reset via SYSRESETREQ bit only", gdb_verbose=gdb_verbose, timeout=timeout)
     gdb_command(gdbmi, "monitor reset", description="Performing ordinary reset", gdb_verbose=gdb_verbose, timeout=timeout)
     gdb_command(gdbmi, "maintenance flush register-cache", description="Purge deadbeef from pc/sp registers", gdb_verbose=gdb_verbose, timeout=timeout)
+
+
+# In the model folder there may be a file tfconfig.cfg which contains a line like:
+# pass_test_on_breakpoint_hit:<TestId>:<source file>:<line number>
+def get_breakpoint_from_tfconfig(model_name) -> tuple[str, str, int] | None:
+
+    # Build the path to the tfconfig.cfg file for this model
+    tfconfig_path = os.path.join(".", MODELS_FOLDER, model_name, "tfconfig.cfg")
+
+    # File does not exist in this model
+    if not os.path.exists(tfconfig_path):
+        cprint(f"No tfconfig.cfg file found in path: {tfconfig_path}", "light_grey", attrs=['dark'])
+        return None
+
+    # File exists, so read it and look for the breakpoint line    
+    with open(tfconfig_path, "r") as tfconfig_file:
+        for line in tfconfig_file:
+            if line.startswith("pass_test_on_breakpoint_hit:"):
+                parts = line.strip().split(":")
+                if len(parts) == 4:
+                    _, test_id, src_file_name, src_file_line = parts
+                    cprint(f"Model has breakpoint to run to: {test_id} at {src_file_name}:{src_file_line}", "yellow", attrs=[])
+                    return test_id, src_file_name, int(src_file_line)
+                else:
+                    continue
+
+    # if we got here then there's no configured breakpoint in the tfconfig.cfg file, so return None
+    cprint(f"No breakpoint configured in tfconfig.cfg file at path: {tfconfig_path}", "light_grey", attrs=['dark'])
+    return None
 
 
 # Build the model using the specified recipe
@@ -342,6 +411,7 @@ def deploy(
 
     # Determine the path to the model binary
     model_binary_path = os.path.join(".", MODELS_FOLDER, model_name, BINARY_SUB_PATH)
+    tfconfig_path = os.path.join(".", MODELS_FOLDER, model_name, "tfconfig.cfg")
 
     # Assume we do not have to re-run the model, unless we receive a command from the UART listener to do so
     rerun_the_model = False
@@ -377,11 +447,22 @@ def deploy(
         # Load the model onto the target
         gdb_command(gdbmi, "load", "Loading the model", gdb_verbose=gdb_verbose)
 
-        # Run the model
-        gdb_command(gdbmi, "c", "Running the model", gdb_verbose=gdb_verbose)
+        # Does this model have a breakpoint we want to run to? 
+        breakpoint_info = get_breakpoint_from_tfconfig(model_name)
+        if breakpoint_info:
+            test_id, src_file_name, src_file_line = breakpoint_info
+            cprint(f"Running to breakpoint in {src_file_name}:{src_file_line} ...", "yellow", attrs=['bold'])
+            test_passed = gdb_run_to_breakpoint(gdbmi, src_file_name, src_file_line, timeout=5, gdb_verbose=gdb_verbose)
+            add_test_result_line(f"TEST_RESULT:{test_id}:{'PASS' if test_passed else 'FAIL'}:{'' if test_passed else 'Did not stop at breakpoint as expected'}")
 
-        # Process the stdout we receive from the listener
-        rerun_the_model = process_uart_lines(uart_listener)
+        # Else simply run the model, then scoop up the test results and coverage data from the UART listener
+        else:
+
+            # Run the model
+            gdb_command(gdbmi, "c", "Running the model", gdb_verbose=gdb_verbose)
+
+            # Process the stdout we receive from the listener
+            rerun_the_model = process_uart_lines(uart_listener)
 
         # Ensure that the UART listener process is terminated and cleaned up
         uart_listener.terminate()
