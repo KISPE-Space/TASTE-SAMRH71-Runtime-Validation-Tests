@@ -300,10 +300,10 @@ def gdb_sigtrap_occurred(gdbmi, grace_time_before_check=3, gdb_verbose=DEFAULT_G
 def gdb_extended_reset(gdbmi, timeout=DEFAULT_GDB_COMMAND_TIMEOUT, gdb_verbose=DEFAULT_GDB_VERBOSE):
 
     gdb_command(gdbmi, "monitor reset", description="Performing ordinary reset", gdb_verbose=gdb_verbose, timeout=timeout)
-    #gdb_command(gdbmi, "monitor reset 0", description="Performing core & peripherals reset via SYSRESETREQ & VECTRESET bit", gdb_verbose=gdb_verbose, timeout=timeout)
-    #gdb_command(gdbmi, "monitor reset 1", description="Performing core only reset, not peripherals", gdb_verbose=gdb_verbose, timeout=timeout)
-    #gdb_command(gdbmi, "monitor reset 8", description="Performing core & peripherals reset via SYSRESETREQ bit only", gdb_verbose=gdb_verbose, timeout=timeout)
-    #gdb_command(gdbmi, "monitor reset", description="Performing ordinary reset", gdb_verbose=gdb_verbose, timeout=timeout)
+    gdb_command(gdbmi, "monitor reset 0", description="Performing core & peripherals reset via SYSRESETREQ & VECTRESET bit", gdb_verbose=gdb_verbose, timeout=timeout)
+    gdb_command(gdbmi, "monitor reset 1", description="Performing core only reset, not peripherals", gdb_verbose=gdb_verbose, timeout=timeout)
+    gdb_command(gdbmi, "monitor reset 8", description="Performing core & peripherals reset via SYSRESETREQ bit only", gdb_verbose=gdb_verbose, timeout=timeout)
+    gdb_command(gdbmi, "monitor reset", description="Performing ordinary reset", gdb_verbose=gdb_verbose, timeout=timeout)
     gdb_command(gdbmi, "maintenance flush register-cache", description="Purge deadbeef from pc/sp registers", gdb_verbose=gdb_verbose, timeout=timeout)
 
 
