@@ -20,9 +20,19 @@ void starter_startup(void)
 
 void starter_PI_trigger(void)
 {
+    static asn1SccT_Boolean bIsDone = false;
+
+    // Only do this once
+    if (bIsDone) {
+        return;
+    }
+
     // Call the next layer
     starter_RI_prot();
     transmit_bytes_over_uart("---\n");
+
+    // Flag that we're done so we don't do this again
+    bIsDone = true;
 }
 
 
