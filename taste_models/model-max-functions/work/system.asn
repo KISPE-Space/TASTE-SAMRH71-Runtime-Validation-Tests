@@ -1,0 +1,271 @@
+-- Dataview generated on-the-fly providing information on the system
+-- and made available to the user code.
+System-Dataview DEFINITIONS ::=
+BEGIN
+
+   -- Range of PID - type can be used to size arrays of PID type
+   PID-Range ::= INTEGER(0..128)
+
+   -- List of functions (instances) present in the system
+   PID ::= ENUMERATED {
+       tf-reporter,
+       
+       uartotherend,
+       
+       layer-10-f1,
+       
+       layer-10-f10,
+       
+       layer-10-f2,
+       
+       layer-10-f3,
+       
+       layer-10-f4,
+       
+       layer-10-f5,
+       
+       layer-10-f6,
+       
+       layer-10-f7,
+       
+       layer-10-f8,
+       
+       layer-10-f9,
+       
+       layer-11-f1,
+       
+       layer-11-f10,
+       
+       layer-11-f2,
+       
+       layer-11-f3,
+       
+       layer-11-f4,
+       
+       layer-11-f5,
+       
+       layer-11-f6,
+       
+       layer-11-f7,
+       
+       layer-11-f8,
+       
+       layer-11-f9,
+       
+       layer-12-f1,
+       
+       layer-12-f10,
+       
+       layer-12-f2,
+       
+       layer-12-f3,
+       
+       layer-12-f4,
+       
+       layer-12-f5,
+       
+       layer-12-f6,
+       
+       layer-12-f7,
+       
+       layer-12-f8,
+       
+       layer-12-f9,
+       
+       layer-13-f1,
+       
+       layer-13-f2,
+       
+       layer-13-f3,
+       
+       layer-13-f4,
+       
+       layer-1-f1,
+       
+       layer-1-f10,
+       
+       layer-1-f2,
+       
+       layer-1-f3,
+       
+       layer-1-f4,
+       
+       layer-1-f5,
+       
+       layer-1-f6,
+       
+       layer-1-f7,
+       
+       layer-1-f8,
+       
+       layer-1-f9,
+       
+       layer-2-f1,
+       
+       layer-2-f10,
+       
+       layer-2-f2,
+       
+       layer-2-f3,
+       
+       layer-2-f4,
+       
+       layer-2-f5,
+       
+       layer-2-f6,
+       
+       layer-2-f7,
+       
+       layer-2-f8,
+       
+       layer-2-f9,
+       
+       layer-3-f1,
+       
+       layer-3-f10,
+       
+       layer-3-f2,
+       
+       layer-3-f3,
+       
+       layer-3-f4,
+       
+       layer-3-f5,
+       
+       layer-3-f6,
+       
+       layer-3-f7,
+       
+       layer-3-f8,
+       
+       layer-3-f9,
+       
+       layer-4-f1,
+       
+       layer-4-f10,
+       
+       layer-4-f2,
+       
+       layer-4-f3,
+       
+       layer-4-f4,
+       
+       layer-4-f5,
+       
+       layer-4-f6,
+       
+       layer-4-f7,
+       
+       layer-4-f8,
+       
+       layer-4-f9,
+       
+       layer-5-f1,
+       
+       layer-5-f10,
+       
+       layer-5-f2,
+       
+       layer-5-f3,
+       
+       layer-5-f4,
+       
+       layer-5-f5,
+       
+       layer-5-f6,
+       
+       layer-5-f7,
+       
+       layer-5-f8,
+       
+       layer-5-f9,
+       
+       layer-6-f1,
+       
+       layer-6-f10,
+       
+       layer-6-f2,
+       
+       layer-6-f3,
+       
+       layer-6-f4,
+       
+       layer-6-f5,
+       
+       layer-6-f6,
+       
+       layer-6-f7,
+       
+       layer-6-f8,
+       
+       layer-6-f9,
+       
+       layer-7-f1,
+       
+       layer-7-f10,
+       
+       layer-7-f2,
+       
+       layer-7-f3,
+       
+       layer-7-f4,
+       
+       layer-7-f5,
+       
+       layer-7-f6,
+       
+       layer-7-f7,
+       
+       layer-7-f8,
+       
+       layer-7-f9,
+       
+       layer-8-f1,
+       
+       layer-8-f10,
+       
+       layer-8-f2,
+       
+       layer-8-f3,
+       
+       layer-8-f4,
+       
+       layer-8-f5,
+       
+       layer-8-f6,
+       
+       layer-8-f7,
+       
+       layer-8-f8,
+       
+       layer-8-f9,
+       
+       layer-9-f1,
+       
+       layer-9-f10,
+       
+       layer-9-f2,
+       
+       layer-9-f3,
+       
+       layer-9-f4,
+       
+       layer-9-f5,
+       
+       layer-9-f6,
+       
+       layer-9-f7,
+       
+       layer-9-f8,
+       
+       layer-9-f9,
+       
+       starter,
+       
+       test-invocations,
+       
+       
+       env
+   }
+
+END
