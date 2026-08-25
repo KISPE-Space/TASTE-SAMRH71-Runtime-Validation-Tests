@@ -1247,7 +1247,7 @@
 
 <Function id="{0363a875-e6d2-45d9-aca1-eb11163e838b}" name="test_invocations" is_type="NO" language="C" default_implementation="default" fixed_system_element="NO" required_system_element="NO" instances_min="1" instances_max="1" startup_priority="1">
     <Property name="TASTE_IV_Properties::Default_Codegen" value="Ada"/>
-<Provided_Interface id="{f4a5fb13-c9b4-49fe-9a7b-84b72a8a707a}" name="trigger_check" kind="Cyclic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" priority="1" period="1000" dispatch_offset="0" stack_size="1024" wcet="0">
+<Provided_Interface id="{f4a5fb13-c9b4-49fe-9a7b-84b72a8a707a}" name="trigger_check" kind="Cyclic" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" priority="1" period="2000" dispatch_offset="0" stack_size="1024" wcet="0">
 </Provided_Interface>
 
 <Provided_Interface id="{1094aea7-b05e-48e4-a035-77dad634b364}" name="p1" kind="Protected" enable_multicast="true" layer="default" required_system_element="NO" is_simulink_interface="false" wcet="0">

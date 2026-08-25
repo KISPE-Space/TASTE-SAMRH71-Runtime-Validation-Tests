@@ -8,79 +8,91 @@
     !! file. The up-to-date signatures can be found in the header file. !!
 */
 #include "test_invocations.h"
-//#include <stdio.h>
+#include "../../../../../tf_common/tf_test_results.h"
+#include <stdio.h>
+
+#define NUMBER_OF_FUNCTION_CHAINS 10
+
+static asn1SccT_Boolean aInvokedByIfFunction[NUMBER_OF_FUNCTION_CHAINS] = { 0 };
 
 
+// Constructor
 void test_invocations_startup(void)
 {
-   // Write your initialisation code
-   // You may call sporadic required interfaces and start timers
-   // puts ("[test_invocations] Startup");
-}
-
-void test_invocations_PI_p1(void)
-{
-   // Write your code here
+    // Register the test that this TASTE Function will submit a result for
+    testresult_register_test(TF_TEST_ID__TestMaxFunctions);
 }
 
 
-void test_invocations_PI_p2(void)
-{
-   // Write your code here
-}
-
-
-void test_invocations_PI_p3(void)
-{
-   // Write your code here
-}
-
-
-void test_invocations_PI_p4(void)
-{
-   // Write your code here
-}
-
-
-void test_invocations_PI_p5(void)
-{
-   // Write your code here
-}
-
-
-void test_invocations_PI_p6(void)
-{
-   // Write your code here
-}
-
-
-void test_invocations_PI_p7(void)
-{
-   // Write your code here
-}
-
-
-void test_invocations_PI_p8(void)
-{
-   // Write your code here
-}
-
-
-void test_invocations_PI_p9(void)
-{
-   // Write your code here
-}
-
-
-void test_invocations_PI_p10(void)
-{
-    // Write your code here
-}
-
-
+// Handler for cyclic IF: Validates that all function chains invoked our Protected interfaces
 void test_invocations_PI_trigger_check(void)
 {
-   // Write your code here
+    static asn1SccT_Boolean bResultReported = false;
+    char aMsgBuff[100];
+
+    // Only do this once
+    if (bResultReported) {
+        return;
+    }
+
+    // Check that all function chains invoked our Protected interfaces
+    for (int i = 0; i < NUMBER_OF_FUNCTION_CHAINS; i++) {
+        if (!aInvokedByIfFunction[i]) {
+            sprintf(aMsgBuff, "Function chain %d did not invoke the Protected interface", i + 1);
+            testresult_report_fail(TF_TEST_ID__TestMaxFunctions, aMsgBuff);
+            bResultReported = true;
+            return;
+        }
+    }
+
+    // If we reach this point, all function chains invoked the Protected interface
+    testresult_report_pass(TF_TEST_ID__TestMaxFunctions);
+    bResultReported = true;
 }
+
+
+// Handlers for the protected interfaces: Mark that the corresponding function chain invoked us
+
+void test_invocations_PI_p1(void) {
+    aInvokedByIfFunction[0] = true;
+}
+
+void test_invocations_PI_p2(void) {
+    aInvokedByIfFunction[1] = true;
+}
+
+void test_invocations_PI_p3(void) {
+    aInvokedByIfFunction[2] = true;
+}
+
+void test_invocations_PI_p4(void) {
+    aInvokedByIfFunction[3] = true;
+}
+
+void test_invocations_PI_p5(void) {
+    aInvokedByIfFunction[4] = true;
+}
+
+void test_invocations_PI_p6(void) {
+    aInvokedByIfFunction[5] = true;
+}
+
+void test_invocations_PI_p7(void) {
+    aInvokedByIfFunction[6] = true;
+}
+
+void test_invocations_PI_p8(void) {
+    aInvokedByIfFunction[7] = true;
+}
+
+void test_invocations_PI_p9(void) {
+    aInvokedByIfFunction[8] = true;
+}
+
+void test_invocations_PI_p10(void) {
+    aInvokedByIfFunction[9] = true;
+}
+
+
 
 
