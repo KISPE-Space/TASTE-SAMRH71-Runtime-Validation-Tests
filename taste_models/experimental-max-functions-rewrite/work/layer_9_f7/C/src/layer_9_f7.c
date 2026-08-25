@@ -22,15 +22,15 @@ void layer_9_f7_startup(void)
 // Simply calls the next layer
 void layer_9_f7_PI_prot(void)
 {
-    // Call the next layer in the chain
-    layer_9_f7_RI_prot();
-
     // Send a hello message over the UART channel, but only for one function per layer to avoid cluttering the output
     if (iMyFunctionNumber == 10) {
         char aMsgBuff[100];
         sprintf(aMsgBuff, "Layer %u >> Function %u", iMyLayerNumber, iMyFunctionNumber);
         transmit_log_info(aMsgBuff);
     }
+
+    // Call the next layer in the chain
+    layer_9_f7_RI_prot();
 }
 
 
