@@ -4,13 +4,81 @@ System-Dataview DEFINITIONS ::=
 BEGIN
 
    -- Range of PID - type can be used to size arrays of PID type
-   PID-Range ::= INTEGER(0..83)
+   PID-Range ::= INTEGER(0..128)
 
    -- List of functions (instances) present in the system
    PID ::= ENUMERATED {
        tf-reporter,
        
        uartotherend,
+       
+       layer-10-f1,
+       
+       layer-10-f10,
+       
+       layer-10-f2,
+       
+       layer-10-f3,
+       
+       layer-10-f4,
+       
+       layer-10-f5,
+       
+       layer-10-f6,
+       
+       layer-10-f7,
+       
+       layer-10-f8,
+       
+       layer-10-f9,
+       
+       layer-11-f1,
+       
+       layer-11-f10,
+       
+       layer-11-f2,
+       
+       layer-11-f3,
+       
+       layer-11-f4,
+       
+       layer-11-f5,
+       
+       layer-11-f6,
+       
+       layer-11-f7,
+       
+       layer-11-f8,
+       
+       layer-11-f9,
+       
+       layer-12-f1,
+       
+       layer-12-f10,
+       
+       layer-12-f2,
+       
+       layer-12-f3,
+       
+       layer-12-f4,
+       
+       layer-12-f5,
+       
+       layer-12-f6,
+       
+       layer-12-f7,
+       
+       layer-12-f8,
+       
+       layer-12-f9,
+       
+       layer-13-f1,
+       
+       layer-13-f2,
+       
+       layer-13-f3,
+       
+       layer-13-f4,
        
        layer-1-f1,
        
@@ -172,7 +240,29 @@ BEGIN
        
        layer-8-f9,
        
+       layer-9-f1,
+       
+       layer-9-f10,
+       
+       layer-9-f2,
+       
+       layer-9-f3,
+       
+       layer-9-f4,
+       
+       layer-9-f5,
+       
+       layer-9-f6,
+       
+       layer-9-f7,
+       
+       layer-9-f8,
+       
+       layer-9-f9,
+       
        starter,
+       
+       test-invocations,
        
        
        env
