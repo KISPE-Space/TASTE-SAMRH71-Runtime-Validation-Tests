@@ -18,6 +18,7 @@ import json
 import shutil
 import time
 import os
+import re
 import sys
 from pygdbmi.gdbcontroller import GdbController
 from termcolor import cprint, colored
@@ -490,16 +491,36 @@ def deploy(
 
 # Returns a list of model names that are applicable for this model-runner to run
 # This list comprises the name of all folders in the models folder, which start with "model-" and which do not have "@exclude_from_model_runner" in their tfconfig.cfg file
-def get_all_automatable_models():
+def get_all_automatable_models(build_recipe=DEFAULT_MAKE_RECIPE):
     models = []
+    build_recipe_match_pattern = rf"{build_recipe}:\s*work/glue_"
+
+    # Iterate over all models
     for d in os.listdir(MODELS_FOLDER):
         if os.path.isdir(os.path.join(MODELS_FOLDER, d)) and d.startswith("model-"):
+
+            # Does this model have a tfconfig.cfg file that excludes automation? If so skip this model
             tfconfig_path = os.path.join(MODELS_FOLDER, d, MODEL_TEST_CONFIG_FILENAME)
             if os.path.exists(tfconfig_path):
                 with open(tfconfig_path, "r") as f:
                     tfconfig_contents = f.read()
-                    if "exclude_from_model_runner" not in tfconfig_contents:
-                        models.append(d)
+                    if "exclude_from_model_runner" in tfconfig_contents:
+                        cprint(f"Skipping model {d} because it is excluded from the model runner", "yellow", attrs=['dark'])
+                        continue
+
+            # Does this model have a build recipe that matches the requested build recipe? If not skip this model
+            makefile_path = os.path.join(MODELS_FOLDER, d, "Makefile")
+            if os.path.exists(makefile_path):
+                with open(makefile_path, "r") as f:
+                    makefile_contents = f.read()
+                    if not re.search(build_recipe_match_pattern, makefile_contents):
+                        cprint(f"Skipping model {d} because it does not have the requested a recipe for build target '{build_recipe}' in its Makefile.", "yellow", attrs=['dark'])
+                        continue
+
+            # If we got here then this model is automatable, so add it to the list
+            models.append(d)
+
+    # Return the list of models, sorted alphabetically
     return sorted(models)
 
 
@@ -559,7 +580,7 @@ if __name__ == "__main__":
     # One model or all?
     if args.model == "all":
         # Get a list of all folders in the current directory with a name matching "model-*"
-        models = get_all_automatable_models()
+        models = get_all_automatable_models(args.build_recipe)
         cprint(f"\nIterating over {len(models)} models:\n", "green", attrs=['bold'])
         cprint(f" - {'\n - '.join(models)}\n", "yellow", attrs=['bold'])
     else:
