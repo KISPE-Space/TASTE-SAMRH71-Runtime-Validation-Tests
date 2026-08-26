@@ -9,5 +9,3 @@
 
 ## Implemented By
 KISPE Space Systems Ltd., 2026
-
-@exclude_from_model_runner

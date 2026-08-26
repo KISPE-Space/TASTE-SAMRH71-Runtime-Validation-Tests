@@ -34,6 +34,7 @@ SUPPORTED_RECIPES = ["debug", "coverage"]
 MODELS_FOLDER = "taste_models"
 LOGS_FOLDER = 'logs'
 AUTO_RERUN_MODEL_ON_SIGNAL = True
+MODEL_TEST_CONFIG_FILENAME = "tfconfig.cfg"
 
 # Defaults
 DEFAULT_GDB_BINARY = "gdb-multiarch"
@@ -103,6 +104,7 @@ def do_clean_build(test_name):
 # Extracts test names from the README.md file for the model, and initialises the test_results dictionary with FAIL for each test
 def initialise_test_results_for_model(model_name):
 
+    # Tests are documented within the README file for the model, so ensure that the README.md file exists
     readme_path = os.path.join(".", MODELS_FOLDER, model_name, "README.md")
     if not os.path.exists(readme_path):
         cprint(f"Error: README.md not found for model {model_name}", "red", attrs=['bold'])
@@ -352,11 +354,11 @@ def gdb_extended_reset(gdbmi, timeout=DEFAULT_GDB_COMMAND_TIMEOUT, gdb_verbose=D
 def get_breakpoint_from_tfconfig(model_name) -> tuple[str, str, int] | None:
 
     # Build the path to the tfconfig.cfg file for this model
-    tfconfig_path = os.path.join(".", MODELS_FOLDER, model_name, "tfconfig.cfg")
+    tfconfig_path = os.path.join(".", MODELS_FOLDER, model_name, MODEL_TEST_CONFIG_FILENAME)
 
     # File does not exist in this model
     if not os.path.exists(tfconfig_path):
-        cprint(f"No tfconfig.cfg file found in path: {tfconfig_path}", "light_grey", attrs=['dark'])
+        cprint(f"No {MODEL_TEST_CONFIG_FILENAME} file found in path: {tfconfig_path}", "light_grey", attrs=['dark'])
         return None
 
     # File exists, so read it and look for the breakpoint line    
@@ -372,7 +374,7 @@ def get_breakpoint_from_tfconfig(model_name) -> tuple[str, str, int] | None:
                     continue
 
     # if we got here then there's no configured breakpoint in the tfconfig.cfg file, so return None
-    cprint(f"No breakpoint configured in tfconfig.cfg file at path: {tfconfig_path}", "light_grey", attrs=['dark'])
+    cprint(f"No breakpoint configured in {MODEL_TEST_CONFIG_FILENAME} file at path: {tfconfig_path}", "light_grey", attrs=['dark'])
     return None
 
 
@@ -411,7 +413,6 @@ def deploy(
 
     # Determine the path to the model binary
     model_binary_path = os.path.join(".", MODELS_FOLDER, model_name, BINARY_SUB_PATH)
-    tfconfig_path = os.path.join(".", MODELS_FOLDER, model_name, "tfconfig.cfg")
 
     # Assume we do not have to re-run the model, unless we receive a command from the UART listener to do so
     rerun_the_model = False
@@ -487,17 +488,17 @@ def deploy(
     return rerun_the_model
 
 
-# Returns a list of model names that are applicable for this ,model-runner to run
-# This list comprises the name of all folders in the models folder, which start with ",model-" and which do not have "@exclude_from_model_runner" in their README.md file
+# Returns a list of model names that are applicable for this model-runner to run
+# This list comprises the name of all folders in the models folder, which start with "model-" and which do not have "@exclude_from_model_runner" in their tfconfig.cfg file
 def get_all_automatable_models():
     models = []
     for d in os.listdir(MODELS_FOLDER):
         if os.path.isdir(os.path.join(MODELS_FOLDER, d)) and d.startswith("model-"):
-            readme_path = os.path.join(MODELS_FOLDER, d, "README.md")
-            if os.path.exists(readme_path):
-                with open(readme_path, "r") as f:
-                    readme_contents = f.read()
-                    if "@exclude_from_model_runner" not in readme_contents:
+            tfconfig_path = os.path.join(MODELS_FOLDER, d, MODEL_TEST_CONFIG_FILENAME)
+            if os.path.exists(tfconfig_path):
+                with open(tfconfig_path, "r") as f:
+                    tfconfig_contents = f.read()
+                    if "exclude_from_model_runner" not in tfconfig_contents:
                         models.append(d)
     return sorted(models)
 
