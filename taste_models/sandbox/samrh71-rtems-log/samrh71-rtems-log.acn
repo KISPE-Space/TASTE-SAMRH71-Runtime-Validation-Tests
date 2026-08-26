@@ -1,6 +1,0 @@
-SAMRH71-RTEMS-LOG-DATAVIEW DEFINITIONS ::= BEGIN
-
-   MyInteger [encoding pos-int, endianness big, size 16]
-
-END
-
