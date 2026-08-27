@@ -20,22 +20,30 @@ import time
 import os
 import re
 import sys
+from pathlib import Path
 from pygdbmi.gdbcontroller import GdbController
 from termcolor import cprint, colored
 
 # Fixed configuration
-TARGET_HARDWARE = "samrh71"
-BINARY_SUB_PATH = "work/binaries/partition_1"
-UART_XONXOFF    = False
-UART_TIMEOUT    = 1
-UART_TTY_CONFIG = ["115200", "cs8", "parenb", "raw", "-echo"]
-GCDA_OUTPUT_PATH = "test_output/coverage_tmp"
-TEST_RESULTS_OUTPUT_PATH = "test_output/test_results.log"
-SUPPORTED_RECIPES = ["debug", "coverage"]
-MODELS_FOLDER = "taste_models"
-LOGS_FOLDER = 'logs'
-AUTO_RERUN_MODEL_ON_SIGNAL = True
-MODEL_TEST_CONFIG_FILENAME = "tfconfig.cfg"
+TARGET_HARDWARE             = "samrh71"
+BINARY_SUB_PATH             = "work/binaries/partition_1"
+UART_TTY_CONFIG             = ["115200", "cs8", "parenb", "raw", "-echo"]
+UART_XONXOFF                = False
+UART_TIMEOUT                = 1
+TEST_OUTPUT_FOLDER          = "test_output"
+COVERAGE_TMP_FILES_PATH     = f"{TEST_OUTPUT_FOLDER}/coverage_tmp"
+LOGS_FOLDER                 = f"{TEST_OUTPUT_FOLDER}/logs"
+RUNTIME_SOURCES_FOLDER      = f"{TEST_OUTPUT_FOLDER}/runtime_source_files"
+COVERAGE_PARTIAL_REPORTS_PATH   = f"{TEST_OUTPUT_FOLDER}/coverage_partial_reports"
+FINAL_COVERAGE_REPORT_FILEPATH  = f"{TEST_OUTPUT_FOLDER}/coverage_report/main.html"
+MODEL_TEST_CONFIG_FILENAME  = "tfconfig.cfg"
+MODEL_GCNO_FILES_PATH       = "work/build/node_1/partition_1_obj"
+MODEL_SOURCE_CODE_PATH      = "work/build/node_1/partition_1"
+MODEL_GCOV_REPORT_FILENAME_POSTPEND = "_coverage.json"
+SUPPORTED_RECIPES           = ["debug", "coverage"]
+MODELS_FOLDER               = "taste_models"
+AUTO_RERUN_MODEL_ON_SIGNAL  = True
+FILTER_GCOV_FILES           = True
 
 # Defaults
 DEFAULT_GDB_BINARY = "gdb-multiarch"
@@ -45,6 +53,7 @@ DEFAULT_GDB_VERBOSE = False
 DEFAULT_UART_LISTEN_DEVICE = "/dev/ttyUSB0"
 DEFAULT_SSH_FOR_UART = None
 DEFAULT_SKIP_BUILD = False
+DEFAULT_SKIP_DEPLOY = False
 DEFAULT_GDB_COMMAND_TIMEOUT = 3
 
 # UART lines that signal something to the script
@@ -56,6 +65,9 @@ uart_ssh_login = DEFAULT_SSH_FOR_UART
 
 # Test results buffer
 test_results = {}
+
+# List of coverage-relevant C objects from the TASTE runtime
+coverage_relevant_objects = []
 
 
 def do_build(test_name, arguments):
@@ -153,12 +165,12 @@ def render_test_result(test_id):
 def process_uart_lines(uart_listener):
 
     # Remove the coverage_tmp folder, it should only contain files from the current run of this script
-    shutil.rmtree(GCDA_OUTPUT_PATH, ignore_errors=True)
+    shutil.rmtree(COVERAGE_TMP_FILES_PATH, ignore_errors=True)
 
-    # Ensure that the output paths exist
-    os.makedirs(GCDA_OUTPUT_PATH, exist_ok=True)
-    os.makedirs(os.path.dirname(TEST_RESULTS_OUTPUT_PATH), exist_ok=True)
+    # Ensure that the gcda folder exists
+    os.makedirs(COVERAGE_TMP_FILES_PATH, exist_ok=True)
     gcda_files = []
+    capture_gcda_as = None
 
     # Parse the lines to extract test results and GCDA files
     cprint(f"Processing UART output ...", "light_grey", attrs=['dark'])
@@ -167,16 +179,20 @@ def process_uart_lines(uart_listener):
             add_test_result_line(line)
         elif line.startswith("GCDA_FILENAME:"):
             filename = line.split(":")[1]
-            gcda_files.append(filename.strip())
+            if not FILTER_GCOV_FILES or Path(filename.strip()).stem in coverage_relevant_objects:
+                gcda_files.append(filename.strip())
+                capture_gcda_as = filename.strip()
+            else:
+                print(f"Ignoring GCDA file: {filename.strip()}, as its not in the list of coverage-relevant objects")
+                capture_gcda_as = None
         elif line.startswith("GCDA_HEX:"):
             hex_data = line.split(":")[1]
             # Write out the hex data as a file on disk in the output folder
-            if gcda_files:
-                gcda_filename = gcda_files[-1]
-                output_path = f"{GCDA_OUTPUT_PATH}/{gcda_filename}"
+            if capture_gcda_as:
+                output_path = f"{COVERAGE_TMP_FILES_PATH}/{capture_gcda_as}"
                 with open(output_path, 'wb') as gcda_file:
                     gcda_file.write(bytes.fromhex(hex_data))
-                    print(f"Wrote GCDA file: {gcda_filename} ({len(bytes.fromhex(hex_data))} bytes)")
+                    print(f"Wrote GCDA file: {capture_gcda_as} ({len(bytes.fromhex(hex_data))} bytes)")
         elif line.strip() == UART_CMD__RESET_AND_RERUN:
             cprint(f"Received command to reset and rerun the model", "yellow", attrs=['bold'])
             return AUTO_RERUN_MODEL_ON_SIGNAL
@@ -489,6 +505,100 @@ def deploy(
     return rerun_the_model
 
 
+# Generates a partial coverage report for the given model, based on the gcda files that are found in the test_output/coverage_tmp folder. 
+def generate_partial_coverage_report(model_name, gdb_binary_path=DEFAULT_GDB_BINARY):
+
+    # Ensure that we have the coverage_tmp folder 
+    if not os.path.exists(COVERAGE_TMP_FILES_PATH):
+        cprint(f"Coverage temporary folder '{COVERAGE_TMP_FILES_PATH}' does not exist.", "red", attrs=['bold'])
+        return
+
+    # Create the output path if it does not exist
+    os.makedirs(COVERAGE_PARTIAL_REPORTS_PATH, exist_ok=True)
+
+    # Copy all relevant gcno files from the model's partition_1_obj folder into the coverage_tmp folder
+    gcno_files = []
+    model_gcno_filepath = os.path.join(MODELS_FOLDER, model_name, MODEL_GCNO_FILES_PATH)
+    for root, dirs, files in os.walk(model_gcno_filepath):
+        for file in files:
+            if file.endswith(".gcno"):
+                if not FILTER_GCOV_FILES or Path(file).stem in coverage_relevant_objects:
+                    shutil.copy(os.path.join(root, file), COVERAGE_TMP_FILES_PATH)
+                    gcno_files.append(Path(file).stem)
+
+    # Find all relevant gcda files in the coverage_tmp folder
+    gcda_files = []
+    for root, dirs, files in os.walk(COVERAGE_TMP_FILES_PATH):
+        for file in files:
+            if file.endswith(".gcda"):
+                if not FILTER_GCOV_FILES or Path(file).stem in coverage_relevant_objects:
+                    gcda_files.append(Path(file).stem)
+
+    # If we have no gcda files, then report that and return
+    if not gcda_files:
+        cprint(f"No gcda files found in '{COVERAGE_TMP_FILES_PATH}'. Cannot generate partial coverage report for model '{model_name}'.", "red", attrs=['bold'])
+        return
+
+    # If we have no gcno files, then report that and return
+    if not gcno_files:
+        cprint(f"No gcno files found in '{model_gcno_filepath}'. Cannot generate partial coverage report for model '{model_name}'.", "red", attrs=['bold'])
+        return
+
+    # Determine the overlap of gcno and gcda files
+    overlapping_files = set(gcno_files) & set(gcda_files)
+    if not overlapping_files:
+        cprint(f"No overlapping gcno and gcda files found. Cannot generate partial coverage report for model '{model_name}'.", "red", attrs=['bold'])
+        return
+
+    # Report what we are about to do
+    cprint(f"Generating partial coverage report for model '{model_name}' based on {len(gcda_files)} gcda files.", "cyan", attrs=[])
+
+    # Generate the partial coverage report using gcov 
+    gcov_path = gdb_binary_path.replace("gdb", "gcov")
+    source_code_path = os.path.join(MODELS_FOLDER, model_name, MODEL_SOURCE_CODE_PATH)
+    gcovr_log_path = os.path.join(LOGS_FOLDER, f"{model_name}_gcovr.log")
+    partial_report_path = os.path.join(COVERAGE_PARTIAL_REPORTS_PATH, f"{model_name}{MODEL_GCOV_REPORT_FILENAME_POSTPEND}")
+    gcovr_command = f"gcovr --json-pretty --gcov-executable {gcov_path} -r {source_code_path} -v {COVERAGE_TMP_FILES_PATH} --json -o {partial_report_path} --gcov-ignore-parse-errors negative_hits.warn > {gcovr_log_path} 2>&1"
+    print(colored(f"Running command: {gcovr_command}", "yellow"), flush=True)
+    process = subprocess.run(gcovr_command, capture_output=True, text=True, shell=True) # line-buffered
+    output = process.stdout.strip()
+    if output:
+        print(colored(f"gcovr output: {output}", "blue"), flush=True)
+
+    # Report what we did
+    cprint(f"Partial coverage report for model '{model_name}' generated: {partial_report_path} (For logs see {gcovr_log_path})", "green", attrs=[])
+
+
+# Copies relevant model source files to the combined_source_files folder, so that they can be used for coverage reporting
+# Preserves the sub-folde rpath of each source file.
+# It is exected that models might contain different subsets of files, and therefore this approach of copying files per-model
+# Allows us to build up the superset of relevant code.
+# We also skip any model-specific files in the root of the source folder
+def assure_coverage_relevant_objects_list(model_name):
+
+    # Is the list already populated?
+    if len(coverage_relevant_objects) > 0:
+        return
+
+    # Ensure that the combined sources folder exists
+    os.makedirs(RUNTIME_SOURCES_FOLDER, exist_ok=True)
+
+    # Copy all the sources folder from the model to the runtime sources folder, preserving the sub-folder structure
+    model_src_path = os.path.join(MODELS_FOLDER, model_name, MODEL_SOURCE_CODE_PATH)
+    if os.path.exists(model_src_path):
+        shutil.copytree(model_src_path, RUNTIME_SOURCES_FOLDER, dirs_exist_ok=True)
+
+    # Return a list of all C objects in the "runtime" folder, so that we can use this to filter the gcno files later
+    runtime_sources_path = os.path.join(RUNTIME_SOURCES_FOLDER, "runtime")
+    find_command = f'find {runtime_sources_path} -name "*.c" | rev | cut -d/ -f1 | rev'
+    process = subprocess.run(find_command, capture_output=True, text=True, shell=True)
+    for line in process.stdout.splitlines():
+        file_path = Path(line.strip())
+        if file_path.suffix in [".c", ".h"]:
+            coverage_relevant_objects.append(file_path.stem)
+    return 
+
+
 # Returns a list of model names that are applicable for this model-runner to run
 # This list comprises the name of all folders in the models folder, which start with "model-" and which do not have "@exclude_from_model_runner" in their tfconfig.cfg file
 def get_all_automatable_models(build_recipe=DEFAULT_MAKE_RECIPE):
@@ -537,6 +647,7 @@ if __name__ == "__main__":
     parser.add_argument("--gdb_verbose", action="store_true", default=DEFAULT_GDB_VERBOSE, help="Enable verbose GDB output")
     parser.add_argument("--uart_listen_device", default=os.getenv("SAMRH71_UART_DEVICE", default=DEFAULT_UART_LISTEN_DEVICE), help="UART device to use for monitoring model output")
     parser.add_argument("--skip_build", action="store_true", default=DEFAULT_SKIP_BUILD, help="Skip the build step")
+    parser.add_argument("--skip_deploy", action="store_true", default=DEFAULT_SKIP_DEPLOY, help="Skip the deploy step")
     parser.add_argument("--uart_ssh_login", default=os.getenv("SAMRH71_SSH_FOR_UART", default=None), help="SSH login for the host that has the SAMRH71 UART device, if needed")
     args = parser.parse_args()
 
@@ -553,7 +664,7 @@ if __name__ == "__main__":
         model_folder = os.path.join(".", MODELS_FOLDER, args.model)
         if not os.path.exists(model_folder):
             cprint(f"Error: model {model_folder} not found\n", "red", attrs=['bold'])
-            cprint(f"Available models: {', '.join([d for d in os.listdir(MODELS_FOLDER) if os.path.isdir(os.path.join(MODELS_FOLDER, d)) and d.startswith('model-') and d != 'model-template'])}", "yellow", attrs=['bold'])
+            cprint(f"Available models:\n\n  {'\n  '.join([d for d in os.listdir(MODELS_FOLDER) if os.path.isdir(os.path.join(MODELS_FOLDER, d)) and d.startswith('model-')])}\n", "yellow", attrs=['bold'])
             sys.exit(1)
 
     # Assert that the recipe is either "debug" or "coverage"
@@ -587,7 +698,12 @@ if __name__ == "__main__":
         models = [args.model]
 
     # Remove everything from the test_output folder, to ensure that we only have files from the current run of this script
-    shutil.rmtree("test_output", ignore_errors=True)
+#    if len(models) > 1 or not args.skip_deploy:
+#        shutil.rmtree(TEST_OUTPUT_FOLDER, ignore_errors=True)
+
+    # Ensure that the test_output folder exists 
+    os.makedirs(TEST_OUTPUT_FOLDER, exist_ok=True)
+    os.makedirs(LOGS_FOLDER, exist_ok=True)
 
     # Iterate over each model and build/deploy it
     for model in models:
@@ -595,7 +711,8 @@ if __name__ == "__main__":
         cprint(f"Building and deploying model: {model}\n", "green", attrs=['bold'])
 
         # Initialise the test results for this model, based on the README.md file
-        initialise_test_results_for_model(model)
+        if not args.skip_deploy:
+            initialise_test_results_for_model(model)
 
         # Perform the build
         if not args.skip_build:
@@ -607,30 +724,45 @@ if __name__ == "__main__":
             cprint(f"Error: model binary {model_binary_path} does not exist, cannot deploy", "red", attrs=['bold'])
             sys.exit(1)
 
-        # Perform the deployment
-        rerun_the_model = deploy(model,
-            gdb_binary_path=args.gdb_binary_path,
-            gdb_server_tcp_port=args.gdb_server_tcp_port,
-            uart_listen_device=args.uart_listen_device,
-            gdb_verbose=args.gdb_verbose
-        )
+        # Coverage: Copy all runtime source files from this model into our combined source files folder
+        assure_coverage_relevant_objects_list(model)
+        # TEMP DEBUG OUTPUT
+        print(f"Coverage-relevant objects:\n{'\n '.join(sorted(coverage_relevant_objects))}")
 
-        # If we received a command to rerun the model, do so
-        if rerun_the_model:
-            cprint(f"Rerunning model: {model} (due to reset signal from last run) ... \n", "cyan", attrs=['bold'])
+        # Perform the deployment
+        if not args.skip_deploy:
             rerun_the_model = deploy(model,
                 gdb_binary_path=args.gdb_binary_path,
                 gdb_server_tcp_port=args.gdb_server_tcp_port,
                 uart_listen_device=args.uart_listen_device,
-                gdb_verbose=args.gdb_verbose,
+                gdb_verbose=args.gdb_verbose
             )
 
-        # After deployment we may need to generate a partial coverage report, if any gcda files were generated
-        # TODO
+            # If we received a command to rerun the model, do so now
+            if rerun_the_model:
+                cprint(f"Rerunning model: {model} (due to reset signal from last run) ... \n", "cyan", attrs=['bold'])
+                rerun_the_model = deploy(model,
+                    gdb_binary_path=args.gdb_binary_path,
+                    gdb_server_tcp_port=args.gdb_server_tcp_port,
+                    uart_listen_device=args.uart_listen_device,
+                    gdb_verbose=args.gdb_verbose,
+                )
 
-    # If we ran multiple models, report what we did
+        # After deployment we may need to generate a partial coverage report, if any gcda files were generated
+        if args.build_recipe == "coverage":
+            generate_partial_coverage_report(model, gdb_binary_path=args.gdb_binary_path)
+
+
+    # Report what we did
     cprint(f"\n\n---------------------------------------------------", "cyan", attrs=['bold'])
-    cprint(f"Finished building and deploying {len(models)} model{'s' if len(models) > 1 else ''}:\n", "cyan", attrs=['bold'])
+    actions_done = []
+    if not args.skip_build:
+        actions_done.append("building")
+    if not args.skip_deploy:
+        actions_done.append("deploying")
+    if args.build_recipe == "coverage":
+        actions_done.append("generating coverage report")
+    cprint(f"Finished {' and '.join(actions_done)} for {len(models)} model{'s' if len(models) > 1 else ''}:\n", "cyan", attrs=['bold'])
     cprint(f" - {'\n - '.join(models)}\n", "yellow", attrs=[])
 
     # Also print the test results that were captured during this run
