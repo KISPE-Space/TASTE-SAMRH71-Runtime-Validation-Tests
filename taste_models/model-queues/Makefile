@@ -57,7 +57,7 @@ coverage: PARTITION_1_USER_LDFLAGS += --coverage
 coverage: PARTITION_1_USER_LDSCRIPT_DIR := $(abspath ../tf_linker_gcov_samrh71)
 coverage: PARTITION_1_USER_LDSCRIPT := $(abspath ../tf_linker_gcov_samrh71)/linkcmds.intsram
 coverage: work/glue_coverage
-        echo -e "[TFINFO] Coverage enabled. Using shared gcov linker script folder: ${PARTITION_1_USER_LDSCRIPT_DIR}"
+	echo -e "[TFINFO] Coverage enabled. Using shared gcov linker script folder: ${PARTITION_1_USER_LDSCRIPT_DIR}"
 	rm -rf work/glue_release
 	rm -rf work/glue_debug
 	$(MAKE) -C work check_targets
@@ -72,7 +72,7 @@ edit_cv:
 	$(MAKE) -C work run_cv
 
 # Simulation target (experimental - for systems made of SDL functions only)
-simu:	
+simu:
 	if [ -f work/glue_debug ] || [ -f work/glue_release ] || [ -f work/glue_coverage ]; then $(MAKE) clean; fi
 	$(MAKE) interfaceview work/glue_simu
 	$(MAKE) -C work
@@ -159,4 +159,3 @@ clean:
 	find work -type f -path "*/QGenC/src/*.c" -exec rm -f {} + || :
 
 .PHONY: clean release debug coverage skeletons simu run simulink_skeletons
-
