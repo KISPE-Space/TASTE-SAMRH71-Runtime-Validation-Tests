@@ -23,7 +23,10 @@ void triggerfunction_PI_trigger(void)
     triggerfunction_RI_sporadic_if_1();
     triggerfunction_RI_sporadic_if_2();
 
-    // TMP: Report new stats for sporadic_if_1
+    // Call the monitoring tick function to update usage statistics
+    Monitor_MonitoringTick();
+
+    // Obtain the usage stats for sporadic_if_1
     char aMsgBuff[200];
     struct Monitor_InterfaceUsageData usage_data[2];
     Monitor_GetUsageData(function_1_sporadic_if_1, &usage_data[0]);

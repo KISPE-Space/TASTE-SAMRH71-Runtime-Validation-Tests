@@ -44,6 +44,15 @@ void testfunction_startup(void)
 void testfunction_PI_trigger_check(void)
 {
     char aMsgBuff[200];
+    static asn1SccT_Boolean bResultReported = false;
+
+    // Only do this once
+    if (bResultReported) {
+        return;
+    }
+
+    // Call the monitoring tick function to update usage statistics
+    Monitor_MonitoringTick();
 
     // Fetch the interface usage data directly from the runtime
     struct Monitor_InterfaceUsageData usage_data[3];
@@ -109,4 +118,7 @@ void testfunction_PI_trigger_check(void)
         // Submit the test result as a PASS
         testresult_report_pass(TF_TEST_ID__TestMonitoring);
     }
+
+    // Set the flag to ensure the result is only reported once
+    bResultReported = true;
 }
