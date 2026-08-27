@@ -18,7 +18,11 @@ static unsigned long long ullStartTimeNs = 0;
 
 
 #define EXPECTED_INTERVAL_MS 700ULL
+#if COVERAGE_ENABLED == 0
 #define TIME_TOLERANCE_MS 10ULL     // Allow some tolerance since we are depending on the scheduler not being too busy running other tasks in this model
+#else
+#define TIME_TOLERANCE_MS 20ULL     // Allow greater tolerance since for coverage we really do not care about timing
+#endif
 #define EXPECTED_INTERVAL_MIN (EXPECTED_INTERVAL_MS - TIME_TOLERANCE_MS)
 #define EXPECTED_INTERVAL_MAX (EXPECTED_INTERVAL_MS + TIME_TOLERANCE_MS)
 #define NS_IN_ONE_MS 1000000ULL
