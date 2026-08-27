@@ -1,3 +1,7 @@
+# --- NO COVERAGE SUPPORT!! ---
+# This model is intended for installing in the flash and demonstrating twin UARTs. It does not interface with the model-runner script
+# and does not transmit any coverage data over either UART. There is therefore no coverage build target for this model.
+
 KAZOO?=kazoo
 SPACECREATOR?=spacecreator.AppImage
 
@@ -38,7 +42,6 @@ include Makefile.modelcheck
 release: PARTITION_1_USER_CFLAGS += -DCOVERAGE_ENABLED=0
 release:	work/glue_release
 	rm -rf work/glue_debug
-	rm -rf work/glue_coverage
 	$(MAKE) -C work check_targets
 	$(MAKE) -C work
 
@@ -46,20 +49,6 @@ release:	work/glue_release
 debug: PARTITION_1_USER_CFLAGS += -DCOVERAGE_ENABLED=0 
 debug:	work/glue_debug
 	rm -rf work/glue_release
-	rm -rf work/glue_coverage
-	$(MAKE) -C work check_targets
-	$(MAKE) -C work
-
-# Enable coverage in compilations and linker for the coverage recipe
-# Also use the Test Framework's custom linker script. It simply adds a definition for the (tiny) .gcov_info section
-coverage: PARTITION_1_USER_CFLAGS += --coverage -fprofile-info-section -DCOVERAGE_ENABLED=1 
-coverage: PARTITION_1_USER_LDFLAGS += --coverage
-coverage: PARTITION_1_USER_LDSCRIPT_DIR := $(abspath ../tf_linker_gcov_samrh71)
-coverage: PARTITION_1_USER_LDSCRIPT := $(abspath ../tf_linker_gcov_samrh71)/linkcmds.intsram
-coverage: work/glue_coverage
-	echo -e "[TFINFO] Coverage enabled. Using shared gcov linker script folder: ${PARTITION_1_USER_LDSCRIPT_DIR}"
-	rm -rf work/glue_release
-	rm -rf work/glue_debug
 	$(MAKE) -C work check_targets
 	$(MAKE) -C work
 
@@ -73,7 +62,7 @@ edit_cv:
 
 # Simulation target (experimental - for systems made of SDL functions only)
 simu:	
-	if [ -f work/glue_debug ] || [ -f work/glue_release ] || [ -f work/glue_coverage ]; then $(MAKE) clean; fi
+	if [ -f work/glue_debug ] || [ -f work/glue_release ]; then $(MAKE) clean; fi
 	$(MAKE) interfaceview work/glue_simu
 	$(MAKE) -C work
 	$(MAKE) -C work/simulation -f Makefile.Simulation simu
@@ -114,12 +103,6 @@ work/glue_debug:	InterfaceView.aadl DeploymentView.aadl DataView.aadl
 	touch DataView.aadl
 	touch $@
 
-work/glue_coverage:	InterfaceView.aadl DeploymentView.aadl DataView.aadl
-	sed -i 's/CoverageEnabled => false/CoverageEnabled => true/g' DeploymentView.aadl || :
-	$(KAZOO) --debug -p --glue --gw -o work
-	touch DataView.aadl
-	touch $@
-
 InterfaceView.aadl:	interfaceview.xml
 	$(SPACECREATOR) --aadlconverter  -o $^ -t $(shell taste-config --prefix)/share/xml2aadl/interfaceview.tmplt -x $@
 
@@ -147,7 +130,7 @@ DataView.aadl: ${ASN1_FILES}
 clean:
 	rm -rf work/build work/dataview work/glue_simu
 	rm -f *.aadl  # Interface and Deployment views in AADL are generated
-	rm -f work/glue_release work/glue_debug work/glue_coverage work/skeletons_built
+	rm -f work/glue_release work/glue_debug work/skeletons_built
 	find work -type d -name "wrappers" -exec rm -rf {} + || :
 	find work -type d -name "*_GUI" -exec rm -rf {} + || :
 	find work -type d -path "*/QGenC/xmi" -exec rm -rf {} + || :
@@ -158,5 +141,5 @@ clean:
 	find work -type f -path "*/QGenC/src/*.h" -not -name "simulink_definition_of_types.h" -not -name "*_invoke_ri.h" -exec rm -f {} + || :
 	find work -type f -path "*/QGenC/src/*.c" -exec rm -f {} + || :
 
-.PHONY: clean release debug coverage skeletons simu run simulink_skeletons
+.PHONY: clean release debug skeletons simu run simulink_skeletons
 
