@@ -56,8 +56,8 @@ void transmit_bytes_over_uart(char* pBytes)
     }
 
     // Iterate over characters in the buffer
-    unsigned long charBuff;             // Under the hood TASTE is defaulting to using four bytes for a T-Uint8. Using an unsigned long here to match that default.
-    for (int i=0; i<strlen(pBytes); i++)
+    unsigned int charBuff;             // Under the hood TASTE is defaulting to using four bytes for a T-Uint8. Using an unsigned long here to match that default.
+    for (size_t i=0; i<strlen(pBytes); i++)
     {
         charBuff = pBytes[i];
         pMainByteTransmitterFunction(&charBuff);
