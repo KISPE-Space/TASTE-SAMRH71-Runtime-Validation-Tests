@@ -29,11 +29,11 @@ void generate_decoding_errors_protected_if(
     var.validity = asn1SccMyEnum_world;
 
     BitStream bit_stream;
-    BitStream_Init(&bit_stream, OUT_p1, asn1SccMySeq_REQUIRED_BYTES_FOR_ACN_ENCODING);
+    BitStream_Init(&bit_stream, (unsigned char*)OUT_p1, asn1SccMySeq_REQUIRED_BYTES_FOR_ACN_ENCODING);
 
     int error_code = 0;
     *OUT_p1_len = asn1SccMySeq_REQUIRED_BYTES_FOR_ACN_ENCODING;
-    flag result = asn1SccMySeq_ACN_Encode(&var, &bit_stream, &error_code, true);
+    asn1SccMySeq_ACN_Encode(&var, &bit_stream, &error_code, true);
 
 
     // Set OUT_p2 to some out-of-range value
