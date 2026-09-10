@@ -14,7 +14,7 @@
 #include <Hal.h>
 #include <DeathReport.h>
 
-// TODO: Evaluate if we need distinct values for coverage build
+// Expected death report data points
 static uint32_t DEATH_REPORT_EXPECTED_VALUE__EXCEPTION_ID       = 3;
 static uint32_t DEATH_REPORT_EXPECTED_VALUE__REGISTER_R1        = 0x100159f0;
 static uint32_t DEATH_REPORT_EXPECTED_VALUE__PROGRAM_COUNT      = 0x1000e3cc;
@@ -61,7 +61,7 @@ void transmit_the_death_report(void)
     char aMsgBuff[1000];
 
     transmit_bytes_over_uart("----------------\n");
-    sprintf(aMsgBuff, "Death report:\n----------------\nchecksum: 0x%04x\nwas_seen: %d\npadding: %d\nexception_id: %lu\n", pDeathReport->checksum, pDeathReport->was_seen, pDeathReport->padding, pDeathReport->exception_id);
+    sprintf(aMsgBuff, "Death report:\n----------------\nchecksum: 0x%04x\nwas_seen: %d\npadding: %d\nexception_id: %lu\n", pDeathReport->checksum, pDeathReport->was_seen, pDeathReport->padding, (unsigned long)pDeathReport->exception_id);
     transmit_bytes_over_uart(aMsgBuff);
     sprintf(aMsgBuff, "r0: 0x%08x\nr1: 0x%08x\nr2: 0x%08x\nr3: 0x%08x\nr4: 0x%08x\nr5: 0x%08x\nr6: 0x%08x\nr7: 0x%08x\nr8: 0x%08x\nr9: 0x%08x\nr10: 0x%08x\nr11: 0x%08x\nr12: 0x%08x\nmsp: 0x%08x\npsp: 0x%08x\nlr: 0x%08x\npc: 0x%08x\npsr: %x\n", pDeathReport->registers.r0, pDeathReport->registers.r1, pDeathReport->registers.r2, pDeathReport->registers.r3, pDeathReport->registers.r4, pDeathReport->registers.r5, pDeathReport->registers.r6, pDeathReport->registers.r7, pDeathReport->registers.r8, pDeathReport->registers.r9, pDeathReport->registers.r10, pDeathReport->registers.r11, pDeathReport->registers.r12, pDeathReport->registers.msp, pDeathReport->registers.psp, pDeathReport->registers.lr, pDeathReport->registers.pc, pDeathReport->registers.psr);
     transmit_bytes_over_uart(aMsgBuff);
@@ -75,10 +75,10 @@ void transmit_the_death_report(void)
         transmit_bytes_over_uart("----------------\n");
     } else {
         uint32_t iLastIndexToRender = pDeathReport->stack_trace_length <= MAX_DEATH_REPORT_STACK_TRACE_ENTRIES_TO_RENDER ? pDeathReport->stack_trace_length - 1 : MAX_DEATH_REPORT_STACK_TRACE_ENTRIES_TO_RENDER - 1;
-        sprintf(aMsgBuff, "Stack trace (%lu entries; Showing first %lu):\n----------------\n", pDeathReport->stack_trace_length, iLastIndexToRender + 1);
+        sprintf(aMsgBuff, "Stack trace (%lu entries; Showing first %lu):\n----------------\n", (unsigned long)pDeathReport->stack_trace_length, (unsigned long)(iLastIndexToRender + 1));
         transmit_bytes_over_uart(aMsgBuff);
         for (uint32_t i = 0; i <= iLastIndexToRender; i++) {
-            sprintf(aMsgBuff, "%03lu: 0x%08x\n", i, pDeathReport->stack_trace[i]);
+            sprintf(aMsgBuff, "%03lu: 0x%08x\n", (unsigned long)i, pDeathReport->stack_trace[i]);
             transmit_bytes_over_uart(aMsgBuff);
         }
         if (pDeathReport->stack_trace_length > MAX_DEATH_REPORT_STACK_TRACE_ENTRIES_TO_RENDER) {
