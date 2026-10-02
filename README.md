@@ -1,8 +1,10 @@
 # TASTE runtime tests for the SAMRH71
 
-This repository contains tests for validating that requirements are met by the TASTE runtime running on a SAMRH71 target. 
+This repository contains tests for validating that all software requirements are met by the TASTE runtime running on a SAMRH71 target. 
 
 Tests are implemented in TASTE models, most of which communicate over a UART serial connection (FLEXCOM1 on the SAMRH71) to the host computer running the tests. 
+
+This software has been developed as part of the "Model Based Execution Platform for Space Applications" project (contract ESA Contract No. 4000146882/24/NL/KK) financed by the European Space Agency.
 
 ## Dependencies
 
