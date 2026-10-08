@@ -27,8 +27,8 @@ rm -f interfaces_info.h
 # Remove all symlinks
 find . -name 'C' -type l | xargs rm -f
 
-# Move all buried C files into the higher level C folder
-find . -path './*/implem/default/C/src/*.c' -type f | while read -r file; do
+# Move all buried C source files into the higher level C folder
+find work -path '*/implem/default/C/src/*' -type f | while read -r file; do
 
     # Remove the fixed suffix to get the match_folder
     match_folder="${file%/implem/default/C/src/*}"
@@ -44,7 +44,21 @@ find . -path './*/implem/default/C/src/*.c' -type f | while read -r file; do
     mv "$file" "$dest_dir/$filename"
 done
 
-# Remove the implem/default/C/src andd wrappers folders
+# Remove any C header files where the leafname matches the folder name
+find work -path '*/C/src/*.h' -type f | while read -r file; do
+
+    # File name without extension
+    filename="$(basename "$file" .h)"
+
+    # Top level folder containing the file
+    parent_folder="$(dirname "$file" | cut -d'/' -f2)"
+    if [ "$filename" = "$parent_folder" ]; then
+        echo "Removing $file"
+        rm -f "$file"
+    fi
+done
+
+# Remove the implem/default/C/src and wrappers folders
 find work -name 'implem' -type d | xargs rm -rf
 find work -name 'wrappers' -type d | xargs rm -rf
 
@@ -54,7 +68,6 @@ find work -name 'Makefile' -type f | xargs rm -rf
 # Remove some .pro files
 rm -f work/taste.pro
 find work -name "*.pro" | xargs rm -f
-find work -name "*.h" | xargs rm -f
 
 # Remove the dataview folder too
 find work -name 'dataview' -type d | xargs rm -rf
@@ -69,7 +82,7 @@ chmod 755 .
 # Also ensure user and group is taste
 sudo chown taste:taste .
 
-# Finally, also performa make clean
+# Finally, also perform a make clean
 make clean
 
 # Report what we did
